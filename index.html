@@ -3,25 +3,27 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>Огонёк</title>
+<title>Ogonyok</title>
 <style>
 *{box-sizing:border-box}
 html,body{margin:0;min-height:100%;font-family:Arial,Helvetica,sans-serif;background:#fff;color:#111}
 body{display:flex;justify-content:center}
-.app{width:100%;max-width:520px;min-height:100vh;padding:20px 18px 34px;display:flex;flex-direction:column}
-.top{display:flex;justify-content:flex-end}
-.lang{border:2px solid #111;background:#fff;padding:9px 12px;font-size:14px;font-weight:800;cursor:pointer}
+button,input{font:inherit}
+button{cursor:pointer}
+.app{width:100%;max-width:920px;min-height:100vh;padding:20px 18px 34px;display:flex;flex-direction:column}
+.top{display:flex;justify-content:space-between;align-items:center}
+.brand{font-size:20px;font-weight:1000}
+.lang{border:2px solid #111;background:#fff;padding:9px 12px;font-size:14px;font-weight:800}
 .main{text-align:center;flex:1;display:flex;flex-direction:column;align-items:center}
 .day-label{margin-top:38px;font-size:24px;font-weight:900}
 .day-number{font-size:58px;line-height:1;margin-top:5px;font-weight:1000}
 .flame-wrap{margin-top:42px;position:relative;width:220px;height:250px;display:flex;align-items:center;justify-content:center}
-.flame{font-size:190px;line-height:1;filter:drop-shadow(0 7px 10px rgba(255,115,0,.18));animation:flicker 1.7s ease-in-out infinite}
+.flame{font-size:190px;line-height:1;filter:drop-shadow(0 7px 10px rgba(255,115,0,.18));animation:flicker 1.7s ease-in-out infinite;position:relative;z-index:1}
 .flame-glow{position:absolute;width:135px;height:35px;bottom:8px;border-radius:50%;background:#ff9b00;opacity:.22;filter:blur(18px);z-index:0}
-.flame{position:relative;z-index:1}
 @keyframes flicker{0%,100%{transform:scale(1) rotate(-1deg)}50%{transform:scale(1.035) rotate(1deg)}}
 .subtitle{font-size:15px;color:#666;margin-top:18px}
 .tabs{display:flex;gap:8px;margin-top:34px;width:100%}
-.tab{flex:1;border:2px solid #111;background:#fff;padding:12px 8px;font-weight:900;cursor:pointer}
+.tab{flex:1;border:2px solid #111;background:#fff;padding:12px 8px;font-weight:900}
 .tab.active{background:#111;color:#fff}
 .panel{width:100%;margin-top:14px;text-align:left}
 .card{border:2px solid #111;padding:15px;margin-bottom:10px;display:flex;align-items:center;gap:12px}
@@ -31,148 +33,620 @@ body{display:flex;justify-content:center}
 .locked{opacity:.38}
 .progress{height:7px;border:2px solid #111;margin-top:8px;overflow:hidden}
 .progress>i{display:block;height:100%;background:#111;width:0}
-.reset{margin-top:14px;border:0;background:none;text-decoration:underline;font-size:12px;color:#777;cursor:pointer}
+.settings{margin-top:14px}
+.settings-title{font-size:20px;font-weight:1000;margin:22px 0 10px}
+.setting{width:100%;border:2px solid #111;background:#fff;padding:14px;text-align:left;display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;font-weight:900}
+.skin-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;width:100%}
+.skin{border:2px solid #111;background:#fff;padding:12px;text-align:center;font-weight:900}
+.skin.selected{background:#111;color:#fff}
+.skin.locked{opacity:.45}
+.transfer{display:grid;gap:8px}
+.transfer input{width:100%;border:2px solid #111;padding:12px;outline:none}
+.primary{border:2px solid #111;background:#111;color:#fff;padding:12px;font-weight:900}
+.extra{border-top:2px solid #111;margin-top:20px;padding-top:4px}
+.reset{border:0;background:none;text-decoration:underline;font-size:12px;color:#777}
 .hidden{display:none}
 .footer{font-size:11px;color:#999;text-align:center;margin-top:25px}
+@media(min-width:700px){
+.app{padding:28px 34px 40px}
+.main{max-width:720px;margin:0 auto}
+.skin-grid{grid-template-columns:repeat(4,1fr)}
+}
 </style>
 </head>
 <body>
 <div class="app">
-  <div class="top">
-    <button class="lang" id="langBtn">EN</button>
-  </div>
 
-  <main class="main">
-    <div class="day-label" id="dayLabel">День</div>
-    <div class="day-number" id="dayNumber">1</div>
+<div class="top">
+<div class="brand">ogonyok</div>
+<button class="lang" id="langBtn">EN</button>
+</div>
 
-    <div class="flame-wrap">
-      <div class="flame-glow"></div>
-      <div class="flame">🔥</div>
-    </div>
+<main class="main">
 
-    <div class="subtitle" id="subtitle">Твой огонёк горит</div>
+<div class="day-label" id="dayLabel">День</div>
+<div class="day-number" id="dayNumber">1</div>
 
-    <div class="tabs">
-      <button class="tab active" id="homeTab">Огонёк</button>
-      <button class="tab" id="achTab">Достижения</button>
-    </div>
+<div class="flame-wrap">
+<div class="flame-glow"></div>
+<div class="flame" id="flame">🔥</div>
+</div>
 
-    <section class="panel" id="homePanel">
-      <div class="card">
-        <div class="icon">🔥</div>
-        <div>
-          <b id="streakTitle">Текущий огонёк</b>
-          <span id="streakText">1 день подряд</span>
-        </div>
-      </div>
-      <div class="card">
-        <div class="icon">📅</div>
-        <div>
-          <b id="startTitle">Начало</b>
-          <span id="startText">—</span>
-        </div>
-      </div>
-    </section>
+<div class="subtitle" id="subtitle">Твой огонёк горит</div>
 
-    <section class="panel hidden" id="achPanel"></section>
-    <button class="reset" id="resetBtn">Сбросить прогресс</button>
-  </main>
+<div class="tabs">
+<button class="tab active" id="homeTab">Огонёк</button>
+<button class="tab" id="achTab">Достижения</button>
+<button class="tab" id="settingsTab">Настройки</button>
+</div>
 
-  <div class="footer" id="footer">Прогресс хранится только на этом устройстве.</div>
+<section class="panel" id="homePanel">
+
+<div class="card">
+<div class="icon">🔥</div>
+<div>
+<b id="streakTitle">Текущий огонёк</b>
+<span id="streakText">1 день подряд</span>
+</div>
+</div>
+
+<div class="card">
+<div class="icon">📅</div>
+<div>
+<b id="startTitle">Начало</b>
+<span id="startText">—</span>
+</div>
+</div>
+
+</section>
+
+<section class="panel hidden" id="achPanel"></section>
+
+<section class="panel hidden settings" id="settingsPanel">
+
+<div class="settings-title" id="skinsTitle">🎨 Скины огонька</div>
+<div class="skin-grid" id="skinGrid"></div>
+
+<div class="settings-title" id="transferTitle">🔥 Перенос огонька</div>
+
+<div class="transfer">
+
+<button class="setting" id="createCodeBtn">
+<span id="createCodeText">Создать код переноса</span>
+<span>→</span>
+</button>
+
+<input id="transferCode" placeholder="Введи код переноса">
+
+<button class="primary" id="restoreBtn">
+Восстановить огонёк
+</button>
+
+<div class="card hidden" id="codeBox">
+<div class="icon">📦</div>
+<div>
+<b id="codeLabel">Твой код</b>
+<span id="codeValue"></span>
+</div>
+</div>
+
+</div>
+
+<div class="extra">
+
+<div class="settings-title" id="extraTitle">
+🔧 Дополнительные настройки
+</div>
+
+<div class="setting">
+<span id="versionLabel">Версия</span>
+<span>v0.2 Beta</span>
+</div>
+
+<button class="setting" id="resetBtn">
+<span id="resetText">🗑️ Сбросить прогресс</span>
+<span>→</span>
+</button>
+
+</div>
+
+</section>
+
+</main>
+
+<div class="footer" id="footer">
+Прогресс хранится только на этом устройстве.
+</div>
+
 </div>
 
 <script>
-const achievements = [
-  {days:1,  ru:"Первый огонёк", en:"First Flame"},
-  {days:7,  ru:"Неделя огня", en:"Week of Fire"},
-  {days:30, ru:"Месяц без перерыва", en:"A Month Without a Break"},
-  {days:90, ru:"Три месяца пламя", en:"Three Months of Flame"},
-  {days:180,ru:"Половина года", en:"Half a Year"},
-  {days:365,ru:"Год огня", en:"Year of Fire"},
-  {days:720,ru:"Два года огня", en:"Two Years of Fire"},
-  {days:1000,ru:"Тысячный день", en:"One Thousand Days"}
+
+const achievements=[
+{days:1,ru:"Первый огонёк",en:"First Flame"},
+{days:7,ru:"Неделя огня",en:"Week of Fire"},
+{days:30,ru:"Месяц без перерыва",en:"A Month Without a Break"},
+{days:90,ru:"Три месяца пламя",en:"Three Months of Flame"},
+{days:180,ru:"Половина года",en:"Half a Year"},
+{days:365,ru:"Год огня",en:"Year of Fire"},
+{days:720,ru:"Два года огня",en:"Two Years of Fire"},
+{days:1000,ru:"Тысячный день",en:"One Thousand Days"}
 ];
 
-let lang = localStorage.getItem("flameLang") || "ru";
-let data = JSON.parse(localStorage.getItem("flameData") || "null");
-const today = new Date();
-const dateKey = d => `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,"0")}-${String(d.getDate()).padStart(2,"0")}`;
+const skins=[
+{id:"classic",days:1,icon:"🔥",ru:"Обычный",en:"Classic"},
+{id:"ice",days:7,icon:"🧊",ru:"Ледяной",en:"Ice"},
+{id:"neon",days:30,icon:"💜",ru:"Неоновый",en:"Neon"},
+{id:"electric",days:90,icon:"⚡",ru:"Электро",en:"Electric"},
+{id:"rainbow",days:180,icon:"🌈",ru:"Радужный",en:"Rainbow"},
+{id:"diamond",days:365,icon:"💎",ru:"Алмазный",en:"Diamond"},
+{id:"dark",days:720,icon:"🌑",ru:"Тёмный",en:"Dark"},
+{id:"legend",days:1000,icon:"👑",ru:"Легендарный",en:"Legendary"}
+];
 
-if (!data) {
-  data = {days:1, lastVisit:dateKey(today), started:dateKey(today)};
-  save();
-} else {
-  const last = new Date(data.lastVisit + "T00:00:00");
-  const now = new Date(dateKey(today) + "T00:00:00");
-  const diff = Math.round((now-last)/86400000);
-  if (diff === 1) {
-    data.days++;
-    data.lastVisit = dateKey(today);
-    save();
-  } else if (diff > 1) {
-    // Пропущен день — серия начинается заново.
-    data.days = 1;
-    data.lastVisit = dateKey(today);
-    data.started = dateKey(today);
-    save();
-  }
+const langs=["ru","en","de","es","fr"];
+
+const translations={
+ru:{
+day:"День",
+subtitle:"Твой огонёк горит",
+flame:"Огонёк",
+ach:"Достижения",
+settings:"Настройки",
+current:"Текущий огонёк",
+started:"Начало",
+skins:"🎨 Скины огонька",
+transfer:"🔥 Перенос огонька",
+create:"Создать код переноса",
+restore:"Восстановить огонёк",
+extra:"🔧 Дополнительные настройки",
+version:"Версия",
+reset:"🗑️ Сбросить прогресс",
+stored:"Прогресс хранится только на этом устройстве.",
+unlocked:"Получено",
+soon:"Скоро...",
+code:"Твой код",
+placeholder:"Введи код переноса",
+saved:"Огонёк восстановлен!"
+},
+
+en:{
+day:"Day",
+subtitle:"Your flame is burning",
+flame:"Flame",
+ach:"Achievements",
+settings:"Settings",
+current:"Current flame",
+started:"Started",
+skins:"🎨 Flame skins",
+transfer:"🔥 Transfer flame",
+create:"Create transfer code",
+restore:"Restore flame",
+extra:"🔧 Additional settings",
+version:"Version",
+reset:"🗑️ Reset progress",
+stored:"Your progress is stored only on this device.",
+unlocked:"Unlocked",
+soon:"Coming soon",
+code:"Your code",
+placeholder:"Enter transfer code",
+saved:"Flame restored!"
+},
+
+de:{
+day:"Tag",
+subtitle:"Deine Flamme brennt",
+flame:"Flamme",
+ach:"Erfolge",
+settings:"Einstellungen",
+current:"Aktuelle Flamme",
+started:"Beginn",
+skins:"🎨 Flammen-Skins",
+transfer:"🔥 Flamme übertragen",
+create:"Übertragungscode erstellen",
+restore:"Flamme wiederherstellen",
+extra:"🔧 Zusätzliche Einstellungen",
+version:"Version",
+reset:"🗑️ Fortschritt zurücksetzen",
+stored:"Dein Fortschritt wird nur auf diesem Gerät gespeichert.",
+unlocked:"Freigeschaltet",
+soon:"Bald...",
+code:"Dein Code",
+placeholder:"Übertragungscode eingeben",
+saved:"Flamme wiederhergestellt!"
+},
+
+es:{
+day:"Día",
+subtitle:"Tu llama está encendida",
+flame:"Llama",
+ach:"Logros",
+settings:"Ajustes",
+current:"Llama actual",
+started:"Inicio",
+skins:"🎨 Skins de llama",
+transfer:"🔥 Transferir llama",
+create:"Crear código de transferencia",
+restore:"Restaurar llama",
+extra:"🔧 Ajustes adicionales",
+version:"Versión",
+reset:"🗑️ Reiniciar progreso",
+stored:"Tu progreso se guarda solo en este dispositivo.",
+unlocked:"Desbloqueado",
+soon:"Próximamente...",
+code:"Tu código",
+placeholder:"Introduce el código",
+saved:"¡Llama restaurada!"
+},
+
+fr:{
+day:"Jour",
+subtitle:"Ta flamme brûle",
+flame:"Flamme",
+ach:"Succès",
+settings:"Paramètres",
+current:"Flamme actuelle",
+started:"Début",
+skins:"🎨 Skins de flamme",
+transfer:"🔥 Transférer la flamme",
+create:"Créer un code de transfert",
+restore:"Restaurer la flamme",
+extra:"🔧 Paramètres supplémentaires",
+version:"Version",
+reset:"🗑️ Réinitialiser la progression",
+stored:"Ta progression est stockée uniquement sur cet appareil.",
+unlocked:"Débloqué",
+soon:"Bientôt...",
+code:"Ton code",
+placeholder:"Entre le code de transfert",
+saved:"Flamme restaurée !"
+}
+};
+
+let lang=localStorage.getItem("flameLang")||"ru";
+
+if(!langs.includes(lang))lang="ru";
+
+let data=JSON.parse(localStorage.getItem("flameData")||"null");
+
+if(!data){
+
+data={
+days:1,
+lastVisit:dateKey(new Date()),
+started:dateKey(new Date()),
+skin:"classic"
+};
+
+save();
+
+}else{
+
+if(!data.skin)data.skin="classic";
+
+updateStreak();
+
 }
 
-function save(){localStorage.setItem("flameData",JSON.stringify(data));}
+function dateKey(d){
 
-function t(ru,en){return lang==="ru"?ru:en;}
+return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,"0")}-${String(d.getDate()).padStart(2,"0")}`;
+
+}
+
+function save(){
+
+localStorage.setItem("flameData",JSON.stringify(data));
+
+}
+
+function updateStreak(){
+
+const today=new Date();
+
+const last=new Date(data.lastVisit+"T00:00:00");
+
+const now=new Date(dateKey(today)+"T00:00:00");
+
+const diff=Math.round((now-last)/86400000);
+
+if(diff===1){
+
+data.days++;
+
+data.lastVisit=dateKey(today);
+
+save();
+
+}
+
+else if(diff>1){
+
+data.days=1;
+
+data.lastVisit=dateKey(today);
+
+data.started=dateKey(today);
+
+data.skin="classic";
+
+save();
+
+}
+
+}
+
+function t(key){
+
+return translations[lang][key]||translations.en[key]||key;
+
+}
+
+function dayWord(n){
+
+if(lang==="ru")
+return n===1?"день подряд":n<5?"дня подряд":"дней подряд";
+
+if(lang==="de")return"Tage in Folge";
+
+if(lang==="es")return"días seguidos";
+
+if(lang==="fr")return"jours d’affilée";
+
+return"days in a row";
+
+}
+
+function skinName(s){
+
+return lang==="ru"?s.ru:s.en;
+
+}
 
 function render(){
-  document.documentElement.lang=lang;
-  document.getElementById("langBtn").textContent=lang==="ru"?"EN":"RU";
-  document.getElementById("dayLabel").textContent=t("День","Day");
-  document.getElementById("dayNumber").textContent=data.days;
-  document.getElementById("subtitle").textContent=t("Твой огонёк горит","Your flame is burning");
-  document.getElementById("homeTab").textContent=t("Огонёк","Flame");
-  document.getElementById("achTab").textContent=t("Достижения","Achievements");
-  document.getElementById("streakTitle").textContent=t("Текущий огонёк","Current flame");
-  document.getElementById("streakText").textContent=data.days+" "+(lang==="ru"?(data.days===1?"день подряд":data.days<5?"дня подряд":"дней подряд"):(data.days===1?"day in a row":"days in a row"));
-  document.getElementById("startTitle").textContent=t("Начало","Started");
-  document.getElementById("startText").textContent=data.started;
-  document.getElementById("footer").textContent=t("Прогресс хранится только на этом устройстве.","Your progress is stored only on this device.");
-  document.getElementById("resetBtn").textContent=t("Сбросить прогресс","Reset progress");
 
-  const panel=document.getElementById("achPanel");
-  panel.innerHTML="";
-  achievements.forEach(a=>{
-    const unlocked=data.days>=a.days;
-    const percent=Math.min(100,Math.round(data.days/a.days*100));
-    const card=document.createElement("div");
-    card.className="card "+(unlocked?"":"locked");
-    card.innerHTML=`<div class="icon">${unlocked?"🔥":"🔒"}</div>
-      <div style="flex:1"><b>${a.days} ${lang==="ru"?"дн.":"days"} — ${lang==="ru"?a.ru:a.en}</b>
-      <span>${unlocked?t("Получено","Unlocked"):t("Скоро...","Coming soon")}</span>
-      <div class="progress"><i style="width:${percent}%"></i></div></div>`;
-    panel.appendChild(card);
-  });
-}
-document.getElementById("langBtn").onclick=()=>{
-  lang=lang==="ru"?"en":"ru";localStorage.setItem("flameLang",lang);render();
-};
-document.getElementById("homeTab").onclick=()=>{
-  document.getElementById("homeTab").classList.add("active");
-  document.getElementById("achTab").classList.remove("active");
-  document.getElementById("homePanel").classList.remove("hidden");
-  document.getElementById("achPanel").classList.add("hidden");
-};
-document.getElementById("achTab").onclick=()=>{
-  document.getElementById("achTab").classList.add("active");
-  document.getElementById("homeTab").classList.remove("active");
-  document.getElementById("achPanel").classList.remove("hidden");
-  document.getElementById("homePanel").classList.add("hidden");
-};
-document.getElementById("resetBtn").onclick=()=>{
-  if(confirm(t("Сбросить весь прогресс?","Reset all progress?"))){
-    localStorage.removeItem("flameData"); location.reload();
-  }
-};
+document.documentElement.lang=lang;
+
+document.getElementById("langBtn").textContent=lang==="ru"?"EN":"RU";
+
+document.getElementById("dayLabel").textContent=t("day");
+
+document.getElementById("dayNumber").textContent=data.days;
+
+document.getElementById("subtitle").textContent=t("subtitle");
+
+document.getElementById("homeTab").textContent=t("flame");
+
+document.getElementById("achTab").textContent=t("ach");
+
+document.getElementById("settingsTab").textContent=t("settings");
+
+document.getElementById("streakTitle").textContent=t("current");
+
+document.getElementById("streakText").textContent=data.days+" "+dayWord(data.days);
+
+document.getElementById("startTitle").textContent=t("started");
+
+document.getElementById("startText").textContent=data.started;
+
+document.getElementById("footer").textContent=t("stored");
+
+document.getElementById("skinsTitle").textContent=t("skins");
+
+document.getElementById("transferTitle").textContent=t("transfer");
+
+document.getElementById("createCodeText").textContent=t("create");
+
+document.getElementById("restoreBtn").textContent=t("restore");
+
+document.getElementById("extraTitle").textContent=t("extra");
+
+document.getElementById("versionLabel").textContent=t("version");
+
+document.getElementById("resetText").textContent=t("reset");
+
+document.getElementById("codeLabel").textContent=t("code");
+
+document.getElementById("transferCode").placeholder=t("placeholder");
+
+const current=skins.find(s=>s.id===data.skin)||skins[0];
+
+document.getElementById("flame").textContent=current.icon;
+
+const panel=document.getElementById("achPanel");
+
+panel.innerHTML="";
+
+achievements.forEach(a=>{
+
+const unlocked=data.days>=a.days;
+
+const percent=Math.min(100,Math.round(data.days/a.days*100));
+
+const card=document.createElement("div");
+
+card.className="card "+(unlocked?"":"locked");
+
+card.innerHTML=`
+<div class="icon">${unlocked?"🔥":"🔒"}</div>
+<div style="flex:1">
+<b>${a.days} ${lang==="ru"?"дн.":"days"} — ${lang==="ru"?a.ru:a.en}</b>
+<span>${unlocked?t("unlocked"):t("soon")}</span>
+<div class="progress"><i style="width:${percent}%"></i></div>
+</div>`;
+
+panel.appendChild(card);
+
+});
+
+const grid=document.getElementById("skinGrid");
+
+grid.innerHTML="";
+
+skins.forEach(s=>{
+
+const unlocked=data.days>=s.days;
+
+const b=document.createElement("button");
+
+b.className="skin "+(unlocked?"":"locked")+" "+(data.skin===s.id?"selected":"");
+
+b.innerHTML=`
+<div style="font-size:30px">${unlocked?s.icon:"🔒"}</div>
+<div>${skinName(s)}</div>
+<small>${s.days} ${lang==="ru"?"дн.":"days"}</small>`;
+
+b.disabled=!unlocked;
+
+if(unlocked){
+
+b.onclick=()=>{
+
+data.skin=s.id;
+
+save();
+
 render();
+
+};
+
+}
+
+grid.appendChild(b);
+
+});
+
+}
+
+function showPanel(which){
+
+["homePanel","achPanel","settingsPanel"].forEach(id=>
+document.getElementById(id).classList.add("hidden")
+);
+
+["homeTab","achTab","settingsTab"].forEach(id=>
+document.getElementById(id).classList.remove("active")
+);
+
+document.getElementById(which+"Panel").classList.remove("hidden");
+
+document.getElementById(which+"Tab").classList.add("active");
+
+}
+
+document.getElementById("langBtn").onclick=()=>{
+
+const i=langs.indexOf(lang);
+
+lang=langs[(i+1)%langs.length];
+
+localStorage.setItem("flameLang",lang);
+
+render();
+
+};
+
+document.getElementById("homeTab").onclick=()=>showPanel("home");
+
+document.getElementById("achTab").onclick=()=>showPanel("ach");
+
+document.getElementById("settingsTab").onclick=()=>showPanel("settings");
+
+function encodeData(obj){
+
+const json=JSON.stringify(obj);
+
+return btoa(unescape(encodeURIComponent(json))).replace(/=/g,"");
+
+}
+
+function decodeData(code){
+
+const padded=code+"=".repeat((4-code.length%4)%4);
+
+return JSON.parse(decodeURIComponent(escape(atob(padded))));
+
+}
+
+document.getElementById("createCodeBtn").onclick=()=>{
+
+const transferable={
+days:data.days,
+lastVisit:data.lastVisit,
+started:data.started,
+skin:data.skin
+};
+
+const code=encodeData(transferable);
+
+document.getElementById("codeValue").textContent=code;
+
+document.getElementById("codeBox").classList.remove("hidden");
+
+if(navigator.clipboard)
+navigator.clipboard.writeText(code).catch(()=>{});
+
+};
+
+document.getElementById("restoreBtn").onclick=()=>{
+
+try{
+
+const restored=decodeData(
+document.getElementById("transferCode").value.trim()
+);
+
+if(!restored||
+typeof restored.days!=="number"||
+!restored.started||
+!restored.lastVisit)
+throw new Error();
+
+data={
+days:Math.max(1,Math.floor(restored.days)),
+lastVisit:restored.lastVisit,
+started:restored.started,
+skin:restored.skin||"classic"
+};
+
+if(
+!skins.some(s=>s.id===data.skin)||
+data.days<skins.find(s=>s.id===data.skin).days
+)
+data.skin="classic";
+
+save();
+
+render();
+
+alert(t("saved"));
+
+}catch(e){
+
+alert("Invalid transfer code");
+
+}
+
+};
+
+document.getElementById("resetBtn").onclick=()=>{
+
+if(confirm(
+lang==="ru"
+?"Сбросить весь прогресс?"
+:"Reset all progress?"
+)){
+
+localStorage.removeItem("flameData");
+
+location.reload();
+
+}
+
+};
+
+render();
+
 </script>
 </body>
 </html>
