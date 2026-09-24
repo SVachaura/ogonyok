@@ -22,12 +22,17 @@ background:#111;
 color:#fff;
 }
 
-body{display:flex;justify-content:center}
-
-button,input{
-font:inherit;
+body.birthday{
+background:#fff4fb;
 }
 
+body.dark.birthday{
+background:#160f16;
+}
+
+body{display:flex;justify-content:center}
+
+button,input{font:inherit}
 button{cursor:pointer}
 
 .app{
@@ -134,9 +139,7 @@ color:#666;
 margin-top:10px;
 }
 
-.dark .subtitle{
-color:#aaa;
-}
+.dark .subtitle{color:#aaa}
 
 .tabs{
 display:flex;
@@ -207,9 +210,7 @@ color:#666;
 margin-top:4px;
 }
 
-.dark .card span{
-color:#aaa;
-}
+.dark .card span{color:#aaa}
 
 .progress{
 height:7px;
@@ -218,9 +219,7 @@ margin-top:8px;
 overflow:hidden;
 }
 
-.dark .progress{
-border-color:#fff;
-}
+.dark .progress{border-color:#fff}
 
 .progress>i{
 display:block;
@@ -229,13 +228,9 @@ background:#111;
 width:0;
 }
 
-.dark .progress>i{
-background:#fff;
-}
+.dark .progress>i{background:#fff}
 
-.locked{
-opacity:.4;
-}
+.locked{opacity:.4}
 
 .settings-title{
 font-size:20px;
@@ -295,9 +290,7 @@ background:#fff;
 color:#111;
 }
 
-.skin.locked{
-opacity:.4;
-}
+.skin.locked{opacity:.4}
 
 .transfer{
 display:grid;
@@ -339,9 +332,7 @@ margin-top:20px;
 padding-top:4px;
 }
 
-.dark .extra{
-border-color:#fff;
-}
+.dark .extra{border-color:#fff}
 
 .reset{
 border:0;
@@ -351,13 +342,9 @@ font-size:12px;
 color:#777;
 }
 
-.dark .reset{
-color:#aaa;
-}
+.dark .reset{color:#aaa}
 
-.hidden{
-display:none!important;
-}
+.hidden{display:none!important}
 
 .footer{
 font-size:11px;
@@ -435,16 +422,94 @@ color:#fff;
 border-color:#fff;
 }
 
+.birthday-cake{
+margin-top:18px;
+border:2px solid #111;
+background:#fff;
+padding:10px 18px;
+font-size:28px;
+animation:cake 1.2s infinite;
+}
+
+.dark .birthday-cake{
+background:#111;
+color:#fff;
+border-color:#fff;
+}
+
+@keyframes cake{
+0%,100%{transform:scale(1)}
+50%{transform:scale(1.08) rotate(2deg)}
+}
+
+.birthday .flame{
+filter:drop-shadow(0 8px 15px rgba(255,0,130,.3));
+}
+
+.birthday-card{
+border:2px solid #111;
+padding:15px;
+margin-bottom:10px;
+background:#fff;
+}
+
+.dark .birthday-card{
+background:#111;
+border-color:#fff;
+}
+
+.candy{
+border:2px dashed #111;
+background:#fff;
+padding:13px;
+width:100%;
+text-align:left;
+font-weight:900;
+margin-bottom:8px;
+}
+
+.dark .candy{
+background:#111;
+color:#fff;
+border-color:#fff;
+}
+
+.candy.found{
+opacity:.45;
+}
+
+.birthday-skin{
+background:#fff0f7;
+}
+
+.dark .birthday-skin{
+background:#21121d;
+}
+
+.confetti{
+position:fixed;
+top:-20px;
+font-size:22px;
+z-index:999;
+animation:fall 2.5s linear forwards;
+pointer-events:none;
+}
+
+@keyframes fall{
+to{
+transform:translateY(110vh) rotate(720deg);
+opacity:0;
+}
+}
+
 @media(min-width:700px){
 .app{
 padding:28px 34px 40px;
 }
-
 .main{
 max-width:720px;
 margin:0 auto;
 }
-
 .skin-grid{
 grid-template-columns:repeat(4,1fr);
 }
@@ -474,6 +539,10 @@ grid-template-columns:repeat(4,1fr);
 <div class="flame-name" id="flameName">Мой огонёк</div>
 <div class="subtitle" id="subtitle">Твой огонёк горит</div>
 
+<button id="birthdayCake" class="birthday-cake">
+🎂
+</button>
+
 <div class="tabs">
 
 <button class="tab active" id="achTab">
@@ -490,14 +559,12 @@ grid-template-columns:repeat(4,1fr);
 
 </div>
 
-
 <section class="panel" id="achPanel"></section>
-
 
 <section class="panel hidden" id="skinsPanel">
 
-<div class="settings-title" id="skinsTitle">
-🎨 Скины огонька
+<div class="settings-title">
+🎨 <span id="skinsTitle">Скины огонька</span>
 </div>
 
 <div class="card">
@@ -514,31 +581,34 @@ grid-template-columns:repeat(4,1fr);
 
 </section>
 
-
 <section class="panel hidden" id="settingsPanel">
 
 <div class="settings-title">
 ⚙️ <span id="settingsTitle">Настройки</span>
 </div>
 
-
 <button class="setting" id="nameBtn">
 <span id="nameSetting">🔥 Название огонька</span>
 <span>→</span>
 </button>
-
 
 <button class="setting" id="languageBtn">
 <span id="languageSetting">🌐 Язык</span>
 <span id="languageValue">Русский</span>
 </button>
 
-
 <button class="setting" id="themeBtn">
 <span id="themeSetting">🌙 Тёмная тема</span>
 <span id="themeValue">Выкл.</span>
 </button>
 
+<div class="settings-title">
+🎂 День рождения
+</div>
+
+<button class="candy" id="candy3">
+🍬 Секретная конфета №3
+</button>
 
 <div class="settings-title" id="transferTitle">
 🔥 Перенос огонька
@@ -547,16 +617,11 @@ grid-template-columns:repeat(4,1fr);
 <div class="transfer">
 
 <button class="setting" id="createCodeBtn">
-<span id="createCodeText">
-Создать код переноса
-</span>
+<span id="createCodeText">Создать код переноса</span>
 <span>→</span>
 </button>
 
-<input
-id="transferCode"
-placeholder="Введи код переноса"
->
+<input id="transferCode" placeholder="Введи код переноса">
 
 <button class="primary" id="restoreBtn">
 Восстановить огонёк
@@ -571,7 +636,6 @@ placeholder="Введи код переноса"
 </div>
 
 </div>
-
 
 <div class="extra">
 
@@ -611,13 +675,12 @@ placeholder="Введи код переноса"
 </div>
 
 <div class="modal-text" id="versionModalText">
-Новая версия уже доступна!<br><br>
-🌐 5 языков<br>
-🔥 Название огонька<br>
-🌙 Тёмная тема<br>
-🎨 Отдельная вкладка скинов<br>
-👀 Видны будущие скины
+Новая версия уже доступна!
 </div>
+
+<button class="candy" id="candy4">
+🍬 Секретная конфета №4
+</button>
 
 <button class="modal-close" id="versionClose">
 Понятно
@@ -632,7 +695,7 @@ placeholder="Введи код переноса"
 
 <div class="modal-box">
 
-<div class="modal-title" id="nameModalTitle">
+<div class="modal-title">
 🔥 Название огонька
 </div>
 
@@ -657,53 +720,25 @@ placeholder="Например: Мой огонёк"
 const VERSION="0.3 Beta";
 
 
-/* ДОСТИЖЕНИЯ */
+/* =========================
+   СТАРЫЕ ДОСТИЖЕНИЯ
+========================= */
 
 const achievements=[
-{
-days:1,
-ru:"Первый огонёк",
-en:"First Flame"
-},
-{
-days:7,
-ru:"Неделя огня",
-en:"Week of Fire"
-},
-{
-days:30,
-ru:"Месяц без перерыва",
-en:"A Month Without a Break"
-},
-{
-days:90,
-ru:"Три месяца пламя",
-en:"Three Months of Flame"
-},
-{
-days:180,
-ru:"Половина года",
-en:"Half a Year"
-},
-{
-days:365,
-ru:"Год огня",
-en:"Year of Fire"
-},
-{
-days:720,
-ru:"Два года огня",
-en:"Two Years of Fire"
-},
-{
-days:1000,
-ru:"Тысячный день",
-en:"One Thousand Days"
-}
+{days:1,ru:"Первый огонёк",en:"First Flame"},
+{days:7,ru:"Неделя огня",en:"Week of Fire"},
+{days:30,ru:"Месяц без перерыва",en:"A Month Without a Break"},
+{days:90,ru:"Три месяца пламя",en:"Three Months of Flame"},
+{days:180,ru:"Половина года",en:"Half a Year"},
+{days:365,ru:"Год огня",en:"Year of Fire"},
+{days:720,ru:"Два года огня",en:"Two Years of Fire"},
+{days:1000,ru:"Тысячный день",en:"One Thousand Days"}
 ];
 
 
-/* СКИНЫ */
+/* =========================
+   СКИНЫ
+========================= */
 
 const skins=[
 {
@@ -761,20 +796,23 @@ days:1000,
 icon:"👑",
 ru:"Легендарный",
 en:"Legendary"
+},
+{
+id:"birthday",
+days:0,
+icon:"🎂",
+ru:"День рождения",
+en:"Birthday",
+special:true
 }
 ];
 
 
-/* 5 ЯЗЫКОВ */
+/* =========================
+   ЯЗЫКИ
+========================= */
 
-const langs=[
-"ru",
-"en",
-"de",
-"es",
-"fr"
-];
-
+const langs=["ru","en","de","es","fr"];
 
 const languageNames={
 ru:"Русский",
@@ -784,7 +822,6 @@ es:"Español",
 fr:"Français"
 };
 
-
 const translations={
 
 ru:{
@@ -793,9 +830,7 @@ subtitle:"Твой огонёк горит",
 ach:"Достижения",
 skins:"Скины",
 settings:"Настройки",
-current:"Текущий огонёк",
-started:"Начало",
-skinsTitle:"🎨 Скины огонька",
+skinsTitle:"Скины огонька",
 skinsInfoTitle:"Будущие скины",
 skinsInfo:"Здесь видно, какие скины откроются дальше.",
 language:"🌐 Язык",
@@ -818,10 +853,7 @@ saved:"Огонёк восстановлен!",
 nameTitle:"🔥 Название огонька",
 nameSave:"Сохранить",
 namePlaceholder:"Например: Мой огонёк",
-days:"дн.",
-versionTitle:"🔥 Ogonyok v0.3 Beta",
-versionText:"Новая версия уже доступна!<br><br>🌐 5 языков<br>🔥 Название огонька<br>🌙 Тёмная тема<br>🎨 Отдельная вкладка скинов<br>👀 Видны будущие скины",
-close:"Понятно"
+days:"дн."
 },
 
 en:{
@@ -830,9 +862,7 @@ subtitle:"Your flame is burning",
 ach:"Achievements",
 skins:"Skins",
 settings:"Settings",
-current:"Current flame",
-started:"Started",
-skinsTitle:"🎨 Flame skins",
+skinsTitle:"Flame skins",
 skinsInfoTitle:"Future skins",
 skinsInfo:"See which skins will unlock next.",
 language:"🌐 Language",
@@ -855,10 +885,7 @@ saved:"Flame restored!",
 nameTitle:"🔥 Flame name",
 nameSave:"Save",
 namePlaceholder:"For example: My flame",
-days:"days",
-versionTitle:"🔥 Ogonyok v0.3 Beta",
-versionText:"A new version is available!<br><br>🌐 5 languages<br>🔥 Flame name<br>🌙 Dark theme<br>🎨 Separate skins tab<br>👀 Future skins are visible",
-close:"Got it"
+days:"days"
 },
 
 de:{
@@ -867,11 +894,9 @@ subtitle:"Deine Flamme brennt",
 ach:"Erfolge",
 skins:"Skins",
 settings:"Einstellungen",
-current:"Aktuelle Flamme",
-started:"Beginn",
-skinsTitle:"🎨 Flammen-Skins",
+skinsTitle:"Flammen-Skins",
 skinsInfoTitle:"Zukünftige Skins",
-skinsInfo:"Sieh dir an, welche Skins als Nächstes freigeschaltet werden.",
+skinsInfo:"Sieh dir die nächsten Skins an.",
 language:"🌐 Sprache",
 theme:"🌙 Dunkles Design",
 themeOn:"An",
@@ -891,11 +916,8 @@ placeholder:"Übertragungscode eingeben",
 saved:"Flamme wiederhergestellt!",
 nameTitle:"🔥 Flammenname",
 nameSave:"Speichern",
-namePlaceholder:"Zum Beispiel: Meine Flamme",
-days:"Tage",
-versionTitle:"🔥 Ogonyok v0.3 Beta",
-versionText:"Eine neue Version ist verfügbar!<br><br>🌐 5 Sprachen<br>🔥 Flammenname<br>🌙 Dunkles Design<br>🎨 Separater Skin-Bereich<br>👀 Zukünftige Skins sind sichtbar",
-close:"Verstanden"
+namePlaceholder:"Meine Flamme",
+days:"Tage"
 },
 
 es:{
@@ -904,35 +926,30 @@ subtitle:"Tu llama está encendida",
 ach:"Logros",
 skins:"Skins",
 settings:"Ajustes",
-current:"Llama actual",
-started:"Inicio",
-skinsTitle:"🎨 Skins de llama",
+skinsTitle:"Skins de llama",
 skinsInfoTitle:"Skins futuros",
-skinsInfo:"Mira qué skins se desbloquearán después.",
+skinsInfo:"Mira qué skins se desbloquearán.",
 language:"🌐 Idioma",
 theme:"🌙 Tema oscuro",
 themeOn:"Sí",
 themeOff:"No",
 name:"🔥 Nombre de la llama",
 transfer:"🔥 Transferir llama",
-create:"Crear código de transferencia",
+create:"Crear código",
 restore:"Restaurar llama",
 extra:"🔧 Ajustes adicionales",
 version:"Versión",
 reset:"🗑️ Reiniciar progreso",
 stored:"Tu progreso se guarda solo en este dispositivo.",
 unlocked:"Desbloqueado",
-soon:"Próximamente...",
+soon:"Próximamente",
 code:"Tu código",
 placeholder:"Introduce el código",
 saved:"¡Llama restaurada!",
-nameTitle:"🔥 Nombre de la llama",
+nameTitle:"🔥 Nombre",
 nameSave:"Guardar",
-namePlaceholder:"Por ejemplo: Mi llama",
-days:"días",
-versionTitle:"🔥 Ogonyok v0.3 Beta",
-versionText:"¡Hay una nueva versión disponible!<br><br>🌐 5 idiomas<br>🔥 Nombre de la llama<br>🌙 Tema oscuro<br>🎨 Pestaña separada de skins<br>👀 Se muestran los skins futuros",
-close:"Entendido"
+namePlaceholder:"Mi llama",
+days:"días"
 },
 
 fr:{
@@ -941,72 +958,54 @@ subtitle:"Ta flamme brûle",
 ach:"Succès",
 skins:"Skins",
 settings:"Paramètres",
-current:"Flamme actuelle",
-started:"Début",
-skinsTitle:"🎨 Skins de flamme",
+skinsTitle:"Skins de flamme",
 skinsInfoTitle:"Skins futurs",
-skinsInfo:"Regarde quels skins seront débloqués ensuite.",
+skinsInfo:"Regarde les prochains skins.",
 language:"🌐 Langue",
 theme:"🌙 Thème sombre",
 themeOn:"Oui",
 themeOff:"Non",
 name:"🔥 Nom de la flamme",
 transfer:"🔥 Transférer la flamme",
-create:"Créer un code de transfert",
+create:"Créer un code",
 restore:"Restaurer la flamme",
 extra:"🔧 Paramètres supplémentaires",
 version:"Version",
-reset:"🗑️ Réinitialiser la progression",
+reset:"🗑️ Réinitialiser",
 stored:"Ta progression est stockée uniquement sur cet appareil.",
 unlocked:"Débloqué",
 soon:"Bientôt...",
 code:"Ton code",
-placeholder:"Entre le code de transfert",
+placeholder:"Entre le code",
 saved:"Flamme restaurée !",
-nameTitle:"🔥 Nom de la flamme",
+nameTitle:"🔥 Nom",
 nameSave:"Enregistrer",
-namePlaceholder:"Par exemple : Ma flamme",
-days:"jours",
-versionTitle:"🔥 Ogonyok v0.3 Beta",
-versionText:"Une nouvelle version est disponible !<br><br>🌐 5 langues<br>🔥 Nom de la flamme<br>🌙 Thème sombre<br>🎨 Onglet séparé des skins<br>👀 Les futurs skins sont visibles",
-close:"Compris"
+namePlaceholder:"Ma flamme",
+days:"jours"
 }
 
 };
 
 
-/*
-ВАЖНО:
-ИСПОЛЬЗУЕМ СТАРЫЙ КЛЮЧ flameData.
-ЭТО СОХРАНЯЕТ СТАРЫЙ ПРОГРЕСС.
-*/
+/* =========================
+   СТАРЫЙ ПРОГРЕСС
+========================= */
 
-let lang=localStorage.getItem("flameLang")||"ru";
-
-if(!langs.includes(lang)){
-lang="ru";
-}
-
-
-let data;
+let data=null;
 
 try{
-
-data=JSON.parse(
-localStorage.getItem("flameData")||"null"
-);
-
+data=JSON.parse(localStorage.getItem("flameData")||"null");
 }catch(e){
-
 data=null;
-
 }
 
+function dateKey(d){
+return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,"0")}-${String(d.getDate()).padStart(2,"0")}`;
+}
 
-/*
-ЕСЛИ СТАРЫЕ ДАННЫЕ ЕСТЬ —
-НИЧЕГО НЕ СБРАСЫВАЕМ.
-*/
+function save(){
+localStorage.setItem("flameData",JSON.stringify(data));
+}
 
 if(!data){
 
@@ -1022,100 +1021,49 @@ save();
 
 }else{
 
-if(typeof data.days!=="number"||data.days<1){
+if(typeof data.days!=="number"||data.days<1)
 data.days=1;
-}
 
-if(!data.lastVisit){
+if(!data.lastVisit)
 data.lastVisit=dateKey(new Date());
-}
 
-if(!data.started){
+if(!data.started)
 data.started=dateKey(new Date());
-}
 
-if(!data.skin){
+if(!data.skin)
 data.skin="classic";
-}
 
-if(!data.name){
+if(!data.name)
 data.name="Мой огонёк";
-}
-
-updateStreak();
 
 }
 
 
-/* ДАТА */
-
-function dateKey(d){
-
-return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,"0")}-${String(d.getDate()).padStart(2,"0")}`;
-
-}
-
-
-/* СОХРАНЕНИЕ */
-
-function save(){
-
-localStorage.setItem(
-"flameData",
-JSON.stringify(data)
-);
-
-}
-
-
-/*
-СЧЁТЧИК.
-ПРИ ОБНОВЛЕНИИ СТРАНИЦЫ В ТОТ ЖЕ ДЕНЬ
-ЧИСЛО НЕ МЕНЯЕТСЯ.
-*/
+/* =========================
+   СТАРЫЙ СЧЁТЧИК
+========================= */
 
 function updateStreak(){
 
-const today=new Date();
+const todayKey=dateKey(new Date());
 
-const todayKey=dateKey(today);
+const last=new Date(data.lastVisit+"T00:00:00");
+const now=new Date(todayKey+"T00:00:00");
 
-const last=new Date(
-data.lastVisit+"T00:00:00"
-);
-
-const now=new Date(
-todayKey+"T00:00:00"
-);
-
-const diff=Math.round(
-(now-last)/86400000
-);
-
+const diff=Math.round((now-last)/86400000);
 
 if(diff===1){
 
 data.days++;
-
 data.lastVisit=todayKey;
 
 save();
 
-}
-
-else if(diff>1){
-
-/*
-Если пользователь пропустил день,
-старое поведение сохраняется.
-*/
+}else if(diff>1){
 
 data.days=1;
-
 data.lastVisit=todayKey;
-
 data.started=todayKey;
-
 data.skin="classic";
 
 save();
@@ -1124,56 +1072,271 @@ save();
 
 }
 
+updateStreak();
 
-/* ПЕРЕВОД */
+
+/* =========================
+   ЯЗЫК
+========================= */
+
+let lang=localStorage.getItem("flameLang")||"ru";
+
+if(!langs.includes(lang))
+lang="ru";
 
 function t(key){
+return translations[lang][key]||translations.en[key]||key;
+}
 
-return translations[lang][key]||
-translations.en[key]||
-key;
+
+/* =========================
+   НОВАЯ СИСТЕМА ДНЯ РОЖДЕНИЯ
+========================= */
+
+/*
+Все новые данные лежат ОТДЕЛЬНО.
+flameData НЕ переписывается ими.
+*/
+
+let birthdayState=JSON.parse(
+localStorage.getItem("ogonyokBirthday")||"null"
+);
+
+if(!birthdayState){
+
+birthdayState={
+theme:false,
+birthday:false,
+candy1:false,
+candy2:false,
+candy3:false,
+candy4:false,
+candy5:false,
+candyAchievement:false,
+slavaAchievement:false,
+birthdaySkin:false
+};
+
+localStorage.setItem(
+"ogonyokBirthday",
+JSON.stringify(birthdayState)
+);
+
+}
+
+function saveBirthday(){
+localStorage.setItem(
+"ogonyokBirthday",
+JSON.stringify(birthdayState)
+);
+}
+
+
+/* +1 ДЕНЬ ЗА АЧИВКУ */
+
+function birthdayAddDay(){
+
+data.days++;
+
+data.lastVisit=dateKey(new Date());
+
+save();
 
 }
 
 
-/* НАЗВАНИЕ СКИНА */
+/* =========================
+   КОНФЕТЫ
+========================= */
 
-function skinName(s){
+function checkCandies(){
 
-return lang==="ru"?s.ru:s.en;
+if(
+birthdayState.candy1 &&
+birthdayState.candy2 &&
+birthdayState.candy3 &&
+birthdayState.candy4 &&
+birthdayState.candy5 &&
+!birthdayState.candyAchievement
+){
+
+birthdayState.candyAchievement=true;
+
+birthdayAddDay();
+
+saveBirthday();
+
+}
+
+if(
+birthdayState.birthday &&
+birthdayState.candyAchievement &&
+birthdayState.slavaAchievement
+){
+
+birthdayState.birthdaySkin=true;
+
+saveBirthday();
+
+}
 
 }
 
 
-/* ДНИ */
+/* =========================
+   ДЕНЬ РОЖДЕНИЯ
+========================= */
 
-function dayWord(n){
+function activateBirthday(){
 
-if(lang==="ru"){
+if(!birthdayState.birthday){
 
-if(n===1)return"день подряд";
+birthdayState.birthday=true;
+birthdayState.theme=true;
 
-if(n<5)return"дня подряд";
+birthdayAddDay();
 
-return"дней подряд";
+saveBirthday();
+
+}else{
+
+birthdayState.theme=true;
+
+saveBirthday();
 
 }
 
-return t("days");
+checkCandies();
+
+birthdayConfetti();
+
+render();
 
 }
 
 
-/* ТЕМА */
+/* =========================
+   КОНФЕТА
+========================= */
+
+function getCandy(number){
+
+const key="candy"+number;
+
+if(!birthdayState[key]){
+
+birthdayState[key]=true;
+
+saveBirthday();
+
+checkCandies();
+
+birthdayConfetti();
+
+render();
+
+}
+
+}
+
+
+/* =========================
+   КОНФЕТА №5
+   ИМЯ ОГОНЬКА = 🍬
+========================= */
+
+function checkFlameName(){
+
+if(
+data.name==="🍬" &&
+!birthdayState.candy5
+){
+
+birthdayState.candy5=true;
+
+saveBirthday();
+
+checkCandies();
+
+}
+
+}
+
+
+/* =========================
+   СЛАВА
+========================= */
+
+function checkSlava(){
+
+if(
+data.name==="Slava" &&
+!birthdayState.slavaAchievement
+){
+
+birthdayState.slavaAchievement=true;
+
+birthdayAddDay();
+
+saveBirthday();
+
+checkCandies();
+
+birthdayConfetti();
+
+}
+
+}
+
+
+/* =========================
+   КОНФЕТТИ
+========================= */
+
+function birthdayConfetti(){
+
+const symbols=["🎉","🎊","🍬","🎂","✨","🎈"];
+
+for(let i=0;i<35;i++){
+
+const el=document.createElement("div");
+
+el.className="confetti";
+
+el.textContent=
+symbols[Math.floor(Math.random()*symbols.length)];
+
+el.style.left=
+Math.random()*100+"vw";
+
+el.style.animationDelay=
+Math.random()*1.5+"s";
+
+document.body.appendChild(el);
+
+setTimeout(()=>{
+el.remove();
+},3000);
+
+}
+
+}
+
+
+/* =========================
+   ТЕМА
+========================= */
 
 function applyTheme(){
 
 const dark=
 localStorage.getItem("ogonyokDark")==="true";
 
+document.body.classList.toggle("dark",dark);
+
 document.body.classList.toggle(
-"dark",
-dark
+"birthday",
+birthdayState.theme
 );
 
 document.getElementById("themeValue").textContent=
@@ -1182,59 +1345,47 @@ dark?t("themeOn"):t("themeOff");
 }
 
 
-/* РЕНДЕР */
+/* =========================
+   НАЗВАНИЕ СКИНА
+========================= */
+
+function skinName(s){
+return lang==="ru"?s.ru:s.en;
+}
+
+
+/* =========================
+   РЕНДЕР
+========================= */
 
 function render(){
 
 document.documentElement.lang=lang;
 
+document.getElementById("dayLabel").textContent=t("day");
 
-/* верх */
+document.getElementById("dayNumber").textContent=data.days;
 
-document.getElementById("dayLabel").textContent=
-t("day");
+document.getElementById("subtitle").textContent=t("subtitle");
 
-document.getElementById("dayNumber").textContent=
-data.days;
+document.getElementById("flameName").textContent=data.name;
 
-document.getElementById("subtitle").textContent=
-t("subtitle");
+document.getElementById("achTab").textContent=t("ach");
+document.getElementById("skinsTab").textContent=t("skins");
+document.getElementById("settingsTab").textContent=t("settings");
 
-document.getElementById("flameName").textContent=
-data.name;
+document.getElementById("settingsTitle").textContent=t("settings");
 
+document.getElementById("nameSetting").textContent=t("name");
 
-/* вкладки */
-
-document.getElementById("achTab").textContent=
-t("ach");
-
-document.getElementById("skinsTab").textContent=
-t("skins");
-
-document.getElementById("settingsTab").textContent=
-t("settings");
-
-
-/* настройки */
-
-document.getElementById("settingsTitle").textContent=
-t("settings");
-
-document.getElementById("nameSetting").textContent=
-t("name");
-
-document.getElementById("languageSetting").textContent=
-t("language");
+document.getElementById("languageSetting").textContent=t("language");
 
 document.getElementById("languageValue").textContent=
 languageNames[lang];
 
-document.getElementById("themeSetting").textContent=
-t("theme");
+document.getElementById("themeSetting").textContent=t("theme");
 
-document.getElementById("skinsTitle").textContent=
-t("skinsTitle");
+document.getElementById("skinsTitle").textContent=t("skinsTitle");
 
 document.getElementById("skinsInfoTitle").textContent=
 t("skinsInfoTitle");
@@ -1270,35 +1421,46 @@ document.getElementById("footer").textContent=
 t("stored");
 
 
-/* выбранный скин */
+/* текущий скин */
 
-const current=
+let current=
 skins.find(s=>s.id===data.skin)||skins[0];
+
+if(
+current.id==="birthday" &&
+!birthdayState.birthdaySkin
+){
+
+data.skin="classic";
+
+save();
+
+current=skins[0];
+
+}
 
 document.getElementById("flame").textContent=
 current.icon;
 
 
-/* ДОСТИЖЕНИЯ */
+/* =========================
+   АЧИВКИ
+========================= */
 
-const panel=
-document.getElementById("achPanel");
+const panel=document.getElementById("achPanel");
 
 panel.innerHTML="";
 
 achievements.forEach(a=>{
 
-const unlocked=
-data.days>=a.days;
+const unlocked=data.days>=a.days;
 
-const percent=
-Math.min(
+const percent=Math.min(
 100,
 Math.round(data.days/a.days*100)
 );
 
-const card=
-document.createElement("div");
+const card=document.createElement("div");
 
 card.className=
 "card "+(unlocked?"":"locked");
@@ -1327,6 +1489,7 @@ ${unlocked?t("unlocked"):t("soon")}
 </div>
 
 </div>
+
 `;
 
 panel.appendChild(card);
@@ -1334,25 +1497,106 @@ panel.appendChild(card);
 });
 
 
-/* СКИНЫ */
+/* =========================
+   КОНФЕТА №1
+========================= */
 
-const grid=
-document.getElementById("skinGrid");
+const c1=document.createElement("button");
+
+c1.className=
+"candy "+(birthdayState.candy1?"found":"");
+
+c1.innerHTML=
+birthdayState.candy1
+?"🍬 Конфета №1 — найдена"
+:"🍬 Секретная конфета №1";
+
+c1.onclick=()=>getCandy(1);
+
+panel.appendChild(c1);
+
+
+/* =========================
+   СЕКРЕТНЫЕ АЧИВКИ
+========================= */
+
+if(birthdayState.birthday){
+
+const b=document.createElement("div");
+
+b.className="birthday-card";
+
+b.innerHTML=`
+<b>🎂 День рождения</b>
+<span>+1 день</span>
+`;
+
+panel.appendChild(b);
+
+}
+
+if(birthdayState.candyAchievement){
+
+const b=document.createElement("div");
+
+b.className="birthday-card";
+
+b.innerHTML=`
+<b>🍬 Конфетник</b>
+<span>Собраны все 5 конфет • +1 день</span>
+`;
+
+panel.appendChild(b);
+
+}
+
+if(birthdayState.slavaAchievement){
+
+const b=document.createElement("div");
+
+b.className="birthday-card";
+
+b.innerHTML=`
+<b>🔥 Огонёк в честь меня</b>
+<span>Имя огонька — Slava • +1 день</span>
+`;
+
+panel.appendChild(b);
+
+}
+
+
+/* =========================
+   СКИНЫ
+========================= */
+
+const grid=document.getElementById("skinGrid");
 
 grid.innerHTML="";
 
 skins.forEach(s=>{
 
-const unlocked=
-data.days>=s.days;
+let unlocked;
 
-const b=
-document.createElement("button");
+if(s.special){
+
+unlocked=birthdayState.birthdaySkin;
+
+}else{
+
+unlocked=data.days>=s.days;
+
+}
+
+const b=document.createElement("button");
 
 b.className=
 "skin "+
 (unlocked?"":"locked")+" "+
 (data.skin===s.id?"selected":"");
+
+if(s.special)
+b.classList.add("birthday-skin");
 
 b.innerHTML=`
 
@@ -1360,14 +1604,14 @@ b.innerHTML=`
 ${unlocked?s.icon:"🔒"}
 </div>
 
-<div>
-${skinName(s)}
-</div>
+<div>${skinName(s)}</div>
 
 <small>
-${s.days}
-${lang==="ru"?"дн.":"days"}
+${s.special
+?"🎂 + 3 ачивки"
+:s.days+" "+(lang==="ru"?"дн.":"days")}
 </small>
+
 `;
 
 b.disabled=!unlocked;
@@ -1380,6 +1624,14 @@ data.skin=s.id;
 
 save();
 
+if(s.special){
+
+birthdayState.theme=true;
+
+saveBirthday();
+
+}
+
 render();
 
 };
@@ -1391,6 +1643,23 @@ grid.appendChild(b);
 });
 
 
+/* КОНФЕТА №2 */
+
+const c2=document.createElement("button");
+
+c2.className=
+"candy "+(birthdayState.candy2?"found":"");
+
+c2.innerHTML=
+birthdayState.candy2
+?"🍬 Конфета №2 — найдена"
+:"🍬 Секретная конфета №2";
+
+c2.onclick=()=>getCandy(2);
+
+grid.appendChild(c2);
+
+
 /* ТЕМА */
 
 applyTheme();
@@ -1398,94 +1667,70 @@ applyTheme();
 }
 
 
-/* ПЕРЕКЛЮЧЕНИЕ ВКЛАДОК */
+/* =========================
+   ВКЛАДКИ
+========================= */
 
 function showPanel(which){
 
-[
-"achPanel",
-"skinsPanel",
-"settingsPanel"
-].forEach(id=>{
-
-document
-.getElementById(id)
-.classList.add("hidden");
-
+["achPanel","skinsPanel","settingsPanel"]
+.forEach(id=>{
+document.getElementById(id).classList.add("hidden");
 });
 
-
-[
-"achTab",
-"skinsTab",
-"settingsTab"
-].forEach(id=>{
-
-document
-.getElementById(id)
-.classList.remove("active");
-
+["achTab","skinsTab","settingsTab"]
+.forEach(id=>{
+document.getElementById(id).classList.remove("active");
 });
 
-
-document
-.getElementById(which+"Panel")
+document.getElementById(which+"Panel")
 .classList.remove("hidden");
 
-document
-.getElementById(which+"Tab")
+document.getElementById(which+"Tab")
 .classList.add("active");
 
 }
 
+document.getElementById("achTab").onclick=
+()=>showPanel("ach");
 
-/* ДОСТИЖЕНИЯ */
+document.getElementById("skinsTab").onclick=
+()=>showPanel("skins");
 
-document.getElementById(
-"achTab"
-).onclick=()=>showPanel("ach");
-
-
-/* СКИНЫ */
-
-document.getElementById(
-"skinsTab"
-).onclick=()=>showPanel("skins");
+document.getElementById("settingsTab").onclick=
+()=>showPanel("settings");
 
 
-/* НАСТРОЙКИ */
+/* =========================
+   ТОРТИК
+========================= */
 
-document.getElementById(
-"settingsTab"
-).onclick=()=>showPanel("settings");
+document.getElementById("birthdayCake").onclick=
+activateBirthday;
 
 
-/* ЯЗЫК */
+/* =========================
+   ЯЗЫК
+========================= */
 
-document.getElementById(
-"languageBtn"
-).onclick=()=>{
+document.getElementById("languageBtn").onclick=()=>{
 
 const i=langs.indexOf(lang);
 
-lang=
-langs[(i+1)%langs.length];
+lang=langs[(i+1)%langs.length];
 
-localStorage.setItem(
-"flameLang",
-lang
-);
+localStorage.setItem("flameLang",lang);
 
 render();
 
 };
 
 
-/* ТЁМНАЯ ТЕМА */
+/* =========================
+   ТЁМНАЯ ТЕМА
+========================= */
 
-document.getElementById(
-"themeBtn"
-).onclick=()=>{
+document.getElementById("themeBtn").onclick=()=>{
 
 const current=
 localStorage.getItem("ogonyokDark")==="true";
@@ -1500,33 +1745,25 @@ applyTheme();
 };
 
 
-/* НАЗВАНИЕ ОГОНЬКА */
+/* =========================
+   ИМЯ
+========================= */
 
-document.getElementById(
-"nameBtn"
-).onclick=()=>{
+document.getElementById("nameBtn").onclick=()=>{
 
-document.getElementById(
-"nameInput"
-).value=data.name;
+document.getElementById("nameInput").value=data.name;
 
-document.getElementById(
-"nameModal"
-).classList.remove("hidden");
+document.getElementById("nameModal")
+.classList.remove("hidden");
 
 };
 
 
-/* СОХРАНИТЬ НАЗВАНИЕ */
-
-document.getElementById(
-"saveName"
-).onclick=()=>{
+document.getElementById("saveName").onclick=()=>{
 
 const value=
-document.getElementById(
-"nameInput"
-).value.trim();
+document.getElementById("nameInput")
+.value.trim();
 
 if(value){
 
@@ -1534,123 +1771,94 @@ data.name=value;
 
 save();
 
+checkFlameName();
+
+checkSlava();
+
 render();
 
 }
 
-document.getElementById(
-"nameModal"
-).classList.add("hidden");
+document.getElementById("nameModal")
+.classList.add("hidden");
 
 };
 
 
-/* ENTER В НАЗВАНИИ */
+document.getElementById("nameInput")
+.addEventListener("keydown",e=>{
 
-document.getElementById(
-"nameInput"
-).addEventListener(
-"keydown",
-e=>{
+if(e.key==="Enter")
+document.getElementById("saveName").click();
 
-if(e.key==="Enter"){
-
-document.getElementById(
-"saveName"
-).click();
-
-}
-
-}
-);
+});
 
 
-/* ВЕРСИЯ */
+/* =========================
+   ВЕРСИЯ
+========================= */
 
 function openVersion(){
 
-document.getElementById(
-"versionModalTitle"
-).textContent=
-t("versionTitle");
-
-document.getElementById(
-"versionModalText"
-).innerHTML=
-t("versionText");
-
-document.getElementById(
-"versionClose"
-).textContent=
-t("close");
-
-document.getElementById(
-"versionModal"
-).classList.remove("hidden");
+document.getElementById("versionModal")
+.classList.remove("hidden");
 
 }
 
+document.getElementById("versionBtn").onclick=openVersion;
 
-document.getElementById(
-"versionBtn"
-).onclick=openVersion;
+document.getElementById("versionSetting").onclick=openVersion;
 
-document.getElementById(
-"versionSetting"
-).onclick=openVersion;
+document.getElementById("versionClose").onclick=()=>{
 
-document.getElementById(
-"versionClose"
-).onclick=()=>{
-
-document.getElementById(
-"versionModal"
-).classList.add("hidden");
+document.getElementById("versionModal")
+.classList.add("hidden");
 
 };
 
 
-/* ЗАКРЫТИЕ МОДАЛОК */
+/* КОНФЕТА №4 */
 
-document.getElementById(
-"nameModal"
-).addEventListener(
-"click",
-e=>{
+document.getElementById("candy4").onclick=
+()=>getCandy(4);
 
-if(e.target.id==="nameModal"){
 
-e.currentTarget.classList.add(
-"hidden"
-);
+/* =========================
+   КОНФЕТА №3
+========================= */
 
-}
+document.getElementById("candy3").onclick=
+()=>getCandy(3);
 
-});
 
-document.getElementById(
-"versionModal"
-).addEventListener(
-"click",
-e=>{
+/* =========================
+   ЗАКРЫТИЕ МОДАЛОК
+========================= */
 
-if(e.target.id==="versionModal"){
+document.getElementById("nameModal")
+.addEventListener("click",e=>{
 
-e.currentTarget.classList.add(
-"hidden"
-);
-
-}
+if(e.target.id==="nameModal")
+e.currentTarget.classList.add("hidden");
 
 });
 
+document.getElementById("versionModal")
+.addEventListener("click",e=>{
 
-/* КОД ПЕРЕНОСА */
+if(e.target.id==="versionModal")
+e.currentTarget.classList.add("hidden");
+
+});
+
+
+/* =========================
+   ПЕРЕНОС
+========================= */
 
 function encodeData(obj){
 
-const json=
-JSON.stringify(obj);
+const json=JSON.stringify(obj);
 
 return btoa(
 unescape(
@@ -1660,14 +1868,10 @@ encodeURIComponent(json)
 
 }
 
-
 function decodeData(code){
 
 const padded=
-code+
-"=".repeat(
-(4-code.length%4)%4
-);
+code+"=".repeat((4-code.length%4)%4);
 
 return JSON.parse(
 decodeURIComponent(
@@ -1682,34 +1886,23 @@ atob(padded)
 
 /* СОЗДАТЬ КОД */
 
-document.getElementById(
-"createCodeBtn"
-).onclick=()=>{
+document.getElementById("createCodeBtn").onclick=()=>{
 
 const transferable={
-
 days:data.days,
-
 lastVisit:data.lastVisit,
-
 started:data.started,
-
 skin:data.skin,
-
 name:data.name
-
 };
 
-const code=
-encodeData(transferable);
+const code=encodeData(transferable);
 
-document.getElementById(
-"codeValue"
-).textContent=code;
+document.getElementById("codeValue")
+.textContent=code;
 
-document.getElementById(
-"codeBox"
-).classList.remove("hidden");
+document.getElementById("codeBox")
+.classList.remove("hidden");
 
 if(navigator.clipboard){
 
@@ -1724,18 +1917,14 @@ navigator.clipboard
 
 /* ВОССТАНОВИТЬ */
 
-document.getElementById(
-"restoreBtn"
-).onclick=()=>{
+document.getElementById("restoreBtn").onclick=()=>{
 
 try{
 
 const restored=
 decodeData(
-document
-.getElementById("transferCode")
-.value
-.trim()
+document.getElementById("transferCode")
+.value.trim()
 );
 
 if(
@@ -1749,39 +1938,31 @@ throw new Error();
 
 }
 
-
 data={
-
 days:Math.max(
 1,
 Math.floor(restored.days)
 ),
-
 lastVisit:restored.lastVisit,
-
 started:restored.started,
-
 skin:restored.skin||"classic",
-
 name:restored.name||"Мой огонёк"
-
 };
 
-
 const selected=
-skins.find(
-s=>s.id===data.skin
-);
+skins.find(s=>s.id===data.skin);
 
 if(
 !selected||
+(
+!selected.special &&
 data.days<selected.days
+)
 ){
 
 data.skin="classic";
 
 }
-
 
 save();
 
@@ -1798,28 +1979,21 @@ alert("Invalid transfer code");
 };
 
 
-/* СБРОС */
+/* =========================
+   СБРОС
+========================= */
 
-document.getElementById(
-"resetBtn"
-).onclick=()=>{
+document.getElementById("resetBtn").onclick=()=>{
 
-if(confirm(
-
+if(
+confirm(
 lang==="ru"
 ?"Сбросить весь прогресс?"
 :"Reset all progress?"
+)
+){
 
-)){
-
-/*
-ТОЛЬКО ПРИ ЯВНОМ НАЖАТИИ
-ПРОГРЕСС УДАЛЯЕТСЯ.
-*/
-
-localStorage.removeItem(
-"flameData"
-);
+localStorage.removeItem("flameData");
 
 location.reload();
 
@@ -1828,14 +2002,17 @@ location.reload();
 };
 
 
-/* ЗАПУСК */
+/* =========================
+   ЗАПУСК
+========================= */
+
+checkCandies();
+
+checkFlameName();
+
+checkSlava();
 
 render();
-
-/*
-НА СТАРТЕ ОТКРЫВАЕМ ДОСТИЖЕНИЯ,
-НО ПРОГРЕСС НЕ ТРОГАЕМ.
-*/
 
 showPanel("ach");
 
