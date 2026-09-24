@@ -2,64 +2,463 @@
 <html lang="ru">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,viewport-fit=cover">
 <title>Ogonyok</title>
+
 <style>
 *{box-sizing:border-box}
-html,body{margin:0;min-height:100%;font-family:Arial,Helvetica,sans-serif;background:#fff;color:#111}
+
+html,body{
+margin:0;
+min-height:100%;
+font-family:Arial,Helvetica,sans-serif;
+background:#fff;
+color:#111;
+transition:.2s;
+}
+
+body.dark{
+background:#111;
+color:#fff;
+}
+
 body{display:flex;justify-content:center}
-button,input{font:inherit}
+
+button,input{
+font:inherit;
+}
+
 button{cursor:pointer}
-.app{width:100%;max-width:920px;min-height:100vh;padding:20px 18px 34px;display:flex;flex-direction:column}
-.top{display:flex;justify-content:space-between;align-items:center}
-.brand{font-size:20px;font-weight:1000}
-.lang{border:2px solid #111;background:#fff;padding:9px 12px;font-size:14px;font-weight:800}
-.main{text-align:center;flex:1;display:flex;flex-direction:column;align-items:center}
-.day-label{margin-top:38px;font-size:24px;font-weight:900}
-.day-number{font-size:58px;line-height:1;margin-top:5px;font-weight:1000}
-.flame-wrap{margin-top:42px;position:relative;width:220px;height:250px;display:flex;align-items:center;justify-content:center}
-.flame{font-size:190px;line-height:1;filter:drop-shadow(0 7px 10px rgba(255,115,0,.18));animation:flicker 1.7s ease-in-out infinite;position:relative;z-index:1}
-.flame-glow{position:absolute;width:135px;height:35px;bottom:8px;border-radius:50%;background:#ff9b00;opacity:.22;filter:blur(18px);z-index:0}
-@keyframes flicker{0%,100%{transform:scale(1) rotate(-1deg)}50%{transform:scale(1.035) rotate(1deg)}}
-.subtitle{font-size:15px;color:#666;margin-top:18px}
-.tabs{display:flex;gap:8px;margin-top:34px;width:100%}
-.tab{flex:1;border:2px solid #111;background:#fff;padding:12px 8px;font-weight:900}
-.tab.active{background:#111;color:#fff}
-.panel{width:100%;margin-top:14px;text-align:left}
-.card{border:2px solid #111;padding:15px;margin-bottom:10px;display:flex;align-items:center;gap:12px}
-.icon{font-size:30px;width:38px;text-align:center}
-.card b{display:block;font-size:16px}
-.card span{display:block;font-size:13px;color:#666;margin-top:4px}
-.locked{opacity:.38}
-.progress{height:7px;border:2px solid #111;margin-top:8px;overflow:hidden}
-.progress>i{display:block;height:100%;background:#111;width:0}
-.settings{margin-top:14px}
-.settings-title{font-size:20px;font-weight:1000;margin:22px 0 10px}
-.setting{width:100%;border:2px solid #111;background:#fff;padding:14px;text-align:left;display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;font-weight:900}
-.skin-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;width:100%}
-.skin{border:2px solid #111;background:#fff;padding:12px;text-align:center;font-weight:900}
-.skin.selected{background:#111;color:#fff}
-.skin.locked{opacity:.45}
-.transfer{display:grid;gap:8px}
-.transfer input{width:100%;border:2px solid #111;padding:12px;outline:none}
-.primary{border:2px solid #111;background:#111;color:#fff;padding:12px;font-weight:900}
-.extra{border-top:2px solid #111;margin-top:20px;padding-top:4px}
-.reset{border:0;background:none;text-decoration:underline;font-size:12px;color:#777}
-.hidden{display:none}
-.footer{font-size:11px;color:#999;text-align:center;margin-top:25px}
+
+.app{
+width:100%;
+max-width:920px;
+min-height:100vh;
+padding:20px 18px 34px;
+display:flex;
+flex-direction:column;
+}
+
+.top{
+display:flex;
+justify-content:space-between;
+align-items:center;
+}
+
+.brand{
+font-size:20px;
+font-weight:1000;
+}
+
+.versionBtn{
+border:2px solid #111;
+background:#fff;
+color:#111;
+padding:9px 12px;
+font-size:13px;
+font-weight:900;
+}
+
+.dark .versionBtn{
+background:#111;
+color:#fff;
+border-color:#fff;
+}
+
+.main{
+text-align:center;
+flex:1;
+display:flex;
+flex-direction:column;
+align-items:center;
+}
+
+.day-label{
+margin-top:38px;
+font-size:24px;
+font-weight:900;
+}
+
+.day-number{
+font-size:58px;
+line-height:1;
+margin-top:5px;
+font-weight:1000;
+}
+
+.flame-wrap{
+margin-top:42px;
+position:relative;
+width:220px;
+height:250px;
+display:flex;
+align-items:center;
+justify-content:center;
+}
+
+.flame{
+font-size:190px;
+line-height:1;
+filter:drop-shadow(0 7px 10px rgba(255,115,0,.18));
+animation:flicker 1.7s ease-in-out infinite;
+position:relative;
+z-index:1;
+}
+
+.flame-glow{
+position:absolute;
+width:135px;
+height:35px;
+bottom:8px;
+border-radius:50%;
+background:#ff9b00;
+opacity:.22;
+filter:blur(18px);
+z-index:0;
+}
+
+@keyframes flicker{
+0%,100%{transform:scale(1) rotate(-1deg)}
+50%{transform:scale(1.035) rotate(1deg)}
+}
+
+.flame-name{
+font-size:20px;
+font-weight:1000;
+margin-top:-8px;
+}
+
+.subtitle{
+font-size:15px;
+color:#666;
+margin-top:10px;
+}
+
+.dark .subtitle{
+color:#aaa;
+}
+
+.tabs{
+display:flex;
+gap:8px;
+margin-top:34px;
+width:100%;
+}
+
+.tab{
+flex:1;
+border:2px solid #111;
+background:#fff;
+color:#111;
+padding:12px 8px;
+font-weight:900;
+}
+
+.dark .tab{
+background:#111;
+color:#fff;
+border-color:#fff;
+}
+
+.tab.active{
+background:#111;
+color:#fff;
+}
+
+.dark .tab.active{
+background:#fff;
+color:#111;
+}
+
+.panel{
+width:100%;
+margin-top:14px;
+text-align:left;
+}
+
+.card{
+border:2px solid #111;
+padding:15px;
+margin-bottom:10px;
+display:flex;
+align-items:center;
+gap:12px;
+}
+
+.dark .card{
+border-color:#fff;
+}
+
+.icon{
+font-size:30px;
+width:38px;
+text-align:center;
+}
+
+.card b{
+display:block;
+font-size:16px;
+}
+
+.card span{
+display:block;
+font-size:13px;
+color:#666;
+margin-top:4px;
+}
+
+.dark .card span{
+color:#aaa;
+}
+
+.progress{
+height:7px;
+border:2px solid #111;
+margin-top:8px;
+overflow:hidden;
+}
+
+.dark .progress{
+border-color:#fff;
+}
+
+.progress>i{
+display:block;
+height:100%;
+background:#111;
+width:0;
+}
+
+.dark .progress>i{
+background:#fff;
+}
+
+.locked{
+opacity:.4;
+}
+
+.settings-title{
+font-size:20px;
+font-weight:1000;
+margin:22px 0 10px;
+}
+
+.setting{
+width:100%;
+border:2px solid #111;
+background:#fff;
+color:#111;
+padding:14px;
+text-align:left;
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:8px;
+font-weight:900;
+}
+
+.dark .setting{
+background:#111;
+color:#fff;
+border-color:#fff;
+}
+
+.skin-grid{
+display:grid;
+grid-template-columns:repeat(2,1fr);
+gap:8px;
+width:100%;
+}
+
+.skin{
+border:2px solid #111;
+background:#fff;
+color:#111;
+padding:12px;
+text-align:center;
+font-weight:900;
+}
+
+.dark .skin{
+background:#111;
+color:#fff;
+border-color:#fff;
+}
+
+.skin.selected{
+background:#111;
+color:#fff;
+}
+
+.dark .skin.selected{
+background:#fff;
+color:#111;
+}
+
+.skin.locked{
+opacity:.4;
+}
+
+.transfer{
+display:grid;
+gap:8px;
+}
+
+.transfer input{
+width:100%;
+border:2px solid #111;
+background:#fff;
+color:#111;
+padding:12px;
+outline:none;
+}
+
+.dark .transfer input{
+background:#111;
+color:#fff;
+border-color:#fff;
+}
+
+.primary{
+border:2px solid #111;
+background:#111;
+color:#fff;
+padding:12px;
+font-weight:900;
+}
+
+.dark .primary{
+background:#fff;
+color:#111;
+border-color:#fff;
+}
+
+.extra{
+border-top:2px solid #111;
+margin-top:20px;
+padding-top:4px;
+}
+
+.dark .extra{
+border-color:#fff;
+}
+
+.reset{
+border:0;
+background:none;
+text-decoration:underline;
+font-size:12px;
+color:#777;
+}
+
+.dark .reset{
+color:#aaa;
+}
+
+.hidden{
+display:none!important;
+}
+
+.footer{
+font-size:11px;
+color:#999;
+text-align:center;
+margin-top:25px;
+}
+
+.modal{
+position:fixed;
+inset:0;
+background:rgba(0,0,0,.55);
+display:flex;
+align-items:center;
+justify-content:center;
+padding:20px;
+z-index:100;
+}
+
+.modal-box{
+width:100%;
+max-width:400px;
+border:2px solid #111;
+background:#fff;
+color:#111;
+padding:22px;
+}
+
+.dark .modal-box{
+background:#111;
+color:#fff;
+border-color:#fff;
+}
+
+.modal-title{
+font-size:23px;
+font-weight:1000;
+margin-bottom:10px;
+}
+
+.modal-text{
+font-size:14px;
+line-height:1.5;
+margin-bottom:18px;
+}
+
+.modal-close{
+width:100%;
+border:2px solid #111;
+background:#111;
+color:#fff;
+padding:12px;
+font-weight:900;
+}
+
+.dark .modal-close{
+background:#fff;
+color:#111;
+border-color:#fff;
+}
+
+.name-input{
+width:100%;
+border:2px solid #111;
+background:#fff;
+color:#111;
+padding:12px;
+margin-bottom:8px;
+outline:none;
+}
+
+.dark .name-input{
+background:#111;
+color:#fff;
+border-color:#fff;
+}
+
 @media(min-width:700px){
-.app{padding:28px 34px 40px}
-.main{max-width:720px;margin:0 auto}
-.skin-grid{grid-template-columns:repeat(4,1fr)}
+.app{
+padding:28px 34px 40px;
+}
+
+.main{
+max-width:720px;
+margin:0 auto;
+}
+
+.skin-grid{
+grid-template-columns:repeat(4,1fr);
+}
 }
 </style>
 </head>
+
 <body>
+
 <div class="app">
 
 <div class="top">
 <div class="brand">ogonyok</div>
-<button class="lang" id="langBtn">EN</button>
+<button class="versionBtn" id="versionBtn">v0.3 Beta</button>
 </div>
 
 <main class="main">
@@ -72,51 +471,92 @@ button{cursor:pointer}
 <div class="flame" id="flame">🔥</div>
 </div>
 
+<div class="flame-name" id="flameName">Мой огонёк</div>
 <div class="subtitle" id="subtitle">Твой огонёк горит</div>
 
 <div class="tabs">
-<button class="tab active" id="homeTab">Огонёк</button>
-<button class="tab" id="achTab">Достижения</button>
-<button class="tab" id="settingsTab">Настройки</button>
+
+<button class="tab active" id="achTab">
+Достижения
+</button>
+
+<button class="tab" id="skinsTab">
+Скины
+</button>
+
+<button class="tab" id="settingsTab">
+Настройки
+</button>
+
 </div>
 
-<section class="panel" id="homePanel">
+
+<section class="panel" id="achPanel"></section>
+
+
+<section class="panel hidden" id="skinsPanel">
+
+<div class="settings-title" id="skinsTitle">
+🎨 Скины огонька
+</div>
 
 <div class="card">
-<div class="icon">🔥</div>
+<div class="icon">👀</div>
 <div>
-<b id="streakTitle">Текущий огонёк</b>
-<span id="streakText">1 день подряд</span>
+<b id="skinsInfoTitle">Будущие скины</b>
+<span id="skinsInfo">
+Здесь видно, какие скины откроются дальше.
+</span>
 </div>
 </div>
 
-<div class="card">
-<div class="icon">📅</div>
-<div>
-<b id="startTitle">Начало</b>
-<span id="startText">—</span>
-</div>
-</div>
+<div class="skin-grid" id="skinGrid"></div>
 
 </section>
 
-<section class="panel hidden" id="achPanel"></section>
 
-<section class="panel hidden settings" id="settingsPanel">
+<section class="panel hidden" id="settingsPanel">
 
-<div class="settings-title" id="skinsTitle">🎨 Скины огонька</div>
-<div class="skin-grid" id="skinGrid"></div>
+<div class="settings-title">
+⚙️ <span id="settingsTitle">Настройки</span>
+</div>
 
-<div class="settings-title" id="transferTitle">🔥 Перенос огонька</div>
+
+<button class="setting" id="nameBtn">
+<span id="nameSetting">🔥 Название огонька</span>
+<span>→</span>
+</button>
+
+
+<button class="setting" id="languageBtn">
+<span id="languageSetting">🌐 Язык</span>
+<span id="languageValue">Русский</span>
+</button>
+
+
+<button class="setting" id="themeBtn">
+<span id="themeSetting">🌙 Тёмная тема</span>
+<span id="themeValue">Выкл.</span>
+</button>
+
+
+<div class="settings-title" id="transferTitle">
+🔥 Перенос огонька
+</div>
 
 <div class="transfer">
 
 <button class="setting" id="createCodeBtn">
-<span id="createCodeText">Создать код переноса</span>
+<span id="createCodeText">
+Создать код переноса
+</span>
 <span>→</span>
 </button>
 
-<input id="transferCode" placeholder="Введи код переноса">
+<input
+id="transferCode"
+placeholder="Введи код переноса"
+>
 
 <button class="primary" id="restoreBtn">
 Восстановить огонёк
@@ -132,16 +572,17 @@ button{cursor:pointer}
 
 </div>
 
+
 <div class="extra">
 
 <div class="settings-title" id="extraTitle">
 🔧 Дополнительные настройки
 </div>
 
-<div class="setting">
+<button class="setting" id="versionSetting">
 <span id="versionLabel">Версия</span>
-<span>v0.2 Beta</span>
-</div>
+<span>v0.3 Beta →</span>
+</button>
 
 <button class="setting" id="resetBtn">
 <span id="resetText">🗑️ Сбросить прогресс</span>
@@ -160,42 +601,208 @@ button{cursor:pointer}
 
 </div>
 
+
+<div class="modal hidden" id="versionModal">
+
+<div class="modal-box">
+
+<div class="modal-title" id="versionModalTitle">
+🔥 Ogonyok v0.3 Beta
+</div>
+
+<div class="modal-text" id="versionModalText">
+Новая версия уже доступна!<br><br>
+🌐 5 языков<br>
+🔥 Название огонька<br>
+🌙 Тёмная тема<br>
+🎨 Отдельная вкладка скинов<br>
+👀 Видны будущие скины
+</div>
+
+<button class="modal-close" id="versionClose">
+Понятно
+</button>
+
+</div>
+
+</div>
+
+
+<div class="modal hidden" id="nameModal">
+
+<div class="modal-box">
+
+<div class="modal-title" id="nameModalTitle">
+🔥 Название огонька
+</div>
+
+<input
+class="name-input"
+id="nameInput"
+maxlength="30"
+placeholder="Например: Мой огонёк"
+>
+
+<button class="modal-close" id="saveName">
+Сохранить
+</button>
+
+</div>
+
+</div>
+
+
 <script>
 
+const VERSION="0.3 Beta";
+
+
+/* ДОСТИЖЕНИЯ */
+
 const achievements=[
-{days:1,ru:"Первый огонёк",en:"First Flame"},
-{days:7,ru:"Неделя огня",en:"Week of Fire"},
-{days:30,ru:"Месяц без перерыва",en:"A Month Without a Break"},
-{days:90,ru:"Три месяца пламя",en:"Three Months of Flame"},
-{days:180,ru:"Половина года",en:"Half a Year"},
-{days:365,ru:"Год огня",en:"Year of Fire"},
-{days:720,ru:"Два года огня",en:"Two Years of Fire"},
-{days:1000,ru:"Тысячный день",en:"One Thousand Days"}
+{
+days:1,
+ru:"Первый огонёк",
+en:"First Flame"
+},
+{
+days:7,
+ru:"Неделя огня",
+en:"Week of Fire"
+},
+{
+days:30,
+ru:"Месяц без перерыва",
+en:"A Month Without a Break"
+},
+{
+days:90,
+ru:"Три месяца пламя",
+en:"Three Months of Flame"
+},
+{
+days:180,
+ru:"Половина года",
+en:"Half a Year"
+},
+{
+days:365,
+ru:"Год огня",
+en:"Year of Fire"
+},
+{
+days:720,
+ru:"Два года огня",
+en:"Two Years of Fire"
+},
+{
+days:1000,
+ru:"Тысячный день",
+en:"One Thousand Days"
+}
 ];
+
+
+/* СКИНЫ */
 
 const skins=[
-{id:"classic",days:1,icon:"🔥",ru:"Обычный",en:"Classic"},
-{id:"ice",days:7,icon:"🧊",ru:"Ледяной",en:"Ice"},
-{id:"neon",days:30,icon:"💜",ru:"Неоновый",en:"Neon"},
-{id:"electric",days:90,icon:"⚡",ru:"Электро",en:"Electric"},
-{id:"rainbow",days:180,icon:"🌈",ru:"Радужный",en:"Rainbow"},
-{id:"diamond",days:365,icon:"💎",ru:"Алмазный",en:"Diamond"},
-{id:"dark",days:720,icon:"🌑",ru:"Тёмный",en:"Dark"},
-{id:"legend",days:1000,icon:"👑",ru:"Легендарный",en:"Legendary"}
+{
+id:"classic",
+days:1,
+icon:"🔥",
+ru:"Обычный",
+en:"Classic"
+},
+{
+id:"ice",
+days:7,
+icon:"🧊",
+ru:"Ледяной",
+en:"Ice"
+},
+{
+id:"neon",
+days:30,
+icon:"💜",
+ru:"Неоновый",
+en:"Neon"
+},
+{
+id:"electric",
+days:90,
+icon:"⚡",
+ru:"Электро",
+en:"Electric"
+},
+{
+id:"rainbow",
+days:180,
+icon:"🌈",
+ru:"Радужный",
+en:"Rainbow"
+},
+{
+id:"diamond",
+days:365,
+icon:"💎",
+ru:"Алмазный",
+en:"Diamond"
+},
+{
+id:"dark",
+days:720,
+icon:"🌑",
+ru:"Тёмный",
+en:"Dark"
+},
+{
+id:"legend",
+days:1000,
+icon:"👑",
+ru:"Легендарный",
+en:"Legendary"
+}
 ];
 
-const langs=["ru","en","de","es","fr"];
+
+/* 5 ЯЗЫКОВ */
+
+const langs=[
+"ru",
+"en",
+"de",
+"es",
+"fr"
+];
+
+
+const languageNames={
+ru:"Русский",
+en:"English",
+de:"Deutsch",
+es:"Español",
+fr:"Français"
+};
+
 
 const translations={
+
 ru:{
 day:"День",
 subtitle:"Твой огонёк горит",
-flame:"Огонёк",
 ach:"Достижения",
+skins:"Скины",
 settings:"Настройки",
 current:"Текущий огонёк",
 started:"Начало",
-skins:"🎨 Скины огонька",
+skinsTitle:"🎨 Скины огонька",
+skinsInfoTitle:"Будущие скины",
+skinsInfo:"Здесь видно, какие скины откроются дальше.",
+language:"🌐 Язык",
+theme:"🌙 Тёмная тема",
+themeOn:"Вкл.",
+themeOff:"Выкл.",
+name:"🔥 Название огонька",
 transfer:"🔥 Перенос огонька",
 create:"Создать код переноса",
 restore:"Восстановить огонёк",
@@ -207,18 +814,32 @@ unlocked:"Получено",
 soon:"Скоро...",
 code:"Твой код",
 placeholder:"Введи код переноса",
-saved:"Огонёк восстановлен!"
+saved:"Огонёк восстановлен!",
+nameTitle:"🔥 Название огонька",
+nameSave:"Сохранить",
+namePlaceholder:"Например: Мой огонёк",
+days:"дн.",
+versionTitle:"🔥 Ogonyok v0.3 Beta",
+versionText:"Новая версия уже доступна!<br><br>🌐 5 языков<br>🔥 Название огонька<br>🌙 Тёмная тема<br>🎨 Отдельная вкладка скинов<br>👀 Видны будущие скины",
+close:"Понятно"
 },
 
 en:{
 day:"Day",
 subtitle:"Your flame is burning",
-flame:"Flame",
 ach:"Achievements",
+skins:"Skins",
 settings:"Settings",
 current:"Current flame",
 started:"Started",
-skins:"🎨 Flame skins",
+skinsTitle:"🎨 Flame skins",
+skinsInfoTitle:"Future skins",
+skinsInfo:"See which skins will unlock next.",
+language:"🌐 Language",
+theme:"🌙 Dark theme",
+themeOn:"On",
+themeOff:"Off",
+name:"🔥 Flame name",
 transfer:"🔥 Transfer flame",
 create:"Create transfer code",
 restore:"Restore flame",
@@ -230,18 +851,32 @@ unlocked:"Unlocked",
 soon:"Coming soon",
 code:"Your code",
 placeholder:"Enter transfer code",
-saved:"Flame restored!"
+saved:"Flame restored!",
+nameTitle:"🔥 Flame name",
+nameSave:"Save",
+namePlaceholder:"For example: My flame",
+days:"days",
+versionTitle:"🔥 Ogonyok v0.3 Beta",
+versionText:"A new version is available!<br><br>🌐 5 languages<br>🔥 Flame name<br>🌙 Dark theme<br>🎨 Separate skins tab<br>👀 Future skins are visible",
+close:"Got it"
 },
 
 de:{
 day:"Tag",
 subtitle:"Deine Flamme brennt",
-flame:"Flamme",
 ach:"Erfolge",
+skins:"Skins",
 settings:"Einstellungen",
 current:"Aktuelle Flamme",
 started:"Beginn",
-skins:"🎨 Flammen-Skins",
+skinsTitle:"🎨 Flammen-Skins",
+skinsInfoTitle:"Zukünftige Skins",
+skinsInfo:"Sieh dir an, welche Skins als Nächstes freigeschaltet werden.",
+language:"🌐 Sprache",
+theme:"🌙 Dunkles Design",
+themeOn:"An",
+themeOff:"Aus",
+name:"🔥 Flammenname",
 transfer:"🔥 Flamme übertragen",
 create:"Übertragungscode erstellen",
 restore:"Flamme wiederherstellen",
@@ -253,18 +888,32 @@ unlocked:"Freigeschaltet",
 soon:"Bald...",
 code:"Dein Code",
 placeholder:"Übertragungscode eingeben",
-saved:"Flamme wiederhergestellt!"
+saved:"Flamme wiederhergestellt!",
+nameTitle:"🔥 Flammenname",
+nameSave:"Speichern",
+namePlaceholder:"Zum Beispiel: Meine Flamme",
+days:"Tage",
+versionTitle:"🔥 Ogonyok v0.3 Beta",
+versionText:"Eine neue Version ist verfügbar!<br><br>🌐 5 Sprachen<br>🔥 Flammenname<br>🌙 Dunkles Design<br>🎨 Separater Skin-Bereich<br>👀 Zukünftige Skins sind sichtbar",
+close:"Verstanden"
 },
 
 es:{
 day:"Día",
 subtitle:"Tu llama está encendida",
-flame:"Llama",
 ach:"Logros",
+skins:"Skins",
 settings:"Ajustes",
 current:"Llama actual",
 started:"Inicio",
-skins:"🎨 Skins de llama",
+skinsTitle:"🎨 Skins de llama",
+skinsInfoTitle:"Skins futuros",
+skinsInfo:"Mira qué skins se desbloquearán después.",
+language:"🌐 Idioma",
+theme:"🌙 Tema oscuro",
+themeOn:"Sí",
+themeOff:"No",
+name:"🔥 Nombre de la llama",
 transfer:"🔥 Transferir llama",
 create:"Crear código de transferencia",
 restore:"Restaurar llama",
@@ -276,18 +925,32 @@ unlocked:"Desbloqueado",
 soon:"Próximamente...",
 code:"Tu código",
 placeholder:"Introduce el código",
-saved:"¡Llama restaurada!"
+saved:"¡Llama restaurada!",
+nameTitle:"🔥 Nombre de la llama",
+nameSave:"Guardar",
+namePlaceholder:"Por ejemplo: Mi llama",
+days:"días",
+versionTitle:"🔥 Ogonyok v0.3 Beta",
+versionText:"¡Hay una nueva versión disponible!<br><br>🌐 5 idiomas<br>🔥 Nombre de la llama<br>🌙 Tema oscuro<br>🎨 Pestaña separada de skins<br>👀 Se muestran los skins futuros",
+close:"Entendido"
 },
 
 fr:{
 day:"Jour",
 subtitle:"Ta flamme brûle",
-flame:"Flamme",
 ach:"Succès",
+skins:"Skins",
 settings:"Paramètres",
 current:"Flamme actuelle",
 started:"Début",
-skins:"🎨 Skins de flamme",
+skinsTitle:"🎨 Skins de flamme",
+skinsInfoTitle:"Skins futurs",
+skinsInfo:"Regarde quels skins seront débloqués ensuite.",
+language:"🌐 Langue",
+theme:"🌙 Thème sombre",
+themeOn:"Oui",
+themeOff:"Non",
+name:"🔥 Nom de la flamme",
 transfer:"🔥 Transférer la flamme",
 create:"Créer un code de transfert",
 restore:"Restaurer la flamme",
@@ -299,15 +962,51 @@ unlocked:"Débloqué",
 soon:"Bientôt...",
 code:"Ton code",
 placeholder:"Entre le code de transfert",
-saved:"Flamme restaurée !"
+saved:"Flamme restaurée !",
+nameTitle:"🔥 Nom de la flamme",
+nameSave:"Enregistrer",
+namePlaceholder:"Par exemple : Ma flamme",
+days:"jours",
+versionTitle:"🔥 Ogonyok v0.3 Beta",
+versionText:"Une nouvelle version est disponible !<br><br>🌐 5 langues<br>🔥 Nom de la flamme<br>🌙 Thème sombre<br>🎨 Onglet séparé des skins<br>👀 Les futurs skins sont visibles",
+close:"Compris"
 }
+
 };
+
+
+/*
+ВАЖНО:
+ИСПОЛЬЗУЕМ СТАРЫЙ КЛЮЧ flameData.
+ЭТО СОХРАНЯЕТ СТАРЫЙ ПРОГРЕСС.
+*/
 
 let lang=localStorage.getItem("flameLang")||"ru";
 
-if(!langs.includes(lang))lang="ru";
+if(!langs.includes(lang)){
+lang="ru";
+}
 
-let data=JSON.parse(localStorage.getItem("flameData")||"null");
+
+let data;
+
+try{
+
+data=JSON.parse(
+localStorage.getItem("flameData")||"null"
+);
+
+}catch(e){
+
+data=null;
+
+}
+
+
+/*
+ЕСЛИ СТАРЫЕ ДАННЫЕ ЕСТЬ —
+НИЧЕГО НЕ СБРАСЫВАЕМ.
+*/
 
 if(!data){
 
@@ -315,18 +1014,40 @@ data={
 days:1,
 lastVisit:dateKey(new Date()),
 started:dateKey(new Date()),
-skin:"classic"
+skin:"classic",
+name:"Мой огонёк"
 };
 
 save();
 
 }else{
 
-if(!data.skin)data.skin="classic";
+if(typeof data.days!=="number"||data.days<1){
+data.days=1;
+}
+
+if(!data.lastVisit){
+data.lastVisit=dateKey(new Date());
+}
+
+if(!data.started){
+data.started=dateKey(new Date());
+}
+
+if(!data.skin){
+data.skin="classic";
+}
+
+if(!data.name){
+data.name="Мой огонёк";
+}
 
 updateStreak();
 
 }
+
+
+/* ДАТА */
 
 function dateKey(d){
 
@@ -334,27 +1055,49 @@ return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,"0")}-${String(d.
 
 }
 
+
+/* СОХРАНЕНИЕ */
+
 function save(){
 
-localStorage.setItem("flameData",JSON.stringify(data));
+localStorage.setItem(
+"flameData",
+JSON.stringify(data)
+);
 
 }
+
+
+/*
+СЧЁТЧИК.
+ПРИ ОБНОВЛЕНИИ СТРАНИЦЫ В ТОТ ЖЕ ДЕНЬ
+ЧИСЛО НЕ МЕНЯЕТСЯ.
+*/
 
 function updateStreak(){
 
 const today=new Date();
 
-const last=new Date(data.lastVisit+"T00:00:00");
+const todayKey=dateKey(today);
 
-const now=new Date(dateKey(today)+"T00:00:00");
+const last=new Date(
+data.lastVisit+"T00:00:00"
+);
 
-const diff=Math.round((now-last)/86400000);
+const now=new Date(
+todayKey+"T00:00:00"
+);
+
+const diff=Math.round(
+(now-last)/86400000
+);
+
 
 if(diff===1){
 
 data.days++;
 
-data.lastVisit=dateKey(today);
+data.lastVisit=todayKey;
 
 save();
 
@@ -362,11 +1105,16 @@ save();
 
 else if(diff>1){
 
+/*
+Если пользователь пропустил день,
+старое поведение сохраняется.
+*/
+
 data.days=1;
 
-data.lastVisit=dateKey(today);
+data.lastVisit=todayKey;
 
-data.started=dateKey(today);
+data.started=todayKey;
 
 data.skin="classic";
 
@@ -376,26 +1124,19 @@ save();
 
 }
 
+
+/* ПЕРЕВОД */
+
 function t(key){
 
-return translations[lang][key]||translations.en[key]||key;
+return translations[lang][key]||
+translations.en[key]||
+key;
 
 }
 
-function dayWord(n){
 
-if(lang==="ru")
-return n===1?"день подряд":n<5?"дня подряд":"дней подряд";
-
-if(lang==="de")return"Tage in Folge";
-
-if(lang==="es")return"días seguidos";
-
-if(lang==="fr")return"jours d’affilée";
-
-return"days in a row";
-
-}
+/* НАЗВАНИЕ СКИНА */
 
 function skinName(s){
 
@@ -403,98 +1144,231 @@ return lang==="ru"?s.ru:s.en;
 
 }
 
+
+/* ДНИ */
+
+function dayWord(n){
+
+if(lang==="ru"){
+
+if(n===1)return"день подряд";
+
+if(n<5)return"дня подряд";
+
+return"дней подряд";
+
+}
+
+return t("days");
+
+}
+
+
+/* ТЕМА */
+
+function applyTheme(){
+
+const dark=
+localStorage.getItem("ogonyokDark")==="true";
+
+document.body.classList.toggle(
+"dark",
+dark
+);
+
+document.getElementById("themeValue").textContent=
+dark?t("themeOn"):t("themeOff");
+
+}
+
+
+/* РЕНДЕР */
+
 function render(){
 
 document.documentElement.lang=lang;
 
-document.getElementById("langBtn").textContent=lang==="ru"?"EN":"RU";
 
-document.getElementById("dayLabel").textContent=t("day");
+/* верх */
 
-document.getElementById("dayNumber").textContent=data.days;
+document.getElementById("dayLabel").textContent=
+t("day");
 
-document.getElementById("subtitle").textContent=t("subtitle");
+document.getElementById("dayNumber").textContent=
+data.days;
 
-document.getElementById("homeTab").textContent=t("flame");
+document.getElementById("subtitle").textContent=
+t("subtitle");
 
-document.getElementById("achTab").textContent=t("ach");
+document.getElementById("flameName").textContent=
+data.name;
 
-document.getElementById("settingsTab").textContent=t("settings");
 
-document.getElementById("streakTitle").textContent=t("current");
+/* вкладки */
 
-document.getElementById("streakText").textContent=data.days+" "+dayWord(data.days);
+document.getElementById("achTab").textContent=
+t("ach");
 
-document.getElementById("startTitle").textContent=t("started");
+document.getElementById("skinsTab").textContent=
+t("skins");
 
-document.getElementById("startText").textContent=data.started;
+document.getElementById("settingsTab").textContent=
+t("settings");
 
-document.getElementById("footer").textContent=t("stored");
 
-document.getElementById("skinsTitle").textContent=t("skins");
+/* настройки */
 
-document.getElementById("transferTitle").textContent=t("transfer");
+document.getElementById("settingsTitle").textContent=
+t("settings");
 
-document.getElementById("createCodeText").textContent=t("create");
+document.getElementById("nameSetting").textContent=
+t("name");
 
-document.getElementById("restoreBtn").textContent=t("restore");
+document.getElementById("languageSetting").textContent=
+t("language");
 
-document.getElementById("extraTitle").textContent=t("extra");
+document.getElementById("languageValue").textContent=
+languageNames[lang];
 
-document.getElementById("versionLabel").textContent=t("version");
+document.getElementById("themeSetting").textContent=
+t("theme");
 
-document.getElementById("resetText").textContent=t("reset");
+document.getElementById("skinsTitle").textContent=
+t("skinsTitle");
 
-document.getElementById("codeLabel").textContent=t("code");
+document.getElementById("skinsInfoTitle").textContent=
+t("skinsInfoTitle");
 
-document.getElementById("transferCode").placeholder=t("placeholder");
+document.getElementById("skinsInfo").textContent=
+t("skinsInfo");
 
-const current=skins.find(s=>s.id===data.skin)||skins[0];
+document.getElementById("transferTitle").textContent=
+t("transfer");
 
-document.getElementById("flame").textContent=current.icon;
+document.getElementById("createCodeText").textContent=
+t("create");
 
-const panel=document.getElementById("achPanel");
+document.getElementById("restoreBtn").textContent=
+t("restore");
+
+document.getElementById("extraTitle").textContent=
+t("extra");
+
+document.getElementById("versionLabel").textContent=
+t("version");
+
+document.getElementById("resetText").textContent=
+t("reset");
+
+document.getElementById("codeLabel").textContent=
+t("code");
+
+document.getElementById("transferCode").placeholder=
+t("placeholder");
+
+document.getElementById("footer").textContent=
+t("stored");
+
+
+/* выбранный скин */
+
+const current=
+skins.find(s=>s.id===data.skin)||skins[0];
+
+document.getElementById("flame").textContent=
+current.icon;
+
+
+/* ДОСТИЖЕНИЯ */
+
+const panel=
+document.getElementById("achPanel");
 
 panel.innerHTML="";
 
 achievements.forEach(a=>{
 
-const unlocked=data.days>=a.days;
+const unlocked=
+data.days>=a.days;
 
-const percent=Math.min(100,Math.round(data.days/a.days*100));
+const percent=
+Math.min(
+100,
+Math.round(data.days/a.days*100)
+);
 
-const card=document.createElement("div");
+const card=
+document.createElement("div");
 
-card.className="card "+(unlocked?"":"locked");
+card.className=
+"card "+(unlocked?"":"locked");
 
 card.innerHTML=`
-<div class="icon">${unlocked?"🔥":"🔒"}</div>
+
+<div class="icon">
+${unlocked?"🔥":"🔒"}
+</div>
+
 <div style="flex:1">
-<b>${a.days} ${lang==="ru"?"дн.":"days"} — ${lang==="ru"?a.ru:a.en}</b>
-<span>${unlocked?t("unlocked"):t("soon")}</span>
-<div class="progress"><i style="width:${percent}%"></i></div>
-</div>`;
+
+<b>
+${a.days}
+${lang==="ru"?"дн.":"days"}
+—
+${lang==="ru"?a.ru:a.en}
+</b>
+
+<span>
+${unlocked?t("unlocked"):t("soon")}
+</span>
+
+<div class="progress">
+<i style="width:${percent}%"></i>
+</div>
+
+</div>
+`;
 
 panel.appendChild(card);
 
 });
 
-const grid=document.getElementById("skinGrid");
+
+/* СКИНЫ */
+
+const grid=
+document.getElementById("skinGrid");
 
 grid.innerHTML="";
 
 skins.forEach(s=>{
 
-const unlocked=data.days>=s.days;
+const unlocked=
+data.days>=s.days;
 
-const b=document.createElement("button");
+const b=
+document.createElement("button");
 
-b.className="skin "+(unlocked?"":"locked")+" "+(data.skin===s.id?"selected":"");
+b.className=
+"skin "+
+(unlocked?"":"locked")+" "+
+(data.skin===s.id?"selected":"");
 
 b.innerHTML=`
-<div style="font-size:30px">${unlocked?s.icon:"🔒"}</div>
-<div>${skinName(s)}</div>
-<small>${s.days} ${lang==="ru"?"дн.":"days"}</small>`;
+
+<div style="font-size:30px">
+${unlocked?s.icon:"🔒"}
+</div>
+
+<div>
+${skinName(s)}
+</div>
+
+<small>
+${s.days}
+${lang==="ru"?"дн.":"days"}
+</small>
+`;
 
 b.disabled=!unlocked;
 
@@ -516,104 +1390,398 @@ grid.appendChild(b);
 
 });
 
+
+/* ТЕМА */
+
+applyTheme();
+
 }
+
+
+/* ПЕРЕКЛЮЧЕНИЕ ВКЛАДОК */
 
 function showPanel(which){
 
-["homePanel","achPanel","settingsPanel"].forEach(id=>
-document.getElementById(id).classList.add("hidden")
-);
+[
+"achPanel",
+"skinsPanel",
+"settingsPanel"
+].forEach(id=>{
 
-["homeTab","achTab","settingsTab"].forEach(id=>
-document.getElementById(id).classList.remove("active")
-);
+document
+.getElementById(id)
+.classList.add("hidden");
 
-document.getElementById(which+"Panel").classList.remove("hidden");
+});
 
-document.getElementById(which+"Tab").classList.add("active");
+
+[
+"achTab",
+"skinsTab",
+"settingsTab"
+].forEach(id=>{
+
+document
+.getElementById(id)
+.classList.remove("active");
+
+});
+
+
+document
+.getElementById(which+"Panel")
+.classList.remove("hidden");
+
+document
+.getElementById(which+"Tab")
+.classList.add("active");
 
 }
 
-document.getElementById("langBtn").onclick=()=>{
+
+/* ДОСТИЖЕНИЯ */
+
+document.getElementById(
+"achTab"
+).onclick=()=>showPanel("ach");
+
+
+/* СКИНЫ */
+
+document.getElementById(
+"skinsTab"
+).onclick=()=>showPanel("skins");
+
+
+/* НАСТРОЙКИ */
+
+document.getElementById(
+"settingsTab"
+).onclick=()=>showPanel("settings");
+
+
+/* ЯЗЫК */
+
+document.getElementById(
+"languageBtn"
+).onclick=()=>{
 
 const i=langs.indexOf(lang);
 
-lang=langs[(i+1)%langs.length];
+lang=
+langs[(i+1)%langs.length];
 
-localStorage.setItem("flameLang",lang);
+localStorage.setItem(
+"flameLang",
+lang
+);
 
 render();
 
 };
 
-document.getElementById("homeTab").onclick=()=>showPanel("home");
 
-document.getElementById("achTab").onclick=()=>showPanel("ach");
+/* ТЁМНАЯ ТЕМА */
 
-document.getElementById("settingsTab").onclick=()=>showPanel("settings");
+document.getElementById(
+"themeBtn"
+).onclick=()=>{
+
+const current=
+localStorage.getItem("ogonyokDark")==="true";
+
+localStorage.setItem(
+"ogonyokDark",
+String(!current)
+);
+
+applyTheme();
+
+};
+
+
+/* НАЗВАНИЕ ОГОНЬКА */
+
+document.getElementById(
+"nameBtn"
+).onclick=()=>{
+
+document.getElementById(
+"nameInput"
+).value=data.name;
+
+document.getElementById(
+"nameModal"
+).classList.remove("hidden");
+
+};
+
+
+/* СОХРАНИТЬ НАЗВАНИЕ */
+
+document.getElementById(
+"saveName"
+).onclick=()=>{
+
+const value=
+document.getElementById(
+"nameInput"
+).value.trim();
+
+if(value){
+
+data.name=value;
+
+save();
+
+render();
+
+}
+
+document.getElementById(
+"nameModal"
+).classList.add("hidden");
+
+};
+
+
+/* ENTER В НАЗВАНИИ */
+
+document.getElementById(
+"nameInput"
+).addEventListener(
+"keydown",
+e=>{
+
+if(e.key==="Enter"){
+
+document.getElementById(
+"saveName"
+).click();
+
+}
+
+}
+);
+
+
+/* ВЕРСИЯ */
+
+function openVersion(){
+
+document.getElementById(
+"versionModalTitle"
+).textContent=
+t("versionTitle");
+
+document.getElementById(
+"versionModalText"
+).innerHTML=
+t("versionText");
+
+document.getElementById(
+"versionClose"
+).textContent=
+t("close");
+
+document.getElementById(
+"versionModal"
+).classList.remove("hidden");
+
+}
+
+
+document.getElementById(
+"versionBtn"
+).onclick=openVersion;
+
+document.getElementById(
+"versionSetting"
+).onclick=openVersion;
+
+document.getElementById(
+"versionClose"
+).onclick=()=>{
+
+document.getElementById(
+"versionModal"
+).classList.add("hidden");
+
+};
+
+
+/* ЗАКРЫТИЕ МОДАЛОК */
+
+document.getElementById(
+"nameModal"
+).addEventListener(
+"click",
+e=>{
+
+if(e.target.id==="nameModal"){
+
+e.currentTarget.classList.add(
+"hidden"
+);
+
+}
+
+});
+
+document.getElementById(
+"versionModal"
+).addEventListener(
+"click",
+e=>{
+
+if(e.target.id==="versionModal"){
+
+e.currentTarget.classList.add(
+"hidden"
+);
+
+}
+
+});
+
+
+/* КОД ПЕРЕНОСА */
 
 function encodeData(obj){
 
-const json=JSON.stringify(obj);
+const json=
+JSON.stringify(obj);
 
-return btoa(unescape(encodeURIComponent(json))).replace(/=/g,"");
+return btoa(
+unescape(
+encodeURIComponent(json)
+)
+).replace(/=/g,"");
 
 }
+
 
 function decodeData(code){
 
-const padded=code+"=".repeat((4-code.length%4)%4);
+const padded=
+code+
+"=".repeat(
+(4-code.length%4)%4
+);
 
-return JSON.parse(decodeURIComponent(escape(atob(padded))));
+return JSON.parse(
+decodeURIComponent(
+escape(
+atob(padded)
+)
+)
+);
 
 }
 
-document.getElementById("createCodeBtn").onclick=()=>{
+
+/* СОЗДАТЬ КОД */
+
+document.getElementById(
+"createCodeBtn"
+).onclick=()=>{
 
 const transferable={
+
 days:data.days,
+
 lastVisit:data.lastVisit,
+
 started:data.started,
-skin:data.skin
-};
 
-const code=encodeData(transferable);
+skin:data.skin,
 
-document.getElementById("codeValue").textContent=code;
-
-document.getElementById("codeBox").classList.remove("hidden");
-
-if(navigator.clipboard)
-navigator.clipboard.writeText(code).catch(()=>{});
+name:data.name
 
 };
 
-document.getElementById("restoreBtn").onclick=()=>{
+const code=
+encodeData(transferable);
+
+document.getElementById(
+"codeValue"
+).textContent=code;
+
+document.getElementById(
+"codeBox"
+).classList.remove("hidden");
+
+if(navigator.clipboard){
+
+navigator.clipboard
+.writeText(code)
+.catch(()=>{});
+
+}
+
+};
+
+
+/* ВОССТАНОВИТЬ */
+
+document.getElementById(
+"restoreBtn"
+).onclick=()=>{
 
 try{
 
-const restored=decodeData(
-document.getElementById("transferCode").value.trim()
+const restored=
+decodeData(
+document
+.getElementById("transferCode")
+.value
+.trim()
 );
 
-if(!restored||
+if(
+!restored||
 typeof restored.days!=="number"||
 !restored.started||
-!restored.lastVisit)
+!restored.lastVisit
+){
+
 throw new Error();
 
+}
+
+
 data={
-days:Math.max(1,Math.floor(restored.days)),
+
+days:Math.max(
+1,
+Math.floor(restored.days)
+),
+
 lastVisit:restored.lastVisit,
+
 started:restored.started,
-skin:restored.skin||"classic"
+
+skin:restored.skin||"classic",
+
+name:restored.name||"Мой огонёк"
+
 };
 
+
+const selected=
+skins.find(
+s=>s.id===data.skin
+);
+
 if(
-!skins.some(s=>s.id===data.skin)||
-data.days<skins.find(s=>s.id===data.skin).days
-)
+!selected||
+data.days<selected.days
+){
+
 data.skin="classic";
+
+}
+
 
 save();
 
@@ -629,15 +1797,29 @@ alert("Invalid transfer code");
 
 };
 
-document.getElementById("resetBtn").onclick=()=>{
+
+/* СБРОС */
+
+document.getElementById(
+"resetBtn"
+).onclick=()=>{
 
 if(confirm(
+
 lang==="ru"
 ?"Сбросить весь прогресс?"
 :"Reset all progress?"
+
 )){
 
-localStorage.removeItem("flameData");
+/*
+ТОЛЬКО ПРИ ЯВНОМ НАЖАТИИ
+ПРОГРЕСС УДАЛЯЕТСЯ.
+*/
+
+localStorage.removeItem(
+"flameData"
+);
 
 location.reload();
 
@@ -645,8 +1827,19 @@ location.reload();
 
 };
 
+
+/* ЗАПУСК */
+
 render();
 
+/*
+НА СТАРТЕ ОТКРЫВАЕМ ДОСТИЖЕНИЯ,
+НО ПРОГРЕСС НЕ ТРОГАЕМ.
+*/
+
+showPanel("ach");
+
 </script>
+
 </body>
 </html>
