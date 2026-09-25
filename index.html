@@ -14,23 +14,11 @@ min-height:100%;
 font-family:Arial,Helvetica,sans-serif;
 background:#fff;
 color:#111;
-transition:.2s;
 }
 
-body.dark{
-background:#111;
-color:#fff;
-}
-
-body.birthday{
-background:#fff4fb;
-}
-
-body.dark.birthday{
-background:#160f16;
-}
-
-body{display:flex;justify-content:center}
+body.dark{background:#111;color:#fff}
+body.birthday{background:#fff4fb}
+body.dark.birthday{background:#160f16}
 
 button,input{font:inherit}
 button{cursor:pointer}
@@ -40,8 +28,7 @@ width:100%;
 max-width:920px;
 min-height:100vh;
 padding:20px 18px 34px;
-display:flex;
-flex-direction:column;
+margin:auto;
 }
 
 .top{
@@ -72,7 +59,6 @@ border-color:#fff;
 
 .main{
 text-align:center;
-flex:1;
 display:flex;
 flex-direction:column;
 align-items:center;
@@ -104,7 +90,6 @@ justify-content:center;
 .flame{
 font-size:190px;
 line-height:1;
-filter:drop-shadow(0 7px 10px rgba(255,115,0,.18));
 animation:flicker 1.7s ease-in-out infinite;
 position:relative;
 z-index:1;
@@ -119,7 +104,6 @@ border-radius:50%;
 background:#ff9b00;
 opacity:.22;
 filter:blur(18px);
-z-index:0;
 }
 
 @keyframes flicker{
@@ -141,6 +125,26 @@ margin-top:10px;
 
 .dark .subtitle{color:#aaa}
 
+.birthday-cake{
+margin-top:18px;
+border:2px solid #111;
+background:#fff;
+padding:10px 18px;
+font-size:28px;
+animation:cake 1.2s infinite;
+}
+
+.dark .birthday-cake{
+background:#111;
+color:#fff;
+border-color:#fff;
+}
+
+@keyframes cake{
+0%,100%{transform:scale(1)}
+50%{transform:scale(1.08) rotate(2deg)}
+}
+
 .tabs{
 display:flex;
 gap:8px;
@@ -153,7 +157,7 @@ flex:1;
 border:2px solid #111;
 background:#fff;
 color:#111;
-padding:12px 8px;
+padding:12px 6px;
 font-weight:900;
 }
 
@@ -179,6 +183,8 @@ margin-top:14px;
 text-align:left;
 }
 
+.hidden{display:none!important}
+
 .card{
 border:2px solid #111;
 padding:15px;
@@ -186,9 +192,11 @@ margin-bottom:10px;
 display:flex;
 align-items:center;
 gap:12px;
+background:#fff;
 }
 
 .dark .card{
+background:#111;
 border-color:#fff;
 }
 
@@ -212,25 +220,63 @@ margin-top:4px;
 
 .dark .card span{color:#aaa}
 
+.achievement{
+border:2px solid #111;
+padding:16px;
+margin-bottom:10px;
+background:#fff;
+}
+
+.dark .achievement{
+background:#111;
+border-color:#fff;
+}
+
+.achievement-head{
+display:flex;
+gap:12px;
+align-items:center;
+}
+
+.achievement-icon{
+font-size:30px;
+width:42px;
+text-align:center;
+}
+
+.achievement-title{
+font-size:17px;
+font-weight:1000;
+}
+
+.achievement-status{
+font-size:12px;
+margin-top:4px;
+color:#666;
+}
+
+.dark .achievement-status{color:#aaa}
+
+.achievement.locked{
+opacity:.42;
+}
+
 .progress{
 height:7px;
 border:2px solid #111;
-margin-top:8px;
+margin-top:10px;
 overflow:hidden;
 }
 
 .dark .progress{border-color:#fff}
 
-.progress>i{
+.progress i{
 display:block;
 height:100%;
 background:#111;
-width:0;
 }
 
-.dark .progress>i{background:#fff}
-
-.locked{opacity:.4}
+.dark .progress i{background:#fff}
 
 .settings-title{
 font-size:20px;
@@ -262,14 +308,13 @@ border-color:#fff;
 display:grid;
 grid-template-columns:repeat(2,1fr);
 gap:8px;
-width:100%;
 }
 
 .skin{
 border:2px solid #111;
 background:#fff;
 color:#111;
-padding:12px;
+padding:16px 8px;
 text-align:center;
 font-weight:900;
 }
@@ -297,7 +342,8 @@ display:grid;
 gap:8px;
 }
 
-.transfer input{
+.transfer input,
+.name-input{
 width:100%;
 border:2px solid #111;
 background:#fff;
@@ -306,7 +352,8 @@ padding:12px;
 outline:none;
 }
 
-.dark .transfer input{
+.dark .transfer input,
+.dark .name-input{
 background:#111;
 color:#fff;
 border-color:#fff;
@@ -344,8 +391,6 @@ color:#777;
 
 .dark .reset{color:#aaa}
 
-.hidden{display:none!important}
-
 .footer{
 font-size:11px;
 color:#999;
@@ -361,12 +406,14 @@ display:flex;
 align-items:center;
 justify-content:center;
 padding:20px;
-z-index:100;
+z-index:10000;
 }
 
 .modal-box{
 width:100%;
-max-width:400px;
+max-width:500px;
+max-height:90vh;
+overflow:auto;
 border:2px solid #111;
 background:#fff;
 color:#111;
@@ -406,40 +453,124 @@ color:#111;
 border-color:#fff;
 }
 
-.name-input{
+.help-card{
+border:2px solid #111;
+padding:15px;
+margin:10px 0;
+background:#fff;
+}
+
+.dark .help-card{
+background:#111;
+border-color:#fff;
+}
+
+.help-card h3{
+margin:0 0 8px;
+}
+
+.help-card p{
+line-height:1.5;
+margin:0;
+}
+
+.event-card{
+border:2px solid #111;
+padding:16px;
+margin-bottom:10px;
+background:#fff;
+}
+
+.dark .event-card{
+background:#111;
+border-color:#fff;
+}
+
+.event-card b{
+font-size:18px;
+}
+
+.event-action{
 width:100%;
+padding:13px;
+margin-top:10px;
+border:2px solid #111;
+background:#111;
+color:#fff;
+font-weight:900;
+}
+
+.dark .event-action{
+background:#fff;
+color:#111;
+border-color:#fff;
+}
+
+.event-item-layer{
+position:fixed;
+inset:0;
+z-index:9000;
+pointer-events:none;
+}
+
+.event-item{
+position:absolute;
+pointer-events:auto;
+border:0;
+background:transparent;
+font-size:34px;
+padding:0;
+animation:eventPop .18s ease;
+}
+
+.event-item .robot-hp{
+display:block;
+font-size:11px;
+font-weight:900;
+text-align:center;
+}
+
+@keyframes eventPop{
+from{transform:scale(.2);opacity:0}
+to{transform:scale(1);opacity:1}
+}
+
+.event-toast{
+position:fixed;
+left:50%;
+top:18px;
+transform:translateX(-50%);
+z-index:10001;
 border:2px solid #111;
 background:#fff;
 color:#111;
-padding:12px;
-margin-bottom:8px;
-outline:none;
+padding:12px 16px;
+font-weight:900;
+text-align:center;
+box-shadow:5px 5px 0 #111;
 }
 
-.dark .name-input{
+.dark .event-toast{
 background:#111;
 color:#fff;
 border-color:#fff;
+box-shadow:5px 5px 0 #fff;
 }
 
-.birthday-cake{
-margin-top:18px;
-border:2px solid #111;
-background:#fff;
-padding:10px 18px;
-font-size:28px;
-animation:cake 1.2s infinite;
+.confetti{
+position:fixed;
+top:-20px;
+font-size:22px;
+z-index:9999;
+animation:fall 2.5s linear forwards;
+pointer-events:none;
 }
 
-.dark .birthday-cake{
-background:#111;
-color:#fff;
-border-color:#fff;
+@keyframes fall{
+to{
+transform:translateY(110vh) rotate(720deg);
+opacity:0;
 }
-
-@keyframes cake{
-0%,100%{transform:scale(1)}
-50%{transform:scale(1.08) rotate(2deg)}
 }
 
 .birthday .flame{
@@ -478,41 +609,9 @@ border-color:#fff;
 opacity:.45;
 }
 
-.birthday-skin{
-background:#fff0f7;
-}
-
-.dark .birthday-skin{
-background:#21121d;
-}
-
-.confetti{
-position:fixed;
-top:-20px;
-font-size:22px;
-z-index:999;
-animation:fall 2.5s linear forwards;
-pointer-events:none;
-}
-
-@keyframes fall{
-to{
-transform:translateY(110vh) rotate(720deg);
-opacity:0;
-}
-}
-
 @media(min-width:700px){
-.app{
-padding:28px 34px 40px;
-}
-.main{
-max-width:720px;
-margin:0 auto;
-}
-.skin-grid{
-grid-template-columns:repeat(4,1fr);
-}
+.app{padding:28px 34px 40px}
+.skin-grid{grid-template-columns:repeat(4,1fr)}
 }
 </style>
 </head>
@@ -539,23 +638,14 @@ grid-template-columns:repeat(4,1fr);
 <div class="flame-name" id="flameName">Мой огонёк</div>
 <div class="subtitle" id="subtitle">Твой огонёк горит</div>
 
-<button id="birthdayCake" class="birthday-cake">
-🎂
-</button>
+<button id="birthdayCake" class="birthday-cake">🎂</button>
 
 <div class="tabs">
 
-<button class="tab active" id="achTab">
-Достижения
-</button>
-
-<button class="tab" id="skinsTab">
-Скины
-</button>
-
-<button class="tab" id="settingsTab">
-Настройки
-</button>
+<button class="tab active" id="achTab">Достижения</button>
+<button class="tab" id="skinsTab">Скины</button>
+<button class="tab" id="settingsTab">Настройки</button>
+<button class="tab" id="eventTab">Ивент</button>
 
 </div>
 
@@ -563,94 +653,109 @@ grid-template-columns:repeat(4,1fr);
 
 <section class="panel hidden" id="skinsPanel">
 
-<div class="settings-title">
-🎨 <span id="skinsTitle">Скины огонька</span>
-</div>
-
-<div class="card">
-<div class="icon">👀</div>
-<div>
-<b id="skinsInfoTitle">Будущие скины</b>
-<span id="skinsInfo">
-Здесь видно, какие скины откроются дальше.
-</span>
-</div>
-</div>
+<div class="settings-title">🎨 Скины огонька</div>
 
 <div class="skin-grid" id="skinGrid"></div>
 
 </section>
 
-<section class="panel hidden" id="settingsPanel">
+<section class="panel hidden" id="eventPanel">
 
-<div class="settings-title">
-⚙️ <span id="settingsTitle">Настройки</span>
+<div class="settings-title">🎉 Ивенты</div>
+
+<div id="eventInfo"></div>
+
+<div class="event-card">
+<b>🏆 Ачивки ивентов</b>
+<div id="eventAchievements"></div>
 </div>
 
+<div class="event-card">
+<b>⚙️ Детали роботов</b>
+<div id="partsCount">Детали: 0</div>
+<button class="event-action" id="exchangePartsBtn">
+Обменять 10 деталей
+</button>
+</div>
+
+</section>
+
+<section class="panel hidden" id="settingsPanel">
+
+<div class="settings-title">⚙️ Настройки</div>
+
 <button class="setting" id="nameBtn">
-<span id="nameSetting">🔥 Название огонька</span>
+<span>🔥 Название огонька</span>
 <span>→</span>
 </button>
 
 <button class="setting" id="languageBtn">
-<span id="languageSetting">🌐 Язык</span>
+<span>🌐 Язык</span>
 <span id="languageValue">Русский</span>
 </button>
 
 <button class="setting" id="themeBtn">
-<span id="themeSetting">🌙 Тёмная тема</span>
+<span>🌙 Тёмная тема</span>
 <span id="themeValue">Выкл.</span>
 </button>
 
-<div class="settings-title">
-🎂 День рождения
-</div>
-
-<button class="candy" id="candy3">
-🍬 Секретная конфета №3
-</button>
-
-<div class="settings-title" id="transferTitle">
-🔥 Перенос огонька
-</div>
-
-<div class="transfer">
-
-<button class="setting" id="createCodeBtn">
-<span id="createCodeText">Создать код переноса</span>
+<button class="setting" id="helpBtn">
+<span>📖 Справка</span>
 <span>→</span>
 </button>
 
-<input id="transferCode" placeholder="Введи код переноса">
+<div class="settings-title">🎂 День рождения</div>
 
-<button class="primary" id="restoreBtn">
-Восстановить огонёк
+<div class="birthday-card">
+
+<b>Секретные конфеты</b>
+
+<p>
+Найди все 5 конфет.
+</p>
+
+<div id="candies"></div>
+
+</div>
+
+<div class="settings-title">📦 Перенос огонька</div>
+
+<div class="transfer">
+
+<button class="primary" id="createCodeBtn">
+Создать код
 </button>
 
-<div class="card hidden" id="codeBox">
-<div class="icon">📦</div>
-<div>
-<b id="codeLabel">Твой код</b>
-<span id="codeValue"></span>
+<div id="codeBox" class="hidden">
+
+<input id="codeValue" readonly>
+
 </div>
-</div>
+
+<input
+id="transferCode"
+placeholder="Вставь код"
+>
+
+<button class="primary" id="restoreBtn">
+Восстановить
+</button>
 
 </div>
 
 <div class="extra">
 
-<div class="settings-title" id="extraTitle">
-🔧 Дополнительные настройки
+<div class="settings-title">Дополнительно</div>
+
+<div class="card">
+<div>
+<b>Ogonyok</b>
+<span>v0.3 Beta</span>
+</div>
 </div>
 
-<button class="setting" id="versionSetting">
-<span id="versionLabel">Версия</span>
-<span>v0.3 Beta →</span>
-</button>
-
-<button class="setting" id="resetBtn">
-<span id="resetText">🗑️ Сбросить прогресс</span>
-<span>→</span>
+<button class="reset" id="resetBtn">
+Сбросить прогресс
 </button>
 
 </div>
@@ -659,357 +764,27 @@ grid-template-columns:repeat(4,1fr);
 
 </main>
 
-<div class="footer" id="footer">
-Прогресс хранится только на этом устройстве.
+<div class="footer">
+Ogonyok
 </div>
 
 </div>
-
-
-<div class="modal hidden" id="versionModal">
-
-<div class="modal-box">
-
-<div class="modal-title" id="versionModalTitle">
-🔥 Ogonyok v0.3 Beta
-</div>
-
-<div class="modal-text" id="versionModalText">
-Новая версия уже доступна!
-</div>
-
-<button class="candy" id="candy4">
-🍬 Секретная конфета №4
-</button>
-
-<button class="modal-close" id="versionClose">
-Понятно
-</button>
-
-</div>
-
-</div>
-
-
-<div class="modal hidden" id="nameModal">
-
-<div class="modal-box">
-
-<div class="modal-title">
-🔥 Название огонька
-</div>
-
-<input
-class="name-input"
-id="nameInput"
-maxlength="30"
-placeholder="Например: Мой огонёк"
->
-
-<button class="modal-close" id="saveName">
-Сохранить
-</button>
-
-</div>
-
-</div>
-
 
 <script>
 
-const VERSION="0.3 Beta";
-
-
-/* =========================
-   СТАРЫЕ ДОСТИЖЕНИЯ
-========================= */
-
-const achievements=[
-{days:1,ru:"Первый огонёк",en:"First Flame"},
-{days:7,ru:"Неделя огня",en:"Week of Fire"},
-{days:30,ru:"Месяц без перерыва",en:"A Month Without a Break"},
-{days:90,ru:"Три месяца пламя",en:"Three Months of Flame"},
-{days:180,ru:"Половина года",en:"Half a Year"},
-{days:365,ru:"Год огня",en:"Year of Fire"},
-{days:720,ru:"Два года огня",en:"Two Years of Fire"},
-{days:1000,ru:"Тысячный день",en:"One Thousand Days"}
-];
-
-
-/* =========================
-   СКИНЫ
-========================= */
-
-const skins=[
-{
-id:"classic",
-days:1,
-icon:"🔥",
-ru:"Обычный",
-en:"Classic"
-},
-{
-id:"ice",
-days:7,
-icon:"🧊",
-ru:"Ледяной",
-en:"Ice"
-},
-{
-id:"neon",
-days:30,
-icon:"💜",
-ru:"Неоновый",
-en:"Neon"
-},
-{
-id:"electric",
-days:90,
-icon:"⚡",
-ru:"Электро",
-en:"Electric"
-},
-{
-id:"rainbow",
-days:180,
-icon:"🌈",
-ru:"Радужный",
-en:"Rainbow"
-},
-{
-id:"diamond",
-days:365,
-icon:"💎",
-ru:"Алмазный",
-en:"Diamond"
-},
-{
-id:"dark",
-days:720,
-icon:"🌑",
-ru:"Тёмный",
-en:"Dark"
-},
-{
-id:"legend",
-days:1000,
-icon:"👑",
-ru:"Легендарный",
-en:"Legendary"
-},
-{
-id:"birthday",
-days:0,
-icon:"🎂",
-ru:"День рождения",
-en:"Birthday",
-special:true
-}
-];
-
-
-/* =========================
-   ЯЗЫКИ
-========================= */
-
-const langs=["ru","en","de","es","fr"];
-
-const languageNames={
-ru:"Русский",
-en:"English",
-de:"Deutsch",
-es:"Español",
-fr:"Français"
-};
-
-const translations={
-
-ru:{
-day:"День",
-subtitle:"Твой огонёк горит",
-ach:"Достижения",
-skins:"Скины",
-settings:"Настройки",
-skinsTitle:"Скины огонька",
-skinsInfoTitle:"Будущие скины",
-skinsInfo:"Здесь видно, какие скины откроются дальше.",
-language:"🌐 Язык",
-theme:"🌙 Тёмная тема",
-themeOn:"Вкл.",
-themeOff:"Выкл.",
-name:"🔥 Название огонька",
-transfer:"🔥 Перенос огонька",
-create:"Создать код переноса",
-restore:"Восстановить огонёк",
-extra:"🔧 Дополнительные настройки",
-version:"Версия",
-reset:"🗑️ Сбросить прогресс",
-stored:"Прогресс хранится только на этом устройстве.",
-unlocked:"Получено",
-soon:"Скоро...",
-code:"Твой код",
-placeholder:"Введи код переноса",
-saved:"Огонёк восстановлен!",
-nameTitle:"🔥 Название огонька",
-nameSave:"Сохранить",
-namePlaceholder:"Например: Мой огонёк",
-days:"дн."
-},
-
-en:{
-day:"Day",
-subtitle:"Your flame is burning",
-ach:"Achievements",
-skins:"Skins",
-settings:"Settings",
-skinsTitle:"Flame skins",
-skinsInfoTitle:"Future skins",
-skinsInfo:"See which skins will unlock next.",
-language:"🌐 Language",
-theme:"🌙 Dark theme",
-themeOn:"On",
-themeOff:"Off",
-name:"🔥 Flame name",
-transfer:"🔥 Transfer flame",
-create:"Create transfer code",
-restore:"Restore flame",
-extra:"🔧 Additional settings",
-version:"Version",
-reset:"🗑️ Reset progress",
-stored:"Your progress is stored only on this device.",
-unlocked:"Unlocked",
-soon:"Coming soon",
-code:"Your code",
-placeholder:"Enter transfer code",
-saved:"Flame restored!",
-nameTitle:"🔥 Flame name",
-nameSave:"Save",
-namePlaceholder:"For example: My flame",
-days:"days"
-},
-
-de:{
-day:"Tag",
-subtitle:"Deine Flamme brennt",
-ach:"Erfolge",
-skins:"Skins",
-settings:"Einstellungen",
-skinsTitle:"Flammen-Skins",
-skinsInfoTitle:"Zukünftige Skins",
-skinsInfo:"Sieh dir die nächsten Skins an.",
-language:"🌐 Sprache",
-theme:"🌙 Dunkles Design",
-themeOn:"An",
-themeOff:"Aus",
-name:"🔥 Flammenname",
-transfer:"🔥 Flamme übertragen",
-create:"Übertragungscode erstellen",
-restore:"Flamme wiederherstellen",
-extra:"🔧 Zusätzliche Einstellungen",
-version:"Version",
-reset:"🗑️ Fortschritt zurücksetzen",
-stored:"Dein Fortschritt wird nur auf diesem Gerät gespeichert.",
-unlocked:"Freigeschaltet",
-soon:"Bald...",
-code:"Dein Code",
-placeholder:"Übertragungscode eingeben",
-saved:"Flamme wiederhergestellt!",
-nameTitle:"🔥 Flammenname",
-nameSave:"Speichern",
-namePlaceholder:"Meine Flamme",
-days:"Tage"
-},
-
-es:{
-day:"Día",
-subtitle:"Tu llama está encendida",
-ach:"Logros",
-skins:"Skins",
-settings:"Ajustes",
-skinsTitle:"Skins de llama",
-skinsInfoTitle:"Skins futuros",
-skinsInfo:"Mira qué skins se desbloquearán.",
-language:"🌐 Idioma",
-theme:"🌙 Tema oscuro",
-themeOn:"Sí",
-themeOff:"No",
-name:"🔥 Nombre de la llama",
-transfer:"🔥 Transferir llama",
-create:"Crear código",
-restore:"Restaurar llama",
-extra:"🔧 Ajustes adicionales",
-version:"Versión",
-reset:"🗑️ Reiniciar progreso",
-stored:"Tu progreso se guarda solo en este dispositivo.",
-unlocked:"Desbloqueado",
-soon:"Próximamente",
-code:"Tu código",
-placeholder:"Introduce el código",
-saved:"¡Llama restaurada!",
-nameTitle:"🔥 Nombre",
-nameSave:"Guardar",
-namePlaceholder:"Mi llama",
-days:"días"
-},
-
-fr:{
-day:"Jour",
-subtitle:"Ta flamme brûle",
-ach:"Succès",
-skins:"Skins",
-settings:"Paramètres",
-skinsTitle:"Skins de flamme",
-skinsInfoTitle:"Skins futurs",
-skinsInfo:"Regarde les prochains skins.",
-language:"🌐 Langue",
-theme:"🌙 Thème sombre",
-themeOn:"Oui",
-themeOff:"Non",
-name:"🔥 Nom de la flamme",
-transfer:"🔥 Transférer la flamme",
-create:"Créer un code",
-restore:"Restaurer la flamme",
-extra:"🔧 Paramètres supplémentaires",
-version:"Version",
-reset:"🗑️ Réinitialiser",
-stored:"Ta progression est stockée uniquement sur cet appareil.",
-unlocked:"Débloqué",
-soon:"Bientôt...",
-code:"Ton code",
-placeholder:"Entre le code",
-saved:"Flamme restaurée !",
-nameTitle:"🔥 Nom",
-nameSave:"Enregistrer",
-namePlaceholder:"Ma flamme",
-days:"jours"
-}
-
-};
-
-
-/* =========================
-   СТАРЫЙ ПРОГРЕСС
-========================= */
-
-let data=null;
-
-try{
-data=JSON.parse(localStorage.getItem("flameData")||"null");
-}catch(e){
-data=null;
-}
+/* =========================================
+   ОСНОВНЫЕ ДАННЫЕ
+========================================= */
 
 function dateKey(d){
-return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,"0")}-${String(d.getDate()).padStart(2,"0")}`;
+return d.getFullYear()+"-"+
+String(d.getMonth()+1).padStart(2,"0")+"-"+
+String(d.getDate()).padStart(2,"0");
 }
 
-function save(){
-localStorage.setItem("flameData",JSON.stringify(data));
-}
-
-if(!data){
-
-data={
+let data=JSON.parse(
+localStorage.getItem("flameData")||"null"
+)||{
 days:1,
 lastVisit:dateKey(new Date()),
 started:dateKey(new Date()),
@@ -1017,477 +792,159 @@ skin:"classic",
 name:"Мой огонёк"
 };
 
-save();
-
-}else{
-
-if(typeof data.days!=="number"||data.days<1)
-data.days=1;
-
-if(!data.lastVisit)
-data.lastVisit=dateKey(new Date());
-
-if(!data.started)
-data.started=dateKey(new Date());
-
-if(!data.skin)
-data.skin="classic";
-
-if(!data.name)
-data.name="Мой огонёк";
-
+function save(){
+localStorage.setItem(
+"flameData",
+JSON.stringify(data)
+);
 }
 
+/* =========================================
+   ЯЗЫК
+========================================= */
 
-/* =========================
-   СТАРЫЙ СЧЁТЧИК
-========================= */
+let lang=
+localStorage.getItem("flameLang")||"ru";
+
+const translations={
+ru:{
+day:"День",
+burning:"Твой огонёк горит",
+language:"Русский",
+on:"Вкл.",
+off:"Выкл.",
+first:"Первый огонёк",
+week:"Неделя огня",
+month:"Месяц без перерыва",
+three:"Три месяца пламя",
+half:"Половина года",
+year:"Год огня",
+two:"Два года огня",
+thousand:"Тысячный день"
+},
+en:{
+day:"Day",
+burning:"Your flame is burning",
+language:"English",
+first:"First Flame",
+week:"Week of Fire",
+month:"A Month Without a Break",
+three:"Three Months of Flame",
+half:"Half a Year",
+year:"Year of Fire",
+two:"Two Years of Fire",
+thousand:"One Thousand Days"
+}
+};
+
+function t(key){
+return translations[lang][key]||
+translations.ru[key]||
+key;
+}
+
+/* =========================================
+   СЕРИЯ
+========================================= */
 
 function updateStreak(){
 
-const todayKey=dateKey(new Date());
+const today=dateKey(new Date());
 
-const last=new Date(data.lastVisit+"T00:00:00");
-const now=new Date(todayKey+"T00:00:00");
+if(data.lastVisit===today){
+return;
+}
 
-const diff=Math.round((now-last)/86400000);
+const last=new Date(data.lastVisit);
+const now=new Date(today);
+
+const diff=Math.floor(
+(now-last)/86400000
+);
 
 if(diff===1){
 
 data.days++;
-data.lastVisit=todayKey;
-
-save();
+data.lastVisit=today;
 
 }else if(diff>1){
 
 data.days=1;
-data.lastVisit=todayKey;
-data.started=todayKey;
+data.lastVisit=today;
+data.started=today;
 data.skin="classic";
 
-save();
-
 }
-
-}
-
-updateStreak();
-
-
-/* =========================
-   ЯЗЫК
-========================= */
-
-let lang=localStorage.getItem("flameLang")||"ru";
-
-if(!langs.includes(lang))
-lang="ru";
-
-function t(key){
-return translations[lang][key]||translations.en[key]||key;
-}
-
-
-/* =========================
-   НОВАЯ СИСТЕМА ДНЯ РОЖДЕНИЯ
-========================= */
-
-/*
-Все новые данные лежат ОТДЕЛЬНО.
-flameData НЕ переписывается ими.
-*/
-
-let birthdayState=JSON.parse(
-localStorage.getItem("ogonyokBirthday")||"null"
-);
-
-if(!birthdayState){
-
-birthdayState={
-theme:false,
-birthday:false,
-candy1:false,
-candy2:false,
-candy3:false,
-candy4:false,
-candy5:false,
-candyAchievement:false,
-slavaAchievement:false,
-birthdaySkin:false
-};
-
-localStorage.setItem(
-"ogonyokBirthday",
-JSON.stringify(birthdayState)
-);
-
-}
-
-function saveBirthday(){
-localStorage.setItem(
-"ogonyokBirthday",
-JSON.stringify(birthdayState)
-);
-}
-
-
-/* +1 ДЕНЬ ЗА АЧИВКУ */
-
-function birthdayAddDay(){
-
-data.days++;
-
-data.lastVisit=dateKey(new Date());
 
 save();
-
 }
 
-
-/* =========================
-   КОНФЕТЫ
-========================= */
-
-function checkCandies(){
-
-if(
-birthdayState.candy1 &&
-birthdayState.candy2 &&
-birthdayState.candy3 &&
-birthdayState.candy4 &&
-birthdayState.candy5 &&
-!birthdayState.candyAchievement
-){
-
-birthdayState.candyAchievement=true;
-
-birthdayAddDay();
-
-saveBirthday();
-
-}
-
-if(
-birthdayState.birthday &&
-birthdayState.candyAchievement &&
-birthdayState.slavaAchievement
-){
-
-birthdayState.birthdaySkin=true;
-
-saveBirthday();
-
-}
-
-}
-
-
-/* =========================
-   ДЕНЬ РОЖДЕНИЯ
-========================= */
-
-function activateBirthday(){
-
-if(!birthdayState.birthday){
-
-birthdayState.birthday=true;
-birthdayState.theme=true;
-
-birthdayAddDay();
-
-saveBirthday();
-
-}else{
-
-birthdayState.theme=true;
-
-saveBirthday();
-
-}
-
-checkCandies();
-
-birthdayConfetti();
-
-render();
-
-}
-
-
-/* =========================
-   КОНФЕТА
-========================= */
-
-function getCandy(number){
-
-const key="candy"+number;
-
-if(!birthdayState[key]){
-
-birthdayState[key]=true;
-
-saveBirthday();
-
-checkCandies();
-
-birthdayConfetti();
-
-render();
-
-}
-
-}
-
-
-/* =========================
-   КОНФЕТА №5
-   ИМЯ ОГОНЬКА = 🍬
-========================= */
-
-function checkFlameName(){
-
-if(
-data.name==="🍬" &&
-!birthdayState.candy5
-){
-
-birthdayState.candy5=true;
-
-saveBirthday();
-
-checkCandies();
-
-}
-
-}
-
-
-/* =========================
-   СЛАВА
-========================= */
-
-function checkSlava(){
-
-if(
-data.name==="Slava" &&
-!birthdayState.slavaAchievement
-){
-
-birthdayState.slavaAchievement=true;
-
-birthdayAddDay();
-
-saveBirthday();
-
-checkCandies();
-
-birthdayConfetti();
-
-}
-
-}
-
-
-/* =========================
-   КОНФЕТТИ
-========================= */
-
-function birthdayConfetti(){
-
-const symbols=["🎉","🎊","🍬","🎂","✨","🎈"];
-
-for(let i=0;i<35;i++){
-
-const el=document.createElement("div");
-
-el.className="confetti";
-
-el.textContent=
-symbols[Math.floor(Math.random()*symbols.length)];
-
-el.style.left=
-Math.random()*100+"vw";
-
-el.style.animationDelay=
-Math.random()*1.5+"s";
-
-document.body.appendChild(el);
-
-setTimeout(()=>{
-el.remove();
-},3000);
-
-}
-
-}
-
-
-/* =========================
-   ТЕМА
-========================= */
-
-function applyTheme(){
-
-const dark=
-localStorage.getItem("ogonyokDark")==="true";
-
-document.body.classList.toggle("dark",dark);
-
-document.body.classList.toggle(
-"birthday",
-birthdayState.theme
-);
-
-document.getElementById("themeValue").textContent=
-dark?t("themeOn"):t("themeOff");
-
-}
-
-
-/* =========================
-   НАЗВАНИЕ СКИНА
-========================= */
-
-function skinName(s){
-return lang==="ru"?s.ru:s.en;
-}
-
-
-/* =========================
-   РЕНДЕР
-========================= */
-
-function render(){
-
-document.documentElement.lang=lang;
-
-document.getElementById("dayLabel").textContent=t("day");
-
-document.getElementById("dayNumber").textContent=data.days;
-
-document.getElementById("subtitle").textContent=t("subtitle");
-
-document.getElementById("flameName").textContent=data.name;
-
-document.getElementById("achTab").textContent=t("ach");
-document.getElementById("skinsTab").textContent=t("skins");
-document.getElementById("settingsTab").textContent=t("settings");
-
-document.getElementById("settingsTitle").textContent=t("settings");
-
-document.getElementById("nameSetting").textContent=t("name");
-
-document.getElementById("languageSetting").textContent=t("language");
-
-document.getElementById("languageValue").textContent=
-languageNames[lang];
-
-document.getElementById("themeSetting").textContent=t("theme");
-
-document.getElementById("skinsTitle").textContent=t("skinsTitle");
-
-document.getElementById("skinsInfoTitle").textContent=
-t("skinsInfoTitle");
-
-document.getElementById("skinsInfo").textContent=
-t("skinsInfo");
-
-document.getElementById("transferTitle").textContent=
-t("transfer");
-
-document.getElementById("createCodeText").textContent=
-t("create");
-
-document.getElementById("restoreBtn").textContent=
-t("restore");
-
-document.getElementById("extraTitle").textContent=
-t("extra");
-
-document.getElementById("versionLabel").textContent=
-t("version");
-
-document.getElementById("resetText").textContent=
-t("reset");
-
-document.getElementById("codeLabel").textContent=
-t("code");
-
-document.getElementById("transferCode").placeholder=
-t("placeholder");
-
-document.getElementById("footer").textContent=
-t("stored");
-
-
-/* текущий скин */
-
-let current=
-skins.find(s=>s.id===data.skin)||skins[0];
-
-if(
-current.id==="birthday" &&
-!birthdayState.birthdaySkin
-){
-
-data.skin="classic";
-
-save();
-
-current=skins[0];
-
-}
-
-document.getElementById("flame").textContent=
-current.icon;
-
-
-/* =========================
+/* =========================================
    АЧИВКИ
-========================= */
+========================================= */
 
-const panel=document.getElementById("achPanel");
+const achievements=[
+{days:1,icon:"🔥",key:"first"},
+{days:7,icon:"🔥",key:"week"},
+{days:30,icon:"🔥",key:"month"},
+{days:90,icon:"🔥",key:"three"},
+{days:180,icon:"🔥",key:"half"},
+{days:365,icon:"🔥",key:"year"},
+{days:720,icon:"🔥",key:"two"},
+{days:1000,icon:"🔥",key:"thousand"}
+];
 
-panel.innerHTML="";
+function renderAchievements(){
+
+const panel=
+document.getElementById("achPanel");
+
+panel.innerHTML=
+'<div class="settings-title">🏆 Достижения</div>';
 
 achievements.forEach(a=>{
 
 const unlocked=data.days>=a.days;
 
-const percent=Math.min(
-100,
-Math.round(data.days/a.days*100)
-);
-
 const card=document.createElement("div");
 
 card.className=
-"card "+(unlocked?"":"locked");
+"achievement "+
+(unlocked?"":"locked");
+
+const progress=
+Math.min(
+100,
+Math.floor(data.days/a.days*100)
+);
 
 card.innerHTML=`
 
-<div class="icon">
-${unlocked?"🔥":"🔒"}
+<div class="achievement-head">
+
+<div class="achievement-icon">
+${a.icon}
 </div>
 
-<div style="flex:1">
+<div>
 
-<b>
-${a.days}
-${lang==="ru"?"дн.":"days"}
-—
-${lang==="ru"?a.ru:a.en}
-</b>
+<div class="achievement-title">
+${t(a.key)}
+</div>
 
-<span>
-${unlocked?t("unlocked"):t("soon")}
-</span>
+<div class="achievement-status">
+${unlocked?
+"✅ Получено":
+a.days+" дней"
+}
+</div>
+
+</div>
+
+</div>
 
 <div class="progress">
-<i style="width:${percent}%"></i>
-</div>
-
+<i style="width:${progress}%"></i>
 </div>
 
 `;
@@ -1496,197 +953,182 @@ panel.appendChild(card);
 
 });
 
-
-/* =========================
-   КОНФЕТА №1
-========================= */
-
-const c1=document.createElement("button");
-
-c1.className=
-"candy "+(birthdayState.candy1?"found":"");
-
-c1.innerHTML=
-birthdayState.candy1
-?"🍬 Конфета №1 — найдена"
-:"🍬 Секретная конфета №1";
-
-c1.onclick=()=>getCandy(1);
-
-panel.appendChild(c1);
-
-
-/* =========================
-   СЕКРЕТНЫЕ АЧИВКИ
-========================= */
-
-if(birthdayState.birthday){
-
-const b=document.createElement("div");
-
-b.className="birthday-card";
-
-b.innerHTML=`
-<b>🎂 День рождения</b>
-<span>+1 день</span>
-`;
-
-panel.appendChild(b);
-
 }
 
-if(birthdayState.candyAchievement){
-
-const b=document.createElement("div");
-
-b.className="birthday-card";
-
-b.innerHTML=`
-<b>🍬 Конфетник</b>
-<span>Собраны все 5 конфет • +1 день</span>
-`;
-
-panel.appendChild(b);
-
-}
-
-if(birthdayState.slavaAchievement){
-
-const b=document.createElement("div");
-
-b.className="birthday-card";
-
-b.innerHTML=`
-<b>🔥 Огонёк в честь меня</b>
-<span>Имя огонька — Slava • +1 день</span>
-`;
-
-panel.appendChild(b);
-
-}
-
-
-/* =========================
+/* =========================================
    СКИНЫ
-========================= */
+========================================= */
 
-const grid=document.getElementById("skinGrid");
+const skins=[
+{
+id:"classic",
+name:"🔥 Классический",
+days:1,
+emoji:"🔥"
+},
+{
+id:"ice",
+name:"🧊 Лёд",
+days:7,
+emoji:"🧊"
+},
+{
+id:"neon",
+name:"💚 Неон",
+days:30,
+emoji:"💚"
+},
+{
+id:"electric",
+name:"⚡ Электрический",
+days:90,
+emoji:"⚡"
+},
+{
+id:"rainbow",
+name:"🌈 Радужный",
+days:180,
+emoji:"🌈"
+},
+{
+id:"diamond",
+name:"💎 Алмазный",
+days:365,
+emoji:"💎"
+},
+{
+id:"dark",
+name:"🖤 Тёмный",
+days:720,
+emoji:"🖤"
+},
+{
+id:"legendary",
+name:"👑 Легендарный",
+days:1000,
+emoji:"👑"
+}
+];
+
+function renderSkins(){
+
+const grid=
+document.getElementById("skinGrid");
 
 grid.innerHTML="";
 
 skins.forEach(s=>{
 
-let unlocked;
+const unlocked=
+data.days>=s.days;
 
-if(s.special){
+const el=
+document.createElement("button");
 
-unlocked=birthdayState.birthdaySkin;
-
-}else{
-
-unlocked=data.days>=s.days;
-
-}
-
-const b=document.createElement("button");
-
-b.className=
+el.className=
 "skin "+
-(unlocked?"":"locked")+" "+
-(data.skin===s.id?"selected":"");
+(data.skin===s.id?"selected ":"")+
+(!unlocked?"locked":"");
 
-if(s.special)
-b.classList.add("birthday-skin");
+el.innerHTML=
+s.name+
+"<br><small>"+s.days+" дней</small>";
 
-b.innerHTML=`
+el.onclick=()=>{
 
-<div style="font-size:30px">
-${unlocked?s.icon:"🔒"}
-</div>
-
-<div>${skinName(s)}</div>
-
-<small>
-${s.special
-?"🎂 + 3 ачивки"
-:s.days+" "+(lang==="ru"?"дн.":"days")}
-</small>
-
-`;
-
-b.disabled=!unlocked;
-
-if(unlocked){
-
-b.onclick=()=>{
+if(!unlocked)return;
 
 data.skin=s.id;
 
 save();
-
-if(s.special){
-
-birthdayState.theme=true;
-
-saveBirthday();
-
-}
-
 render();
 
 };
 
-}
-
-grid.appendChild(b);
+grid.appendChild(el);
 
 });
 
+}
 
-/* КОНФЕТА №2 */
+/* =========================================
+   РЕНДЕР
+========================================= */
 
-const c2=document.createElement("button");
+function render(){
 
-c2.className=
-"candy "+(birthdayState.candy2?"found":"");
+document.getElementById("dayNumber")
+.textContent=data.days;
 
-c2.innerHTML=
-birthdayState.candy2
-?"🍬 Конфета №2 — найдена"
-:"🍬 Секретная конфета №2";
+document.getElementById("dayLabel")
+.textContent=t("day");
 
-c2.onclick=()=>getCandy(2);
+document.getElementById("flameName")
+.textContent=data.name;
 
-grid.appendChild(c2);
+document.getElementById("subtitle")
+.textContent=t("burning");
 
+const skin=
+skins.find(s=>s.id===data.skin);
 
-/* ТЕМА */
+document.getElementById("flame")
+.textContent=
+skin?skin.emoji:"🔥";
 
-applyTheme();
+document.getElementById("languageValue")
+.textContent=
+translations[lang].language;
+
+document.body.classList.toggle(
+"dark",
+localStorage.getItem("ogonyokDark")==="1"
+);
+
+renderAchievements();
+renderSkins();
+renderEventPanel();
 
 }
 
-
-/* =========================
+/* =========================================
    ВКЛАДКИ
-========================= */
+========================================= */
 
-function showPanel(which){
+function showPanel(name){
 
-["achPanel","skinsPanel","settingsPanel"]
-.forEach(id=>{
-document.getElementById(id).classList.add("hidden");
+const panels={
+ach:"achPanel",
+skins:"skinsPanel",
+settings:"settingsPanel",
+event:"eventPanel"
+};
+
+Object.values(panels).forEach(id=>{
+document.getElementById(id)
+.classList.add("hidden");
 });
 
-["achTab","skinsTab","settingsTab"]
-.forEach(id=>{
-document.getElementById(id).classList.remove("active");
-});
-
-document.getElementById(which+"Panel")
+document.getElementById(panels[name])
 .classList.remove("hidden");
 
-document.getElementById(which+"Tab")
+document.querySelectorAll(".tab")
+.forEach(x=>x.classList.remove("active"));
+
+if(name==="ach")
+document.getElementById("achTab")
+.classList.add("active");
+
+if(name==="skins")
+document.getElementById("skinsTab")
+.classList.add("active");
+
+if(name==="settings")
+document.getElementById("settingsTab")
+.classList.add("active");
+
+if(name==="event")
+document.getElementById("eventTab")
 .classList.add("active");
 
 }
@@ -1700,169 +1142,388 @@ document.getElementById("skinsTab").onclick=
 document.getElementById("settingsTab").onclick=
 ()=>showPanel("settings");
 
+document.getElementById("eventTab").onclick=
+()=>showPanel("event");
 
-/* =========================
-   ТОРТИК
-========================= */
-
-document.getElementById("birthdayCake").onclick=
-activateBirthday;
-
-
-/* =========================
-   ЯЗЫК
-========================= */
-
-document.getElementById("languageBtn").onclick=()=>{
-
-const i=langs.indexOf(lang);
-
-lang=langs[(i+1)%langs.length];
-
-localStorage.setItem("flameLang",lang);
-
-render();
-
-};
-
-
-/* =========================
-   ТЁМНАЯ ТЕМА
-========================= */
-
-document.getElementById("themeBtn").onclick=()=>{
-
-const current=
-localStorage.getItem("ogonyokDark")==="true";
-
-localStorage.setItem(
-"ogonyokDark",
-String(!current)
-);
-
-applyTheme();
-
-};
-
-
-/* =========================
-   ИМЯ
-========================= */
+/* =========================================
+   НАЗВАНИЕ
+========================================= */
 
 document.getElementById("nameBtn").onclick=()=>{
 
-document.getElementById("nameInput").value=data.name;
+const modal=document.createElement("div");
 
-document.getElementById("nameModal")
-.classList.remove("hidden");
+modal.className="modal";
 
-};
+modal.innerHTML=`
 
+<div class="modal-box">
+
+<div class="modal-title">
+🔥 Название огонька
+</div>
+
+<input
+class="name-input"
+id="newFlameName"
+value="${data.name}"
+maxlength="30"
+>
+
+<button
+class="modal-close"
+id="saveName">
+Сохранить
+</button>
+
+</div>
+`;
+
+document.body.appendChild(modal);
 
 document.getElementById("saveName").onclick=()=>{
 
 const value=
-document.getElementById("nameInput")
+document.getElementById("newFlameName")
 .value.trim();
 
 if(value){
-
 data.name=value;
+save();
+render();
+}
+
+modal.remove();
+
+};
+
+};
+
+/* =========================================
+   ЯЗЫК
+========================================= */
+
+document.getElementById("languageBtn").onclick=()=>{
+
+lang=lang==="ru"?"en":"ru";
+
+localStorage.setItem(
+"flameLang",
+lang
+);
+
+render();
+
+};
+
+/* =========================================
+   ТЁМНАЯ ТЕМА
+========================================= */
+
+document.getElementById("themeBtn").onclick=()=>{
+
+const enabled=
+localStorage.getItem("ogonyokDark")==="1";
+
+localStorage.setItem(
+"ogonyokDark",
+enabled?"0":"1"
+);
+
+render();
+
+};
+
+/* =========================================
+   СПРАВКА
+========================================= */
+
+function openHelp(){
+
+const modal=document.createElement("div");
+
+modal.className="modal";
+
+modal.innerHTML=`
+
+<div class="modal-box">
+
+<div class="modal-title">
+📖 Справка Ogonyok
+</div>
+
+<div class="help-card">
+
+<h3>🔥 Огонёк</h3>
+
+<p>
+Огонёк считает дни твоей серии.
+Прогресс сохраняется автоматически.
+</p>
+
+</div>
+
+<div class="help-card">
+
+<h3>🏆 Достижения</h3>
+
+<p>
+Когда выполняется условие достижения,
+оно становится полученным.
+</p>
+
+</div>
+
+<div class="help-card">
+
+<h3>🎉 Ивенты</h3>
+
+<p>
+Каждые 10 минут начинается случайный
+ивент. Он длится 5 минут.
+</p>
+
+<p>
+Во время ивента предметы появляются
+поверх сайта.
+</p>
+
+</div>
+
+<div class="help-card">
+
+<h3>🗑️ Мусорка</h3>
+
+<p>
+Нажимай на 🗑️ и собирай мусор.
+10 мусора дают +1 день.
+</p>
+
+</div>
+
+<div class="help-card">
+
+<h3>🔥 Огненный дождь</h3>
+
+<p>
+Нажимай на 🔥.
+За пойманный огонёк даётся +1 день.
+</p>
+
+</div>
+
+<div class="help-card">
+
+<h3>🤖 Роботы</h3>
+
+<p>
+У роботов бывает 2 или 3 HP.
+Нажимай на робота несколько раз,
+чтобы уничтожить его.
+</p>
+
+<p>
+После уничтожения ты получаешь детали.
+</p>
+
+</div>
+
+<div class="help-card">
+
+<h3>⚙️ Детали</h3>
+
+<p>
+10 деталей можно обменять на:
+</p>
+
+<p>
+🔥 +1 день
+<br>
+⚡ +0.1× скорости
+</p>
+
+</div>
+
+<div class="help-card">
+
+<h3>💾 Сохранение</h3>
+
+<p>
+Данные сохраняются в браузере.
+Не очищай данные сайта,
+если хочешь сохранить прогресс.
+</p>
+
+</div>
+
+<button
+class="modal-close"
+id="closeHelp">
+Понятно
+</button>
+
+</div>
+`;
+
+document.body.appendChild(modal);
+
+document.getElementById("closeHelp").onclick=
+()=>modal.remove();
+
+}
+
+document.getElementById("helpBtn").onclick=
+openHelp;
+
+/* =========================================
+   ДЕНЬ РОЖДЕНИЯ
+========================================= */
+
+let birthdayState=
+JSON.parse(
+localStorage.getItem("ogonyokBirthday")||"null"
+)||{
+birthday:false,
+candy1:false,
+candy2:false,
+candy3:false,
+candy4:false,
+candy5:false
+};
+
+function saveBirthday(){
+localStorage.setItem(
+"ogonyokBirthday",
+JSON.stringify(birthdayState)
+);
+}
+
+function birthdayAddDay(){
+
+data.days++;
 
 save();
-
-checkFlameName();
-
-checkSlava();
-
 render();
 
 }
 
-document.getElementById("nameModal")
-.classList.add("hidden");
+document.getElementById("birthdayCake").onclick=()=>{
 
-};
+birthdayState.birthday=true;
 
+if(!birthdayState.used){
 
-document.getElementById("nameInput")
-.addEventListener("keydown",e=>{
+birthdayState.used=true;
 
-if(e.key==="Enter")
-document.getElementById("saveName").click();
-
-});
-
-
-/* =========================
-   ВЕРСИЯ
-========================= */
-
-function openVersion(){
-
-document.getElementById("versionModal")
-.classList.remove("hidden");
+birthdayAddDay();
 
 }
 
-document.getElementById("versionBtn").onclick=openVersion;
+document.body.classList.add("birthday");
 
-document.getElementById("versionSetting").onclick=openVersion;
+saveBirthday();
 
-document.getElementById("versionClose").onclick=()=>{
+confetti();
 
-document.getElementById("versionModal")
-.classList.add("hidden");
+alert("🎂 С днём рождения!");
 
 };
 
+/* =========================================
+   КОНФЕТЫ
+========================================= */
 
-/* КОНФЕТА №4 */
+function renderCandies(){
 
-document.getElementById("candy4").onclick=
-()=>getCandy(4);
+const box=
+document.getElementById("candies");
 
+if(!box)return;
 
-/* =========================
-   КОНФЕТА №3
-========================= */
+box.innerHTML="";
 
-document.getElementById("candy3").onclick=
-()=>getCandy(3);
+for(let i=1;i<=5;i++){
 
+const found=
+birthdayState["candy"+i];
 
-/* =========================
-   ЗАКРЫТИЕ МОДАЛОК
-========================= */
+const b=
+document.createElement("button");
 
-document.getElementById("nameModal")
-.addEventListener("click",e=>{
+b.className=
+"candy "+(found?"found":"");
 
-if(e.target.id==="nameModal")
-e.currentTarget.classList.add("hidden");
+b.textContent=
+found?
+"🍬 Конфета "+i+" — найдена":
+"🍬 Секретная конфета "+i;
 
-});
+b.onclick=()=>{
 
-document.getElementById("versionModal")
-.addEventListener("click",e=>{
+if(found)return;
 
-if(e.target.id==="versionModal")
-e.currentTarget.classList.add("hidden");
+birthdayState["candy"+i]=true;
 
-});
+saveBirthday();
 
+birthdayAddDay();
 
-/* =========================
+confetti();
+
+renderCandies();
+
+};
+
+box.appendChild(b);
+
+}
+
+}
+
+/* =========================================
+   КОНФЕТТИ
+========================================= */
+
+function confetti(){
+
+for(let i=0;i<35;i++){
+
+const el=document.createElement("div");
+
+el.className="confetti";
+
+el.textContent=
+["🎉","✨","🎊","🔥","⭐"]
+[Math.floor(Math.random()*5)];
+
+el.style.left=
+Math.random()*100+"%";
+
+el.style.animationDelay=
+Math.random()+"s";
+
+document.body.appendChild(el);
+
+setTimeout(
+()=>el.remove(),
+3000
+);
+
+}
+
+}
+
+/* =========================================
    ПЕРЕНОС
-========================= */
+========================================= */
 
 function encodeData(obj){
 
-const json=JSON.stringify(obj);
-
 return btoa(
 unescape(
-encodeURIComponent(json)
+encodeURIComponent(
+JSON.stringify(obj)
+)
 )
 ).replace(/=/g,"");
 
@@ -1871,20 +1532,18 @@ encodeURIComponent(json)
 function decodeData(code){
 
 const padded=
-code+"=".repeat((4-code.length%4)%4);
+code+
+"=".repeat(
+(4-code.length%4)%4
+);
 
 return JSON.parse(
 decodeURIComponent(
-escape(
-atob(padded)
-)
+escape(atob(padded))
 )
 );
 
 }
-
-
-/* СОЗДАТЬ КОД */
 
 document.getElementById("createCodeBtn").onclick=()=>{
 
@@ -1896,10 +1555,11 @@ skin:data.skin,
 name:data.name
 };
 
-const code=encodeData(transferable);
+const code=
+encodeData(transferable);
 
 document.getElementById("codeValue")
-.textContent=code;
+.value=code;
 
 document.getElementById("codeBox")
 .classList.remove("hidden");
@@ -1913,9 +1573,6 @@ navigator.clipboard
 }
 
 };
-
-
-/* ВОССТАНОВИТЬ */
 
 document.getElementById("restoreBtn").onclick=()=>{
 
@@ -1949,49 +1606,26 @@ skin:restored.skin||"classic",
 name:restored.name||"Мой огонёк"
 };
 
-const selected=
-skins.find(s=>s.id===data.skin);
-
-if(
-!selected||
-(
-!selected.special &&
-data.days<selected.days
-)
-){
-
-data.skin="classic";
-
-}
-
 save();
-
 render();
 
-alert(t("saved"));
+alert("Прогресс восстановлен!");
 
 }catch(e){
 
-alert("Invalid transfer code");
+alert("Неверный код.");
 
 }
 
 };
 
-
-/* =========================
+/* =========================================
    СБРОС
-========================= */
+========================================= */
 
 document.getElementById("resetBtn").onclick=()=>{
 
-if(
-confirm(
-lang==="ru"
-?"Сбросить весь прогресс?"
-:"Reset all progress?"
-)
-){
+if(confirm("Сбросить весь прогресс?")){
 
 localStorage.removeItem("flameData");
 
@@ -2001,20 +1635,659 @@ location.reload();
 
 };
 
+/* =========================================
+   ИВЕНТЫ
+========================================= */
 
-/* =========================
+const EVENT_KEY="ogonyokEvents";
+
+let eventData=
+JSON.parse(
+localStorage.getItem(EVENT_KEY)||"null"
+)||{
+parts:0,
+trash:0,
+eventDays:0,
+speedBonus:0,
+achievements:{},
+lastEventSlot:-1
+};
+
+function saveEvents(){
+
+localStorage.setItem(
+EVENT_KEY,
+JSON.stringify(eventData)
+);
+
+}
+
+let currentEvent=null;
+let eventItems=[];
+
+/*
+10 минут = 600 секунд.
+Первые 5 минут каждого цикла = ивент.
+*/
+
+function eventSlot(){
+
+return Math.floor(
+Date.now()/600000
+);
+
+}
+
+function eventSecond(){
+
+return Math.floor(
+Date.now()/1000
+)%600;
+
+}
+
+function eventIsActive(){
+
+return eventSecond()<300;
+
+}
+
+function eventName(){
+
+if(currentEvent==="trash")
+return "🗑️ Мусорка";
+
+if(currentEvent==="fire")
+return "🔥 Огненный дождь";
+
+if(currentEvent==="robots")
+return "🤖 Роботы";
+
+return "Ивент";
+
+}
+
+function startEvent(){
+
+if(!eventIsActive())return;
+
+const slot=eventSlot();
+
+if(eventData.lastEventSlot===slot)
+return;
+
+eventData.lastEventSlot=slot;
+
+const events=[
+"trash",
+"fire",
+"robots"
+];
+
+currentEvent=
+events[
+Math.floor(
+Math.random()*events.length
+)
+];
+
+eventData.achievements.first=true;
+
+saveEvents();
+
+createEventItems();
+
+renderEventPanel();
+
+}
+
+function stopEvent(){
+
+currentEvent=null;
+
+eventItems.forEach(
+x=>x.remove()
+);
+
+eventItems=[];
+
+const layer=
+document.getElementById(
+"eventItemLayer"
+);
+
+if(layer)layer.remove();
+
+renderEventPanel();
+
+}
+
+function createEventItems(){
+
+const old=
+document.getElementById(
+"eventItemLayer"
+);
+
+if(old)old.remove();
+
+const layer=
+document.createElement("div");
+
+layer.id="eventItemLayer";
+layer.className="event-item-layer";
+
+document.body.appendChild(layer);
+
+eventItems=[];
+
+if(currentEvent==="trash"){
+
+for(let i=0;i<15;i++)
+createTrash(layer);
+
+}
+
+if(currentEvent==="fire"){
+
+for(let i=0;i<12;i++)
+createFire(layer);
+
+}
+
+if(currentEvent==="robots"){
+
+for(let i=0;i<8;i++)
+createRobot(layer);
+
+}
+
+}
+
+function placeEventItem(el){
+
+el.style.left=
+(Math.random()*88+4)+"%";
+
+el.style.top=
+(Math.random()*78+12)+"%";
+
+eventItems.push(el);
+
+}
+
+/* МУСОР */
+
+function createTrash(layer){
+
+const el=
+document.createElement("button");
+
+el.className="event-item";
+el.textContent="🗑️";
+
+el.onclick=()=>{
+
+if(currentEvent!=="trash")
+return;
+
+eventData.trash++;
+
+el.remove();
+
+if(eventData.trash>=10){
+
+eventData.trash-=10;
+
+eventRewardDay();
+
+eventData.achievements.trash=true;
+
+toast(
+"🗑️ Мусорка",
+"10 мусора → +1 день"
+);
+
+}
+
+saveEvents();
+renderEventPanel();
+
+};
+
+layer.appendChild(el);
+
+placeEventItem(el);
+
+}
+
+/* ОГОНЬ */
+
+function createFire(layer){
+
+const el=
+document.createElement("button");
+
+el.className="event-item";
+el.textContent="🔥";
+
+el.onclick=()=>{
+
+if(currentEvent!=="fire")
+return;
+
+eventRewardDay();
+
+el.remove();
+
+toast(
+"🔥 Огонёк пойман!",
+"+1 день"
+);
+
+saveEvents();
+
+};
+
+layer.appendChild(el);
+
+placeEventItem(el);
+
+}
+
+/* РОБОТЫ */
+
+function createRobot(layer){
+
+const el=
+document.createElement("button");
+
+el.className="event-item";
+
+let hp=
+Math.random()<.5?2:3;
+
+el.innerHTML=
+"🤖<span class='robot-hp'>"+
+hp+
+" HP</span>";
+
+el.onclick=()=>{
+
+if(currentEvent!=="robots")
+return;
+
+hp--;
+
+el.querySelector(
+".robot-hp"
+).textContent=
+hp+" HP";
+
+if(hp<=0){
+
+eventData.parts++;
+
+if(eventData.parts>=10)
+eventData.achievements.robot=true;
+
+el.remove();
+
+toast(
+"🤖 Робот уничтожен!",
+"+1 деталь"
+);
+
+saveEvents();
+renderEventPanel();
+
+}
+
+};
+
+layer.appendChild(el);
+
+placeEventItem(el);
+
+}
+
+/* НАГРАДА */
+
+function eventRewardDay(){
+
+data.days++;
+
+save();
+
+eventData.eventDays++;
+
+if(eventData.eventDays>=5){
+
+eventData.achievements.master=true;
+
+}
+
+saveEvents();
+
+render();
+
+}
+
+/* ОБМЕН ДЕТАЛЕЙ */
+
+function exchangeEventParts(){
+
+if(eventData.parts<10){
+
+toast(
+"⚙️ Детали",
+"Нужно 10 деталей"
+);
+
+return;
+
+}
+
+const choice=
+confirm(
+"ОК — +1 день\n"+
+"Отмена — +0.1× скорости"
+);
+
+eventData.parts-=10;
+
+if(choice){
+
+eventRewardDay();
+
+toast(
+"⚙️ Обмен",
+"+1 день"
+);
+
+}else{
+
+eventData.speedBonus=
+Math.round(
+(eventData.speedBonus+.1)*10
+)/10;
+
+toast(
+"⚙️ Обмен",
+"+0.1× скорости"
+);
+
+}
+
+saveEvents();
+renderEventPanel();
+
+}
+
+document.getElementById(
+"exchangePartsBtn"
+).onclick=
+exchangeEventParts;
+
+/* УВЕДОМЛЕНИЕ */
+
+function toast(title,text){
+
+const old=
+document.querySelector(
+".event-toast"
+);
+
+if(old)old.remove();
+
+const el=
+document.createElement("div");
+
+el.className="event-toast";
+
+el.innerHTML=
+"<div>"+title+"</div>"+
+"<div>"+text+"</div>";
+
+document.body.appendChild(el);
+
+setTimeout(
+()=>el.remove(),
+1800
+);
+
+}
+
+/* ИНФОРМАЦИЯ ОБ ИВЕНТЕ */
+
+function renderEventPanel(){
+
+const info=
+document.getElementById(
+"eventInfo"
+);
+
+const parts=
+document.getElementById(
+"partsCount"
+);
+
+const ach=
+document.getElementById(
+"eventAchievements"
+);
+
+if(!info||!parts||!ach)
+return;
+
+let text="Сейчас ивента нет.";
+
+if(currentEvent){
+
+const left=
+300-eventSecond();
+
+text=
+"Сейчас: <b>"+
+eventName()+
+"</b><br>"+
+"Осталось: <b>"+
+Math.floor(left/60)+
+":"+
+String(left%60).padStart(2,"0")+
+"</b>";
+
+}else{
+
+const left=
+600-eventSecond();
+
+text=
+"Следующий ивент через: <b>"+
+Math.floor(left/60)+
+":"+
+String(left%60).padStart(2,"0")+
+"</b>";
+
+}
+
+info.innerHTML=
+`
+<div class="event-card">
+<b>🎉 Состояние</b>
+<br><br>
+${text}
+</div>
+`;
+
+parts.textContent=
+"Детали: "+
+eventData.parts+
+" · бонус скорости: "+
+eventData.speedBonus.toFixed(1)+
+"×";
+
+const list=[
+
+[
+"first",
+"🏆 Первый ивент",
+"Участвуй в любом ивенте"
+],
+
+[
+"trash",
+"🗑️ Мусорщик",
+"Собери 10 мусора"
+],
+
+[
+"robot",
+"🤖 Робототехник",
+"Собери 10 деталей"
+],
+
+[
+"master",
+"🔥 Мастер ивентов",
+"Получи 5 наград от ивентов"
+]
+
+];
+
+ach.innerHTML="";
+
+list.forEach(a=>{
+
+const div=
+document.createElement("div");
+
+div.className="achievement "+
+(
+eventData.achievements[a[0]]
+?""
+:"locked"
+);
+
+div.innerHTML=`
+
+<div class="achievement-head">
+
+<div class="achievement-icon">
+${a[1].split(" ")[0]}
+</div>
+
+<div>
+
+<div class="achievement-title">
+${a[1].substring(2)}
+</div>
+
+<div class="achievement-status">
+${a[2]}
+<br>
+${eventData.achievements[a[0]]
+?"✅ Получено"
+:"🔒 Пока закрыто"}
+</div>
+
+</div>
+
+</div>
+
+`;
+
+ach.appendChild(div);
+
+});
+
+}
+
+/* ПРОВЕРКА ИВЕНТА */
+
+function eventTick(){
+
+const active=
+eventIsActive();
+
+if(active&&!currentEvent){
+
+startEvent();
+
+}
+
+if(!active&&currentEvent){
+
+stopEvent();
+
+}
+
+renderEventPanel();
+
+}
+
+/* =========================================
+   ВЕРСИЯ
+========================================= */
+
+document.getElementById(
+"versionBtn"
+).onclick=()=>{
+
+const modal=
+document.createElement("div");
+
+modal.className="modal";
+
+modal.innerHTML=`
+
+<div class="modal-box">
+
+<div class="modal-title">
+Ogonyok v0.4 Beta
+</div>
+
+<div class="modal-text">
+Трекер огонька с достижениями,
+скинами, настройками и ивентами.
+</div>
+
+<button class="modal-close">
+Закрыть
+</button>
+
+</div>
+`;
+
+document.body.appendChild(modal);
+
+modal.querySelector(
+".modal-close"
+).onclick=()=>modal.remove();
+
+};
+
+/* =========================================
    ЗАПУСК
-========================= */
+========================================= */
 
-checkCandies();
+updateStreak();
 
-checkFlameName();
+renderCandies();
 
-checkSlava();
+if(birthdayState.birthday)
+document.body.classList.add("birthday");
 
 render();
 
 showPanel("ach");
+
+eventTick();
+
+setInterval(
+eventTick,
+1000
+);
 
 </script>
 
