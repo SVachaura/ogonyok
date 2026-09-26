@@ -3,101 +3,139 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-  <title>Держи огонёк 🔥 — ТикТок ивенты</title>
+  <title>Держи огонёк 🔥 — Ежедневный вход</title>
   <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
 
     body {
       font-family: 'Segoe UI', Roboto, system-ui, sans-serif;
       background: linear-gradient(145deg, #0b0f1c 0%, #1a1f2e 100%);
       min-height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      margin: 0;
-      padding: 16px;
-      touch-action: pan-y; /* Чтобы скролл не мешал */
+      display: flex; justify-content: center; align-items: center;
+      margin: 0; padding: 16px; touch-action: pan-y;
     }
 
     .app {
-      max-width: 560px;
-      width: 100%;
+      max-width: 560px; width: 100%;
       background: rgba(20, 25, 40, 0.85);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      border-radius: 48px;
-      padding: 28px 20px 32px;
-      box-shadow: 0 30px 50px rgba(0, 0, 0, 0.8), 0 0 0 2px rgba(255, 180, 60, 0.2);
-      border: 1px solid rgba(255, 200, 100, 0.3);
-      transition: box-shadow 0.3s;
+      backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+      border-radius: 48px; padding: 28px 20px 32px;
+      box-shadow: 0 30px 50px rgba(0,0,0,0.8), 0 0 0 2px rgba(255,180,60,0.2);
+      border: 1px solid rgba(255,200,100,0.3);
     }
 
     .header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 18px;
-      padding: 0 8px;
+      display: flex; justify-content: space-between; align-items: center;
+      margin-bottom: 18px; padding: 0 8px; gap: 8px; flex-wrap: wrap;
     }
 
     .timer-badge {
-      background: #2a2f44;
-      border-radius: 40px;
-      padding: 8px 18px;
-      font-weight: 600;
-      font-size: 1.1rem;
-      color: #ffd966;
+      background: #2a2f44; border-radius: 40px; padding: 8px 16px;
+      font-weight: 600; font-size: 0.95rem; color: #ffd966;
       box-shadow: inset 0 0 6px #00000055, 0 4px 8px #00000033;
-      letter-spacing: 0.5px;
+      display: flex; align-items: center; gap: 6px;
+    }
+
+    .timer-badge span:first-child { font-size: 1.2rem; }
+
+    /* Блок ежедневного входа */
+    .daily-block {
+      background: linear-gradient(135deg, #2a1f10, #3d2a10);
+      border: 1px solid #ffaa3355;
+      border-radius: 28px;
+      padding: 14px 20px;
+      margin-bottom: 14px;
       display: flex;
+      justify-content: space-between;
       align-items: center;
-      gap: 8px;
+      box-shadow: 0 6px 18px #00000055, inset 0 0 20px #ffaa3311;
+      transition: all 0.3s;
     }
 
-    .timer-badge span {
-      font-size: 1.4rem;
-      line-height: 1;
+    .daily-block.warning {
+      background: linear-gradient(135deg, #3d1010, #5a1a1a);
+      border-color: #ff444488;
+      animation: warningPulse 1.5s infinite;
     }
 
+    @keyframes warningPulse {
+      0%, 100% { box-shadow: 0 6px 18px #00000055, 0 0 20px #ff444433; }
+      50% { box-shadow: 0 6px 18px #00000055, 0 0 35px #ff444477; }
+    }
+
+    .daily-block.dead {
+      background: linear-gradient(135deg, #1a1a1a, #2a2a2a);
+      border-color: #555;
+      filter: grayscale(1);
+    }
+
+    .daily-info {
+      display: flex; flex-direction: column; gap: 2px;
+    }
+
+    .daily-label {
+      font-size: 0.75rem; text-transform: uppercase;
+      letter-spacing: 1.2px; color: #ffaa33aa; font-weight: 600;
+    }
+
+    .daily-status {
+      font-size: 1.1rem; font-weight: 700; color: #ffd966;
+    }
+
+    .daily-days {
+      display: flex; gap: 4px; align-items: center;
+    }
+
+    .day-dot {
+      width: 26px; height: 26px; border-radius: 50%;
+      background: #1a1f30; border: 2px solid #333a52;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.85rem; color: #556080;
+      transition: all 0.3s;
+    }
+
+    .day-dot.filled {
+      background: linear-gradient(135deg, #ff7b00, #ffaa33);
+      border-color: #ffd966;
+      color: #fff;
+      box-shadow: 0 0 12px #ffaa3366;
+    }
+
+    .day-dot.today {
+      border-color: #ffd966;
+      animation: todayPulse 1.5s infinite;
+    }
+
+    @keyframes todayPulse {
+      0%, 100% { box-shadow: 0 0 0 0 #ffaa3388; }
+      50% { box-shadow: 0 0 0 8px #ffaa3300; }
+    }
+
+    /* Огонёк */
     .fire-container {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      margin: 8px 0 4px;
-      position: relative;
+      display: flex; flex-direction: column; align-items: center;
+      justify-content: center; margin: 8px 0 4px; position: relative;
     }
 
     .flame-zone {
-      position: relative;
-      width: 240px;
-      height: 240px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      border-radius: 50%;
-      transition: transform 0.2s, box-shadow 0.2s;
-      cursor: pointer;
-      -webkit-tap-highlight-color: transparent;
-      user-select: none;
-      touch-action: none; /* Чтобы не выделялся */
+      position: relative; width: 220px; height: 220px;
+      display: flex; align-items: center; justify-content: center;
+      border-radius: 50%; transition: transform 0.2s, box-shadow 0.2s;
+      cursor: pointer; -webkit-tap-highlight-color: transparent;
+      user-select: none; touch-action: none;
     }
 
-    .flame-zone.active {
-      transform: scale(1.02);
-      filter: drop-shadow(0 0 35px #ffaa33);
+    .flame-zone.active { transform: scale(1.02); filter: drop-shadow(0 0 35px #ffaa33); }
+
+    .flame-zone.dead .flame-emoji {
+      filter: grayscale(1) brightness(0.5);
+      animation: none;
     }
 
     .flame-emoji {
-      font-size: 130px;
-      line-height: 1;
+      font-size: 120px; line-height: 1;
       filter: drop-shadow(0 0 25px #ffb347);
       transition: all 0.15s;
-      transform-origin: center;
       animation: pulse-fire 2s infinite alternate ease-in-out;
     }
 
@@ -107,185 +145,103 @@
     }
 
     .flame-zone.active .flame-emoji {
-      animation: none;
-      transform: scale(1.15);
+      animation: none; transform: scale(1.15);
       filter: drop-shadow(0 0 55px #ffbb33) brightness(1.3);
     }
 
-    /* Индикатор удержания */
     .hold-indicator {
-      width: 80%;
-      height: 8px;
-      background: #232838;
-      border-radius: 20px;
-      margin: 20px auto 8px;
-      overflow: hidden;
-      box-shadow: inset 0 2px 6px #00000088;
-      transition: opacity 0.3s;
+      width: 80%; height: 8px; background: #232838;
+      border-radius: 20px; margin: 20px auto 8px;
+      overflow: hidden; box-shadow: inset 0 2px 6px #00000088;
     }
 
     .hold-progress {
-      height: 100%;
-      width: 0%;
+      height: 100%; width: 0%;
       background: linear-gradient(90deg, #ff7b00, #ffd966, #ffaa33);
-      border-radius: 20px;
-      transition: width 0.08s linear;
+      border-radius: 20px; transition: width 0.08s linear;
       box-shadow: 0 0 12px #ffb347;
     }
 
     .hold-label {
-      text-align: center;
-      font-size: 0.9rem;
-      color: #b9c2d4;
-      letter-spacing: 1px;
-      margin-bottom: 6px;
-      font-weight: 500;
-      text-transform: uppercase;
-      opacity: 0.8;
+      text-align: center; font-size: 0.9rem; color: #b9c2d4;
+      letter-spacing: 1px; margin-bottom: 6px; font-weight: 500;
+      text-transform: uppercase; opacity: 0.8;
     }
 
     .status-area {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      background: #1e2336;
-      border-radius: 60px;
-      padding: 12px 22px;
+      display: flex; justify-content: space-between; align-items: center;
+      background: #1e2336; border-radius: 60px; padding: 12px 22px;
       margin: 8px 0 18px;
       box-shadow: inset 0 2px 6px #00000055, 0 6px 12px #00000033;
     }
 
-    .streak {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      font-weight: 600;
-      color: #ffe28c;
-    }
-
-    .streak .number {
-      font-size: 2.4rem;
-      line-height: 1;
-      color: #ffbb33;
-      text-shadow: 0 0 16px #ffaa33;
-    }
+    .streak { display: flex; align-items: center; gap: 10px; font-weight: 600; color: #ffe28c; }
+    .streak .number { font-size: 2.4rem; line-height: 1; color: #ffbb33; text-shadow: 0 0 16px #ffaa33; }
 
     .event-message {
-      font-size: 0.95rem;
-      color: #aab3cc;
-      text-align: right;
-      max-width: 55%;
-      word-break: break-word;
-      transition: color 0.2s;
+      font-size: 0.9rem; color: #aab3cc; text-align: right;
+      max-width: 55%; word-break: break-word; transition: color 0.2s;
     }
 
     .event-message.highlight {
-      color: #ffd966;
-      text-shadow: 0 0 10px #ffb347;
-      font-weight: 600;
+      color: #ffd966; text-shadow: 0 0 10px #ffb347; font-weight: 600;
     }
 
     .events-log {
-      background: #0f1320;
-      border-radius: 36px;
-      padding: 16px 18px;
-      margin-top: 12px;
-      border: 1px solid #2d3348;
+      background: #0f1320; border-radius: 36px; padding: 16px 18px;
+      margin-top: 12px; border: 1px solid #2d3348;
       box-shadow: inset 0 0 14px #00000055;
     }
 
     .events-title {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      color: #e0e6f0;
-      font-weight: 500;
-      font-size: 0.95rem;
-      letter-spacing: 0.8px;
-      text-transform: uppercase;
-      margin-bottom: 10px;
-      padding-left: 6px;
+      display: flex; align-items: center; gap: 8px;
+      color: #e0e6f0; font-weight: 500; font-size: 0.9rem;
+      letter-spacing: 0.8px; text-transform: uppercase;
+      margin-bottom: 10px; padding-left: 6px;
     }
 
     .events-title .dot {
-      width: 10px;
-      height: 10px;
-      background: #ff5e00;
-      border-radius: 50%;
-      box-shadow: 0 0 12px #ff7b00;
+      width: 10px; height: 10px; background: #ff5e00;
+      border-radius: 50%; box-shadow: 0 0 12px #ff7b00;
       animation: blink 1.6s infinite;
     }
 
-    @keyframes blink {
-      0%, 100% { opacity: 1; }
-      50% { opacity: 0.3; }
-    }
+    @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
 
     .log-list {
-      max-height: 140px;
-      overflow-y: auto;
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-      padding-right: 6px;
+      max-height: 130px; overflow-y: auto;
+      display: flex; flex-direction: column; gap: 8px; padding-right: 6px;
     }
 
-    .log-list::-webkit-scrollbar {
-      width: 5px;
-    }
-
-    .log-list::-webkit-scrollbar-track {
-      background: #1e2233;
-      border-radius: 10px;
-    }
-
-    .log-list::-webkit-scrollbar-thumb {
-      background: #ffb347;
-      border-radius: 10px;
-      box-shadow: 0 0 8px #ffaa33;
-    }
+    .log-list::-webkit-scrollbar { width: 5px; }
+    .log-list::-webkit-scrollbar-track { background: #1e2233; border-radius: 10px; }
+    .log-list::-webkit-scrollbar-thumb { background: #ffb347; border-radius: 10px; }
 
     .log-entry {
-      background: #1a1f30;
-      border-radius: 24px;
-      padding: 10px 16px;
-      font-size: 0.9rem;
-      color: #ccd6f0;
+      background: #1a1f30; border-radius: 24px; padding: 10px 16px;
+      font-size: 0.85rem; color: #ccd6f0;
       border-left: 6px solid #ffaa33;
-      box-shadow: 0 2px 6px #00000033;
-      animation: slideIn 0.25s ease;
+      box-shadow: 0 2px 6px #00000033; animation: slideIn 0.25s ease;
     }
 
     @keyframes slideIn {
-      from {
-        opacity: 0;
-        transform: translateX(-12px);
-      }
-      to {
-        opacity: 1;
-        transform: translateX(0);
-      }
+      from { opacity: 0; transform: translateX(-12px); }
+      to { opacity: 1; transform: translateX(0); }
     }
 
+    .log-entry.danger { border-left-color: #ff4444; }
+    .log-entry.success { border-left-color: #44ff88; }
+
     .log-entry .time {
-      color: #7c8aa8;
-      font-size: 0.75rem;
-      margin-left: 10px;
-      font-weight: 400;
+      color: #7c8aa8; font-size: 0.7rem; margin-left: 10px; font-weight: 400;
     }
 
     .empty-log {
-      color: #5a6480;
-      font-style: italic;
-      font-size: 0.9rem;
-      text-align: center;
-      padding: 18px 0;
+      color: #5a6480; font-style: italic;
+      font-size: 0.9rem; text-align: center; padding: 18px 0;
     }
 
-    .no-select {
-      user-select: none;
-      -webkit-user-select: none;
-    }
+    .no-select { user-select: none; -webkit-user-select: none; }
   </style>
 </head>
 <body>
@@ -297,6 +253,15 @@
     <div class="timer-badge" style="background:#1e1f2c;">
       <span>🔥</span> <span id="fireStatus">Удерживай</span>
     </div>
+  </div>
+
+  <!-- Блок ежедневного входа -->
+  <div class="daily-block" id="dailyBlock">
+    <div class="daily-info">
+      <div class="daily-label">Ежедневный вход</div>
+      <div class="daily-status" id="dailyStatusText">Серия: 0 дней</div>
+    </div>
+    <div class="daily-days" id="dailyDays"></div>
   </div>
 
   <div class="fire-container">
@@ -330,23 +295,28 @@
 <script>
   (function() {
     // ========== КОНФИГ ==========
-    const EVENT_INTERVAL_MS = 5 * 60 * 1000; // 5 минут
-    const HOLD_THRESHOLD_MS = 1000;          // 1 секунда удержания для "сработки"
-    const TICK_RATE_MS = 40;                 // частота обновления прогресса
+    const EVENT_INTERVAL_MS = 5 * 60 * 1000;
+    const HOLD_THRESHOLD_MS = 1000;
+    const TICK_RATE_MS = 40;
+    const MAX_DAILY_STREAK = 7; // 7 дней — максимум в полоске
+    const STORAGE_KEY = 'fire_keep_daily_v1';
 
     // ========== СОСТОЯНИЕ ==========
     let isHolding = false;
     let holdStartTime = 0;
-    let holdProgress = 0;          // 0..1
-    let streak = 0;                // сколько раз успешно удержал (по 1 сек)
-    let lastHoldSuccessTime = 0;   // чтобы не спамить streak
+    let holdProgress = 0;
+    let streak = 0;
+    let lastHoldSuccessTime = 0;
 
-    // Таймеры
+    // Ежедневная механика
+    let dailyStreak = 0;           // сколько дней подряд заходил
+    let lastVisitDate = null;      // дата последнего входа (YYYY-MM-DD)
+    let fireDead = false;          // огонёк потух (пропустил день)
+
     let eventTimerInterval = null;
     let nextEventTime = Date.now() + EVENT_INTERVAL_MS;
     let uiInterval = null;
 
-    // DOM элементы
     const flameZone = document.getElementById('flameZone');
     const holdProgressEl = document.getElementById('holdProgress');
     const holdLabel = document.getElementById('holdLabel');
@@ -355,56 +325,177 @@
     const logList = document.getElementById('logList');
     const timerDisplay = document.getElementById('timerDisplay');
     const fireStatus = document.getElementById('fireStatus');
+    const dailyBlock = document.getElementById('dailyBlock');
+    const dailyStatusText = document.getElementById('dailyStatusText');
+    const dailyDaysEl = document.getElementById('dailyDays');
 
-    // ========== ВСПОМОГАТЕЛЬНЫЕ ФУНКЦИИ ==========
-    function formatTime(ms) {
-      if (ms < 0) ms = 0;
-      const totalSec = Math.floor(ms / 1000);
-      const mins = Math.floor(totalSec / 60);
-      const secs = totalSec % 60;
-      return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+    // ========== РАБОТА С ДАТАМИ ==========
+    function getTodayStr() {
+      const d = new Date();
+      return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
     }
 
-    function updateTimerDisplay() {
-      const now = Date.now();
-      const remaining = Math.max(0, nextEventTime - now);
-      timerDisplay.textContent = formatTime(remaining);
+    function getYesterdayStr() {
+      const d = new Date();
+      d.setDate(d.getDate() - 1);
+      return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
     }
 
-    // Добавить запись в лог
-    function addLogEntry(text, isEvent = true) {
-      // Удаляем пустую заглушку
+    function daysBetween(dateStr1, dateStr2) {
+      const d1 = new Date(dateStr1);
+      const d2 = new Date(dateStr2);
+      return Math.floor((d2 - d1) / (1000 * 60 * 60 * 24));
+    }
+
+    // ========== СОХРАНЕНИЕ / ЗАГРУЗКА ==========
+    function saveState() {
+      const data = {
+        dailyStreak,
+        lastVisitDate,
+        fireDead,
+        streak, // общий счётчик огоньков тоже сохраняем
+        savedAt: Date.now()
+      };
+      try { localStorage.setItem(STORAGE_KEY, JSON.stringify(data)); } catch(e) {}
+    }
+
+    function loadState() {
+      try {
+        const raw = localStorage.getItem(STORAGE_KEY);
+        if (!raw) return false;
+        const data = JSON.parse(raw);
+        if (typeof data.dailyStreak === 'number') dailyStreak = data.dailyStreak;
+        if (data.lastVisitDate) lastVisitDate = data.lastVisitDate;
+        if (typeof data.fireDead === 'boolean') fireDead = data.fireDead;
+        if (typeof data.streak === 'number') streak = data.streak;
+        return true;
+      } catch(e) { return false; }
+    }
+
+    // ========== ЛОГИКА ЕЖЕДНЕВНОГО ВХОДА ==========
+    function checkDailyLogin() {
+      const today = getTodayStr();
+      const yesterday = getYesterdayStr();
+
+      // Первый вход вообще
+      if (!lastVisitDate) {
+        dailyStreak = 1;
+        lastVisitDate = today;
+        fireDead = false;
+        addLogEntry('🔥 Первый вход! Серия начата.', false);
+        setEventMessage('🔥 Добро пожаловать! День 1', true);
+        saveState();
+        renderDaily();
+        return;
+      }
+
+      // Уже заходил сегодня — ничего не делаем
+      if (lastVisitDate === today) {
+        renderDaily();
+        return;
+      }
+
+      // Проверяем, когда заходил последний раз
+      const gap = daysBetween(lastVisitDate, today);
+
+      if (gap === 1) {
+        // Заходил вчера — продолжаем серию
+        dailyStreak += 1;
+        lastVisitDate = today;
+        fireDead = false;
+        addLogEntry(`🔥 День ${dailyStreak}! Серия продолжается.`, false);
+        setEventMessage(`🔥 День ${dailyStreak} подряд!`, true);
+      } else if (gap > 1) {
+        // Пропустил день(и) — огонёк потух!
+        const missed = gap - 1;
+        fireDead = true;
+        dailyStreak = 1; // начинаем заново
+        lastVisitDate = today;
+        addLogEntry(`💀 Пропущено ${missed} дн. Огонёк потух! Серия сброшена.`, true, 'danger');
+        setEventMessage('💀 Огонёк потух! Начни заново.', true);
+      }
+
+      saveState();
+      renderDaily();
+    }
+
+    function renderDaily() {
+      const today = getTodayStr();
+
+      // Статус
+      if (fireDead && lastVisitDate !== today) {
+        dailyStatusText.textContent = '💀 Огонёк потух';
+        dailyBlock.classList.add('dead');
+        dailyBlock.classList.remove('warning');
+      } else {
+        dailyBlock.classList.remove('dead');
+        dailyStatusText.textContent = `Серия: ${dailyStreak} ${getDayWord(dailyStreak)}`;
+
+        // Предупреждение, если сегодня ещё не заходил (но это уже прошло, значит ок)
+        const nextDayGap = lastVisitDate ? daysBetween(lastVisitDate, today) : 0;
+        if (nextDayGap >= 1) {
+          dailyBlock.classList.add('warning');
+        } else {
+          dailyBlock.classList.remove('warning');
+        }
+      }
+
+      // Полоска дней (7 точек)
+      dailyDaysEl.innerHTML = '';
+      const filledCount = Math.min(dailyStreak, MAX_DAILY_STREAK);
+      for (let i = 0; i < MAX_DAILY_STREAK; i++) {
+        const dot = document.createElement('div');
+        dot.className = 'day-dot';
+        if (i < filledCount) dot.classList.add('filled');
+        // Подсветить "сегодня"
+        if (i === filledCount - 1 && lastVisitDate === today && !fireDead) {
+          dot.classList.add('today');
+        }
+        dot.textContent = i < filledCount ? '🔥' : '';
+        dailyDaysEl.appendChild(dot);
+      }
+    }
+
+    function getDayWord(n) {
+      const mod10 = n % 10;
+      const mod100 = n % 100;
+      if (mod10 === 1 && mod100 !== 11) return 'день';
+      if (mod10 >= 2 && mod10 <= 4 && (mod100 < 10 || mod100 >= 20)) return 'дня';
+      return 'дней';
+    }
+
+    // ========== ЛОГИ ==========
+    function addLogEntry(text, isEvent = true, type = '') {
       const emptyLog = logList.querySelector('.empty-log');
       if (emptyLog) emptyLog.remove();
 
       const entry = document.createElement('div');
       entry.className = 'log-entry';
-      const timeStr = new Date().toLocaleTimeString('ru-RU', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+      if (type === 'danger') entry.classList.add('danger');
+      if (type === 'success') entry.classList.add('success');
+
+      const timeStr = new Date().toLocaleTimeString('ru-RU', { hour: '2-digit', minute: '2-digit' });
       entry.innerHTML = `${text} <span class="time">${timeStr}</span>`;
 
-      logList.prepend(entry); // новые сверху
-
-      // Ограничим количество записей
-      if (logList.children.length > 12) {
-        logList.removeChild(logList.lastChild);
-      }
+      logList.prepend(entry);
+      if (logList.children.length > 12) logList.removeChild(logList.lastChild);
     }
 
-    // Показать временное сообщение в статусе
     function setEventMessage(text, highlight = true) {
       eventMessage.textContent = text;
       if (highlight) {
         eventMessage.classList.add('highlight');
-        setTimeout(() => {
-          eventMessage.classList.remove('highlight');
-        }, 1200);
+        setTimeout(() => eventMessage.classList.remove('highlight'), 1200);
       }
     }
 
-    // ========== ЛОГИКА УДЕРЖАНИЯ ==========
+    // ========== УДЕРЖАНИЕ ==========
     function startHolding(e) {
-      e.preventDefault(); // чтобы не скроллилось и не выделялось
-      if (isHolding) return;
+      e.preventDefault();
+      if (isHolding || fireDead) {
+        if (fireDead) setEventMessage('💀 Огонёк потух. Зайди завтра, чтобы возродить!', true);
+        return;
+      }
       isHolding = true;
       holdStartTime = Date.now();
       flameZone.classList.add('active');
@@ -417,92 +508,67 @@
       if (!isHolding) return;
       isHolding = false;
       flameZone.classList.remove('active');
-      fireStatus.textContent = 'Удерживай';
+      fireStatus.textContent = fireDead ? 'Потух' : 'Удерживай';
       holdLabel.textContent = 'ЗАЖМИ И ДЕРЖИ';
-
-      // Сброс прогресса, если не удержал до порога
-      const holdDuration = Date.now() - holdStartTime;
-      if (holdDuration < HOLD_THRESHOLD_MS && holdProgress > 0) {
-        // Небольшой штраф? Нет, просто сбрасываем.
-      }
       holdProgress = 0;
       holdProgressEl.style.width = '0%';
     }
 
-    // Обновление прогресса удержания
     function updateHoldProgress() {
       if (!isHolding) {
         if (holdProgress > 0) {
-          // Плавное затухание, если отпустили
           holdProgress = Math.max(0, holdProgress - 0.03);
           holdProgressEl.style.width = (holdProgress * 100) + '%';
-          if (holdProgress <= 0.01) {
-            holdProgressEl.style.width = '0%';
-          }
+          if (holdProgress <= 0.01) holdProgressEl.style.width = '0%';
         }
         return;
       }
 
       const now = Date.now();
       const heldFor = now - holdStartTime;
-      let progress = Math.min(1, heldFor / HOLD_THRESHOLD_MS);
+      const progress = Math.min(1, heldFor / HOLD_THRESHOLD_MS);
       holdProgress = progress;
       holdProgressEl.style.width = (progress * 100) + '%';
 
-      // Если удержал достаточно и ещё не засчитали в этом цикле
-      if (progress >= 1) {
-        // Проверяем, не засчитали ли уже (защита от повторного срабатывания)
-        if (now - lastHoldSuccessTime > HOLD_THRESHOLD_MS * 0.8) {
-          // Увеличиваем streak
-          streak += 1;
-          streakCountEl.textContent = streak;
-          lastHoldSuccessTime = now;
+      if (progress >= 1 && now - lastHoldSuccessTime > HOLD_THRESHOLD_MS * 0.8) {
+        streak += 1;
+        streakCountEl.textContent = streak;
+        lastHoldSuccessTime = now;
+        setEventMessage(`🔥 +1 огонёк! (${streak})`, true);
+        addLogEntry(`🔥 Удержание +1. Всего: ${streak}`, false, 'success');
+        saveState();
 
-          // Визуальный отклик
-          setEventMessage(`🔥 +1 огонёк! (${streak})`, true);
-          addLogEntry(`🔥 Удержание +1. Всего: ${streak}`, false);
-
-          // Небольшой визуальный эффект
-          flameZone.style.transform = 'scale(1.08)';
-          setTimeout(() => {
-            if (isHolding) flameZone.style.transform = 'scale(1.02)';
-            else flameZone.style.transform = 'scale(1)';
-          }, 100);
-        }
+        flameZone.style.transform = 'scale(1.08)';
+        setTimeout(() => {
+          flameZone.style.transform = isHolding ? 'scale(1.02)' : 'scale(1)';
+        }, 100);
       }
     }
 
-    // ========== ИВЕНТЫ КАЖДЫЕ 5 МИНУТ ==========
+    // ========== ИВЕНТЫ ==========
     function triggerRandomEvent() {
       const events = [
-        { text: '🎉 БОНУС: +5 к огоньку!', action: () => { streak += 5; streakCountEl.textContent = streak; } },
-        { text: '⚡ МОЛНИЯ: удвоение!', action: () => { streak *= 2; streakCountEl.textContent = streak; } },
-        { text: '💧 ДОЖДЬ: -3 огонька', action: () => { streak = Math.max(0, streak - 3); streakCountEl.textContent = streak; } },
-        { text: '🌟 ЗВЕЗДА: +1 огонёк', action: () => { streak += 1; streakCountEl.textContent = streak; } },
-        { text: '🌪️ ВИХРЬ: сброс до 10', action: () => { streak = Math.min(streak, 10); streakCountEl.textContent = streak; } },
-        { text: '💎 КРИСТАЛЛ: +10 огоньков!', action: () => { streak += 10; streakCountEl.textContent = streak; } },
-        { text: '🔮 ПРОРОЧЕСТВО: следующий ивент x2', action: () => { /* просто шутка */ } },
-        { text: '🍀 УДАЧА: +3 огонька', action: () => { streak += 3; streakCountEl.textContent = streak; } },
-        { text: '🧨 ВЗРЫВ: -5 огоньков', action: () => { streak = Math.max(0, streak - 5); streakCountEl.textContent = streak; } },
-        { text: '✨ СИЯНИЕ: +7 огоньков', action: () => { streak += 7; streakCountEl.textContent = streak; } },
+        { text: '🎉 БОНУС: +5 к огоньку!', action: () => { streak += 5; } },
+        { text: '⚡ МОЛНИЯ: удвоение!', action: () => { streak *= 2; } },
+        { text: '💧 ДОЖДЬ: -3 огонька', action: () => { streak = Math.max(0, streak - 3); } },
+        { text: '🌟 ЗВЕЗДА: +1 огонёк', action: () => { streak += 1; } },
+        { text: '💎 КРИСТАЛЛ: +10 огоньков!', action: () => { streak += 10; } },
+        { text: '🍀 УДАЧА: +3 огонька', action: () => { streak += 3; } },
+        { text: '🧨 ВЗРЫВ: -5 огоньков', action: () => { streak = Math.max(0, streak - 5); } },
+        { text: '✨ СИЯНИЕ: +7 огоньков', action: () => { streak += 7; } },
       ];
+      const ev = events[Math.floor(Math.random() * events.length)];
+      ev.action();
+      streakCountEl.textContent = streak;
+      saveState();
 
-      const randomEvent = events[Math.floor(Math.random() * events.length)];
-      randomEvent.action();
+      setEventMessage(ev.text, true);
+      addLogEntry(`📢 ИВЕНТ: ${ev.text}`);
 
-      // Обновляем сообщение
-      setEventMessage(randomEvent.text, true);
-
-      // Добавляем в лог
-      addLogEntry(`📢 ИВЕНТ: ${randomEvent.text}`);
-
-      // Небольшая тряска для привлечения внимания
       flameZone.style.animation = 'none';
-      flameZone.offsetHeight; // reflow
+      flameZone.offsetHeight;
       flameZone.style.animation = 'pulse-fire 0.4s 2';
-      setTimeout(() => {
-        flameZone.style.animation = '';
-      }, 900);
+      setTimeout(() => flameZone.style.animation = '', 900);
     }
 
     function startEventTimer() {
@@ -513,68 +579,79 @@
         const now = Date.now();
         if (now >= nextEventTime) {
           triggerRandomEvent();
-          // Планируем следующий ивент через 5 минут от текущего момента
           nextEventTime = now + EVENT_INTERVAL_MS;
         }
         updateTimerDisplay();
-      }, 500); // проверяем каждые 0.5 сек
+      }, 500);
     }
 
-    // ========== ЗАПУСК UI-ЦИКЛА ==========
+    function updateTimerDisplay() {
+      const remaining = Math.max(0, nextEventTime - Date.now());
+      const totalSec = Math.floor(remaining / 1000);
+      const mins = Math.floor(totalSec / 60);
+      const secs = totalSec % 60;
+      timerDisplay.textContent = `${String(mins).padStart(2,'0')}:${String(secs).padStart(2,'0')}`;
+    }
+
+    // ========== UI ЦИКЛ ==========
     function startUiLoop() {
       if (uiInterval) clearInterval(uiInterval);
       uiInterval = setInterval(() => {
         updateHoldProgress();
-        // Обновляем статус огня
-        if (isHolding) {
-          fireStatus.textContent = '🔥 Горит!';
-        } else {
-          fireStatus.textContent = 'Удерживай';
-        }
+        fireStatus.textContent = fireDead ? '💀 Потух' : (isHolding ? '🔥 Горит!' : 'Удерживай');
       }, TICK_RATE_MS);
     }
 
     // ========== ИНИЦИАЛИЗАЦИЯ ==========
     function init() {
-      // Начальные значения
-      streak = 0;
-      streakCountEl.textContent = '0';
-      holdProgress = 0;
-      holdProgressEl.style.width = '0%';
+      // Загружаем сохранённое состояние
+      loadState();
 
-      // Обработчики удержания (мышь + тач)
+      // Проверяем ежедневный вход
+      checkDailyLogin();
+
+      // Применяем "мёртвое" состояние
+      if (fireDead) {
+        flameZone.classList.add('dead');
+        streakCountEl.textContent = streak;
+        addLogEntry('💀 Огонёк потух. Пропущен день.', true, 'danger');
+      } else {
+        streakCountEl.textContent = streak;
+        addLogEntry('🔥 Система готова. Удерживай огонёк!', false);
+      }
+
+      renderDaily();
+
+      // Обработчики удержания
       flameZone.addEventListener('mousedown', startHolding);
       window.addEventListener('mouseup', stopHolding);
       flameZone.addEventListener('touchstart', startHolding, { passive: false });
       window.addEventListener('touchend', stopHolding);
       window.addEventListener('touchcancel', stopHolding);
-
-      // На всякий случай, если мышь ушла за пределы
-      flameZone.addEventListener('mouseleave', (e) => {
-        // Не отпускаем, если кнопка зажата? Лучше отпустить, чтобы не было багов
-        if (isHolding) stopHolding(e);
-      });
+      flameZone.addEventListener('mouseleave', (e) => { if (isHolding) stopHolding(e); });
+      flameZone.addEventListener('contextmenu', (e) => e.preventDefault());
 
       // Запуск таймеров
       startEventTimer();
       startUiLoop();
-
-      // Первое обновление таймера
       updateTimerDisplay();
 
-      // Приветственный лог
-      addLogEntry('🔥 Система готова. Удерживай огонёк!', false);
+      // Потеря фокуса
+      window.addEventListener('blur', () => { if (isHolding) stopHolding(); });
 
-      // Обработка потери фокуса (чтобы не залипало)
-      window.addEventListener('blur', () => {
-        if (isHolding) stopHolding();
-      });
+      // Сохраняем состояние при уходе со страницы
+      window.addEventListener('beforeunload', saveState);
 
-      // Запрет контекстного меню на огне
-      flameZone.addEventListener('contextmenu', (e) => e.preventDefault());
+      // Периодически проверяем, не наступил ли новый день (если вкладка долго открыта)
+      setInterval(() => {
+        const today = getTodayStr();
+        if (lastVisitDate !== today && !fireDead) {
+          // Наступил новый день — обновляем, но не сбрасываем
+          // На самом деле при следующем заходе проверится
+        }
+      }, 60000);
     }
 
-    // Запускаем после загрузки DOM
     if (document.readyState === 'loading') {
       document.addEventListener('DOMContentLoaded', init);
     } else {
