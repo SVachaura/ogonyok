@@ -3,2233 +3,2129 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0,viewport-fit=cover">
-<title>Terminal</title>
+<title>Огонёк</title>
 
 <style>
-*{
-    box-sizing:border-box;
+*{box-sizing:border-box}
+
+:root{
+  --bg:#fff;
+  --card:#fff;
+  --text:#111;
+  --muted:#777;
+  --line:#111;
+  --soft:#f1f1f1;
+  --accent:#ff5a00;
+}
+
+body.dark{
+  --bg:#111;
+  --card:#181818;
+  --text:#fff;
+  --muted:#aaa;
+  --line:#fff;
+  --soft:#242424;
+  --accent:#ff7b00;
 }
 
 html,body{
-    margin:0;
-    width:100%;
-    height:100%;
-    background:#000;
-    color:#00ff66;
-    font-family:Consolas,Monaco,"Courier New",monospace;
+  margin:0;
+  padding:0;
+  min-height:100%;
+  font-family:Arial,Helvetica,sans-serif;
+  background:var(--bg);
+  color:var(--text);
 }
 
-body{
-    overflow:hidden;
+button,input,textarea{
+  font:inherit;
 }
 
-#terminal{
-    height:100vh;
-    height:100dvh;
-    overflow-y:auto;
-    padding:15px 14px 75px;
-    font-size:15px;
-    line-height:1.5;
-    white-space:pre-wrap;
-    word-break:break-word;
+button{
+  cursor:pointer;
 }
 
-.line{
-    min-height:22px;
+.app{
+  min-height:100vh;
+  padding-bottom:85px;
 }
 
-.cmd{
-    color:#fff;
+header{
+  padding:18px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  border-bottom:2px solid var(--line);
 }
 
-.info{
-    color:#00cfff;
+.logo{
+  font-size:24px;
+  font-weight:900;
 }
 
-.success{
-    color:#00ff66;
+.version{
+  font-size:12px;
+  border:2px solid var(--line);
+  padding:6px 9px;
+  background:var(--card);
+  color:var(--text);
 }
 
-.error{
-    color:#ff4444;
+.page{
+  display:none;
+  padding:18px;
 }
 
-.warning{
-    color:#ffd000;
+.page.active{
+  display:block;
+}
+
+.hero{
+  border:2px solid var(--line);
+  padding:25px 18px;
+  text-align:center;
+  background:var(--card);
+}
+
+.fire{
+  font-size:105px;
+  line-height:1;
+  margin:15px 0;
+  animation:pulse 1.7s infinite ease-in-out;
+}
+
+@keyframes pulse{
+  0%,100%{transform:scale(1)}
+  50%{transform:scale(1.08)}
+}
+
+.days{
+  font-size:48px;
+  font-weight:900;
+}
+
+.label{
+  color:var(--muted);
+  margin-top:4px;
+}
+
+.card{
+  border:2px solid var(--line);
+  background:var(--card);
+  padding:16px;
+  margin-top:14px;
 }
 
 .title{
-    color:#00ff66;
-    font-weight:bold;
+  font-size:22px;
+  font-weight:900;
+  margin-bottom:12px;
 }
 
-.dim{
-    color:#777;
+.btn{
+  width:100%;
+  border:2px solid var(--line);
+  background:var(--text);
+  color:var(--bg);
+  padding:13px;
+  margin-top:10px;
+  font-weight:900;
 }
 
-.inputbar{
-    position:fixed;
-    left:0;
-    right:0;
-    bottom:0;
-    min-height:55px;
-    display:flex;
-    align-items:center;
-    padding:9px 12px;
-    background:#000;
-    border-top:1px solid #00ff66;
-    z-index:10;
+.btn.secondary{
+  background:var(--card);
+  color:var(--text);
 }
 
-.prompt{
-    color:#00ff66;
-    white-space:nowrap;
-    margin-right:8px;
+.btn.danger{
+  background:#b00020;
+  color:#fff;
 }
 
-#input{
-    flex:1;
-    min-width:0;
-    border:0;
-    outline:0;
-    background:transparent;
-    color:#fff;
-    font:inherit;
-    font-size:16px;
+.grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:10px;
 }
 
-.cursor{
-    width:8px;
-    height:18px;
-    background:#00ff66;
-    display:inline-block;
-    animation:blink 1s infinite;
+.skin{
+  border:2px solid var(--line);
+  background:var(--card);
+  padding:14px;
+  text-align:center;
+  min-height:130px;
 }
 
-@keyframes blink{
-    0%,45%{opacity:1}
-    46%,100%{opacity:0}
+.skin.locked{
+  opacity:.4;
 }
 
-::-webkit-scrollbar{
-    width:6px;
+.skin .preview{
+  font-size:48px;
+  margin-bottom:7px;
 }
 
-::-webkit-scrollbar-track{
-    background:#000;
+.skin.selected{
+  outline:4px solid var(--accent);
 }
 
-::-webkit-scrollbar-thumb{
-    background:#00ff66;
+.achievement{
+  border:2px solid var(--line);
+  padding:14px;
+  margin-bottom:10px;
+  background:var(--card);
 }
 
-::selection{
-    background:#00ff66;
-    color:#000;
+.achievement.locked{
+  opacity:.4;
+}
+
+.achievement strong{
+  display:block;
+  font-size:17px;
+}
+
+.event{
+  border:2px solid var(--line);
+  padding:16px;
+  margin-top:10px;
+  background:var(--card);
+}
+
+.event h3{
+  margin:0 0 7px;
+}
+
+.event-date{
+  color:var(--muted);
+  font-size:13px;
+}
+
+.empty{
+  color:var(--muted);
+  padding:10px 0;
+}
+
+.setting{
+  border:2px solid var(--line);
+  padding:15px;
+  margin-bottom:10px;
+  background:var(--card);
+}
+
+.setting-title{
+  font-weight:900;
+  margin-bottom:8px;
+}
+
+input,textarea{
+  width:100%;
+  padding:12px;
+  border:2px solid var(--line);
+  background:var(--card);
+  color:var(--text);
+  outline:none;
+  margin-top:8px;
+}
+
+textarea{
+  min-height:100px;
+  resize:vertical;
+}
+
+.bottom{
+  position:fixed;
+  bottom:0;
+  left:0;
+  right:0;
+  height:75px;
+  background:var(--bg);
+  border-top:2px solid var(--line);
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  z-index:10;
+}
+
+.nav{
+  border:0;
+  border-right:1px solid var(--line);
+  background:var(--bg);
+  color:var(--text);
+  font-size:12px;
+  font-weight:900;
+}
+
+.nav:last-child{
+  border-right:0;
+}
+
+.nav.active{
+  background:var(--text);
+  color:var(--bg);
+}
+
+.modal{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.65);
+  display:none;
+  align-items:center;
+  justify-content:center;
+  padding:18px;
+  z-index:30;
+}
+
+.modal.show{
+  display:flex;
+}
+
+.modal-box{
+  width:100%;
+  max-width:450px;
+  max-height:90vh;
+  overflow:auto;
+  background:var(--card);
+  color:var(--text);
+  border:2px solid var(--line);
+  padding:18px;
+}
+
+.close{
+  float:right;
+  border:2px solid var(--line);
+  background:var(--card);
+  color:var(--text);
+  width:35px;
+  height:35px;
+  font-weight:900;
+}
+
+.small{
+  font-size:12px;
+  color:var(--muted);
+}
+
+.admin-event{
+  border:2px solid var(--line);
+  padding:12px;
+  margin-top:10px;
+}
+
+@media(max-width:380px){
+  .grid{
+    grid-template-columns:1fr;
+  }
+
+  .fire{
+    font-size:85px;
+  }
+
+  .days{
+    font-size:40px;
+  }
 }
 </style>
 </head>
 
 <body>
 
-<div id="terminal"></div>
+<div class="app">
 
-<div class="inputbar">
-    <span class="prompt">user@terminal:~$</span>
-    <input id="input" autocomplete="off" autocorrect="off"
-           autocapitalize="off" spellcheck="false">
-    <span class="cursor"></span>
+<header>
+  <div class="logo">Огонёк</div>
+
+  <button class="version" onclick="openVersion()">
+    v0.1
+  </button>
+</header>
+
+
+<!-- ГЛАВНАЯ -->
+
+<section class="page active" id="homePage">
+
+  <div class="hero">
+
+    <div class="small" id="streakLabel">
+      ТВОЙ ОГОНЁК
+    </div>
+
+    <div class="fire" id="fire">
+      🔥
+    </div>
+
+    <div class="days" id="days">
+      1
+    </div>
+
+    <div class="label" id="daysLabel">
+      дней подряд
+    </div>
+
+  </div>
+
+
+  <div class="card">
+
+    <div class="title" id="eventsTitle">
+      Ивенты
+    </div>
+
+    <div id="eventsList">
+      <div class="empty">
+        Загрузка ивентов...
+      </div>
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- СКИНЫ -->
+
+<section class="page" id="skinsPage">
+
+  <div class="title" id="skinsTitle">
+    Скины
+  </div>
+
+  <div class="grid" id="skinsList"></div>
+
+</section>
+
+
+<!-- АЧИВКИ -->
+
+<section class="page" id="achievementsPage">
+
+  <div class="title" id="achievementsTitle">
+    Ачивки
+  </div>
+
+  <div id="achievementsList"></div>
+
+</section>
+
+
+<!-- НАСТРОЙКИ -->
+
+<section class="page" id="settingsPage">
+
+  <div class="title" id="settingsTitle">
+    Настройки
+  </div>
+
+
+  <div class="setting">
+
+    <div class="setting-title">
+      Язык
+    </div>
+
+    <button class="btn secondary"
+      onclick="setLanguage('ru')">
+      Русский
+    </button>
+
+    <button class="btn secondary"
+      onclick="setLanguage('en')">
+      English
+    </button>
+
+  </div>
+
+
+  <div class="setting">
+
+    <div class="setting-title">
+      Тема
+    </div>
+
+    <button class="btn secondary"
+      onclick="setTheme('light')">
+      ☀️ Белая
+    </button>
+
+    <button class="btn secondary"
+      onclick="setTheme('dark')">
+      🌙 Тёмная
+    </button>
+
+  </div>
+
+
+  <div class="setting">
+
+    <div class="setting-title">
+      🔥 Перенос огонька
+    </div>
+
+    <button class="btn secondary"
+      onclick="exportFire()">
+      📦 Экспортировать
+    </button>
+
+    <input
+      id="importCode"
+      placeholder="Вставь код переноса">
+
+    <button class="btn secondary"
+      onclick="importFire()">
+      📥 Импортировать
+    </button>
+
+  </div>
+
+</section>
+
 </div>
 
-<script>
 
-/* =========================================================
-   TERMINAL
-   ========================================================= */
+<!-- НИЖНЕЕ МЕНЮ -->
 
-const terminal = document.getElementById("terminal");
-const input = document.getElementById("input");
+<nav class="bottom">
 
-const TOTAL_COMMANDS = 10000;
+  <button class="nav active"
+    onclick="showPage('homePage',this)">
+    🏠<br>
+    <span id="navHome">Главная</span>
+  </button>
 
-let history = [];
-let historyPosition = 0;
-let bootTime = Date.now();
-let terminalOnline = true;
-let currentPage = 1;
-let currentTheme = "green";
+  <button class="nav"
+    onclick="showPage('skinsPage',this)">
+    🎨<br>
+    <span id="navSkins">Скины</span>
+  </button>
 
-/* =========================================================
-   КАТЕГОРИИ
-   ========================================================= */
+  <button class="nav"
+    onclick="showPage('achievementsPage',this)">
+    🏆<br>
+    <span id="navAchievements">Ачивки</span>
+  </button>
 
-const categories = [
-    "system",
-    "network",
-    "security",
-    "developer",
-    "files",
-    "tools",
-    "text",
-    "math",
-    "games",
-    "fun",
-    "media",
-    "browser",
-    "device",
-    "data",
-    "debug",
-    "admin",
-    "utility",
-    "random",
-    "web",
-    "terminal"
+  <button class="nav"
+    onclick="showPage('settingsPage',this)">
+    ⚙️<br>
+    <span id="navSettings">Настройки</span>
+  </button>
+
+</nav>
+
+
+<!-- VERSION -->
+
+<div class="modal" id="versionModal">
+
+  <div class="modal-box">
+
+    <button class="close"
+      onclick="closeModal('versionModal')">
+      ×
+    </button>
+
+    <div class="title">
+      Огонёк v0.1
+    </div>
+
+    <p>
+      Первая версия проекта.
+    </p>
+
+    <button class="btn"
+      onclick="openAdminLogin()">
+      🔐 Админка
+    </button>
+
+  </div>
+
+</div>
+
+
+<!-- GOOGLE LOGIN -->
+
+<div class="modal" id="adminLoginModal">
+
+  <div class="modal-box">
+
+    <button class="close"
+      onclick="closeModal('adminLoginModal')">
+      ×
+    </button>
+
+    <div class="title">
+      🔐 Админка
+    </div>
+
+    <p>
+      Войдите через Google.
+    </p>
+
+    <button class="btn"
+      onclick="googleLogin()">
+      Войти через Google
+    </button>
+
+    <div
+      id="loginStatus"
+      class="small">
+    </div>
+
+  </div>
+
+</div>
+
+
+<!-- ADMIN -->
+
+<div class="modal" id="adminModal">
+
+  <div class="modal-box">
+
+    <button class="close"
+      onclick="closeModal('adminModal')">
+      ×
+    </button>
+
+    <div class="title">
+      👑 Админка
+    </div>
+
+    <div
+      class="small"
+      id="adminUser">
+    </div>
+
+
+    <div class="card">
+
+      <div class="title">
+        🎉 Создать ивент
+      </div>
+
+      <input
+        id="eventName"
+        placeholder="Название ивента">
+
+      <textarea
+        id="eventDescription"
+        placeholder="Описание ивента"></textarea>
+
+      <input
+        id="eventReward"
+        placeholder="Награда">
+
+      <input
+        id="eventStart"
+        type="datetime-local">
+
+      <input
+        id="eventEnd"
+        type="datetime-local">
+
+      <button
+        class="btn"
+        onclick="createEvent()">
+        Создать ивент
+      </button>
+
+    </div>
+
+
+    <div class="card">
+
+      <div class="title">
+        Ивенты
+      </div>
+
+      <div id="adminEvents"></div>
+
+    </div>
+
+
+    <button
+      class="btn"
+      onclick="logout()">
+      Выйти
+    </button>
+
+  </div>
+
+</div>
+
+
+<script type="module">
+
+import {
+  initializeApp
+}
+from "https://www.gstatic.com/firebasejs/12.2.1/firebase-app.js";
+
+
+import {
+  getAuth,
+  GoogleAuthProvider,
+  signInWithPopup,
+  onAuthStateChanged,
+  signOut
+}
+from "https://www.gstatic.com/firebasejs/12.2.1/firebase-auth.js";
+
+
+import {
+  getDatabase,
+  ref,
+  push,
+  set,
+  remove,
+  onValue
+}
+from "https://www.gstatic.com/firebasejs/12.2.1/firebase-database.js";
+
+
+/* =========================
+   FIREBASE
+========================= */
+
+const firebaseConfig = {
+
+  apiKey:
+    "AIzaSyDStXUlkqATov4QHOPk6HGb7DrSAs4RkGw",
+
+  authDomain:
+    "ogonyoksa.firebaseapp.com",
+
+  databaseURL:
+    "https://ogonyoksa-default-rtdb.europe-west1.firebasedatabase.app",
+
+  projectId:
+    "ogonyoksa",
+
+  storageBucket:
+    "ogonyoksa.firebasestorage.app",
+
+  messagingSenderId:
+    "403527501538",
+
+  appId:
+    "1:403527501538:web:d5fafa759c1931216880bb"
+
+};
+
+
+const app =
+  initializeApp(firebaseConfig);
+
+
+const auth =
+  getAuth(app);
+
+
+const provider =
+  new GoogleAuthProvider();
+
+
+const db =
+  getDatabase(app);
+
+
+/* =========================
+   АДМИН
+========================= */
+
+const ADMIN_EMAIL =
+  "luboeima6677@gmail.com";
+
+
+/* =========================
+   СКИНЫ
+========================= */
+
+const skins = [
+
+  {
+    id:"normal",
+    nameRU:"Обычный",
+    nameEN:"Normal",
+    icon:"🔥",
+    need:0
+  },
+
+  {
+    id:"ice",
+    nameRU:"Ледяной",
+    nameEN:"Ice",
+    icon:"🧊",
+    need:7
+  },
+
+  {
+    id:"purple",
+    nameRU:"Фиолетовый",
+    nameEN:"Purple",
+    icon:"💜",
+    need:30
+  },
+
+  {
+    id:"neon",
+    nameRU:"Неоновый",
+    nameEN:"Neon",
+    icon:"💚",
+    need:90
+  },
+
+  {
+    id:"electric",
+    nameRU:"Электро",
+    nameEN:"Electric",
+    icon:"⚡",
+    need:180
+  },
+
+  {
+    id:"sun",
+    nameRU:"Солнечный",
+    nameEN:"Solar",
+    icon:"☀️",
+    need:365
+  },
+
+  {
+    id:"diamond",
+    nameRU:"Алмазный",
+    nameEN:"Diamond",
+    icon:"💎",
+    need:720
+  },
+
+  {
+    id:"space",
+    nameRU:"Космический",
+    nameEN:"Space",
+    icon:"🌌",
+    need:1000
+  }
+
 ];
 
-/* =========================================================
-   БАЗОВЫЕ КОМАНДЫ
-   ========================================================= */
-
-const specialCommands = {
-
-"/adminmenu":{
-    category:"admin",
-    description:"Показать каталог команд.",
-    type:"ADMIN"
-},
-
-"/help":{
-    category:"system",
-    description:"Показать помощь.",
-    type:"SYSTEM"
-},
-
-"/clear":{
-    category:"terminal",
-    description:"Очистить экран терминала.",
-    type:"SYSTEM"
-},
-
-"/about":{
-    category:"system",
-    description:"Информация о терминале.",
-    type:"SYSTEM"
-},
-
-"/version":{
-    category:"system",
-    description:"Показать версию.",
-    type:"SYSTEM"
-},
-
-"/date":{
-    category:"system",
-    description:"Показать текущую дату.",
-    type:"SYSTEM"
-},
-
-"/time":{
-    category:"system",
-    description:"Показать текущее время.",
-    type:"SYSTEM"
-},
-
-"/datetime":{
-    category:"system",
-    description:"Показать дату и время.",
-    type:"SYSTEM"
-},
-
-"/whoami":{
-    category:"system",
-    description:"Показать текущего пользователя.",
-    type:"SYSTEM"
-},
-
-"/status":{
-    category:"system",
-    description:"Показать статус терминала.",
-    type:"SYSTEM"
-},
-
-"/system":{
-    category:"system",
-    description:"Информация о системе.",
-    type:"SYSTEM"
-},
-
-"/device":{
-    category:"device",
-    description:"Информация об устройстве.",
-    type:"DEVICE"
-},
-
-"/browser":{
-    category:"browser",
-    description:"Информация о браузере.",
-    type:"BROWSER"
-},
-
-"/screen":{
-    category:"device",
-    description:"Размер экрана.",
-    type:"DEVICE"
-},
-
-"/language":{
-    category:"browser",
-    description:"Язык браузера.",
-    type:"BROWSER"
-},
-
-"/online":{
-    category:"network",
-    description:"Проверить соединение.",
-    type:"NETWORK"
-},
-
-"/ping":{
-    category:"network",
-    description:"Проверить задержку.",
-    type:"NETWORK"
-},
-
-"/random":{
-    category:"random",
-    description:"Случайное число.",
-    type:"RANDOM"
-},
-
-"/number":{
-    category:"math",
-    description:"Случайное число от 1 до 100.",
-    type:"MATH"
-},
-
-"/coin":{
-    category:"games",
-    description:"Подбросить монетку.",
-    type:"GAME"
-},
-
-"/dice":{
-    category:"games",
-    description:"Бросить кубик.",
-    type:"GAME"
-},
-
-"/matrix":{
-    category:"fun",
-    description:"Запустить визуальный режим Matrix.",
-    type:"VISUAL"
-},
-
-"/hack":{
-    category:"security",
-    description:"Безопасная визуальная симуляция.",
-    type:"SIMULATION"
-},
-
-"/scan":{
-    category:"security",
-    description:"Безопасная визуальная симуляция сканирования.",
-    type:"SIMULATION"
-},
-
-"/network":{
-    category:"network",
-    description:"Информация о соединении.",
-    type:"NETWORK"
-},
-
-"/cookies":{
-    category:"browser",
-    description:"Проверить cookies.",
-    type:"BROWSER"
-},
-
-"/storage":{
-    category:"data",
-    description:"Информация о хранилище.",
-    type:"DATA"
-},
-
-"/memory":{
-    category:"device",
-    description:"Информация о памяти браузера.",
-    type:"DEVICE"
-},
-
-"/cpu":{
-    category:"device",
-    description:"Информация о CPU.",
-    type:"DEVICE"
-},
-
-"/battery":{
-    category:"device",
-    description:"Информация о батарее.",
-    type:"DEVICE"
-},
-
-"/fullscreen":{
-    category:"browser",
-    description:"Включить полноэкранный режим.",
-    type:"BROWSER"
-},
-
-"/exitfullscreen":{
-    category:"browser",
-    description:"Выйти из полноэкранного режима.",
-    type:"BROWSER"
-},
-
-"/reload":{
-    category:"browser",
-    description:"Перезагрузить страницу.",
-    type:"BROWSER"
-},
-
-"/theme":{
-    category:"terminal",
-    description:"Показать темы.",
-    type:"UI"
-},
-
-"/dark":{
-    category:"terminal",
-    description:"Тёмная тема.",
-    type:"UI"
-},
-
-"/light":{
-    category:"terminal",
-    description:"Светлая тема.",
-    type:"UI"
-},
-
-"/green":{
-    category:"terminal",
-    description:"Зелёная тема.",
-    type:"UI"
-},
-
-"/blue":{
-    category:"terminal",
-    description:"Синяя тема.",
-    type:"UI"
-},
-
-"/red":{
-    category:"terminal",
-    description:"Красная тема.",
-    type:"UI"
-},
-
-"/purple":{
-    category:"terminal",
-    description:"Фиолетовая тема.",
-    type:"UI"
-},
-
-"/resettheme":{
-    category:"terminal",
-    description:"Сбросить тему.",
-    type:"UI"
-},
-
-"/history":{
-    category:"terminal",
-    description:"Показать историю команд.",
-    type:"SYSTEM"
-},
-
-"/historyclear":{
-    category:"terminal",
-    description:"Очистить историю.",
-    type:"SYSTEM"
-},
-
-"/commands":{
-    category:"admin",
-    description:"Показать список команд.",
-    type:"ADMIN"
-},
-
-"/randomcommand":{
-    category:"admin",
-    description:"Выбрать случайную команду.",
-    type:"ADMIN"
-},
-
-"/search":{
-    category:"admin",
-    description:"Поиск команды.",
-    type:"ADMIN"
-},
-
-"/find":{
-    category:"admin",
-    description:"Найти команду.",
-    type:"ADMIN"
-},
-
-"/category":{
-    category:"admin",
-    description:"Показать команды категории.",
-    type:"ADMIN"
-},
-
-"/page":{
-    category:"admin",
-    description:"Открыть страницу каталога.",
-    type:"ADMIN"
-},
-
-"/info":{
-    category:"system",
-    description:"Информация о команде.",
-    type:"SYSTEM"
-},
-
-"/debug":{
-    category:"debug",
-    description:"Режим отладки.",
-    type:"DEBUG"
-},
-
-"/logs":{
-    category:"debug",
-    description:"Показать журнал.",
-    type:"DEBUG"
-},
-
-"/clearlogs":{
-    category:"debug",
-    description:"Очистить журнал.",
-    type:"DEBUG"
-},
-
-"/test":{
-    category:"debug",
-    description:"Запустить тест системы.",
-    type:"DEBUG"
-},
-
-"/check":{
-    category:"debug",
-    description:"Проверить компоненты.",
-    type:"DEBUG"
-},
-
-"/uptime":{
-    category:"system",
-    description:"Показать время работы.",
-    type:"SYSTEM"
-},
-
-"/session":{
-    category:"system",
-    description:"Информация о сессии.",
-    type:"SYSTEM"
-},
-
-"/id":{
-    category:"system",
-    description:"Показать ID сессии.",
-    type:"SYSTEM"
-},
-
-"/generateid":{
-    category:"tools",
-    description:"Создать случайный ID.",
-    type:"TOOL"
-},
-
-"/uuid":{
-    category:"tools",
-    description:"Создать UUID.",
-    type:"TOOL"
-},
-
-"/password":{
-    category:"security",
-    description:"Создать случайный пароль.",
-    type:"TOOL"
-},
-
-"/key":{
-    category:"security",
-    description:"Создать случайный ключ.",
-    type:"TOOL"
-},
-
-"/token":{
-    category:"security",
-    description:"Создать тестовый токен.",
-    type:"TOOL"
-},
-
-"/hash":{
-    category:"security",
-    description:"Создать SHA-256 хеш.",
-    type:"TOOL"
-},
-
-"/encode":{
-    category:"data",
-    description:"Закодировать текст.",
-    type:"DATA"
-},
-
-"/decode":{
-    category:"data",
-    description:"Декодировать текст.",
-    type:"DATA"
-},
-
-"/base64":{
-    category:"data",
-    description:"Работа с Base64.",
-    type:"DATA"
-},
-
-"/json":{
-    category:"developer",
-    description:"Информация о JSON.",
-    type:"DEVELOPER"
-},
-
-"/html":{
-    category:"developer",
-    description:"Информация о HTML.",
-    type:"DEVELOPER"
-},
-
-"/css":{
-    category:"developer",
-    description:"Информация о CSS.",
-    type:"DEVELOPER"
-},
-
-"/js":{
-    category:"developer",
-    description:"Информация о JavaScript.",
-    type:"DEVELOPER"
-},
-
-"/calc":{
-    category:"math",
-    description:"Калькулятор.",
-    type:"MATH"
-},
-
-"/timer":{
-    category:"tools",
-    description:"Запустить таймер.",
-    type:"TOOL"
-},
-
-"/countdown":{
-    category:"tools",
-    description:"Обратный отсчёт.",
-    type:"TOOL"
-},
-
-"/stopwatch":{
-    category:"tools",
-    description:"Секундомер.",
-    type:"TOOL"
-},
-
-"/notes":{
-    category:"data",
-    description:"Сохранить заметку.",
-    type:"DATA"
-},
-
-"/quote":{
-    category:"fun",
-    description:"Случайная цитата.",
-    type:"FUN"
-},
-
-"/joke":{
-    category:"fun",
-    description:"Случайная шутка.",
-    type:"FUN"
-},
-
-"/easteregg":{
-    category:"fun",
-    description:"Найти пасхалку.",
-    type:"FUN"
-},
-
-"/shutdown":{
-    category:"system",
-    description:"Остановить терминал.",
-    type:"SYSTEM"
+
+/* =========================
+   АЧИВКИ
+========================= */
+
+const achievements = [
+
+  {
+    days:1,
+    ru:"Первый огонёк",
+    en:"First Flame"
+  },
+
+  {
+    days:7,
+    ru:"Неделя огня",
+    en:"Fire Week"
+  },
+
+  {
+    days:30,
+    ru:"Месяц без перерыва",
+    en:"One Month"
+  },
+
+  {
+    days:90,
+    ru:"Три месяца пламя",
+    en:"Three Months"
+  },
+
+  {
+    days:180,
+    ru:"Половина года",
+    en:"Half a Year"
+  },
+
+  {
+    days:365,
+    ru:"Год огня",
+    en:"One Year"
+  },
+
+  {
+    days:720,
+    ru:"Два года огня",
+    en:"Two Years"
+  },
+
+  {
+    days:1000,
+    ru:"Тысячный день",
+    en:"1000 Days"
+  }
+
+];
+
+
+/* =========================
+   ЛОКАЛЬНЫЕ ДАННЫЕ
+========================= */
+
+let data =
+  JSON.parse(
+    localStorage.getItem(
+      "ogonyokData"
+    ) || "{}"
+  );
+
+
+if(!data.startDate){
+
+  data.startDate =
+    new Date().toISOString();
+
 }
+
+
+if(!data.skin){
+
+  data.skin =
+    "normal";
+
+}
+
+
+if(!data.language){
+
+  data.language =
+    "ru";
+
+}
+
+
+if(!data.theme){
+
+  data.theme =
+    "light";
+
+}
+
+
+save();
+
+
+/* =========================
+   SAVE
+========================= */
+
+function save(){
+
+  localStorage.setItem(
+    "ogonyokData",
+    JSON.stringify(data)
+  );
+
+}
+
+
+/* =========================
+   DAYS
+========================= */
+
+function calculateDays(){
+
+  const start =
+    new Date(data.startDate);
+
+  const now =
+    new Date();
+
+  const diff =
+    now.getTime() -
+    start.getTime();
+
+  return Math.max(
+    1,
+    Math.floor(
+      diff / 86400000
+    ) + 1
+  );
+
+}
+
+
+/* =========================
+   FIRE
+========================= */
+
+function updateFire(){
+
+  const days =
+    calculateDays();
+
+
+  document.getElementById(
+    "days"
+  ).textContent =
+    days;
+
+
+  document.getElementById(
+    "fire"
+  ).textContent =
+    getCurrentSkinIcon();
+
+
+  renderAchievements();
+
+}
+
+
+/* =========================
+   CURRENT SKIN
+========================= */
+
+function getCurrentSkinIcon(){
+
+  const skin =
+    skins.find(
+      s => s.id === data.skin
+    );
+
+  return skin
+    ? skin.icon
+    : "🔥";
+
+}
+
+
+/* =========================
+   RENDER SKINS
+========================= */
+
+function renderSkins(){
+
+  const box =
+    document.getElementById(
+      "skinsList"
+    );
+
+  box.innerHTML = "";
+
+
+  const days =
+    calculateDays();
+
+
+  skins.forEach(
+    skin => {
+
+      const unlocked =
+        days >= skin.need;
+
+
+      const selected =
+        data.skin === skin.id;
+
+
+      const name =
+        data.language === "ru"
+        ? skin.nameRU
+        : skin.nameEN;
+
+
+      const div =
+        document.createElement(
+          "div"
+        );
+
+
+      div.className =
+        "skin " +
+        (unlocked
+          ? ""
+          : "locked") +
+        (selected
+          ? " selected"
+          : "");
+
+
+      div.innerHTML = `
+
+        <div class="preview">
+          ${skin.icon}
+        </div>
+
+        <strong>
+          ${name}
+        </strong>
+
+        <div class="small">
+          ${
+            unlocked
+            ? (
+                selected
+                ? "✓ выбрано"
+                : "Открыто"
+              )
+            : `🔒 ${skin.need} дней`
+          }
+        </div>
+
+      `;
+
+
+      if(unlocked){
+
+        div.onclick =
+          () => {
+
+            data.skin =
+              skin.id;
+
+            save();
+
+            renderSkins();
+
+            updateFire();
+
+          };
+
+      }
+
+
+      box.appendChild(div);
+
+    }
+  );
+
+}
+
+
+/* =========================
+   ACHIEVEMENTS
+========================= */
+
+function renderAchievements(){
+
+  const box =
+    document.getElementById(
+      "achievementsList"
+    );
+
+  box.innerHTML = "";
+
+
+  const days =
+    calculateDays();
+
+
+  achievements.forEach(
+    a => {
+
+      const unlocked =
+        days >= a.days;
+
+
+      const name =
+        data.language === "ru"
+        ? a.ru
+        : a.en;
+
+
+      const div =
+        document.createElement(
+          "div"
+        );
+
+
+      div.className =
+        "achievement " +
+        (
+          unlocked
+          ? ""
+          : "locked"
+        );
+
+
+      div.innerHTML = `
+
+        <strong>
+          ${
+            unlocked
+            ? "🔥"
+            : "🔒"
+          }
+
+          ${a.days} дней
+        </strong>
+
+        <div>
+          ${name}
+        </div>
+
+      `;
+
+
+      box.appendChild(div);
+
+    }
+  );
+
+}
+
+
+/* =========================
+   LANGUAGE
+========================= */
+
+window.setLanguage =
+function(lang){
+
+  data.language =
+    lang;
+
+  save();
+
+  updateLanguage();
+
+  renderSkins();
+
+  renderAchievements();
+
+  renderEvents();
 
 };
 
-/* =========================================================
-   ГЕНЕРАТОР 10000+ КОМАНД
-   ========================================================= */
 
-const generatedCommands = {};
+function updateLanguage(){
 
-for(let i=1;i<=TOTAL_COMMANDS;i++){
+  const ru =
+    data.language === "ru";
 
-    const category = categories[(i-1)%categories.length];
 
-    const command = "/cmd"+String(i).padStart(4,"0");
+  document.getElementById(
+    "streakLabel"
+  ).textContent =
+    ru
+    ? "ТВОЙ ОГОНЁК"
+    : "YOUR FLAME";
 
-    generatedCommands[command] = {
-        category:category,
-        description:"Виртуальная команда "+i+" категории "+category+".",
-        type:"VIRTUAL",
-        id:i
-    };
+
+  document.getElementById(
+    "daysLabel"
+  ).textContent =
+    ru
+    ? "дней подряд"
+    : "days in a row";
+
+
+  document.getElementById(
+    "eventsTitle"
+  ).textContent =
+    ru
+    ? "Ивенты"
+    : "Events";
+
+
+  document.getElementById(
+    "skinsTitle"
+  ).textContent =
+    ru
+    ? "Скины"
+    : "Skins";
+
+
+  document.getElementById(
+    "achievementsTitle"
+  ).textContent =
+    ru
+    ? "Ачивки"
+    : "Achievements";
+
+
+  document.getElementById(
+    "settingsTitle"
+  ).textContent =
+    ru
+    ? "Настройки"
+    : "Settings";
+
+
+  document.getElementById(
+    "navHome"
+  ).textContent =
+    ru
+    ? "Главная"
+    : "Home";
+
+
+  document.getElementById(
+    "navSkins"
+  ).textContent =
+    ru
+    ? "Скины"
+    : "Skins";
+
+
+  document.getElementById(
+    "navAchievements"
+  ).textContent =
+    ru
+    ? "Ачивки"
+    : "Achievements";
+
+
+  document.getElementById(
+    "navSettings"
+  ).textContent =
+    ru
+    ? "Настройки"
+    : "Settings";
 
 }
 
-/* =========================================================
-   ОБЩИЙ КАТАЛОГ
-   ========================================================= */
 
-const allCommands = {
-    ...specialCommands,
-    ...generatedCommands
+/* =========================
+   THEME
+========================= */
+
+window.setTheme =
+function(theme){
+
+  data.theme =
+    theme;
+
+  save();
+
+  applyTheme();
+
 };
 
-const allNames = Object.keys(allCommands);
 
-/* =========================================================
-   ВЫВОД
-   ========================================================= */
+function applyTheme(){
 
-function print(text="",className=""){
-
-    const line=document.createElement("div");
-
-    line.className="line "+className;
-
-    line.textContent=text;
-
-    terminal.appendChild(line);
-
-    terminal.scrollTop=terminal.scrollHeight;
+  document.body.classList.toggle(
+    "dark",
+    data.theme === "dark"
+  );
 
 }
 
-function clearScreen(){
 
-    terminal.innerHTML="";
-
-}
-
-/* =========================================================
-   START
-   ========================================================= */
-
-function welcome(){
-
-    print("╔══════════════════════════════════════════════════╗","title");
-    print("║              TERMINAL ONLINE                    ║","title");
-    print("╚══════════════════════════════════════════════════╝","title");
-
-    print("");
-
-    print("SYSTEM READY","success");
-    print("COMMANDS: 10000+","success");
-    print("DATABASE: ONLINE","success");
-    print("MODE: WEB TERMINAL","success");
-
-    print("");
-
-    print("Введите /adminmenu чтобы открыть каталог.","info");
-    print("Введите /help чтобы получить помощь.","info");
-
-    print("");
-
-}
-
-/* =========================================================
-   ADMIN MENU
-   ========================================================= */
-
-function adminMenu(){
-
-    print("╔══════════════════════════════════════════════════╗","title");
-    print("║                  ADMIN MENU                     ║","title");
-    print("╚══════════════════════════════════════════════════╝","title");
-
-    print("");
-
-    print("COMMANDS: 10000+","success");
-    print("SPECIAL COMMANDS: "+Object.keys(specialCommands).length);
-    print("VIRTUAL COMMANDS: "+TOTAL_COMMANDS);
-    print("CATEGORIES: "+categories.length);
-
-    print("");
-
-    print("Основные команды:");
-
-    print("/search <текст>  — поиск");
-    print("/info <команда>  — информация");
-    print("/page <номер>    — страница");
-    print("/category <имя>  — категория");
-    print("/randomcommand   — случайная команда");
-    print("/commands        — команды");
-
-    print("");
-
-    print("Виртуальные команды:");
-
-    print("/cmd0001");
-    print("/cmd0002");
-    print("/cmd0003");
-    print("/cmd0004");
-    print("/cmd0005");
-    print("...");
-    print("/cmd9998");
-    print("/cmd9999");
-    print("/cmd10000");
-
-    print("");
-
-    print("Для полного списка используй:");
-    print("/page 1","info");
-
-}
-
-/* =========================================================
-   ИНФОРМАЦИЯ О КОМАНДЕ
-   ========================================================= */
-
-function commandInfo(name){
-
-    name=name.toLowerCase();
-
-    const data=allCommands[name];
-
-    if(!data){
-
-        print("Команда не найдена: "+name,"error");
-        print("Используй /search "+name,"info");
-
-        return;
-
-    }
-
-    print("╔══════════════════════════════════════════════════╗","title");
-    print("║                 COMMAND INFO                    ║","title");
-    print("╚══════════════════════════════════════════════════╝","title");
-
-    print("");
-
-    print("COMMAND: "+name,"success");
-    print("STATUS: ACTIVE","success");
-    print("TYPE: "+data.type);
-    print("CATEGORY: "+data.category);
-
-    if(data.id){
-        print("ID: "+data.id);
-    }
-
-    print("");
-
-    print("DESCRIPTION:");
-    print(data.description);
-
-    print("");
-
-    print("ACCESS: PUBLIC");
-    print("ENGINE: WEB TERMINAL");
-    print("STATE: READY");
-
-    print("");
-
-}
-
-/* =========================================================
-   ПОИСК
-   ========================================================= */
-
-function searchCommands(query){
-
-    query=query.toLowerCase().trim();
-
-    if(!query){
-
-        print("Использование: /search текст","warning");
-        return;
-
-    }
-
-    const results=allNames.filter(name=>{
-
-        return name.toLowerCase().includes(query) ||
-               allCommands[name].category.includes(query) ||
-               allCommands[name].description.toLowerCase().includes(query);
-
-    });
-
-    print("SEARCH: "+query);
-    print("FOUND: "+results.length);
-    print("");
-
-    if(results.length===0){
-
-        print("Ничего не найдено.","error");
-        return;
-
-    }
-
-    const limit=Math.min(results.length,50);
-
-    for(let i=0;i<limit;i++){
-
-        const name=results[i];
-
-        print(
-            name+
-            "  ["+
-            allCommands[name].category+
-            "] — "+
-            allCommands[name].description
-        );
-
-    }
-
-    if(results.length>50){
-
-        print("");
-        print("Показаны первые 50 результатов.","dim");
-
-    }
-
-}
-
-/* =========================================================
-   СТРАНИЦЫ
-   ========================================================= */
-
-function showPage(number){
-
-    number=parseInt(number)||1;
-
-    const perPage=100;
-
-    const totalPages=Math.ceil(allNames.length/perPage);
-
-    if(number<1)number=1;
-    if(number>totalPages)number=totalPages;
-
-    currentPage=number;
-
-    const start=(number-1)*perPage;
-
-    const end=Math.min(
-        start+perPage,
-        allNames.length
+/* =========================
+   PAGES
+========================= */
+
+window.showPage =
+function(id,button){
+
+  document
+    .querySelectorAll(".page")
+    .forEach(
+      p =>
+        p.classList.remove(
+          "active"
+        )
     );
 
-    print("╔══════════════════════════════════════════════════╗","title");
-    print("║              COMMAND DATABASE                   ║","title");
-    print("╚══════════════════════════════════════════════════╝","title");
 
-    print("");
-
-    print(
-        "PAGE "+
-        number+
-        "/"+
-        totalPages+
-        " | COMMANDS: 10000+"
+  document
+    .querySelectorAll(".nav")
+    .forEach(
+      n =>
+        n.classList.remove(
+          "active"
+        )
     );
 
-    print("");
 
-    for(let i=start;i<end;i++){
-
-        const name=allNames[i];
-        const data=allCommands[name];
-
-        print(
-            String(i+1).padStart(5,"0")+
-            "  "+
-            name+
-            "  ["+
-            data.category+
-            "]"
-        );
-
-    }
-
-    print("");
-
-    print("Следующая: /page "+(number+1));
-    print("Предыдущая: /page "+(number-1));
-
-}
-
-/* =========================================================
-   КАТЕГОРИИ
-   ========================================================= */
-
-function showCategory(category){
-
-    category=category.toLowerCase();
-
-    if(!categories.includes(category)){
-
-        print("Категория не найдена.","error");
-        print("Доступные категории:");
-
-        categories.forEach(x=>print(x));
-
-        return;
-
-    }
-
-    const results=allNames.filter(name=>
-        allCommands[name].category===category
+  document
+    .getElementById(id)
+    .classList.add(
+      "active"
     );
 
-    print("CATEGORY: "+category,"title");
-    print("COMMANDS: "+results.length);
-    print("");
 
-    const limit=Math.min(results.length,100);
+  button.classList.add(
+    "active"
+  );
 
-    for(let i=0;i<limit;i++){
+};
 
-        const name=results[i];
 
-        print(
-            name+
-            " — "+
-            allCommands[name].description
-        );
+/* =========================
+   MODALS
+========================= */
 
-    }
+window.openVersion =
+function(){
 
-    if(results.length>100){
-
-        print("");
-        print("Показаны первые 100.","dim");
-
-    }
-
-}
-
-/* =========================================================
-   СИСТЕМНЫЕ КОМАНДЫ
-   ========================================================= */
-
-function randomNumber(min,max){
-
-    return Math.floor(
-        Math.random()*(max-min+1)
-    )+min;
-
-}
-
-function uuid(){
-
-    if(crypto.randomUUID){
-
-        return crypto.randomUUID();
-
-    }
-
-    return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(
-        /[xy]/g,
-        function(c){
-
-            const r=Math.random()*16|0;
-            const v=c==="x"?r:(r&3|8);
-
-            return v.toString(16);
-
-        }
+  document
+    .getElementById(
+      "versionModal"
+    )
+    .classList.add(
+      "show"
     );
 
-}
+};
 
-function randomCommand(){
 
-    const name=
-        allNames[
-            randomNumber(0,allNames.length-1)
-        ];
+window.closeModal =
+function(id){
 
-    print("RANDOM COMMAND","title");
-    print("");
-    print(name,"success");
-    print(allCommands[name].description);
-    print("");
-    print("Используй /info "+name);
-
-}
-
-function showSystem(){
-
-    print("SYSTEM INFORMATION","title");
-    print("");
-    print("COMMANDS: 10000+");
-    print("CATEGORIES: "+categories.length);
-    print("PLATFORM: "+navigator.platform);
-    print("LANGUAGE: "+navigator.language);
-    print("ONLINE: "+(navigator.onLine?"YES":"NO"));
-    print("CPU CORES: "+(navigator.hardwareConcurrency||"UNKNOWN"));
-    print("SCREEN: "+screen.width+"x"+screen.height);
-    print("TIMEZONE: "+Intl.DateTimeFormat().resolvedOptions().timeZone);
-    print("");
-
-}
-
-function showAbout(){
-
-    print("TERMINAL","title");
-    print("");
-    print("Version: 2.0");
-    print("Command database: 10000+");
-    print("Engine: JavaScript");
-    print("Platform: Web");
-    print("Mode: Offline capable");
-    print("");
-
-}
-
-/* =========================================================
-   ВИЗУАЛЬНЫЕ КОМАНДЫ
-   ========================================================= */
-
-function matrix(){
-
-    print("MATRIX MODE","success");
-
-    for(let i=0;i<20;i++){
-
-        let line="";
-
-        for(let j=0;j<70;j++){
-
-            line+=Math.random()>0.5?"1":"0";
-
-        }
-
-        print(line);
-
-    }
-
-}
-
-function fakeHack(){
-
-    print("STARTING SIMULATION...","warning");
-
-    setTimeout(()=>print("[10%] initializing..."),250);
-    setTimeout(()=>print("[25%] connecting..."),500);
-    setTimeout(()=>print("[50%] analyzing..."),750);
-    setTimeout(()=>print("[75%] processing..."),1000);
-    setTimeout(()=>print("[100%] complete.","success"),1250);
-
-    setTimeout(()=>{
-        print("Это безопасная визуальная симуляция.","info");
-    },1500);
-
-}
-
-function fakeScan(){
-
-    let progress=0;
-
-    print("SCAN STARTED","info");
-
-    const scan=setInterval(()=>{
-
-        progress+=10;
-
-        print("Scanning: "+progress+"%");
-
-        if(progress>=100){
-
-            clearInterval(scan);
-
-            print("SCAN COMPLETE","success");
-            print("No real device scanning was performed.");
-
-        }
-
-    },180);
-
-}
-
-/* =========================================================
-   ОСНОВНАЯ ОБРАБОТКА
-   ========================================================= */
-
-function runCommand(raw){
-
-    const command=raw.trim();
-
-    if(!command)return;
-
-    print(
-        "user@terminal:~$ "+command,
-        "cmd"
+  document
+    .getElementById(id)
+    .classList.remove(
+      "show"
     );
 
-    history.push(command);
+};
 
-    historyPosition=history.length;
 
-    const parts=command.split(/\s+/);
+window.openAdminLogin =
+function(){
 
-    const cmd=parts[0].toLowerCase();
+  closeModal(
+    "versionModal"
+  );
 
-    const args=parts.slice(1).join(" ");
 
-    switch(cmd){
+  document
+    .getElementById(
+      "adminLoginModal"
+    )
+    .classList.add(
+      "show"
+    );
 
-        case "/adminmenu":
-            adminMenu();
-            break;
+};
 
-        case "/help":
 
-            print("HELP","title");
-            print("");
-            print("/adminmenu");
-            print("/commands");
-            print("/search <текст>");
-            print("/info <команда>");
-            print("/page <номер>");
-            print("/category <категория>");
-            print("/randomcommand");
-            print("/clear");
-            print("");
-            print("Всего: 10000+ команд.","success");
+/* =========================
+   GOOGLE LOGIN
+========================= */
 
-            break;
+window.googleLogin =
+async function(){
 
-        case "/clear":
+  const status =
+    document.getElementById(
+      "loginStatus"
+    );
 
-            clearScreen();
 
-            break;
+  status.textContent =
+    "Открываем Google...";
 
-        case "/about":
 
-            showAbout();
+  try{
 
-            break;
+    const result =
+      await signInWithPopup(
+        auth,
+        provider
+      );
 
-        case "/version":
 
-            print("Terminal v2.0");
+    const email =
+      result.user.email || "";
 
-            break;
 
-        case "/date":
+    if(
+      email.toLowerCase() ===
+      ADMIN_EMAIL.toLowerCase()
+    ){
 
-            print(
-                new Date().toLocaleDateString("ru-RU")
-            );
+      closeModal(
+        "adminLoginModal"
+      );
 
-            break;
-
-        case "/time":
-
-            print(
-                new Date().toLocaleTimeString("ru-RU")
-            );
-
-            break;
-
-        case "/datetime":
-
-            print(
-                new Date().toLocaleString("ru-RU")
-            );
-
-            break;
-
-        case "/whoami":
-
-            print("user");
-
-            break;
-
-        case "/status":
-
-            print("TERMINAL: ONLINE","success");
-            print("DATABASE: ONLINE","success");
-            print("COMMANDS: 10000+","success");
-
-            break;
-
-        case "/system":
-
-            showSystem();
-
-            break;
-
-        case "/device":
-
-            print("PLATFORM: "+navigator.platform);
-            print("CORES: "+(navigator.hardwareConcurrency||"unknown"));
-
-            break;
-
-        case "/browser":
-
-            print(navigator.userAgent);
-
-            break;
-
-        case "/screen":
-
-            print(
-                screen.width+
-                " x "+
-                screen.height
-            );
-
-            break;
-
-        case "/language":
-
-            print(navigator.language);
-
-            break;
-
-        case "/online":
-
-            print(
-                navigator.onLine?
-                "ONLINE":
-                "OFFLINE"
-            );
-
-            break;
-
-        case "/ping":
-
-            print("PING...");
-
-            setTimeout(()=>{
-
-                print(
-                    randomNumber(15,80)+
-                    " ms",
-                    "success"
-                );
-
-            },300);
-
-            break;
-
-        case "/random":
-
-            print(
-                randomNumber(1,100)
-            );
-
-            break;
-
-        case "/number":
-
-            print(
-                randomNumber(1,100)
-            );
-
-            break;
-
-        case "/coin":
-
-            print(
-                Math.random()>0.5?
-                "ОРЁЛ":
-                "РЕШКА"
-            );
-
-            break;
-
-        case "/dice":
-
-            print(
-                "🎲 "+
-                randomNumber(1,6)
-            );
-
-            break;
-
-        case "/matrix":
-
-            matrix();
-
-            break;
-
-        case "/hack":
-
-            fakeHack();
-
-            break;
-
-        case "/scan":
-
-            fakeScan();
-
-            break;
-
-        case "/network":
-
-            print(
-                "NETWORK: "+
-                (navigator.onLine?"ONLINE":"OFFLINE")
-            );
-
-            break;
-
-        case "/cookies":
-
-            print(
-                navigator.cookieEnabled?
-                "COOKIES: ENABLED":
-                "COOKIES: DISABLED"
-            );
-
-            break;
-
-        case "/storage":
-
-            print("LOCAL STORAGE: AVAILABLE");
-            print("SESSION STORAGE: AVAILABLE");
-
-            break;
-
-        case "/memory":
-
-            if(performance.memory){
-
-                print(
-                    "USED: "+
-                    Math.round(
-                        performance.memory.usedJSHeapSize/
-                        1024/
-                        1024
-                    )+
-                    " MB"
-                );
-
-            }else{
-
-                print(
-                    "Memory information unavailable."
-                );
-
-            }
-
-            break;
-
-        case "/cpu":
-
-            print(
-                "LOGICAL CORES: "+
-                (navigator.hardwareConcurrency||"unknown")
-            );
-
-            break;
-
-        case "/battery":
-
-            if(navigator.getBattery){
-
-                navigator.getBattery().then(b=>{
-
-                    print(
-                        "BATTERY: "+
-                        Math.round(b.level*100)+
-                        "%"
-                    );
-
-                    print(
-                        "CHARGING: "+
-                        (b.charging?"YES":"NO")
-                    );
-
-                });
-
-            }else{
-
-                print(
-                    "Battery information unavailable."
-                );
-
-            }
-
-            break;
-
-        case "/fullscreen":
-
-            document.documentElement.requestFullscreen?.();
-
-            break;
-
-        case "/exitfullscreen":
-
-            document.exitFullscreen?.();
-
-            break;
-
-        case "/reload":
-
-            location.reload();
-
-            break;
-
-        case "/theme":
-
-            print("THEMES:");
-            print("/dark");
-            print("/light");
-            print("/green");
-            print("/blue");
-            print("/red");
-            print("/purple");
-            print("/resettheme");
-
-            break;
-
-        case "/dark":
-
-            document.body.style.background="#000";
-            document.body.style.color="#fff";
-
-            print("Dark theme enabled.");
-
-            break;
-
-        case "/light":
-
-            document.body.style.background="#fff";
-            document.body.style.color="#000";
-
-            print("Light theme enabled.");
-
-            break;
-
-        case "/green":
-
-            document.body.style.background="#000";
-            document.body.style.color="#00ff66";
-
-            print("Green theme enabled.");
-
-            break;
-
-        case "/blue":
-
-            document.body.style.background="#000";
-            document.body.style.color="#00aaff";
-
-            print("Blue theme enabled.");
-
-            break;
-
-        case "/red":
-
-            document.body.style.background="#000";
-            document.body.style.color="#ff4444";
-
-            print("Red theme enabled.");
-
-            break;
-
-        case "/purple":
-
-            document.body.style.background="#000";
-            document.body.style.color="#cc66ff";
-
-            print("Purple theme enabled.");
-
-            break;
-
-        case "/resettheme":
-
-            document.body.style.background="#000";
-            document.body.style.color="#00ff66";
-
-            print("Theme reset.");
-
-            break;
-
-        case "/history":
-
-            if(history.length===0){
-
-                print("History is empty.");
-
-            }else{
-
-                history.forEach((x,i)=>{
-
-                    print(
-                        (i+1)+": "+x
-                    );
-
-                });
-
-            }
-
-            break;
-
-        case "/historyclear":
-
-            history=[];
-            historyPosition=0;
-
-            print("History cleared.","success");
-
-            break;
-
-        case "/commands":
-
-            print("COMMANDS: 10000+","success");
-            print("");
-            print("Используй /page 1");
-
-            break;
-
-        case "/randomcommand":
-
-            randomCommand();
-
-            break;
-
-        case "/search":
-
-            searchCommands(args);
-
-            break;
-
-        case "/find":
-
-            commandInfo(args);
-
-            break;
-
-        case "/info":
-
-            commandInfo(args);
-
-            break;
-
-        case "/category":
-
-            showCategory(args);
-
-            break;
-
-        case "/page":
-
-            showPage(args);
-
-            break;
-
-        case "/debug":
-
-            print("DEBUG MODE","warning");
-            print("Commands: "+allNames.length);
-            print("Generated: "+TOTAL_COMMANDS);
-            print("Special: "+Object.keys(specialCommands).length);
-
-            break;
-
-        case "/logs":
-
-            print("LOG: Terminal initialized");
-            print("LOG: Command database loaded");
-            print("LOG: 10000+ commands ready");
-            print("LOG: Session active");
-
-            break;
-
-        case "/clearlogs":
-
-            print("Logs cleared.","success");
-
-            break;
-
-        case "/test":
-
-            print("Running system test...");
-
-            setTimeout(()=>print("COMMAND DATABASE: OK","success"),300);
-            setTimeout(()=>print("TERMINAL: OK","success"),600);
-            setTimeout(()=>print("INTERFACE: OK","success"),900);
-            setTimeout(()=>print("TEST COMPLETE","success"),1200);
-
-            break;
-
-        case "/check":
-
-            print("HTML: OK","success");
-            print("CSS: OK","success");
-            print("JAVASCRIPT: OK","success");
-            print("DATABASE: OK","success");
-
-            break;
-
-        case "/uptime":
-
-            print(
-                Math.floor(
-                    (Date.now()-bootTime)/1000
-                )+
-                " seconds"
-            );
-
-            break;
-
-        case "/session":
-
-            let sid=
-                localStorage.getItem("terminal_session");
-
-            if(!sid){
-
-                sid="SESSION-"+randomNumber(100000,999999);
-
-                localStorage.setItem(
-                    "terminal_session",
-                    sid
-                );
-
-            }
-
-            print(sid);
-
-            break;
-
-        case "/id":
-
-            print(
-                "USR-"+randomNumber(100000,999999)
-            );
-
-            break;
-
-        case "/generateid":
-
-            print(
-                "USR-"+randomNumber(
-                    10000000,
-                    99999999
-                )
-            );
-
-            break;
-
-        case "/uuid":
-
-            print(uuid());
-
-            break;
-
-        case "/password":
-
-            const chars=
-                "ABCDEFGHIJKLMNOPQRSTUVWXYZ"+
-                "abcdefghijklmnopqrstuvwxyz"+
-                "0123456789!@#$%";
-
-            let password="";
-
-            for(let i=0;i<16;i++){
-
-                password+=
-                    chars[
-                        randomNumber(
-                            0,
-                            chars.length-1
-                        )
-                    ];
-
-            }
-
-            print(password,"success");
-
-            break;
-
-        case "/key":
-
-            print(uuid().replaceAll("-",""));
-
-            break;
-
-        case "/token":
-
-            print(
-                "tok_"+
-                uuid().replaceAll("-","")
-            );
-
-            break;
-
-        case "/hash":
-
-            if(!args){
-
-                print(
-                    "Использование: /hash текст",
-                    "warning"
-                );
-
-                break;
-
-            }
-
-            crypto.subtle.digest(
-                "SHA-256",
-                new TextEncoder().encode(args)
-            ).then(buffer=>{
-
-                const hash=
-                    Array.from(
-                        new Uint8Array(buffer)
-                    ).map(
-                        b=>b.toString(16).padStart(2,"0")
-                    ).join("");
-
-                print(hash,"success");
-
-            });
-
-            break;
-
-        case "/encode":
-
-            if(!args){
-
-                print(
-                    "Использование: /encode текст"
-                );
-
-                break;
-
-            }
-
-            try{
-
-                print(
-                    btoa(
-                        unescape(
-                            encodeURIComponent(args)
-                        )
-                    );
-
-                }catch(e){
-
-                print("Encoding error.","error");
-
-            }
-
-            break;
-
-        case "/decode":
-
-            if(!args){
-
-                print(
-                    "Использование: /decode текст"
-                );
-
-                break;
-
-            }
-
-            try{
-
-                print(
-                    decodeURIComponent(
-                        escape(
-                            atob(args)
-                        )
-                    )
-                );
-
-            }catch(e){
-
-                print(
-                    "Decoding error.",
-                    "error"
-                );
-
-            }
-
-            break;
-
-        case "/base64":
-
-            print(
-                "Используй /encode или /decode."
-            );
-
-            break;
-
-        case "/json":
-
-            print(
-                '{ "terminal": "online", "commands": "10000+" }'
-            );
-
-            break;
-
-        case "/html":
-
-            print(
-                "HTML = структура страницы."
-            );
-
-            break;
-
-        case "/css":
-
-            print(
-                "CSS = оформление страницы."
-            );
-
-            break;
-
-        case "/js":
-
-            print(
-                "JavaScript = логика страницы."
-            );
-
-            break;
-
-        case "/calc":
-
-            if(!args){
-
-                print(
-                    "Использование: /calc 2+2*5"
-                );
-
-                break;
-
-            }
-
-            try{
-
-                if(!/^[0-9+\-*/().%\s]+$/.test(args)){
-
-                    throw new Error();
-
-                }
-
-                const result=
-                    Function(
-                        '"use strict";return ('+
-                        args+
-                        ')'
-                    )();
-
-                print("= "+result,"success");
-
-            }catch(e){
-
-                print(
-                    "Ошибка вычисления.",
-                    "error"
-                );
-
-            }
-
-            break;
-
-        case "/timer":{
-
-            let seconds=parseInt(args)||10;
-
-            print(
-                "Timer: "+
-                seconds+
-                " seconds"
-            );
-
-            const timer=setInterval(()=>{
-
-                seconds--;
-
-                if(seconds<=0){
-
-                    clearInterval(timer);
-
-                    print(
-                        "TIMER COMPLETE",
-                        "success"
-                    );
-
-                }
-
-            },1000);
-
-            break;
-
-        }
-
-        case "/countdown":{
-
-            let count=parseInt(args)||10;
-
-            const countdown=setInterval(()=>{
-
-                print(String(count));
-
-                count--;
-
-                if(count<0){
-
-                    clearInterval(countdown);
-
-                    print(
-                        "GO!",
-                        "success"
-                    );
-
-                }
-
-            },1000);
-
-            break;
-
-        }
-
-        case "/stopwatch":{
-
-            const started=Date.now();
-
-            print("STOPWATCH STARTED");
-
-            setTimeout(()=>{
-
-                print(
-                    "STOPWATCH: "+
-                    Math.floor(
-                        (Date.now()-started)/1000
-                    )+
-                    " seconds"
-                );
-
-            },10000);
-
-            break;
-
-        }
-
-        case "/notes":
-
-            if(!args){
-
-                print(
-                    "Использование: /notes текст"
-                );
-
-                break;
-
-            }
-
-            localStorage.setItem(
-                "terminal_note",
-                args
-            );
-
-            print(
-                "NOTE SAVED",
-                "success"
-            );
-
-            break;
-
-        case "/quote":{
-
-            const quotes=[
-                "Каждый проект начинается с первой строки.",
-                "Ошибки помогают учиться.",
-                "Продолжай создавать.",
-                "Новая команда — новая возможность."
-            ];
-
-            print(
-                quotes[
-                    randomNumber(
-                        0,
-                        quotes.length-1
-                    )
-                ]
-            );
-
-            break;
-
-        }
-
-        case "/joke":{
-
-            const jokes=[
-                "404: шутка не найдена.",
-                "У программиста было 10 проблем. Он исправил одну — стало 11.",
-                "Баги тоже хотят внимания."
-            ];
-
-            print(
-                jokes[
-                    randomNumber(
-                        0,
-                        jokes.length-1
-                    )
-                ]
-            );
-
-            break;
-
-        }
-
-        case "/easteregg":
-
-            print("🥚 EASTER EGG FOUND!","success");
-            print("TERMINAL MASTER");
-
-            break;
-
-        case "/shutdown":
-
-            print(
-                "TERMINAL SHUTTING DOWN...",
-                "warning"
-            );
-
-            terminalOnline=false;
-
-            setTimeout(()=>{
-
-                clearScreen();
-
-                print(
-                    "TERMINAL OFFLINE",
-                    "error"
-                );
-
-                print(
-                    "Перезагрузите страницу для запуска."
-                );
-
-            },700);
-
-            break;
-
-        default:
-
-            if(allCommands[cmd]){
-
-                commandInfo(cmd);
-
-            }else{
-
-                print(
-                    "COMMAND NOT FOUND: "+cmd,
-                    "error"
-                );
-
-                print(
-                    "Введите /adminmenu или /help.",
-                    "info"
-                );
-
-            }
-
-            break;
+      openAdmin();
 
     }
 
-}
+    else{
 
-/* =========================================================
-   КЛАВИАТУРА
-   ========================================================= */
+      status.textContent =
+        "Этот аккаунт не является администратором.";
 
-input.addEventListener("keydown",function(e){
-
-    if(e.key==="Enter"){
-
-        if(!terminalOnline)return;
-
-        runCommand(input.value);
-
-        input.value="";
-
-        return;
+      await signOut(auth);
 
     }
 
-    if(e.key==="ArrowUp"){
+  }
 
-        e.preventDefault();
+  catch(error){
 
-        if(history.length===0)return;
+    status.textContent =
+      "Ошибка входа: " +
+      error.message;
 
-        historyPosition=
-            Math.max(
-                0,
-                historyPosition-1
-            );
+  }
 
-        input.value=
-            history[historyPosition];
+};
+
+
+/* =========================
+   AUTH
+========================= */
+
+onAuthStateChanged(
+  auth,
+  user => {
+
+    if(!user)
+      return;
+
+
+    if(
+      user.email &&
+      user.email.toLowerCase() ===
+      ADMIN_EMAIL.toLowerCase()
+    ){
+
+      document.getElementById(
+        "adminUser"
+      ).textContent =
+        "Вход выполнен: " +
+        user.email;
 
     }
 
-    if(e.key==="ArrowDown"){
-
-        e.preventDefault();
-
-        if(history.length===0)return;
-
-        historyPosition=
-            Math.min(
-                history.length,
-                historyPosition+1
-            );
-
-        input.value=
-            historyPosition===history.length
-            ? ""
-            : history[historyPosition];
-
-    }
-
-});
-
-document.addEventListener(
-    "click",
-    ()=>input.focus()
+  }
 );
 
-/* =========================================================
-   ЗАПУСК
-   ========================================================= */
 
-welcome();
+/* =========================
+   ADMIN
+========================= */
 
-input.focus();
+function openAdmin(){
+
+  document
+    .getElementById(
+      "adminModal"
+    )
+    .classList.add(
+      "show"
+    );
+
+
+  loadAdminEvents();
+
+}
+
+
+window.logout =
+async function(){
+
+  await signOut(auth);
+
+  closeModal(
+    "adminModal"
+  );
+
+};
+
+
+/* =========================
+   CREATE EVENT
+========================= */
+
+window.createEvent =
+async function(){
+
+  const user =
+    auth.currentUser;
+
+
+  if(!user){
+
+    alert(
+      "Сначала войдите через Google."
+    );
+
+    return;
+
+  }
+
+
+  if(
+    !user.email ||
+    user.email.toLowerCase() !==
+    ADMIN_EMAIL.toLowerCase()
+  ){
+
+    alert(
+      "Нет доступа."
+    );
+
+    return;
+
+  }
+
+
+  const name =
+    document.getElementById(
+      "eventName"
+    ).value.trim();
+
+
+  const description =
+    document.getElementById(
+      "eventDescription"
+    ).value.trim();
+
+
+  const reward =
+    document.getElementById(
+      "eventReward"
+    ).value.trim();
+
+
+  const start =
+    document.getElementById(
+      "eventStart"
+    ).value;
+
+
+  const end =
+    document.getElementById(
+      "eventEnd"
+    ).value;
+
+
+  if(!name){
+
+    alert(
+      "Введите название ивента."
+    );
+
+    return;
+
+  }
+
+
+  const eventRef =
+    push(
+      ref(db,"events")
+    );
+
+
+  await set(
+    eventRef,
+    {
+
+      name:name,
+
+      description:
+        description,
+
+      reward:
+        reward,
+
+      start:
+        start,
+
+      end:
+        end,
+
+      createdAt:
+        Date.now()
+
+    }
+  );
+
+
+  document.getElementById(
+    "eventName"
+  ).value = "";
+
+
+  document.getElementById(
+    "eventDescription"
+  ).value = "";
+
+
+  document.getElementById(
+    "eventReward"
+  ).value = "";
+
+
+  document.getElementById(
+    "eventStart"
+  ).value = "";
+
+
+  document.getElementById(
+    "eventEnd"
+  ).value = "";
+
+
+  alert(
+    "Ивент создан 🎉"
+  );
+
+};
+
+
+/* =========================
+   FIREBASE EVENTS
+========================= */
+
+const eventsRef =
+  ref(db,"events");
+
+
+onValue(
+  eventsRef,
+  snapshot => {
+
+    const events =
+      snapshot.val() || {};
+
+
+    renderEvents(
+      events
+    );
+
+
+    renderAdminEvents(
+      events
+    );
+
+  }
+);
+
+
+/* =========================
+   SHOW EVENTS
+========================= */
+
+function renderEvents(events){
+
+  const box =
+    document.getElementById(
+      "eventsList"
+    );
+
+
+  box.innerHTML = "";
+
+
+  const now =
+    new Date();
+
+
+  let count = 0;
+
+
+  Object.entries(events)
+    .forEach(
+      ([id,event]) => {
+
+        const start =
+          event.start
+          ? new Date(
+              event.start
+            )
+          : null;
+
+
+        const end =
+          event.end
+          ? new Date(
+              event.end
+            )
+          : null;
+
+
+        if(
+          start &&
+          now < start
+        )
+          return;
+
+
+        if(
+          end &&
+          now > end
+        )
+          return;
+
+
+        count++;
+
+
+        const div =
+          document.createElement(
+            "div"
+          );
+
+
+        div.className =
+          "event";
+
+
+        div.innerHTML = `
+
+          <h3>
+            🎉
+            ${escapeHTML(
+              event.name
+            )}
+          </h3>
+
+          <div>
+            ${escapeHTML(
+              event.description || ""
+            )}
+          </div>
+
+          ${
+            event.reward
+            ?
+            `<p>
+              🏆
+              ${escapeHTML(
+                event.reward
+              )}
+            </p>`
+            :
+            ""
+          }
+
+          ${
+            event.end
+            ?
+            `<div class="event-date">
+              До:
+              ${escapeHTML(
+                event.end
+              )}
+            </div>`
+            :
+            ""
+          }
+
+        `;
+
+
+        box.appendChild(
+          div
+        );
+
+      }
+    );
+
+
+  if(count === 0){
+
+    box.innerHTML = `
+
+      <div class="empty">
+
+        ${
+          data.language === "ru"
+          ? "Сейчас активных ивентов нет."
+          : "There are no active events."
+        }
+
+      </div>
+
+    `;
+
+  }
+
+}
+
+
+/* =========================
+   ADMIN EVENTS
+========================= */
+
+function renderAdminEvents(events){
+
+  const box =
+    document.getElementById(
+      "adminEvents"
+    );
+
+
+  if(!box)
+    return;
+
+
+  box.innerHTML = "";
+
+
+  Object.entries(events)
+    .forEach(
+      ([id,event]) => {
+
+        const div =
+          document.createElement(
+            "div"
+          );
+
+
+        div.className =
+          "admin-event";
+
+
+        div.innerHTML = `
+
+          <strong>
+            🎉
+            ${escapeHTML(
+              event.name
+            )}
+          </strong>
+
+          <div class="small">
+            ${escapeHTML(
+              event.description || ""
+            )}
+          </div>
+
+          <button
+            class="btn danger">
+            Удалить
+          </button>
+
+        `;
+
+
+        div
+          .querySelector("button")
+          .onclick =
+          async () => {
+
+            const user =
+              auth.currentUser;
+
+
+            if(
+              !user ||
+              !user.email ||
+              user.email.toLowerCase() !==
+              ADMIN_EMAIL.toLowerCase()
+            ){
+
+              alert(
+                "Нет доступа."
+              );
+
+              return;
+
+            }
+
+
+            await remove(
+              ref(
+                db,
+                "events/" + id
+              )
+            );
+
+          };
+
+
+        box.appendChild(
+          div
+        );
+
+      }
+    );
+
+}
+
+
+function loadAdminEvents(){
+
+  const user =
+    auth.currentUser;
+
+
+  if(user){
+
+    document.getElementById(
+      "adminUser"
+    ).textContent =
+      "Вход выполнен: " +
+      user.email;
+
+  }
+
+}
+
+
+/* =========================
+   EXPORT
+========================= */
+
+window.exportFire =
+function(){
+
+  const code =
+    btoa(
+      encodeURIComponent(
+        JSON.stringify(
+          data
+        )
+      )
+    );
+
+
+  if(
+    navigator.clipboard
+  ){
+
+    navigator.clipboard
+      .writeText(code)
+      .then(
+        () => {
+
+          alert(
+            "Код переноса скопирован 🔥"
+          );
+
+        }
+      );
+
+  }
+
+  else{
+
+    prompt(
+      "Скопируй код:",
+      code
+    );
+
+  }
+
+};
+
+
+/* =========================
+   IMPORT
+========================= */
+
+window.importFire =
+function(){
+
+  const input =
+    document.getElementById(
+      "importCode"
+    ).value.trim();
+
+
+  if(!input){
+
+    alert(
+      "Введи код."
+    );
+
+    return;
+
+  }
+
+
+  try{
+
+    const imported =
+      JSON.parse(
+        decodeURIComponent(
+          atob(input)
+        )
+      );
+
+
+    data = {
+      ...data,
+      ...imported
+    };
+
+
+    save();
+
+    applyTheme();
+
+    updateLanguage();
+
+    renderSkins();
+
+    updateFire();
+
+
+    alert(
+      "Огонёк перенесён 🔥"
+    );
+
+  }
+
+  catch(error){
+
+    alert(
+      "Неверный код переноса."
+    );
+
+  }
+
+};
+
+
+/* =========================
+   ESCAPE
+========================= */
+
+function escapeHTML(value){
+
+  return String(value)
+
+    .replaceAll(
+      "&",
+      "&amp;"
+    )
+
+    .replaceAll(
+      "<",
+      "&lt;"
+    )
+
+    .replaceAll(
+      ">",
+      "&gt;"
+    )
+
+    .replaceAll(
+      '"',
+      "&quot;"
+    )
+
+    .replaceAll(
+      "'",
+      "&#039;"
+    );
+
+}
+
+
+/* =========================
+   START
+========================= */
+
+applyTheme();
+
+updateLanguage();
+
+updateFire();
+
+renderSkins();
+
+renderAchievements();
 
 </script>
 
