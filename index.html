@@ -2,7 +2,7 @@
 <html lang="ru">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,viewport-fit=cover">
 <title>Terminal</title>
 
 <style>
@@ -16,20 +16,18 @@ html,body{
     height:100%;
     background:#000;
     color:#00ff66;
-    font-family:monospace;
-    overflow:hidden;
+    font-family:Consolas,Monaco,"Courier New",monospace;
 }
 
 body{
-    display:flex;
-    flex-direction:column;
+    overflow:hidden;
 }
 
 #terminal{
-    flex:1;
+    height:100vh;
+    height:100dvh;
     overflow-y:auto;
-    padding:14px;
-    padding-bottom:80px;
+    padding:15px 14px 75px;
     font-size:15px;
     line-height:1.5;
     white-space:pre-wrap;
@@ -37,79 +35,80 @@ body{
 }
 
 .line{
-    margin-bottom:3px;
+    min-height:22px;
 }
 
-.command{
+.cmd{
     color:#fff;
 }
 
-.error{
-    color:#ff4545;
-}
-
 .info{
-    color:#00d9ff;
-}
-
-.warning{
-    color:#ffd000;
+    color:#00cfff;
 }
 
 .success{
     color:#00ff66;
 }
 
-.prompt{
-    color:#00ff66;
+.error{
+    color:#ff4444;
 }
 
-.input-area{
+.warning{
+    color:#ffd000;
+}
+
+.title{
+    color:#00ff66;
+    font-weight:bold;
+}
+
+.dim{
+    color:#777;
+}
+
+.inputbar{
     position:fixed;
-    bottom:0;
     left:0;
-    width:100%;
-    background:#000;
-    border-top:1px solid #00ff66;
+    right:0;
+    bottom:0;
+    min-height:55px;
     display:flex;
     align-items:center;
-    padding:10px 12px;
+    padding:9px 12px;
+    background:#000;
+    border-top:1px solid #00ff66;
+    z-index:10;
 }
 
-.prompt-text{
+.prompt{
     color:#00ff66;
     white-space:nowrap;
     margin-right:8px;
 }
 
-#commandInput{
+#input{
     flex:1;
-    background:transparent;
+    min-width:0;
     border:0;
     outline:0;
+    background:transparent;
     color:#fff;
-    font-family:monospace;
+    font:inherit;
     font-size:16px;
-    min-width:0;
 }
 
 .cursor{
-    display:inline-block;
     width:8px;
-    height:17px;
+    height:18px;
     background:#00ff66;
-    vertical-align:middle;
+    display:inline-block;
     animation:blink 1s infinite;
 }
 
 @keyframes blink{
-    0%,50%{opacity:1}
-    51%,100%{opacity:0}
-}
-
-::selection{
-    background:#00ff66;
-    color:#000;
+    0%,45%{opacity:1}
+    46%,100%{opacity:0}
 }
 
 ::-webkit-scrollbar{
@@ -124,18 +123,9 @@ body{
     background:#00ff66;
 }
 
-.ascii{
-    color:#00ff66;
-}
-
-.matrix{
-    color:#00ff66;
-    font-size:11px;
-    line-height:1.1;
-}
-
-button{
-    display:none;
+::selection{
+    background:#00ff66;
+    color:#000;
 }
 </style>
 </head>
@@ -144,1128 +134,2098 @@ button{
 
 <div id="terminal"></div>
 
-<div class="input-area">
-    <span class="prompt-text">user@terminal:~$</span>
-    <input id="commandInput" autocomplete="off" autocapitalize="off" spellcheck="false">
+<div class="inputbar">
+    <span class="prompt">user@terminal:~$</span>
+    <input id="input" autocomplete="off" autocorrect="off"
+           autocapitalize="off" spellcheck="false">
     <span class="cursor"></span>
 </div>
 
 <script>
 
-const terminal = document.getElementById("terminal");
-const input = document.getElementById("commandInput");
+/* =========================================================
+   TERMINAL
+   ========================================================= */
 
-let commandHistory = [];
-let historyIndex = -1;
-let startTime = Date.now();
-let muted = false;
+const terminal = document.getElementById("terminal");
+const input = document.getElementById("input");
+
+const TOTAL_COMMANDS = 10000;
+
+let history = [];
+let historyPosition = 0;
+let bootTime = Date.now();
+let terminalOnline = true;
+let currentPage = 1;
 let currentTheme = "green";
 
-const commands = {
+/* =========================================================
+   КАТЕГОРИИ
+   ========================================================= */
 
-"/adminmenu":"Показать все 100 доступных команд.",
-"/help":"Показать помощь.",
-"/clear":"Очистить терминал.",
-"/about":"Информация о терминале.",
-"/version":"Показать версию.",
-"/date":"Показать текущую дату.",
-"/time":"Показать текущее время.",
-"/datetime":"Показать дату и время.",
-"/hello":"Поздороваться.",
-"/whoami":"Показать текущего пользователя.",
-"/username":"Показать имя пользователя.",
-"/status":"Показать статус системы.",
-"/system":"Информация о системе.",
-"/device":"Информация об устройстве.",
-"/browser":"Информация о браузере.",
-"/screen":"Размер экрана.",
-"/language":"Язык браузера.",
-"/online":"Проверить соединение.",
-"/ping":"Проверить задержку.",
-"/random":"Случайное число.",
-"/number":"Случайное число от 1 до 100.",
-"/coin":"Подбросить монетку.",
-"/dice":"Бросить кубик.",
-"/color":"Случайный цвет.",
-"/ascii":"ASCII-надпись.",
-"/banner":"Показать баннер.",
-"/matrix":"Режим Matrix.",
-"/hack":"Шуточная анимация взлома.",
-"/scan":"Шуточное сканирование.",
-"/network":"Информация о соединении.",
-"/ip":"Информация о соединении.",
-"/location":"Информация о локали.",
-"/cookies":"Информация о cookies.",
-"/storage":"Информация о хранилище.",
-"/memory":"Информация о памяти браузера.",
-"/cpu":"Информация о процессоре, если доступна.",
-"/battery":"Состояние батареи, если доступно.",
-"/fullscreen":"Включить полноэкранный режим.",
-"/exitfullscreen":"Выйти из полноэкранного режима.",
-"/reload":"Перезагрузить страницу.",
-"/home":"Вернуться на главный экран.",
-"/terminal":"Открыть терминал.",
-"/theme":"Настройки темы.",
-"/dark":"Тёмная тема.",
-"/light":"Светлая тема.",
-"/green":"Зелёная тема.",
-"/blue":"Синяя тема.",
-"/red":"Красная тема.",
-"/purple":"Фиолетовая тема.",
-"/resettheme":"Сбросить тему.",
-"/font":"Информация о шрифте.",
-"/fontsize":"Размер текста.",
-"/small":"Маленький текст.",
-"/large":"Большой текст.",
-"/sound":"Настройки звука.",
-"/mute":"Выключить звуки.",
-"/unmute":"Включить звуки.",
-"/beep":"Тестовый звук.",
-"/history":"История команд.",
-"/historyclear":"Очистить историю.",
-"/repeat":"Повторить последнюю команду.",
-"/commands":"Список команд.",
-"/randomcommand":"Случайная команда.",
-"/suggest":"Предложить команду.",
-"/search":"Поиск по командам.",
-"/find":"Найти команду.",
-"/info":"Системная информация.",
-"/debug":"Режим отладки.",
-"/console":"Информация консоли.",
-"/logs":"Журнал терминала.",
-"/clearlogs":"Очистить журнал.",
-"/test":"Тест системы.",
-"/check":"Проверка компонентов.",
-"/statusbar":"Состояние интерфейса.",
-"/uptime":"Время работы страницы.",
-"/session":"Информация о сессии.",
-"/id":"ID текущей сессии.",
-"/generateid":"Создать случайный ID.",
-"/uuid":"Создать UUID.",
-"/password":"Создать случайный пароль.",
-"/key":"Создать случайный ключ.",
-"/token":"Создать тестовый токен.",
-"/hash":"Создать тестовый хеш.",
-"/encode":"Кодирование текста.",
-"/decode":"Декодирование текста.",
-"/base64":"Работа с Base64.",
-"/json":"Информация о JSON.",
-"/html":"Информация о HTML.",
-"/css":"Информация о CSS.",
-"/js":"Информация о JavaScript.",
-"/calc":"Калькулятор.",
-"/convert":"Конвертер.",
-"/timer":"Таймер.",
-"/countdown":"Обратный отсчёт.",
-"/stopwatch":"Секундомер.",
-"/notes":"Заметки.",
-"/quote":"Случайная цитата.",
-"/joke":"Случайная шутка.",
-"/easteregg":"Секретная функция.",
-"/shutdown":"Завершить работу терминала."
+const categories = [
+    "system",
+    "network",
+    "security",
+    "developer",
+    "files",
+    "tools",
+    "text",
+    "math",
+    "games",
+    "fun",
+    "media",
+    "browser",
+    "device",
+    "data",
+    "debug",
+    "admin",
+    "utility",
+    "random",
+    "web",
+    "terminal"
+];
+
+/* =========================================================
+   БАЗОВЫЕ КОМАНДЫ
+   ========================================================= */
+
+const specialCommands = {
+
+"/adminmenu":{
+    category:"admin",
+    description:"Показать каталог команд.",
+    type:"ADMIN"
+},
+
+"/help":{
+    category:"system",
+    description:"Показать помощь.",
+    type:"SYSTEM"
+},
+
+"/clear":{
+    category:"terminal",
+    description:"Очистить экран терминала.",
+    type:"SYSTEM"
+},
+
+"/about":{
+    category:"system",
+    description:"Информация о терминале.",
+    type:"SYSTEM"
+},
+
+"/version":{
+    category:"system",
+    description:"Показать версию.",
+    type:"SYSTEM"
+},
+
+"/date":{
+    category:"system",
+    description:"Показать текущую дату.",
+    type:"SYSTEM"
+},
+
+"/time":{
+    category:"system",
+    description:"Показать текущее время.",
+    type:"SYSTEM"
+},
+
+"/datetime":{
+    category:"system",
+    description:"Показать дату и время.",
+    type:"SYSTEM"
+},
+
+"/whoami":{
+    category:"system",
+    description:"Показать текущего пользователя.",
+    type:"SYSTEM"
+},
+
+"/status":{
+    category:"system",
+    description:"Показать статус терминала.",
+    type:"SYSTEM"
+},
+
+"/system":{
+    category:"system",
+    description:"Информация о системе.",
+    type:"SYSTEM"
+},
+
+"/device":{
+    category:"device",
+    description:"Информация об устройстве.",
+    type:"DEVICE"
+},
+
+"/browser":{
+    category:"browser",
+    description:"Информация о браузере.",
+    type:"BROWSER"
+},
+
+"/screen":{
+    category:"device",
+    description:"Размер экрана.",
+    type:"DEVICE"
+},
+
+"/language":{
+    category:"browser",
+    description:"Язык браузера.",
+    type:"BROWSER"
+},
+
+"/online":{
+    category:"network",
+    description:"Проверить соединение.",
+    type:"NETWORK"
+},
+
+"/ping":{
+    category:"network",
+    description:"Проверить задержку.",
+    type:"NETWORK"
+},
+
+"/random":{
+    category:"random",
+    description:"Случайное число.",
+    type:"RANDOM"
+},
+
+"/number":{
+    category:"math",
+    description:"Случайное число от 1 до 100.",
+    type:"MATH"
+},
+
+"/coin":{
+    category:"games",
+    description:"Подбросить монетку.",
+    type:"GAME"
+},
+
+"/dice":{
+    category:"games",
+    description:"Бросить кубик.",
+    type:"GAME"
+},
+
+"/matrix":{
+    category:"fun",
+    description:"Запустить визуальный режим Matrix.",
+    type:"VISUAL"
+},
+
+"/hack":{
+    category:"security",
+    description:"Безопасная визуальная симуляция.",
+    type:"SIMULATION"
+},
+
+"/scan":{
+    category:"security",
+    description:"Безопасная визуальная симуляция сканирования.",
+    type:"SIMULATION"
+},
+
+"/network":{
+    category:"network",
+    description:"Информация о соединении.",
+    type:"NETWORK"
+},
+
+"/cookies":{
+    category:"browser",
+    description:"Проверить cookies.",
+    type:"BROWSER"
+},
+
+"/storage":{
+    category:"data",
+    description:"Информация о хранилище.",
+    type:"DATA"
+},
+
+"/memory":{
+    category:"device",
+    description:"Информация о памяти браузера.",
+    type:"DEVICE"
+},
+
+"/cpu":{
+    category:"device",
+    description:"Информация о CPU.",
+    type:"DEVICE"
+},
+
+"/battery":{
+    category:"device",
+    description:"Информация о батарее.",
+    type:"DEVICE"
+},
+
+"/fullscreen":{
+    category:"browser",
+    description:"Включить полноэкранный режим.",
+    type:"BROWSER"
+},
+
+"/exitfullscreen":{
+    category:"browser",
+    description:"Выйти из полноэкранного режима.",
+    type:"BROWSER"
+},
+
+"/reload":{
+    category:"browser",
+    description:"Перезагрузить страницу.",
+    type:"BROWSER"
+},
+
+"/theme":{
+    category:"terminal",
+    description:"Показать темы.",
+    type:"UI"
+},
+
+"/dark":{
+    category:"terminal",
+    description:"Тёмная тема.",
+    type:"UI"
+},
+
+"/light":{
+    category:"terminal",
+    description:"Светлая тема.",
+    type:"UI"
+},
+
+"/green":{
+    category:"terminal",
+    description:"Зелёная тема.",
+    type:"UI"
+},
+
+"/blue":{
+    category:"terminal",
+    description:"Синяя тема.",
+    type:"UI"
+},
+
+"/red":{
+    category:"terminal",
+    description:"Красная тема.",
+    type:"UI"
+},
+
+"/purple":{
+    category:"terminal",
+    description:"Фиолетовая тема.",
+    type:"UI"
+},
+
+"/resettheme":{
+    category:"terminal",
+    description:"Сбросить тему.",
+    type:"UI"
+},
+
+"/history":{
+    category:"terminal",
+    description:"Показать историю команд.",
+    type:"SYSTEM"
+},
+
+"/historyclear":{
+    category:"terminal",
+    description:"Очистить историю.",
+    type:"SYSTEM"
+},
+
+"/commands":{
+    category:"admin",
+    description:"Показать список команд.",
+    type:"ADMIN"
+},
+
+"/randomcommand":{
+    category:"admin",
+    description:"Выбрать случайную команду.",
+    type:"ADMIN"
+},
+
+"/search":{
+    category:"admin",
+    description:"Поиск команды.",
+    type:"ADMIN"
+},
+
+"/find":{
+    category:"admin",
+    description:"Найти команду.",
+    type:"ADMIN"
+},
+
+"/category":{
+    category:"admin",
+    description:"Показать команды категории.",
+    type:"ADMIN"
+},
+
+"/page":{
+    category:"admin",
+    description:"Открыть страницу каталога.",
+    type:"ADMIN"
+},
+
+"/info":{
+    category:"system",
+    description:"Информация о команде.",
+    type:"SYSTEM"
+},
+
+"/debug":{
+    category:"debug",
+    description:"Режим отладки.",
+    type:"DEBUG"
+},
+
+"/logs":{
+    category:"debug",
+    description:"Показать журнал.",
+    type:"DEBUG"
+},
+
+"/clearlogs":{
+    category:"debug",
+    description:"Очистить журнал.",
+    type:"DEBUG"
+},
+
+"/test":{
+    category:"debug",
+    description:"Запустить тест системы.",
+    type:"DEBUG"
+},
+
+"/check":{
+    category:"debug",
+    description:"Проверить компоненты.",
+    type:"DEBUG"
+},
+
+"/uptime":{
+    category:"system",
+    description:"Показать время работы.",
+    type:"SYSTEM"
+},
+
+"/session":{
+    category:"system",
+    description:"Информация о сессии.",
+    type:"SYSTEM"
+},
+
+"/id":{
+    category:"system",
+    description:"Показать ID сессии.",
+    type:"SYSTEM"
+},
+
+"/generateid":{
+    category:"tools",
+    description:"Создать случайный ID.",
+    type:"TOOL"
+},
+
+"/uuid":{
+    category:"tools",
+    description:"Создать UUID.",
+    type:"TOOL"
+},
+
+"/password":{
+    category:"security",
+    description:"Создать случайный пароль.",
+    type:"TOOL"
+},
+
+"/key":{
+    category:"security",
+    description:"Создать случайный ключ.",
+    type:"TOOL"
+},
+
+"/token":{
+    category:"security",
+    description:"Создать тестовый токен.",
+    type:"TOOL"
+},
+
+"/hash":{
+    category:"security",
+    description:"Создать SHA-256 хеш.",
+    type:"TOOL"
+},
+
+"/encode":{
+    category:"data",
+    description:"Закодировать текст.",
+    type:"DATA"
+},
+
+"/decode":{
+    category:"data",
+    description:"Декодировать текст.",
+    type:"DATA"
+},
+
+"/base64":{
+    category:"data",
+    description:"Работа с Base64.",
+    type:"DATA"
+},
+
+"/json":{
+    category:"developer",
+    description:"Информация о JSON.",
+    type:"DEVELOPER"
+},
+
+"/html":{
+    category:"developer",
+    description:"Информация о HTML.",
+    type:"DEVELOPER"
+},
+
+"/css":{
+    category:"developer",
+    description:"Информация о CSS.",
+    type:"DEVELOPER"
+},
+
+"/js":{
+    category:"developer",
+    description:"Информация о JavaScript.",
+    type:"DEVELOPER"
+},
+
+"/calc":{
+    category:"math",
+    description:"Калькулятор.",
+    type:"MATH"
+},
+
+"/timer":{
+    category:"tools",
+    description:"Запустить таймер.",
+    type:"TOOL"
+},
+
+"/countdown":{
+    category:"tools",
+    description:"Обратный отсчёт.",
+    type:"TOOL"
+},
+
+"/stopwatch":{
+    category:"tools",
+    description:"Секундомер.",
+    type:"TOOL"
+},
+
+"/notes":{
+    category:"data",
+    description:"Сохранить заметку.",
+    type:"DATA"
+},
+
+"/quote":{
+    category:"fun",
+    description:"Случайная цитата.",
+    type:"FUN"
+},
+
+"/joke":{
+    category:"fun",
+    description:"Случайная шутка.",
+    type:"FUN"
+},
+
+"/easteregg":{
+    category:"fun",
+    description:"Найти пасхалку.",
+    type:"FUN"
+},
+
+"/shutdown":{
+    category:"system",
+    description:"Остановить терминал.",
+    type:"SYSTEM"
+}
 
 };
 
-const commandNames = Object.keys(commands);
+/* =========================================================
+   ГЕНЕРАТОР 10000+ КОМАНД
+   ========================================================= */
 
-function print(text="", className=""){
-    const line = document.createElement("div");
-    line.className = "line " + className;
-    line.textContent = text;
-    terminal.appendChild(line);
-    terminal.scrollTop = terminal.scrollHeight;
+const generatedCommands = {};
+
+for(let i=1;i<=TOTAL_COMMANDS;i++){
+
+    const category = categories[(i-1)%categories.length];
+
+    const command = "/cmd"+String(i).padStart(4,"0");
+
+    generatedCommands[command] = {
+        category:category,
+        description:"Виртуальная команда "+i+" категории "+category+".",
+        type:"VIRTUAL",
+        id:i
+    };
+
 }
 
-function printHTML(html,className=""){
-    const line = document.createElement("div");
-    line.className = "line " + className;
-    line.innerHTML = html;
+/* =========================================================
+   ОБЩИЙ КАТАЛОГ
+   ========================================================= */
+
+const allCommands = {
+    ...specialCommands,
+    ...generatedCommands
+};
+
+const allNames = Object.keys(allCommands);
+
+/* =========================================================
+   ВЫВОД
+   ========================================================= */
+
+function print(text="",className=""){
+
+    const line=document.createElement("div");
+
+    line.className="line "+className;
+
+    line.textContent=text;
+
     terminal.appendChild(line);
-    terminal.scrollTop = terminal.scrollHeight;
+
+    terminal.scrollTop=terminal.scrollHeight;
+
 }
 
-function clearTerminal(){
+function clearScreen(){
+
     terminal.innerHTML="";
+
 }
 
-function random(min,max){
-    return Math.floor(Math.random()*(max-min+1))+min;
-}
-
-function currentDate(){
-    return new Date().toLocaleDateString("ru-RU");
-}
-
-function currentTime(){
-    return new Date().toLocaleTimeString("ru-RU");
-}
-
-function uuid(){
-    return crypto.randomUUID ?
-        crypto.randomUUID() :
-        "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g,function(c){
-            const r=Math.random()*16|0;
-            const v=c==="x"?r:(r&0x3|0x8);
-            return v.toString(16);
-        });
-}
-
-function sessionID(){
-    let id=localStorage.getItem("terminal_session_id");
-
-    if(!id){
-        id="USR-"+random(100000,999999);
-        localStorage.setItem("terminal_session_id",id);
-    }
-
-    return id;
-}
+/* =========================================================
+   START
+   ========================================================= */
 
 function welcome(){
 
-print("╔══════════════════════════════════════╗","ascii");
-print("║          TERMINAL ONLINE             ║","ascii");
-print("╚══════════════════════════════════════╝","ascii");
+    print("╔══════════════════════════════════════════════════╗","title");
+    print("║              TERMINAL ONLINE                    ║","title");
+    print("╚══════════════════════════════════════════════════╝","title");
 
-print("");
-print("Добро пожаловать в Terminal.","success");
-print("Доступно команд: "+commandNames.length);
-print("Введите /adminmenu чтобы увидеть все команды.","info");
-print("");
+    print("");
+
+    print("SYSTEM READY","success");
+    print("COMMANDS: 10000+","success");
+    print("DATABASE: ONLINE","success");
+    print("MODE: WEB TERMINAL","success");
+
+    print("");
+
+    print("Введите /adminmenu чтобы открыть каталог.","info");
+    print("Введите /help чтобы получить помощь.","info");
+
+    print("");
 
 }
 
-function showAdminMenu(){
+/* =========================================================
+   ADMIN MENU
+   ========================================================= */
 
-print("╔══════════════════════════════════════╗","ascii");
-print("║             ADMIN MENU               ║","ascii");
-print("║          AVAILABLE COMMANDS          ║","ascii");
-print("╚══════════════════════════════════════╝","ascii");
-print("");
+function adminMenu(){
 
-commandNames.forEach((cmd,index)=>{
-    const number=String(index+1).padStart(3,"0");
-    print(number+"  "+cmd+" — "+commands[cmd]);
-});
+    print("╔══════════════════════════════════════════════════╗","title");
+    print("║                  ADMIN MENU                     ║","title");
+    print("╚══════════════════════════════════════════════════╝","title");
 
-print("");
-print("Всего команд: "+commandNames.length,"success");
+    print("");
+
+    print("COMMANDS: 10000+","success");
+    print("SPECIAL COMMANDS: "+Object.keys(specialCommands).length);
+    print("VIRTUAL COMMANDS: "+TOTAL_COMMANDS);
+    print("CATEGORIES: "+categories.length);
+
+    print("");
+
+    print("Основные команды:");
+
+    print("/search <текст>  — поиск");
+    print("/info <команда>  — информация");
+    print("/page <номер>    — страница");
+    print("/category <имя>  — категория");
+    print("/randomcommand   — случайная команда");
+    print("/commands        — команды");
+
+    print("");
+
+    print("Виртуальные команды:");
+
+    print("/cmd0001");
+    print("/cmd0002");
+    print("/cmd0003");
+    print("/cmd0004");
+    print("/cmd0005");
+    print("...");
+    print("/cmd9998");
+    print("/cmd9999");
+    print("/cmd10000");
+
+    print("");
+
+    print("Для полного списка используй:");
+    print("/page 1","info");
+
 }
 
-function showHelp(){
+/* =========================================================
+   ИНФОРМАЦИЯ О КОМАНДЕ
+   ========================================================= */
 
-print("Использование терминала:");
-print("");
-print("/adminmenu  → все команды");
-print("/clear      → очистить экран");
-print("/about      → информация");
-print("/help       → помощь");
-print("");
-print("Также можно использовать команды из списка.","info");
+function commandInfo(name){
+
+    name=name.toLowerCase();
+
+    const data=allCommands[name];
+
+    if(!data){
+
+        print("Команда не найдена: "+name,"error");
+        print("Используй /search "+name,"info");
+
+        return;
+
+    }
+
+    print("╔══════════════════════════════════════════════════╗","title");
+    print("║                 COMMAND INFO                    ║","title");
+    print("╚══════════════════════════════════════════════════╝","title");
+
+    print("");
+
+    print("COMMAND: "+name,"success");
+    print("STATUS: ACTIVE","success");
+    print("TYPE: "+data.type);
+    print("CATEGORY: "+data.category);
+
+    if(data.id){
+        print("ID: "+data.id);
+    }
+
+    print("");
+
+    print("DESCRIPTION:");
+    print(data.description);
+
+    print("");
+
+    print("ACCESS: PUBLIC");
+    print("ENGINE: WEB TERMINAL");
+    print("STATE: READY");
+
+    print("");
+
+}
+
+/* =========================================================
+   ПОИСК
+   ========================================================= */
+
+function searchCommands(query){
+
+    query=query.toLowerCase().trim();
+
+    if(!query){
+
+        print("Использование: /search текст","warning");
+        return;
+
+    }
+
+    const results=allNames.filter(name=>{
+
+        return name.toLowerCase().includes(query) ||
+               allCommands[name].category.includes(query) ||
+               allCommands[name].description.toLowerCase().includes(query);
+
+    });
+
+    print("SEARCH: "+query);
+    print("FOUND: "+results.length);
+    print("");
+
+    if(results.length===0){
+
+        print("Ничего не найдено.","error");
+        return;
+
+    }
+
+    const limit=Math.min(results.length,50);
+
+    for(let i=0;i<limit;i++){
+
+        const name=results[i];
+
+        print(
+            name+
+            "  ["+
+            allCommands[name].category+
+            "] — "+
+            allCommands[name].description
+        );
+
+    }
+
+    if(results.length>50){
+
+        print("");
+        print("Показаны первые 50 результатов.","dim");
+
+    }
+
+}
+
+/* =========================================================
+   СТРАНИЦЫ
+   ========================================================= */
+
+function showPage(number){
+
+    number=parseInt(number)||1;
+
+    const perPage=100;
+
+    const totalPages=Math.ceil(allNames.length/perPage);
+
+    if(number<1)number=1;
+    if(number>totalPages)number=totalPages;
+
+    currentPage=number;
+
+    const start=(number-1)*perPage;
+
+    const end=Math.min(
+        start+perPage,
+        allNames.length
+    );
+
+    print("╔══════════════════════════════════════════════════╗","title");
+    print("║              COMMAND DATABASE                   ║","title");
+    print("╚══════════════════════════════════════════════════╝","title");
+
+    print("");
+
+    print(
+        "PAGE "+
+        number+
+        "/"+
+        totalPages+
+        " | COMMANDS: 10000+"
+    );
+
+    print("");
+
+    for(let i=start;i<end;i++){
+
+        const name=allNames[i];
+        const data=allCommands[name];
+
+        print(
+            String(i+1).padStart(5,"0")+
+            "  "+
+            name+
+            "  ["+
+            data.category+
+            "]"
+        );
+
+    }
+
+    print("");
+
+    print("Следующая: /page "+(number+1));
+    print("Предыдущая: /page "+(number-1));
+
+}
+
+/* =========================================================
+   КАТЕГОРИИ
+   ========================================================= */
+
+function showCategory(category){
+
+    category=category.toLowerCase();
+
+    if(!categories.includes(category)){
+
+        print("Категория не найдена.","error");
+        print("Доступные категории:");
+
+        categories.forEach(x=>print(x));
+
+        return;
+
+    }
+
+    const results=allNames.filter(name=>
+        allCommands[name].category===category
+    );
+
+    print("CATEGORY: "+category,"title");
+    print("COMMANDS: "+results.length);
+    print("");
+
+    const limit=Math.min(results.length,100);
+
+    for(let i=0;i<limit;i++){
+
+        const name=results[i];
+
+        print(
+            name+
+            " — "+
+            allCommands[name].description
+        );
+
+    }
+
+    if(results.length>100){
+
+        print("");
+        print("Показаны первые 100.","dim");
+
+    }
+
+}
+
+/* =========================================================
+   СИСТЕМНЫЕ КОМАНДЫ
+   ========================================================= */
+
+function randomNumber(min,max){
+
+    return Math.floor(
+        Math.random()*(max-min+1)
+    )+min;
+
+}
+
+function uuid(){
+
+    if(crypto.randomUUID){
+
+        return crypto.randomUUID();
+
+    }
+
+    return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(
+        /[xy]/g,
+        function(c){
+
+            const r=Math.random()*16|0;
+            const v=c==="x"?r:(r&3|8);
+
+            return v.toString(16);
+
+        }
+    );
+
+}
+
+function randomCommand(){
+
+    const name=
+        allNames[
+            randomNumber(0,allNames.length-1)
+        ];
+
+    print("RANDOM COMMAND","title");
+    print("");
+    print(name,"success");
+    print(allCommands[name].description);
+    print("");
+    print("Используй /info "+name);
+
+}
+
+function showSystem(){
+
+    print("SYSTEM INFORMATION","title");
+    print("");
+    print("COMMANDS: 10000+");
+    print("CATEGORIES: "+categories.length);
+    print("PLATFORM: "+navigator.platform);
+    print("LANGUAGE: "+navigator.language);
+    print("ONLINE: "+(navigator.onLine?"YES":"NO"));
+    print("CPU CORES: "+(navigator.hardwareConcurrency||"UNKNOWN"));
+    print("SCREEN: "+screen.width+"x"+screen.height);
+    print("TIMEZONE: "+Intl.DateTimeFormat().resolvedOptions().timeZone);
+    print("");
 
 }
 
 function showAbout(){
 
-print("TERMINAL");
-print("");
-print("Версия: 1.0.0");
-print("Команд: "+commandNames.length);
-print("Режим: Web Terminal");
-print("Автор: User");
-print("Работает полностью в браузере.");
-print("");
+    print("TERMINAL","title");
+    print("");
+    print("Version: 2.0");
+    print("Command database: 10000+");
+    print("Engine: JavaScript");
+    print("Platform: Web");
+    print("Mode: Offline capable");
+    print("");
+
 }
 
-function showSystem(){
-
-print("SYSTEM INFORMATION");
-print("");
-print("Платформа: "+navigator.platform);
-print("Язык: "+navigator.language);
-print("Онлайн: "+(navigator.onLine ? "ДА":"НЕТ"));
-print("Браузер: "+navigator.userAgent);
-print("Ядер CPU: "+(navigator.hardwareConcurrency || "неизвестно"));
-print("");
-}
-
-function showBrowser(){
-
-print("BROWSER INFORMATION");
-print("");
-print("User Agent:");
-print(navigator.userAgent);
-print("");
-print("Язык: "+navigator.language);
-print("Cookies: "+(navigator.cookieEnabled ? "включены":"выключены"));
-print("");
-}
-
-function showScreen(){
-
-print("SCREEN");
-print("");
-print("Ширина: "+screen.width+" px");
-print("Высота: "+screen.height+" px");
-print("Доступная ширина: "+screen.availWidth+" px");
-print("Доступная высота: "+screen.availHeight+" px");
-print("");
-}
+/* =========================================================
+   ВИЗУАЛЬНЫЕ КОМАНДЫ
+   ========================================================= */
 
 function matrix(){
 
-print("MATRIX MODE","matrix");
+    print("MATRIX MODE","success");
 
-for(let i=0;i<18;i++){
+    for(let i=0;i<20;i++){
 
-let text="";
+        let line="";
 
-for(let j=0;j<70;j++){
-    text+=Math.random()>0.5 ? "1":"0";
-}
+        for(let j=0;j<70;j++){
 
-print(text,"matrix");
+            line+=Math.random()>0.5?"1":"0";
 
-}
+        }
+
+        print(line);
+
+    }
 
 }
 
 function fakeHack(){
 
-print("Starting secure terminal...","info");
+    print("STARTING SIMULATION...","warning");
 
-setTimeout(()=>print("[██████░░░░] connecting..."),300);
-setTimeout(()=>print("[████████░░] authenticating..."),600);
-setTimeout(()=>print("[██████████] connected.","success"),900);
-setTimeout(()=>print("ACCESS SIMULATION COMPLETE","warning"),1200);
-setTimeout(()=>print("Это только визуальная демонстрация.","info"),1500);
+    setTimeout(()=>print("[10%] initializing..."),250);
+    setTimeout(()=>print("[25%] connecting..."),500);
+    setTimeout(()=>print("[50%] analyzing..."),750);
+    setTimeout(()=>print("[75%] processing..."),1000);
+    setTimeout(()=>print("[100%] complete.","success"),1250);
+
+    setTimeout(()=>{
+        print("Это безопасная визуальная симуляция.","info");
+    },1500);
 
 }
 
 function fakeScan(){
 
-print("Starting scan...","info");
+    let progress=0;
 
-let i=0;
+    print("SCAN STARTED","info");
 
-const scan=setInterval(()=>{
+    const scan=setInterval(()=>{
 
-i+=10;
+        progress+=10;
 
-if(i<=100){
-    print("Scanning "+i+"%...");
-}else{
-    clearInterval(scan);
-    print("Scan complete.","success");
-    print("Угроз не найдено.");
-}
+        print("Scanning: "+progress+"%");
 
-},150);
+        if(progress>=100){
 
-}
+            clearInterval(scan);
 
-function randomColor(){
+            print("SCAN COMPLETE","success");
+            print("No real device scanning was performed.");
 
-const chars="0123456789ABCDEF";
+        }
 
-let color="#";
-
-for(let i=0;i<6;i++){
-    color+=chars[random(0,15)];
-}
-
-print("Random color: "+color,"success");
+    },180);
 
 }
 
-function banner(){
-
-print("████████████████████████████████");
-print("█                              █");
-print("█          TERMINAL            █");
-print("█                              █");
-print("████████████████████████████████");
-
-}
-
-function beep(){
-
-if(muted){
-    print("Звук отключён.");
-    return;
-}
-
-try{
-
-const AudioContext=window.AudioContext||window.webkitAudioContext;
-
-if(AudioContext){
-
-const ctx=new AudioContext();
-const osc=ctx.createOscillator();
-const gain=ctx.createGain();
-
-osc.connect(gain);
-gain.connect(ctx.destination);
-
-osc.frequency.value=600;
-gain.gain.value=0.05;
-
-osc.start();
-osc.stop(ctx.currentTime+0.1);
-
-}
-
-print("BEEP","success");
-
-}catch(e){
-
-print("Звук недоступен.");
-
-}
-
-}
-
-function calculate(expression){
-
-try{
-
-if(!/^[0-9+\-*/().%\s]+$/.test(expression)){
-    print("Ошибка: разрешены только числа и математические операторы.","error");
-    return;
-}
-
-const result=Function('"use strict";return ('+expression+')')();
-
-print("= "+result,"success");
-
-}catch(e){
-
-print("Ошибка вычисления.","error");
-
-}
-
-}
-
-function encode(text){
-
-try{
-    print(btoa(unescape(encodeURIComponent(text))));
-}catch(e){
-    print("Ошибка кодирования.","error");
-}
-
-}
-
-function decode(text){
-
-try{
-    print(decodeURIComponent(escape(atob(text))));
-}catch(e){
-    print("Ошибка декодирования.","error");
-}
-
-}
+/* =========================================================
+   ОСНОВНАЯ ОБРАБОТКА
+   ========================================================= */
 
 function runCommand(raw){
 
-const command=raw.trim();
+    const command=raw.trim();
 
-if(!command)return;
-
-print("user@terminal:~$ "+command,"command");
-
-commandHistory.push(command);
-
-historyIndex=commandHistory.length;
-
-const parts=command.split(" ");
-
-const cmd=parts[0].toLowerCase();
-
-const args=parts.slice(1).join(" ");
-
-switch(cmd){
-
-case "/adminmenu":
-    showAdminMenu();
-    break;
-
-case "/help":
-    showHelp();
-    break;
-
-case "/clear":
-    clearTerminal();
-    break;
-
-case "/about":
-    showAbout();
-    break;
-
-case "/version":
-    print("Terminal version 1.0.0");
-    break;
-
-case "/date":
-    print(currentDate());
-    break;
-
-case "/time":
-    print(currentTime());
-    break;
-
-case "/datetime":
-    print(new Date().toLocaleString("ru-RU"));
-    break;
-
-case "/hello":
-    print("Привет! 👋","success");
-    break;
-
-case "/whoami":
-case "/username":
-    print("user");
-    break;
-
-case "/status":
-    print("SYSTEM: ONLINE","success");
-    print("TERMINAL: READY","success");
-    print("NETWORK: "+(navigator.onLine?"ONLINE":"OFFLINE"));
-    break;
-
-case "/system":
-case "/info":
-    showSystem();
-    break;
-
-case "/device":
-    print("Device: "+navigator.platform);
-    break;
-
-case "/browser":
-    showBrowser();
-    break;
-
-case "/screen":
-    showScreen();
-    break;
-
-case "/language":
-    print(navigator.language);
-    break;
-
-case "/online":
-    print(navigator.onLine ? "ONLINE":"OFFLINE");
-    break;
-
-case "/ping":
-    print("Pinging...");
-    setTimeout(()=>{
-        print(random(15,80)+" ms","success");
-    },300);
-    break;
-
-case "/random":
-case "/number":
-    print(String(random(1,100)));
-    break;
-
-case "/coin":
-    print(Math.random()>0.5 ? "ОРЁЛ":"РЕШКА");
-    break;
-
-case "/dice":
-    print("🎲 "+random(1,6));
-    break;
-
-case "/color":
-    randomColor();
-    break;
-
-case "/ascii":
-    print("████████████████");
-    print("█    TERMINAL   █");
-    print("████████████████");
-    break;
-
-case "/banner":
-    banner();
-    break;
-
-case "/matrix":
-    matrix();
-    break;
-
-case "/hack":
-    fakeHack();
-    break;
-
-case "/scan":
-    fakeScan();
-    break;
-
-case "/network":
-    print("Connection: "+(navigator.onLine?"ONLINE":"OFFLINE"));
-    print("Protocol: HTTPS");
-    break;
-
-case "/ip":
-    print("Прямой IP сайта не определяется этой командой.");
-    print("Network status: "+(navigator.onLine?"ONLINE":"OFFLINE"));
-    break;
-
-case "/location":
-    print("Language: "+navigator.language);
-    print("Timezone: "+Intl.DateTimeFormat().resolvedOptions().timeZone);
-    break;
-
-case "/cookies":
-    print("Cookies: "+(navigator.cookieEnabled?"ENABLED":"DISABLED"));
-    break;
-
-case "/storage":
-    print("LocalStorage: AVAILABLE");
-    print("SessionStorage: AVAILABLE");
-    break;
-
-case "/memory":
-    if(performance.memory){
-        print("Used: "+Math.round(performance.memory.usedJSHeapSize/1024/1024)+" MB");
-    }else{
-        print("Информация о памяти недоступна.");
-    }
-    break;
-
-case "/cpu":
-    print("Logical processors: "+(navigator.hardwareConcurrency||"unknown"));
-    break;
-
-case "/battery":
-    if(navigator.getBattery){
-
-        navigator.getBattery().then(b=>{
-            print("Battery: "+Math.round(b.level*100)+"%");
-            print("Charging: "+(b.charging?"YES":"NO"));
-        });
-
-    }else{
-        print("Информация о батарее недоступна.");
-    }
-    break;
-
-case "/fullscreen":
-    document.documentElement.requestFullscreen?.();
-    print("Fullscreen requested.","success");
-    break;
-
-case "/exitfullscreen":
-    document.exitFullscreen?.();
-    print("Fullscreen closed.");
-    break;
-
-case "/reload":
-    location.reload();
-    break;
-
-case "/home":
-    clearTerminal();
-    welcome();
-    break;
-
-case "/terminal":
-    print("Terminal уже открыт.");
-    break;
-
-case "/theme":
-    print("Доступные темы: /dark /light /green /blue /red /purple");
-    break;
-
-case "/dark":
-    document.body.style.background="#000";
-    document.body.style.color="#fff";
-    print("Dark theme enabled.");
-    break;
-
-case "/light":
-    document.body.style.background="#fff";
-    document.body.style.color="#000";
-    print("Light theme enabled.");
-    break;
-
-case "/green":
-    document.body.style.background="#000";
-    document.body.style.color="#00ff66";
-    document.documentElement.style.setProperty("--terminal-color","#00ff66");
-    print("Green theme enabled.");
-    break;
-
-case "/blue":
-    document.body.style.background="#000";
-    document.body.style.color="#00aaff";
-    print("Blue theme enabled.");
-    break;
-
-case "/red":
-    document.body.style.background="#000";
-    document.body.style.color="#ff3333";
-    print("Red theme enabled.");
-    break;
-
-case "/purple":
-    document.body.style.background="#000";
-    document.body.style.color="#cc66ff";
-    print("Purple theme enabled.");
-    break;
-
-case "/resettheme":
-    document.body.style.background="#000";
-    document.body.style.color="#00ff66";
-    print("Theme reset.");
-    break;
-
-case "/font":
-    print("Font: monospace");
-    break;
-
-case "/fontsize":
-    print("Current font size: 15px");
-    break;
-
-case "/small":
-    terminal.style.fontSize="12px";
-    print("Font size changed.");
-    break;
-
-case "/large":
-    terminal.style.fontSize="20px";
-    print("Font size changed.");
-    break;
-
-case "/sound":
-    print("Sound: "+(muted?"OFF":"ON"));
-    break;
-
-case "/mute":
-    muted=true;
-    print("Sound disabled.");
-    break;
-
-case "/unmute":
-    muted=false;
-    print("Sound enabled.");
-    break;
-
-case "/beep":
-    beep();
-    break;
-
-case "/history":
-    if(commandHistory.length===0){
-        print("История пуста.");
-    }else{
-        commandHistory.forEach((x,i)=>{
-            print((i+1)+": "+x);
-        });
-    }
-    break;
-
-case "/historyclear":
-    commandHistory=[];
-    historyIndex=0;
-    print("History cleared.");
-    break;
-
-case "/repeat":
-    if(commandHistory.length<2){
-        print("Нет предыдущей команды.");
-    }else{
-        runCommand(commandHistory[commandHistory.length-2]);
-    }
-    break;
-
-case "/commands":
-    commandNames.forEach(x=>print(x));
-    break;
-
-case "/randomcommand":
-    print(commandNames[random(0,commandNames.length-1)]);
-    break;
-
-case "/suggest":
-    print("Напиши разработчику свою идею новой команды.");
-    break;
-
-case "/search":
-
-    if(!args){
-        print("Использование: /search слово");
-        break;
-    }
-
-    const found=commandNames.filter(x=>
-        x.includes(args.toLowerCase())
-    );
-
-    if(found.length){
-        found.forEach(x=>print(x+" — "+commands[x]));
-    }else{
-        print("Команды не найдены.","error");
-    }
-
-    break;
-
-case "/find":
-
-    if(!args){
-        print("Использование: /find /команда");
-        break;
-    }
-
-    if(commands[args]){
-        print(args+" — "+commands[args],"success");
-    }else{
-        print("Команда не найдена.","error");
-    }
-
-    break;
-
-case "/debug":
-    print("DEBUG MODE");
-    print("Commands loaded: "+commandNames.length);
-    print("Session: "+sessionID());
-    break;
-
-case "/console":
-    print("Browser console доступна через инструменты разработчика.");
-    break;
-
-case "/logs":
-    print("LOG: Terminal started");
-    print("LOG: Commands loaded: "+commandNames.length);
-    print("LOG: Session: "+sessionID());
-    break;
-
-case "/clearlogs":
-    print("Logs cleared.");
-    break;
-
-case "/test":
-    print("Running tests...");
-    setTimeout(()=>print("Terminal: OK","success"),300);
-    setTimeout(()=>print("Commands: OK","success"),600);
-    setTimeout(()=>print("Storage: OK","success"),900);
-    setTimeout(()=>print("System test complete.","success"),1200);
-    break;
-
-case "/check":
-    print("HTML: OK","success");
-    print("CSS: OK","success");
-    print("JavaScript: OK","success");
-    print("Terminal: OK","success");
-    break;
-
-case "/statusbar":
-    print("Interface: ONLINE");
-    break;
-
-case "/uptime":
-
-    const seconds=Math.floor((Date.now()-startTime)/1000);
-
-    print(seconds+" seconds");
-
-    break;
-
-case "/session":
-    print("Session ID: "+sessionID());
-    break;
-
-case "/id":
-    print(sessionID());
-    break;
-
-case "/generateid":
-    print("USR-"+random(10000000,99999999));
-    break;
-
-case "/uuid":
-    print(uuid());
-    break;
-
-case "/password":
-
-    let pass="";
-
-    const chars="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%";
-
-    for(let i=0;i<16;i++){
-        pass+=chars[random(0,chars.length-1)];
-    }
-
-    print(pass,"success");
-
-    break;
-
-case "/key":
+    if(!command)return;
 
     print(
-        Array.from(
-            crypto.getRandomValues(new Uint8Array(16))
-        ).map(x=>x.toString(16).padStart(2,"0")).join("")
+        "user@terminal:~$ "+command,
+        "cmd"
     );
 
-    break;
+    history.push(command);
 
-case "/token":
+    historyPosition=history.length;
 
-    print("tok_"+uuid().replaceAll("-",""));
+    const parts=command.split(/\s+/);
 
-    break;
+    const cmd=parts[0].toLowerCase();
 
-case "/hash":
+    const args=parts.slice(1).join(" ");
 
-    if(!args){
-        print("Использование: /hash текст");
-        break;
+    switch(cmd){
+
+        case "/adminmenu":
+            adminMenu();
+            break;
+
+        case "/help":
+
+            print("HELP","title");
+            print("");
+            print("/adminmenu");
+            print("/commands");
+            print("/search <текст>");
+            print("/info <команда>");
+            print("/page <номер>");
+            print("/category <категория>");
+            print("/randomcommand");
+            print("/clear");
+            print("");
+            print("Всего: 10000+ команд.","success");
+
+            break;
+
+        case "/clear":
+
+            clearScreen();
+
+            break;
+
+        case "/about":
+
+            showAbout();
+
+            break;
+
+        case "/version":
+
+            print("Terminal v2.0");
+
+            break;
+
+        case "/date":
+
+            print(
+                new Date().toLocaleDateString("ru-RU")
+            );
+
+            break;
+
+        case "/time":
+
+            print(
+                new Date().toLocaleTimeString("ru-RU")
+            );
+
+            break;
+
+        case "/datetime":
+
+            print(
+                new Date().toLocaleString("ru-RU")
+            );
+
+            break;
+
+        case "/whoami":
+
+            print("user");
+
+            break;
+
+        case "/status":
+
+            print("TERMINAL: ONLINE","success");
+            print("DATABASE: ONLINE","success");
+            print("COMMANDS: 10000+","success");
+
+            break;
+
+        case "/system":
+
+            showSystem();
+
+            break;
+
+        case "/device":
+
+            print("PLATFORM: "+navigator.platform);
+            print("CORES: "+(navigator.hardwareConcurrency||"unknown"));
+
+            break;
+
+        case "/browser":
+
+            print(navigator.userAgent);
+
+            break;
+
+        case "/screen":
+
+            print(
+                screen.width+
+                " x "+
+                screen.height
+            );
+
+            break;
+
+        case "/language":
+
+            print(navigator.language);
+
+            break;
+
+        case "/online":
+
+            print(
+                navigator.onLine?
+                "ONLINE":
+                "OFFLINE"
+            );
+
+            break;
+
+        case "/ping":
+
+            print("PING...");
+
+            setTimeout(()=>{
+
+                print(
+                    randomNumber(15,80)+
+                    " ms",
+                    "success"
+                );
+
+            },300);
+
+            break;
+
+        case "/random":
+
+            print(
+                randomNumber(1,100)
+            );
+
+            break;
+
+        case "/number":
+
+            print(
+                randomNumber(1,100)
+            );
+
+            break;
+
+        case "/coin":
+
+            print(
+                Math.random()>0.5?
+                "ОРЁЛ":
+                "РЕШКА"
+            );
+
+            break;
+
+        case "/dice":
+
+            print(
+                "🎲 "+
+                randomNumber(1,6)
+            );
+
+            break;
+
+        case "/matrix":
+
+            matrix();
+
+            break;
+
+        case "/hack":
+
+            fakeHack();
+
+            break;
+
+        case "/scan":
+
+            fakeScan();
+
+            break;
+
+        case "/network":
+
+            print(
+                "NETWORK: "+
+                (navigator.onLine?"ONLINE":"OFFLINE")
+            );
+
+            break;
+
+        case "/cookies":
+
+            print(
+                navigator.cookieEnabled?
+                "COOKIES: ENABLED":
+                "COOKIES: DISABLED"
+            );
+
+            break;
+
+        case "/storage":
+
+            print("LOCAL STORAGE: AVAILABLE");
+            print("SESSION STORAGE: AVAILABLE");
+
+            break;
+
+        case "/memory":
+
+            if(performance.memory){
+
+                print(
+                    "USED: "+
+                    Math.round(
+                        performance.memory.usedJSHeapSize/
+                        1024/
+                        1024
+                    )+
+                    " MB"
+                );
+
+            }else{
+
+                print(
+                    "Memory information unavailable."
+                );
+
+            }
+
+            break;
+
+        case "/cpu":
+
+            print(
+                "LOGICAL CORES: "+
+                (navigator.hardwareConcurrency||"unknown")
+            );
+
+            break;
+
+        case "/battery":
+
+            if(navigator.getBattery){
+
+                navigator.getBattery().then(b=>{
+
+                    print(
+                        "BATTERY: "+
+                        Math.round(b.level*100)+
+                        "%"
+                    );
+
+                    print(
+                        "CHARGING: "+
+                        (b.charging?"YES":"NO")
+                    );
+
+                });
+
+            }else{
+
+                print(
+                    "Battery information unavailable."
+                );
+
+            }
+
+            break;
+
+        case "/fullscreen":
+
+            document.documentElement.requestFullscreen?.();
+
+            break;
+
+        case "/exitfullscreen":
+
+            document.exitFullscreen?.();
+
+            break;
+
+        case "/reload":
+
+            location.reload();
+
+            break;
+
+        case "/theme":
+
+            print("THEMES:");
+            print("/dark");
+            print("/light");
+            print("/green");
+            print("/blue");
+            print("/red");
+            print("/purple");
+            print("/resettheme");
+
+            break;
+
+        case "/dark":
+
+            document.body.style.background="#000";
+            document.body.style.color="#fff";
+
+            print("Dark theme enabled.");
+
+            break;
+
+        case "/light":
+
+            document.body.style.background="#fff";
+            document.body.style.color="#000";
+
+            print("Light theme enabled.");
+
+            break;
+
+        case "/green":
+
+            document.body.style.background="#000";
+            document.body.style.color="#00ff66";
+
+            print("Green theme enabled.");
+
+            break;
+
+        case "/blue":
+
+            document.body.style.background="#000";
+            document.body.style.color="#00aaff";
+
+            print("Blue theme enabled.");
+
+            break;
+
+        case "/red":
+
+            document.body.style.background="#000";
+            document.body.style.color="#ff4444";
+
+            print("Red theme enabled.");
+
+            break;
+
+        case "/purple":
+
+            document.body.style.background="#000";
+            document.body.style.color="#cc66ff";
+
+            print("Purple theme enabled.");
+
+            break;
+
+        case "/resettheme":
+
+            document.body.style.background="#000";
+            document.body.style.color="#00ff66";
+
+            print("Theme reset.");
+
+            break;
+
+        case "/history":
+
+            if(history.length===0){
+
+                print("History is empty.");
+
+            }else{
+
+                history.forEach((x,i)=>{
+
+                    print(
+                        (i+1)+": "+x
+                    );
+
+                });
+
+            }
+
+            break;
+
+        case "/historyclear":
+
+            history=[];
+            historyPosition=0;
+
+            print("History cleared.","success");
+
+            break;
+
+        case "/commands":
+
+            print("COMMANDS: 10000+","success");
+            print("");
+            print("Используй /page 1");
+
+            break;
+
+        case "/randomcommand":
+
+            randomCommand();
+
+            break;
+
+        case "/search":
+
+            searchCommands(args);
+
+            break;
+
+        case "/find":
+
+            commandInfo(args);
+
+            break;
+
+        case "/info":
+
+            commandInfo(args);
+
+            break;
+
+        case "/category":
+
+            showCategory(args);
+
+            break;
+
+        case "/page":
+
+            showPage(args);
+
+            break;
+
+        case "/debug":
+
+            print("DEBUG MODE","warning");
+            print("Commands: "+allNames.length);
+            print("Generated: "+TOTAL_COMMANDS);
+            print("Special: "+Object.keys(specialCommands).length);
+
+            break;
+
+        case "/logs":
+
+            print("LOG: Terminal initialized");
+            print("LOG: Command database loaded");
+            print("LOG: 10000+ commands ready");
+            print("LOG: Session active");
+
+            break;
+
+        case "/clearlogs":
+
+            print("Logs cleared.","success");
+
+            break;
+
+        case "/test":
+
+            print("Running system test...");
+
+            setTimeout(()=>print("COMMAND DATABASE: OK","success"),300);
+            setTimeout(()=>print("TERMINAL: OK","success"),600);
+            setTimeout(()=>print("INTERFACE: OK","success"),900);
+            setTimeout(()=>print("TEST COMPLETE","success"),1200);
+
+            break;
+
+        case "/check":
+
+            print("HTML: OK","success");
+            print("CSS: OK","success");
+            print("JAVASCRIPT: OK","success");
+            print("DATABASE: OK","success");
+
+            break;
+
+        case "/uptime":
+
+            print(
+                Math.floor(
+                    (Date.now()-bootTime)/1000
+                )+
+                " seconds"
+            );
+
+            break;
+
+        case "/session":
+
+            let sid=
+                localStorage.getItem("terminal_session");
+
+            if(!sid){
+
+                sid="SESSION-"+randomNumber(100000,999999);
+
+                localStorage.setItem(
+                    "terminal_session",
+                    sid
+                );
+
+            }
+
+            print(sid);
+
+            break;
+
+        case "/id":
+
+            print(
+                "USR-"+randomNumber(100000,999999)
+            );
+
+            break;
+
+        case "/generateid":
+
+            print(
+                "USR-"+randomNumber(
+                    10000000,
+                    99999999
+                )
+            );
+
+            break;
+
+        case "/uuid":
+
+            print(uuid());
+
+            break;
+
+        case "/password":
+
+            const chars=
+                "ABCDEFGHIJKLMNOPQRSTUVWXYZ"+
+                "abcdefghijklmnopqrstuvwxyz"+
+                "0123456789!@#$%";
+
+            let password="";
+
+            for(let i=0;i<16;i++){
+
+                password+=
+                    chars[
+                        randomNumber(
+                            0,
+                            chars.length-1
+                        )
+                    ];
+
+            }
+
+            print(password,"success");
+
+            break;
+
+        case "/key":
+
+            print(uuid().replaceAll("-",""));
+
+            break;
+
+        case "/token":
+
+            print(
+                "tok_"+
+                uuid().replaceAll("-","")
+            );
+
+            break;
+
+        case "/hash":
+
+            if(!args){
+
+                print(
+                    "Использование: /hash текст",
+                    "warning"
+                );
+
+                break;
+
+            }
+
+            crypto.subtle.digest(
+                "SHA-256",
+                new TextEncoder().encode(args)
+            ).then(buffer=>{
+
+                const hash=
+                    Array.from(
+                        new Uint8Array(buffer)
+                    ).map(
+                        b=>b.toString(16).padStart(2,"0")
+                    ).join("");
+
+                print(hash,"success");
+
+            });
+
+            break;
+
+        case "/encode":
+
+            if(!args){
+
+                print(
+                    "Использование: /encode текст"
+                );
+
+                break;
+
+            }
+
+            try{
+
+                print(
+                    btoa(
+                        unescape(
+                            encodeURIComponent(args)
+                        )
+                    );
+
+                }catch(e){
+
+                print("Encoding error.","error");
+
+            }
+
+            break;
+
+        case "/decode":
+
+            if(!args){
+
+                print(
+                    "Использование: /decode текст"
+                );
+
+                break;
+
+            }
+
+            try{
+
+                print(
+                    decodeURIComponent(
+                        escape(
+                            atob(args)
+                        )
+                    )
+                );
+
+            }catch(e){
+
+                print(
+                    "Decoding error.",
+                    "error"
+                );
+
+            }
+
+            break;
+
+        case "/base64":
+
+            print(
+                "Используй /encode или /decode."
+            );
+
+            break;
+
+        case "/json":
+
+            print(
+                '{ "terminal": "online", "commands": "10000+" }'
+            );
+
+            break;
+
+        case "/html":
+
+            print(
+                "HTML = структура страницы."
+            );
+
+            break;
+
+        case "/css":
+
+            print(
+                "CSS = оформление страницы."
+            );
+
+            break;
+
+        case "/js":
+
+            print(
+                "JavaScript = логика страницы."
+            );
+
+            break;
+
+        case "/calc":
+
+            if(!args){
+
+                print(
+                    "Использование: /calc 2+2*5"
+                );
+
+                break;
+
+            }
+
+            try{
+
+                if(!/^[0-9+\-*/().%\s]+$/.test(args)){
+
+                    throw new Error();
+
+                }
+
+                const result=
+                    Function(
+                        '"use strict";return ('+
+                        args+
+                        ')'
+                    )();
+
+                print("= "+result,"success");
+
+            }catch(e){
+
+                print(
+                    "Ошибка вычисления.",
+                    "error"
+                );
+
+            }
+
+            break;
+
+        case "/timer":{
+
+            let seconds=parseInt(args)||10;
+
+            print(
+                "Timer: "+
+                seconds+
+                " seconds"
+            );
+
+            const timer=setInterval(()=>{
+
+                seconds--;
+
+                if(seconds<=0){
+
+                    clearInterval(timer);
+
+                    print(
+                        "TIMER COMPLETE",
+                        "success"
+                    );
+
+                }
+
+            },1000);
+
+            break;
+
+        }
+
+        case "/countdown":{
+
+            let count=parseInt(args)||10;
+
+            const countdown=setInterval(()=>{
+
+                print(String(count));
+
+                count--;
+
+                if(count<0){
+
+                    clearInterval(countdown);
+
+                    print(
+                        "GO!",
+                        "success"
+                    );
+
+                }
+
+            },1000);
+
+            break;
+
+        }
+
+        case "/stopwatch":{
+
+            const started=Date.now();
+
+            print("STOPWATCH STARTED");
+
+            setTimeout(()=>{
+
+                print(
+                    "STOPWATCH: "+
+                    Math.floor(
+                        (Date.now()-started)/1000
+                    )+
+                    " seconds"
+                );
+
+            },10000);
+
+            break;
+
+        }
+
+        case "/notes":
+
+            if(!args){
+
+                print(
+                    "Использование: /notes текст"
+                );
+
+                break;
+
+            }
+
+            localStorage.setItem(
+                "terminal_note",
+                args
+            );
+
+            print(
+                "NOTE SAVED",
+                "success"
+            );
+
+            break;
+
+        case "/quote":{
+
+            const quotes=[
+                "Каждый проект начинается с первой строки.",
+                "Ошибки помогают учиться.",
+                "Продолжай создавать.",
+                "Новая команда — новая возможность."
+            ];
+
+            print(
+                quotes[
+                    randomNumber(
+                        0,
+                        quotes.length-1
+                    )
+                ]
+            );
+
+            break;
+
+        }
+
+        case "/joke":{
+
+            const jokes=[
+                "404: шутка не найдена.",
+                "У программиста было 10 проблем. Он исправил одну — стало 11.",
+                "Баги тоже хотят внимания."
+            ];
+
+            print(
+                jokes[
+                    randomNumber(
+                        0,
+                        jokes.length-1
+                    )
+                ]
+            );
+
+            break;
+
+        }
+
+        case "/easteregg":
+
+            print("🥚 EASTER EGG FOUND!","success");
+            print("TERMINAL MASTER");
+
+            break;
+
+        case "/shutdown":
+
+            print(
+                "TERMINAL SHUTTING DOWN...",
+                "warning"
+            );
+
+            terminalOnline=false;
+
+            setTimeout(()=>{
+
+                clearScreen();
+
+                print(
+                    "TERMINAL OFFLINE",
+                    "error"
+                );
+
+                print(
+                    "Перезагрузите страницу для запуска."
+                );
+
+            },700);
+
+            break;
+
+        default:
+
+            if(allCommands[cmd]){
+
+                commandInfo(cmd);
+
+            }else{
+
+                print(
+                    "COMMAND NOT FOUND: "+cmd,
+                    "error"
+                );
+
+                print(
+                    "Введите /adminmenu или /help.",
+                    "info"
+                );
+
+            }
+
+            break;
+
     }
-
-    crypto.subtle.digest(
-        "SHA-256",
-        new TextEncoder().encode(args)
-    ).then(buffer=>{
-
-        const hash=Array.from(new Uint8Array(buffer))
-            .map(b=>b.toString(16).padStart(2,"0"))
-            .join("");
-
-        print(hash,"success");
-
-    });
-
-    break;
-
-case "/encode":
-    if(args) encode(args);
-    else print("Использование: /encode текст");
-    break;
-
-case "/decode":
-    if(args) decode(args);
-    else print("Использование: /decode текст");
-    break;
-
-case "/base64":
-    print("Используй /encode или /decode.");
-    break;
-
-case "/json":
-    print('{ "terminal": "online", "version": "1.0.0" }');
-    break;
-
-case "/html":
-    print("HTML — структура страницы.");
-    break;
-
-case "/css":
-    print("CSS — оформление страницы.");
-    break;
-
-case "/js":
-    print("JavaScript — логика страницы.");
-    break;
-
-case "/calc":
-    if(args) calculate(args);
-    else print("Использование: /calc 2+2*5");
-    break;
-
-case "/convert":
-    print("Конвертер: используй обычные математические выражения.");
-    break;
-
-case "/timer":
-
-    let timerSeconds=Number(args)||10;
-
-    print("Timer: "+timerSeconds+" sec");
-
-    const timer=setInterval(()=>{
-
-        timerSeconds--;
-
-        if(timerSeconds<=0){
-            clearInterval(timer);
-            print("TIMER COMPLETE","success");
-        }
-
-    },1000);
-
-    break;
-
-case "/countdown":
-
-    let count=Number(args)||10;
-
-    print("Countdown started.");
-
-    const countdown=setInterval(()=>{
-
-        print(String(count));
-
-        count--;
-
-        if(count<0){
-            clearInterval(countdown);
-            print("GO!","success");
-        }
-
-    },1000);
-
-    break;
-
-case "/stopwatch":
-
-    print("Stopwatch started.");
-
-    const watchStart=Date.now();
-
-    const watch=setInterval(()=>{
-
-        const seconds=Math.floor((Date.now()-watchStart)/1000);
-
-        if(seconds>=10){
-            clearInterval(watch);
-            print("Stopwatch: "+seconds+" sec");
-        }
-
-    },1000);
-
-    break;
-
-case "/notes":
-
-    if(!args){
-        print("Использование: /notes текст");
-        break;
-    }
-
-    localStorage.setItem("terminal_note",args);
-
-    print("Заметка сохранена.","success");
-
-    break;
-
-case "/quote":
-
-    const quotes=[
-        "Продолжай двигаться вперёд.",
-        "Каждый проект начинается с первой строки.",
-        "Ошибки помогают учиться.",
-        "Создавай то, что хочешь увидеть."
-    ];
-
-    print(quotes[random(0,quotes.length-1)]);
-
-    break;
-
-case "/joke":
-
-    const jokes=[
-        "Почему программист не ходит в лес? Там слишком много багов.",
-        "404: шутка не найдена.",
-        "Я бы рассказал ещё одну шутку, но она требует обновления."
-    ];
-
-    print(jokes[random(0,jokes.length-1)]);
-
-    break;
-
-case "/easteregg":
-
-    print("🥚 SECRET FOUND!");
-    print("Ты нашёл пасхалку.","success");
-    print("Код: TERMINAL_MASTER");
-
-    break;
-
-case "/shutdown":
-
-    print("Shutting down terminal...","warning");
-
-    setTimeout(()=>{
-
-        terminal.innerHTML="";
-        input.disabled=true;
-
-        document.body.style.opacity="0.3";
-
-        print("TERMINAL OFFLINE","error");
-
-    },700);
-
-    break;
-
-default:
-
-    print(
-        "Команда не найдена: "+cmd,
-        "error"
-    );
-
-    print(
-        "Введите /help или /adminmenu.",
-        "info"
-    );
 
 }
 
-}
+/* =========================================================
+   КЛАВИАТУРА
+   ========================================================= */
 
 input.addEventListener("keydown",function(e){
 
-if(e.key==="Enter"){
+    if(e.key==="Enter"){
 
-    runCommand(input.value);
+        if(!terminalOnline)return;
 
-    input.value="";
+        runCommand(input.value);
 
-}
+        input.value="";
 
-if(e.key==="ArrowUp"){
+        return;
 
-    e.preventDefault();
+    }
 
-    if(commandHistory.length===0)return;
+    if(e.key==="ArrowUp"){
 
-    historyIndex=Math.max(0,historyIndex-1);
+        e.preventDefault();
 
-    input.value=commandHistory[historyIndex];
+        if(history.length===0)return;
 
-}
+        historyPosition=
+            Math.max(
+                0,
+                historyPosition-1
+            );
 
-if(e.key==="ArrowDown"){
+        input.value=
+            history[historyPosition];
 
-    e.preventDefault();
+    }
 
-    if(commandHistory.length===0)return;
+    if(e.key==="ArrowDown"){
 
-    historyIndex=Math.min(
-        commandHistory.length,
-        historyIndex+1
-    );
+        e.preventDefault();
 
-    input.value=historyIndex===commandHistory.length
-        ? ""
-        : commandHistory[historyIndex];
+        if(history.length===0)return;
 
-}
+        historyPosition=
+            Math.min(
+                history.length,
+                historyPosition+1
+            );
+
+        input.value=
+            historyPosition===history.length
+            ? ""
+            : history[historyPosition];
+
+    }
 
 });
 
-document.addEventListener("click",()=>{
-    input.focus();
-});
+document.addEventListener(
+    "click",
+    ()=>input.focus()
+);
+
+/* =========================================================
+   ЗАПУСК
+   ========================================================= */
 
 welcome();
 
