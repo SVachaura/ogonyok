@@ -340,8 +340,6 @@ textarea{
 </header>
 
 
-<!-- ГЛАВНАЯ -->
-
 <section class="page active" id="homePage">
 
   <div class="hero">
@@ -364,7 +362,6 @@ textarea{
 
   </div>
 
-
   <div class="card">
 
     <div class="title" id="eventsTitle">
@@ -382,8 +379,6 @@ textarea{
 </section>
 
 
-<!-- СКИНЫ -->
-
 <section class="page" id="skinsPage">
 
   <div class="title" id="skinsTitle">
@@ -394,8 +389,6 @@ textarea{
 
 </section>
 
-
-<!-- АЧИВКИ -->
 
 <section class="page" id="achievementsPage">
 
@@ -408,14 +401,11 @@ textarea{
 </section>
 
 
-<!-- НАСТРОЙКИ -->
-
 <section class="page" id="settingsPage">
 
   <div class="title" id="settingsTitle">
     Настройки
   </div>
-
 
   <div class="setting">
 
@@ -482,8 +472,6 @@ textarea{
 </div>
 
 
-<!-- НИЖНЕЕ МЕНЮ -->
-
 <nav class="bottom">
 
   <button class="nav active"
@@ -513,8 +501,6 @@ textarea{
 </nav>
 
 
-<!-- VERSION -->
-
 <div class="modal" id="versionModal">
 
   <div class="modal-box">
@@ -542,8 +528,6 @@ textarea{
 </div>
 
 
-<!-- GOOGLE LOGIN -->
-
 <div class="modal" id="adminLoginModal">
 
   <div class="modal-box">
@@ -562,6 +546,7 @@ textarea{
     </p>
 
     <button class="btn"
+      id="googleLoginButton"
       onclick="googleLogin()">
       Войти через Google
     </button>
@@ -575,8 +560,6 @@ textarea{
 
 </div>
 
-
-<!-- ADMIN -->
 
 <div class="modal" id="adminModal">
 
@@ -665,7 +648,8 @@ from "https://www.gstatic.com/firebasejs/12.2.1/firebase-app.js";
 import {
   getAuth,
   GoogleAuthProvider,
-  signInWithPopup,
+  signInWithRedirect,
+  getRedirectResult,
   onAuthStateChanged,
   signOut
 }
@@ -868,7 +852,7 @@ const achievements = [
 
 
 /* =========================
-   ЛОКАЛЬНЫЕ ДАННЫЕ
+   ДАННЫЕ
 ========================= */
 
 let data =
@@ -886,14 +870,12 @@ if(!data.startDate){
 
 }
 
-
 if(!data.skin){
 
   data.skin =
     "normal";
 
 }
-
 
 if(!data.language){
 
@@ -902,7 +884,6 @@ if(!data.language){
 
 }
 
-
 if(!data.theme){
 
   data.theme =
@@ -910,13 +891,8 @@ if(!data.theme){
 
 }
 
-
 save();
 
-
-/* =========================
-   SAVE
-========================= */
 
 function save(){
 
@@ -929,7 +905,7 @@ function save(){
 
 
 /* =========================
-   DAYS
+   ДНИ
 ========================= */
 
 function calculateDays(){
@@ -954,36 +930,25 @@ function calculateDays(){
 }
 
 
-/* =========================
-   FIRE
-========================= */
-
 function updateFire(){
 
   const days =
     calculateDays();
-
 
   document.getElementById(
     "days"
   ).textContent =
     days;
 
-
   document.getElementById(
     "fire"
   ).textContent =
     getCurrentSkinIcon();
 
-
   renderAchievements();
 
 }
 
-
-/* =========================
-   CURRENT SKIN
-========================= */
 
 function getCurrentSkinIcon(){
 
@@ -1000,7 +965,7 @@ function getCurrentSkinIcon(){
 
 
 /* =========================
-   RENDER SKINS
+   СКИНЫ
 ========================= */
 
 function renderSkins(){
@@ -1012,10 +977,8 @@ function renderSkins(){
 
   box.innerHTML = "";
 
-
   const days =
     calculateDays();
-
 
   skins.forEach(
     skin => {
@@ -1023,22 +986,18 @@ function renderSkins(){
       const unlocked =
         days >= skin.need;
 
-
       const selected =
         data.skin === skin.id;
-
 
       const name =
         data.language === "ru"
         ? skin.nameRU
         : skin.nameEN;
 
-
       const div =
         document.createElement(
           "div"
         );
-
 
       div.className =
         "skin " +
@@ -1048,7 +1007,6 @@ function renderSkins(){
         (selected
           ? " selected"
           : "");
-
 
       div.innerHTML = `
 
@@ -1074,7 +1032,6 @@ function renderSkins(){
 
       `;
 
-
       if(unlocked){
 
         div.onclick =
@@ -1093,7 +1050,6 @@ function renderSkins(){
 
       }
 
-
       box.appendChild(div);
 
     }
@@ -1103,7 +1059,7 @@ function renderSkins(){
 
 
 /* =========================
-   ACHIEVEMENTS
+   АЧИВКИ
 ========================= */
 
 function renderAchievements(){
@@ -1115,10 +1071,8 @@ function renderAchievements(){
 
   box.innerHTML = "";
 
-
   const days =
     calculateDays();
-
 
   achievements.forEach(
     a => {
@@ -1126,18 +1080,15 @@ function renderAchievements(){
       const unlocked =
         days >= a.days;
 
-
       const name =
         data.language === "ru"
         ? a.ru
         : a.en;
 
-
       const div =
         document.createElement(
           "div"
         );
-
 
       div.className =
         "achievement " +
@@ -1146,7 +1097,6 @@ function renderAchievements(){
           ? ""
           : "locked"
         );
-
 
       div.innerHTML = `
 
@@ -1166,7 +1116,6 @@ function renderAchievements(){
 
       `;
 
-
       box.appendChild(div);
 
     }
@@ -1176,7 +1125,7 @@ function renderAchievements(){
 
 
 /* =========================
-   LANGUAGE
+   ЯЗЫК
 ========================= */
 
 window.setLanguage =
@@ -1203,14 +1152,12 @@ function updateLanguage(){
   const ru =
     data.language === "ru";
 
-
   document.getElementById(
     "streakLabel"
   ).textContent =
     ru
     ? "ТВОЙ ОГОНЁК"
     : "YOUR FLAME";
-
 
   document.getElementById(
     "daysLabel"
@@ -1219,14 +1166,12 @@ function updateLanguage(){
     ? "дней подряд"
     : "days in a row";
 
-
   document.getElementById(
     "eventsTitle"
   ).textContent =
     ru
     ? "Ивенты"
     : "Events";
-
 
   document.getElementById(
     "skinsTitle"
@@ -1235,14 +1180,12 @@ function updateLanguage(){
     ? "Скины"
     : "Skins";
 
-
   document.getElementById(
     "achievementsTitle"
   ).textContent =
     ru
     ? "Ачивки"
     : "Achievements";
-
 
   document.getElementById(
     "settingsTitle"
@@ -1251,14 +1194,12 @@ function updateLanguage(){
     ? "Настройки"
     : "Settings";
 
-
   document.getElementById(
     "navHome"
   ).textContent =
     ru
     ? "Главная"
     : "Home";
-
 
   document.getElementById(
     "navSkins"
@@ -1267,14 +1208,12 @@ function updateLanguage(){
     ? "Скины"
     : "Skins";
 
-
   document.getElementById(
     "navAchievements"
   ).textContent =
     ru
     ? "Ачивки"
     : "Achievements";
-
 
   document.getElementById(
     "navSettings"
@@ -1287,7 +1226,7 @@ function updateLanguage(){
 
 
 /* =========================
-   THEME
+   ТЕМА
 ========================= */
 
 window.setTheme =
@@ -1314,7 +1253,7 @@ function applyTheme(){
 
 
 /* =========================
-   PAGES
+   СТРАНИЦЫ
 ========================= */
 
 window.showPage =
@@ -1329,7 +1268,6 @@ function(id,button){
         )
     );
 
-
   document
     .querySelectorAll(".nav")
     .forEach(
@@ -1339,13 +1277,11 @@ function(id,button){
         )
     );
 
-
   document
     .getElementById(id)
     .classList.add(
       "active"
     );
-
 
   button.classList.add(
     "active"
@@ -1355,7 +1291,7 @@ function(id,button){
 
 
 /* =========================
-   MODALS
+   ОКНА
 ========================= */
 
 window.openVersion =
@@ -1391,7 +1327,6 @@ function(){
     "versionModal"
   );
 
-
   document
     .getElementById(
       "adminLoginModal"
@@ -1404,7 +1339,7 @@ function(){
 
 
 /* =========================
-   GOOGLE LOGIN
+   GOOGLE REDIRECT
 ========================= */
 
 window.googleLogin =
@@ -1415,49 +1350,28 @@ async function(){
       "loginStatus"
     );
 
+  const button =
+    document.getElementById(
+      "googleLoginButton"
+    );
 
   status.textContent =
-    "Открываем Google...";
+    "Переходим к Google...";
 
+  button.disabled = true;
 
   try{
 
-    const result =
-      await signInWithPopup(
-        auth,
-        provider
-      );
-
-
-    const email =
-      result.user.email || "";
-
-
-    if(
-      email.toLowerCase() ===
-      ADMIN_EMAIL.toLowerCase()
-    ){
-
-      closeModal(
-        "adminLoginModal"
-      );
-
-      openAdmin();
-
-    }
-
-    else{
-
-      status.textContent =
-        "Этот аккаунт не является администратором.";
-
-      await signOut(auth);
-
-    }
+    await signInWithRedirect(
+      auth,
+      provider
+    );
 
   }
 
   catch(error){
+
+    button.disabled = false;
 
     status.textContent =
       "Ошибка входа: " +
@@ -1466,6 +1380,80 @@ async function(){
   }
 
 };
+
+
+/* =========================
+   ПОЛУЧЕНИЕ РЕЗУЛЬТАТА
+   ПОСЛЕ ВОЗВРАТА GOOGLE
+========================= */
+
+async function checkRedirectLogin(){
+
+  try{
+
+    const result =
+      await getRedirectResult(
+        auth
+      );
+
+    if(result){
+
+      const user =
+        result.user;
+
+
+      if(
+        user.email &&
+        user.email.toLowerCase() ===
+        ADMIN_EMAIL.toLowerCase()
+      ){
+
+        openAdmin();
+
+      }
+
+      else{
+
+        alert(
+          "Этот Google-аккаунт не является администратором."
+        );
+
+        await signOut(auth);
+
+      }
+
+    }
+
+  }
+
+  catch(error){
+
+    console.error(
+      "Google redirect error:",
+      error
+    );
+
+
+    const status =
+      document.getElementById(
+        "loginStatus"
+      );
+
+
+    if(status){
+
+      status.textContent =
+        "Ошибка входа: " +
+        error.message;
+
+    }
+
+  }
+
+}
+
+
+checkRedirectLogin();
 
 
 /* =========================
@@ -1486,11 +1474,19 @@ onAuthStateChanged(
       ADMIN_EMAIL.toLowerCase()
     ){
 
-      document.getElementById(
-        "adminUser"
-      ).textContent =
-        "Вход выполнен: " +
-        user.email;
+      const adminUser =
+        document.getElementById(
+          "adminUser"
+        );
+
+
+      if(adminUser){
+
+        adminUser.textContent =
+          "Вход выполнен: " +
+          user.email;
+
+      }
 
     }
 
@@ -1499,7 +1495,7 @@ onAuthStateChanged(
 
 
 /* =========================
-   ADMIN
+   АДМИНКА
 ========================= */
 
 function openAdmin(){
@@ -1511,7 +1507,6 @@ function openAdmin(){
     .classList.add(
       "show"
     );
-
 
   loadAdminEvents();
 
@@ -1530,8 +1525,26 @@ async function(){
 };
 
 
+function loadAdminEvents(){
+
+  const user =
+    auth.currentUser;
+
+  if(user){
+
+    document.getElementById(
+      "adminUser"
+    ).textContent =
+      "Вход выполнен: " +
+      user.email;
+
+  }
+
+}
+
+
 /* =========================
-   CREATE EVENT
+   СОЗДАНИЕ ИВЕНТА
 ========================= */
 
 window.createEvent =
@@ -1539,7 +1552,6 @@ async function(){
 
   const user =
     auth.currentUser;
-
 
   if(!user){
 
@@ -1572,24 +1584,20 @@ async function(){
       "eventName"
     ).value.trim();
 
-
   const description =
     document.getElementById(
       "eventDescription"
     ).value.trim();
-
 
   const reward =
     document.getElementById(
       "eventReward"
     ).value.trim();
 
-
   const start =
     document.getElementById(
       "eventStart"
     ).value;
-
 
   const end =
     document.getElementById(
@@ -1608,65 +1616,74 @@ async function(){
   }
 
 
-  const eventRef =
-    push(
-      ref(db,"events")
+  try{
+
+    const eventRef =
+      push(
+        ref(db,"events")
+      );
+
+
+    await set(
+      eventRef,
+      {
+
+        name:name,
+
+        description:
+          description,
+
+        reward:
+          reward,
+
+        start:
+          start,
+
+        end:
+          end,
+
+        createdAt:
+          Date.now()
+
+      }
     );
 
 
-  await set(
-    eventRef,
-    {
+    document.getElementById(
+      "eventName"
+    ).value = "";
 
-      name:name,
+    document.getElementById(
+      "eventDescription"
+    ).value = "";
 
-      description:
-        description,
+    document.getElementById(
+      "eventReward"
+    ).value = "";
 
-      reward:
-        reward,
+    document.getElementById(
+      "eventStart"
+    ).value = "";
 
-      start:
-        start,
-
-      end:
-        end,
-
-      createdAt:
-        Date.now()
-
-    }
-  );
+    document.getElementById(
+      "eventEnd"
+    ).value = "";
 
 
-  document.getElementById(
-    "eventName"
-  ).value = "";
+    alert(
+      "Ивент создан 🎉"
+    );
 
+  }
 
-  document.getElementById(
-    "eventDescription"
-  ).value = "";
+  catch(error){
 
+    alert(
+      "Ошибка создания ивента: " +
+      error.message
+    );
 
-  document.getElementById(
-    "eventReward"
-  ).value = "";
-
-
-  document.getElementById(
-    "eventStart"
-  ).value = "";
-
-
-  document.getElementById(
-    "eventEnd"
-  ).value = "";
-
-
-  alert(
-    "Ивент создан 🎉"
-  );
+  }
 
 };
 
@@ -1696,12 +1713,31 @@ onValue(
       events
     );
 
+  },
+
+  error => {
+
+    console.error(
+      "Ошибка загрузки events:",
+      error
+    );
+
+    document.getElementById(
+      "eventsList"
+    ).innerHTML = `
+
+      <div class="empty">
+        Не удалось загрузить ивенты.
+      </div>
+
+    `;
+
   }
 );
 
 
 /* =========================
-   SHOW EVENTS
+   ПОКАЗ ИВЕНТОВ
 ========================= */
 
 function renderEvents(events){
@@ -1711,13 +1747,10 @@ function renderEvents(events){
       "eventsList"
     );
 
-
   box.innerHTML = "";
-
 
   const now =
     new Date();
-
 
   let count = 0;
 
@@ -1732,7 +1765,6 @@ function renderEvents(events){
               event.start
             )
           : null;
-
 
         const end =
           event.end
@@ -1843,7 +1875,7 @@ function renderEvents(events){
 
 
 /* =========================
-   ADMIN EVENTS
+   АДМИНСКИЕ ИВЕНТЫ
 ========================= */
 
 function renderAdminEvents(events){
@@ -1923,12 +1955,25 @@ function renderAdminEvents(events){
             }
 
 
-            await remove(
-              ref(
-                db,
-                "events/" + id
-              )
-            );
+            try{
+
+              await remove(
+                ref(
+                  db,
+                  "events/" + id
+                )
+              );
+
+            }
+
+            catch(error){
+
+              alert(
+                "Ошибка удаления: " +
+                error.message
+              );
+
+            }
 
           };
 
@@ -1943,27 +1988,8 @@ function renderAdminEvents(events){
 }
 
 
-function loadAdminEvents(){
-
-  const user =
-    auth.currentUser;
-
-
-  if(user){
-
-    document.getElementById(
-      "adminUser"
-    ).textContent =
-      "Вход выполнен: " +
-      user.email;
-
-  }
-
-}
-
-
 /* =========================
-   EXPORT
+   ЭКСПОРТ
 ========================= */
 
 window.exportFire =
@@ -2010,7 +2036,7 @@ function(){
 
 
 /* =========================
-   IMPORT
+   ИМПОРТ
 ========================= */
 
 window.importFire =
@@ -2078,7 +2104,7 @@ function(){
 
 
 /* =========================
-   ESCAPE
+   ЗАЩИТА HTML
 ========================= */
 
 function escapeHTML(value){
@@ -2114,7 +2140,7 @@ function escapeHTML(value){
 
 
 /* =========================
-   START
+   ЗАПУСК
 ========================= */
 
 applyTheme();
