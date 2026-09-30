@@ -9,538 +9,515 @@
 *{box-sizing:border-box}
 
 :root{
-  --bg:#fff;
-  --card:#fff;
-  --text:#111;
-  --muted:#777;
-  --line:#111;
-  --soft:#f1f1f1;
-  --accent:#ff5a00;
+--bg:#fff;
+--card:#fff;
+--text:#111;
+--muted:#777;
+--line:#111;
+--soft:#f1f1f1;
+--accent:#ff5a00;
 }
 
 body.dark{
-  --bg:#111;
-  --card:#181818;
-  --text:#fff;
-  --muted:#aaa;
-  --line:#fff;
-  --soft:#242424;
-  --accent:#ff7b00;
+--bg:#111;
+--card:#181818;
+--text:#fff;
+--muted:#aaa;
+--line:#fff;
+--soft:#242424;
+--accent:#ff7b00;
 }
 
 html,body{
-  margin:0;
-  padding:0;
-  min-height:100%;
-  font-family:Arial,Helvetica,sans-serif;
-  background:var(--bg);
-  color:var(--text);
+margin:0;
+padding:0;
+min-height:100%;
+font-family:Arial,Helvetica,sans-serif;
+background:var(--bg);
+color:var(--text);
 }
 
 button,input,textarea{
-  font:inherit;
+font:inherit;
 }
 
 button{
-  cursor:pointer;
+cursor:pointer;
 }
 
 .app{
-  min-height:100vh;
-  padding-bottom:85px;
+min-height:100vh;
+padding-bottom:85px;
 }
 
 header{
-  padding:18px;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  border-bottom:2px solid var(--line);
+padding:18px;
+display:flex;
+align-items:center;
+justify-content:space-between;
+border-bottom:2px solid var(--line);
 }
 
 .logo{
-  font-size:24px;
-  font-weight:900;
+font-size:24px;
+font-weight:900;
 }
 
 .version{
-  font-size:12px;
-  border:2px solid var(--line);
-  padding:6px 9px;
-  background:var(--card);
-  color:var(--text);
+font-size:12px;
+border:2px solid var(--line);
+padding:6px 9px;
+background:var(--card);
+color:var(--text);
 }
 
 .page{
-  display:none;
-  padding:18px;
+display:none;
+padding:18px;
 }
 
 .page.active{
-  display:block;
+display:block;
 }
 
 .hero{
-  border:2px solid var(--line);
-  padding:25px 18px;
-  text-align:center;
-  background:var(--card);
+border:2px solid var(--line);
+padding:25px 18px;
+text-align:center;
+background:var(--card);
 }
 
 .fire{
-  font-size:105px;
-  line-height:1;
-  margin:15px 0;
-  animation:pulse 1.7s infinite ease-in-out;
+font-size:105px;
+line-height:1;
+margin:15px 0;
+animation:pulse 1.7s infinite ease-in-out;
 }
 
 @keyframes pulse{
-  0%,100%{transform:scale(1)}
-  50%{transform:scale(1.08)}
+0%,100%{transform:scale(1)}
+50%{transform:scale(1.08)}
 }
 
 .days{
-  font-size:48px;
-  font-weight:900;
+font-size:48px;
+font-weight:900;
 }
 
 .label{
-  color:var(--muted);
-  margin-top:4px;
+color:var(--muted);
+margin-top:4px;
 }
 
 .card{
-  border:2px solid var(--line);
-  background:var(--card);
-  padding:16px;
-  margin-top:14px;
+border:2px solid var(--line);
+background:var(--card);
+padding:16px;
+margin-top:14px;
 }
 
 .title{
-  font-size:22px;
-  font-weight:900;
-  margin-bottom:12px;
+font-size:22px;
+font-weight:900;
+margin-bottom:12px;
 }
 
 .btn{
-  width:100%;
-  border:2px solid var(--line);
-  background:var(--text);
-  color:var(--bg);
-  padding:13px;
-  margin-top:10px;
-  font-weight:900;
+width:100%;
+border:2px solid var(--line);
+background:var(--text);
+color:var(--bg);
+padding:13px;
+margin-top:10px;
+font-weight:900;
 }
 
 .btn.secondary{
-  background:var(--card);
-  color:var(--text);
+background:var(--card);
+color:var(--text);
 }
 
 .btn.danger{
-  background:#b00020;
-  color:#fff;
+background:#b00020;
+color:#fff;
+}
+
+.btn.admin{
+background:#ff5a00;
+color:#fff;
 }
 
 .grid{
-  display:grid;
-  grid-template-columns:repeat(2,1fr);
-  gap:10px;
+display:grid;
+grid-template-columns:repeat(2,1fr);
+gap:10px;
 }
 
 .skin{
-  border:2px solid var(--line);
-  background:var(--card);
-  padding:14px;
-  text-align:center;
-  min-height:130px;
+border:2px solid var(--line);
+background:var(--card);
+padding:14px;
+text-align:center;
+min-height:130px;
 }
 
 .skin.locked{
-  opacity:.4;
+opacity:.4;
 }
 
 .skin .preview{
-  font-size:48px;
-  margin-bottom:7px;
+font-size:48px;
+margin-bottom:7px;
 }
 
 .skin.selected{
-  outline:4px solid var(--accent);
+outline:4px solid var(--accent);
 }
 
 .achievement{
-  border:2px solid var(--line);
-  padding:14px;
-  margin-bottom:10px;
-  background:var(--card);
+border:2px solid var(--line);
+padding:14px;
+margin-bottom:10px;
+background:var(--card);
 }
 
 .achievement.locked{
-  opacity:.4;
+opacity:.4;
 }
 
 .achievement strong{
-  display:block;
-  font-size:17px;
+display:block;
+font-size:17px;
 }
 
 .event{
-  border:2px solid var(--line);
-  padding:16px;
-  margin-top:10px;
-  background:var(--card);
+border:2px solid var(--line);
+padding:16px;
+margin-top:10px;
+background:var(--card);
 }
 
 .event h3{
-  margin:0 0 7px;
+margin:0 0 7px;
 }
 
 .event-date{
-  color:var(--muted);
-  font-size:13px;
+color:var(--muted);
+font-size:13px;
 }
 
 .empty{
-  color:var(--muted);
-  padding:10px 0;
+color:var(--muted);
+padding:10px 0;
 }
 
 .setting{
-  border:2px solid var(--line);
-  padding:15px;
-  margin-bottom:10px;
-  background:var(--card);
+border:2px solid var(--line);
+padding:15px;
+margin-bottom:10px;
+background:var(--card);
 }
 
 .setting-title{
-  font-weight:900;
-  margin-bottom:8px;
+font-weight:900;
+margin-bottom:8px;
 }
 
 input,textarea{
-  width:100%;
-  padding:12px;
-  border:2px solid var(--line);
-  background:var(--card);
-  color:var(--text);
-  outline:none;
-  margin-top:8px;
+width:100%;
+padding:12px;
+border:2px solid var(--line);
+background:var(--card);
+color:var(--text);
+outline:none;
+margin-top:8px;
 }
 
 textarea{
-  min-height:100px;
-  resize:vertical;
+min-height:100px;
+resize:vertical;
 }
 
 .bottom{
-  position:fixed;
-  bottom:0;
-  left:0;
-  right:0;
-  height:75px;
-  background:var(--bg);
-  border-top:2px solid var(--line);
-  display:grid;
-  grid-template-columns:repeat(4,1fr);
-  z-index:10;
+position:fixed;
+bottom:0;
+left:0;
+right:0;
+height:75px;
+background:var(--bg);
+border-top:2px solid var(--line);
+display:grid;
+grid-template-columns:repeat(4,1fr);
+z-index:10;
 }
 
 .nav{
-  border:0;
-  border-right:1px solid var(--line);
-  background:var(--bg);
-  color:var(--text);
-  font-size:12px;
-  font-weight:900;
+border:0;
+border-right:1px solid var(--line);
+background:var(--bg);
+color:var(--text);
+font-size:12px;
+font-weight:900;
 }
 
 .nav:last-child{
-  border-right:0;
+border-right:0;
 }
 
 .nav.active{
-  background:var(--text);
-  color:var(--bg);
+background:var(--text);
+color:var(--bg);
 }
 
 .modal{
-  position:fixed;
-  inset:0;
-  background:rgba(0,0,0,.65);
-  display:none;
-  align-items:center;
-  justify-content:center;
-  padding:18px;
-  z-index:30;
+position:fixed;
+inset:0;
+background:rgba(0,0,0,.65);
+display:none;
+align-items:center;
+justify-content:center;
+padding:18px;
+z-index:30;
 }
 
 .modal.show{
-  display:flex;
+display:flex;
 }
 
 .modal-box{
-  width:100%;
-  max-width:450px;
-  max-height:90vh;
-  overflow:auto;
-  background:var(--card);
-  color:var(--text);
-  border:2px solid var(--line);
-  padding:18px;
+width:100%;
+max-width:450px;
+max-height:90vh;
+overflow:auto;
+background:var(--card);
+color:var(--text);
+border:2px solid var(--line);
+padding:18px;
 }
 
 .close{
-  float:right;
-  border:2px solid var(--line);
-  background:var(--card);
-  color:var(--text);
-  width:35px;
-  height:35px;
-  font-weight:900;
+float:right;
+border:2px solid var(--line);
+background:var(--card);
+color:var(--text);
+width:35px;
+height:35px;
+font-weight:900;
 }
 
 .small{
-  font-size:12px;
-  color:var(--muted);
+font-size:12px;
+color:var(--muted);
 }
 
 .admin-event{
-  border:2px solid var(--line);
-  padding:12px;
-  margin-top:10px;
+border:2px solid var(--line);
+padding:12px;
+margin-top:10px;
 }
 
-/* =========================
-   ЗВЁЗДНЫЙ ПОРТАЛ
-========================= */
-
 .portal-card{
-  position:relative;
-  overflow:hidden;
-  border:2px solid var(--line);
-  background:
-    radial-gradient(circle at 20% 20%,#342060 0 2px,transparent 3px),
-    radial-gradient(circle at 80% 30%,#fff 0 1px,transparent 2px),
-    radial-gradient(circle at 40% 75%,#6e4bb5 0 2px,transparent 3px),
-    linear-gradient(135deg,#050014,#13052c,#020008);
-  color:#fff;
-  padding:20px;
-  margin-top:14px;
-  min-height:190px;
+position:relative;
+overflow:hidden;
+border:2px solid var(--line);
+background:
+radial-gradient(circle at 20% 20%,#342060 0 2px,transparent 3px),
+radial-gradient(circle at 80% 30%,#fff 0 1px,transparent 2px),
+radial-gradient(circle at 40% 75%,#6e4bb5 0 2px,transparent 3px),
+linear-gradient(135deg,#050014,#13052c,#020008);
+color:#fff;
+padding:20px;
+margin-top:14px;
+min-height:190px;
 }
 
 .portal-card.closed{
-  filter:grayscale(.8);
-  opacity:.7;
+filter:grayscale(.8);
+opacity:.7;
 }
 
 .portal-title{
-  font-size:24px;
-  font-weight:900;
+font-size:24px;
+font-weight:900;
 }
 
 .portal-icon{
-  font-size:58px;
-  margin:8px 0;
-  animation:portalPulse 2s infinite;
+font-size:58px;
+margin:8px 0;
+animation:portalPulse 2s infinite;
 }
 
 @keyframes portalPulse{
-  0%,100%{transform:scale(1) rotate(0deg)}
-  50%{transform:scale(1.08) rotate(4deg)}
+0%,100%{transform:scale(1) rotate(0deg)}
+50%{transform:scale(1.08) rotate(4deg)}
 }
 
 .portal-time{
-  font-size:13px;
-  opacity:.8;
+font-size:13px;
+opacity:.8;
 }
 
 .portal-button{
-  width:100%;
-  border:2px solid #fff;
-  background:#fff;
-  color:#08000f;
-  padding:13px;
-  margin-top:12px;
-  font-weight:900;
+width:100%;
+border:2px solid #fff;
+background:#fff;
+color:#08000f;
+padding:13px;
+margin-top:12px;
+font-weight:900;
 }
 
 .portal-progress{
-  font-size:18px;
-  font-weight:900;
-  margin-top:10px;
+font-size:18px;
+font-weight:900;
+margin-top:10px;
 }
 
-/* =========================
-   ГАЛАКТИКА
-========================= */
-
 .galaxy{
-  position:fixed;
-  inset:0;
-  z-index:50;
-  display:none;
-  overflow:hidden;
-  background:
-    radial-gradient(circle at 50% 50%,rgba(91,38,170,.3),transparent 30%),
-    radial-gradient(circle at 20% 20%,rgba(36,83,180,.2),transparent 25%),
-    linear-gradient(135deg,#02000b,#08001c,#000);
-  color:#fff;
+position:fixed;
+inset:0;
+z-index:50;
+display:none;
+overflow:hidden;
+background:
+radial-gradient(circle at 50% 50%,rgba(91,38,170,.3),transparent 30%),
+radial-gradient(circle at 20% 20%,rgba(36,83,180,.2),transparent 25%),
+linear-gradient(135deg,#02000b,#08001c,#000);
+color:#fff;
 }
 
 .galaxy.show{
-  display:block;
+display:block;
 }
 
 .galaxy::before,
 .galaxy::after{
-  content:"";
-  position:absolute;
-  inset:-50%;
-  background-image:
-    radial-gradient(circle,#fff 0 1px,transparent 2px),
-    radial-gradient(circle,#aaa 0 1px,transparent 2px),
-    radial-gradient(circle,#fff 0 2px,transparent 3px);
-  background-size:90px 110px,150px 130px,220px 190px;
-  opacity:.7;
-  animation:starsMove 35s linear infinite;
+content:"";
+position:absolute;
+inset:-50%;
+background-image:
+radial-gradient(circle,#fff 0 1px,transparent 2px),
+radial-gradient(circle,#aaa 0 1px,transparent 2px),
+radial-gradient(circle,#fff 0 2px,transparent 3px);
+background-size:90px 110px,150px 130px,220px 190px;
+opacity:.7;
+animation:starsMove 35s linear infinite;
 }
 
 .galaxy::after{
-  transform:rotate(20deg);
-  opacity:.35;
-  animation-duration:55s;
+transform:rotate(20deg);
+opacity:.35;
+animation-duration:55s;
 }
 
 @keyframes starsMove{
-  from{transform:translate(0,0)}
-  to{transform:translate(180px,120px)}
+from{transform:translate(0,0)}
+to{transform:translate(180px,120px)}
 }
 
 .galaxy-top{
-  position:relative;
-  z-index:3;
-  padding:16px;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  border-bottom:2px solid rgba(255,255,255,.5);
-  background:rgba(0,0,0,.35);
+position:relative;
+z-index:3;
+padding:16px;
+display:flex;
+align-items:center;
+justify-content:space-between;
+border-bottom:2px solid rgba(255,255,255,.5);
+background:rgba(0,0,0,.35);
 }
 
 .galaxy-title{
-  font-size:20px;
-  font-weight:900;
+font-size:20px;
+font-weight:900;
 }
 
 .galaxy-close{
-  border:2px solid #fff;
-  background:transparent;
-  color:#fff;
-  width:38px;
-  height:38px;
-  font-weight:900;
+border:2px solid #fff;
+background:transparent;
+color:#fff;
+width:38px;
+height:38px;
+font-weight:900;
 }
 
 .star-count{
-  position:relative;
-  z-index:3;
-  text-align:center;
-  padding:12px;
-  font-size:20px;
-  font-weight:900;
+position:relative;
+z-index:3;
+text-align:center;
+padding:12px;
+font-size:20px;
+font-weight:900;
 }
 
 .star-field{
-  position:absolute;
-  inset:110px 0 0 0;
-  z-index:4;
+position:absolute;
+inset:110px 0 0 0;
+z-index:4;
 }
 
 .hidden-star{
-  position:absolute;
-  width:44px;
-  height:44px;
-  border:0;
-  background:transparent;
-  color:#fff;
-  font-size:32px;
-  padding:0;
-  filter:drop-shadow(0 0 8px #fff);
-  animation:starFloat 1.8s infinite ease-in-out;
-}
-
-.hidden-star:active{
-  transform:scale(.7);
+position:absolute;
+width:44px;
+height:44px;
+border:0;
+background:transparent;
+color:#fff;
+font-size:32px;
+padding:0;
+filter:drop-shadow(0 0 8px #fff);
+animation:starFloat 1.8s infinite ease-in-out;
 }
 
 @keyframes starFloat{
-  0%,100%{transform:translateY(0) rotate(-5deg)}
-  50%{transform:translateY(-6px) rotate(5deg)}
+0%,100%{transform:translateY(0) rotate(-5deg)}
+50%{transform:translateY(-6px) rotate(5deg)}
 }
 
 .galaxy-message{
-  position:absolute;
-  left:50%;
-  top:50%;
-  transform:translate(-50%,-50%);
-  z-index:6;
-  width:90%;
-  max-width:400px;
-  text-align:center;
-  padding:25px;
-  border:2px solid #fff;
-  background:rgba(0,0,0,.85);
-  display:none;
+position:absolute;
+left:50%;
+top:50%;
+transform:translate(-50%,-50%);
+z-index:6;
+width:90%;
+max-width:400px;
+text-align:center;
+padding:25px;
+border:2px solid #fff;
+background:rgba(0,0,0,.85);
+display:none;
 }
 
 .galaxy-message.show{
-  display:block;
+display:block;
 }
-
-.galaxy-message h2{
-  margin-top:0;
-}
-
-/* =========================
-   АНИМАЦИИ
-========================= */
 
 .reward-pop{
-  position:fixed;
-  left:50%;
-  top:50%;
-  transform:translate(-50%,-50%) scale(.7);
-  z-index:100;
-  padding:25px;
-  border:3px solid var(--line);
-  background:var(--card);
-  color:var(--text);
-  text-align:center;
-  opacity:0;
-  pointer-events:none;
-  transition:.3s;
-  font-weight:900;
+position:fixed;
+left:50%;
+top:50%;
+transform:translate(-50%,-50%) scale(.7);
+z-index:100;
+padding:25px;
+border:3px solid var(--line);
+background:var(--card);
+color:var(--text);
+text-align:center;
+opacity:0;
+pointer-events:none;
+transition:.3s;
+font-weight:900;
 }
 
 .reward-pop.show{
-  opacity:1;
-  transform:translate(-50%,-50%) scale(1);
+opacity:1;
+transform:translate(-50%,-50%) scale(1);
 }
 
 @media(max-width:380px){
-  .grid{
-    grid-template-columns:1fr;
-  }
-
-  .fire{
-    font-size:85px;
-  }
-
-  .days{
-    font-size:40px;
-  }
+.grid{grid-template-columns:1fr}
+.fire{font-size:85px}
+.days{font-size:40px}
 }
 </style>
 </head>
@@ -550,584 +527,545 @@ textarea{
 <div class="app">
 
 <header>
-  <div class="logo">Огонёк</div>
+<div class="logo">Огонёк</div>
 
-  <button class="version" onclick="openVersion()">
-    v0.1
-  </button>
+<button class="version" onclick="openVersion()">
+v0.1
+</button>
 </header>
-
-
-<!-- =========================
-     ГЛАВНАЯ
-========================= -->
 
 <section class="page active" id="homePage">
 
-  <div class="hero">
+<div class="hero">
 
-    <div class="small" id="streakLabel">
-      ТВОЙ ОГОНЁК
-    </div>
+<div class="small" id="streakLabel">
+ТВОЙ ОГОНЁК
+</div>
 
-    <div class="fire" id="fire">
-      🔥
-    </div>
+<div class="fire" id="fire">
+🔥
+</div>
 
-    <div class="days" id="days">
-      1
-    </div>
+<div class="days" id="days">
+1
+</div>
 
-    <div class="label" id="daysLabel">
-      дней подряд
-    </div>
+<div class="label" id="daysLabel">
+дней подряд
+</div>
 
-  </div>
+</div>
 
+<div class="portal-card" id="portalCard">
 
-  <!-- ЗВЁЗДНЫЙ ПОРТАЛ -->
+<div class="portal-title">
+🌌 Звёздный портал
+</div>
 
-  <div class="portal-card" id="portalCard">
+<div class="portal-icon">
+🌀
+</div>
 
-    <div class="portal-title">
-      🌌 Звёздный портал
-    </div>
+<div id="portalStatus">
+Проверяем время...
+</div>
 
-    <div class="portal-icon">
-      🌀
-    </div>
+<div class="portal-time" id="portalTimer"></div>
 
-    <div id="portalStatus">
-      Проверяем время...
-    </div>
+<div class="portal-progress" id="portalProgress"></div>
 
-    <div class="portal-time" id="portalTimer">
-    </div>
+<button
+class="portal-button"
+id="portalButton"
+onclick="openGalaxy()">
+Открыть портал
+</button>
 
-    <div class="portal-progress" id="portalProgress">
-    </div>
+</div>
 
-    <button
-      class="portal-button"
-      id="portalButton"
-      onclick="openGalaxy()">
-      Открыть портал
-    </button>
+<div class="card">
 
-  </div>
+<div class="title" id="eventsTitle">
+Ивенты
+</div>
 
+<div id="eventsList">
+<div class="empty">
+Загрузка ивентов...
+</div>
+</div>
 
-  <div class="card">
-
-    <div class="title" id="eventsTitle">
-      Ивенты
-    </div>
-
-    <div id="eventsList">
-      <div class="empty">
-        Загрузка ивентов...
-      </div>
-    </div>
-
-  </div>
+</div>
 
 </section>
-
-
-<!-- =========================
-     СКИНЫ
-========================= -->
 
 <section class="page" id="skinsPage">
 
-  <div class="title" id="skinsTitle">
-    Скины
-  </div>
+<div class="title" id="skinsTitle">
+Скины
+</div>
 
-  <div class="grid" id="skinsList"></div>
+<div class="grid" id="skinsList"></div>
 
 </section>
-
-
-<!-- =========================
-     АЧИВКИ
-========================= -->
 
 <section class="page" id="achievementsPage">
 
-  <div class="title" id="achievementsTitle">
-    Ачивки
-  </div>
+<div class="title" id="achievementsTitle">
+Ачивки
+</div>
 
-  <div id="achievementsList"></div>
+<div id="achievementsList"></div>
 
 </section>
-
-
-<!-- =========================
-     НАСТРОЙКИ
-========================= -->
 
 <section class="page" id="settingsPage">
 
-  <div class="title" id="settingsTitle">
-    Настройки
-  </div>
+<div class="title" id="settingsTitle">
+Настройки
+</div>
 
+<div class="setting">
 
-  <div class="setting">
+<div class="setting-title">
+Язык
+</div>
 
-    <div class="setting-title">
-      Язык
-    </div>
+<button class="btn secondary" onclick="setLanguage('ru')">
+Русский
+</button>
 
-    <button
-      class="btn secondary"
-      onclick="setLanguage('ru')">
-      Русский
-    </button>
+<button class="btn secondary" onclick="setLanguage('en')">
+English
+</button>
 
-    <button
-      class="btn secondary"
-      onclick="setLanguage('en')">
-      English
-    </button>
+</div>
 
-  </div>
+<div class="setting">
 
+<div class="setting-title">
+Тема
+</div>
 
-  <div class="setting">
+<button class="btn secondary" onclick="setTheme('light')">
+☀️ Белая
+</button>
 
-    <div class="setting-title">
-      Тема
-    </div>
+<button class="btn secondary" onclick="setTheme('dark')">
+🌙 Тёмная
+</button>
 
-    <button
-      class="btn secondary"
-      onclick="setTheme('light')">
-      ☀️ Белая
-    </button>
+</div>
 
-    <button
-      class="btn secondary"
-      onclick="setTheme('dark')">
-      🌙 Тёмная
-    </button>
+<div class="setting">
 
-  </div>
+<div class="setting-title">
+🔥 Перенос огонька
+</div>
 
+<button class="btn secondary" onclick="exportFire()">
+📦 Экспортировать
+</button>
 
-  <div class="setting">
+<input id="importCode" placeholder="Вставь код переноса">
 
-    <div class="setting-title">
-      🔥 Перенос огонька
-    </div>
+<button class="btn secondary" onclick="importFire()">
+📥 Импортировать
+</button>
 
-    <button
-      class="btn secondary"
-      onclick="exportFire()">
-      📦 Экспортировать
-    </button>
-
-    <input
-      id="importCode"
-      placeholder="Вставь код переноса">
-
-    <button
-      class="btn secondary"
-      onclick="importFire()">
-      📥 Импортировать
-    </button>
-
-  </div>
+</div>
 
 </section>
 
 </div>
 
-
-<!-- =========================
-     НИЖНЯЯ НАВИГАЦИЯ
-========================= -->
-
 <nav class="bottom">
 
-  <button
-    class="nav active"
-    onclick="showPage('homePage',this)">
+<button class="nav active" onclick="showPage('homePage',this)">
+🏠<br>
+<span id="navHome">Главная</span>
+</button>
 
-    🏠<br>
+<button class="nav" onclick="showPage('skinsPage',this)">
+🎨<br>
+<span id="navSkins">Скины</span>
+</button>
 
-    <span id="navHome">
-      Главная
-    </span>
+<button class="nav" onclick="showPage('achievementsPage',this)">
+🏆<br>
+<span id="navAchievements">Ачивки</span>
+</button>
 
-  </button>
-
-
-  <button
-    class="nav"
-    onclick="showPage('skinsPage',this)">
-
-    🎨<br>
-
-    <span id="navSkins">
-      Скины
-    </span>
-
-  </button>
-
-
-  <button
-    class="nav"
-    onclick="showPage('achievementsPage',this)">
-
-    🏆<br>
-
-    <span id="navAchievements">
-      Ачивки
-    </span>
-
-  </button>
-
-
-  <button
-    class="nav"
-    onclick="showPage('settingsPage',this)">
-
-    ⚙️<br>
-
-    <span id="navSettings">
-      Настройки
-    </span>
-
-  </button>
+<button class="nav" onclick="showPage('settingsPage',this)">
+⚙️<br>
+<span id="navSettings">Настройки</span>
+</button>
 
 </nav>
 
+<!-- VERSION -->
 
-<!-- =========================
-     VERSION MODAL
-========================= -->
+<div class="modal" id="versionModal">
 
-<div
-  class="modal"
-  id="versionModal">
+<div class="modal-box">
 
-  <div class="modal-box">
+<button class="close" onclick="closeModal('versionModal')">
+×
+</button>
 
-    <button
-      class="close"
-      onclick="closeModal('versionModal')">
-      ×
-    </button>
+<div class="title">
+Огонёк v0.1
+</div>
 
-    <div class="title">
-      Огонёк v0.1
-    </div>
+<p>
+Первая версия проекта.
+</p>
 
-    <p>
-      Первая версия проекта.
-    </p>
+<!-- КНОПКА ПО УМОЛЧАНИЮ СКРЫТА -->
 
-    <button
-      class="btn"
-      onclick="openAdminLogin()">
-      🔐 Админка
-    </button>
-
-  </div>
+<button
+class="btn admin"
+id="adminButton"
+onclick="openAdmin()"
+style="display:none;">
+⚡ Админка
+</button>
 
 </div>
 
+</div>
 
-<!-- =========================
-     ADMIN LOGIN
-========================= -->
+<!-- ADMIN LOGIN -->
 
-<div
-  class="modal"
-  id="adminLoginModal">
+<div class="modal" id="adminLoginModal">
 
-  <div class="modal-box">
+<div class="modal-box">
 
-    <button
-      class="close"
-      onclick="closeModal('adminLoginModal')">
-      ×
-    </button>
+<button class="close" onclick="closeModal('adminLoginModal')">
+×
+</button>
 
-    <div class="title">
-      🔐 Админка
-    </div>
+<div class="title">
+🔐 Админка
+</div>
 
-    <p>
-      Войдите через Google.
-    </p>
+<p>
+Войдите через Google.
+</p>
 
-    <button
-      class="btn"
-      id="googleLoginButton"
-      onclick="googleLogin()">
-      Войти через Google
-    </button>
+<button
+class="btn"
+id="googleLoginButton"
+onclick="googleLogin()">
+Войти через Google
+</button>
 
-    <div
-      id="loginStatus"
-      class="small">
-    </div>
-
-  </div>
+<div id="loginStatus" class="small"></div>
 
 </div>
 
+</div>
 
-<!-- =========================
-     ADMIN
-========================= -->
+<!-- ADMIN -->
 
-<div
-  class="modal"
-  id="adminModal">
+<div class="modal" id="adminModal">
 
-  <div class="modal-box">
+<div class="modal-box">
 
-    <button
-      class="close"
-      onclick="closeModal('adminModal')">
-      ×
-    </button>
+<button class="close" onclick="closeModal('adminModal')">
+×
+</button>
 
-    <div class="title">
-      👑 Админка
-    </div>
+<div class="title">
+👑 Админка
+</div>
 
-    <div
-      class="small"
-      id="adminUser">
-    </div>
+<div class="small" id="adminUser"></div>
 
+<div class="card">
 
-    <div class="card">
+<div class="title">
+🎉 Создать ивент
+</div>
 
-      <div class="title">
-        🎉 Создать ивент
-      </div>
+<input id="eventName" placeholder="Название ивента">
 
-      <input
-        id="eventName"
-        placeholder="Название ивента">
+<textarea
+id="eventDescription"
+placeholder="Описание ивента"></textarea>
 
-      <textarea
-        id="eventDescription"
-        placeholder="Описание ивента"></textarea>
+<input id="eventReward" placeholder="Награда">
 
-      <input
-        id="eventReward"
-        placeholder="Награда">
+<input id="eventStart" type="datetime-local">
 
-      <input
-        id="eventStart"
-        type="datetime-local">
+<input id="eventEnd" type="datetime-local">
 
-      <input
-        id="eventEnd"
-        type="datetime-local">
-
-      <button
-        class="btn"
-        onclick="createEvent()">
-        Создать ивент
-      </button>
-
-    </div>
-
-
-    <div class="card">
-
-      <div class="title">
-        Ивенты
-      </div>
-
-      <div id="adminEvents"></div>
-
-    </div>
-
-
-    <button
-      class="btn"
-      onclick="logout()">
-      Выйти
-    </button>
-
-  </div>
+<button class="btn" onclick="createEvent()">
+Создать ивент
+</button>
 
 </div>
 
+<div class="card">
 
-<!-- =========================
-     GALAXY EVENT
-========================= -->
+<div class="title">
+Ивенты
+</div>
 
-<div
-  class="galaxy"
-  id="galaxy">
-
-  <div class="galaxy-top">
-
-    <div class="galaxy-title">
-      🌌 Звёздный портал
-    </div>
-
-    <button
-      class="galaxy-close"
-      onclick="closeGalaxy()">
-      ×
-    </button>
-
-  </div>
-
-
-  <div
-    class="star-count"
-    id="starCount">
-    ⭐ 0 / 10
-  </div>
-
-
-  <div
-    class="star-field"
-    id="starField">
-  </div>
-
-
-  <div
-    class="galaxy-message"
-    id="galaxyMessage">
-
-    <h2>
-      🌌 Все звёзды найдены!
-    </h2>
-
-    <p>
-      Ты нашёл все 10 звёзд!
-    </p>
-
-    <p>
-      🔥 +1 день к огоньку
-    </p>
-
-    <p>
-      🏆 Ачивка «Звездочёт» проверена
-    </p>
-
-    <button
-      class="btn"
-      onclick="closeGalaxy()">
-      Продолжить
-    </button>
-
-  </div>
+<div id="adminEvents"></div>
 
 </div>
 
+<button class="btn" onclick="logout()">
+Выйти
+</button>
 
-<div
-  class="reward-pop"
-  id="rewardPop">
 </div>
 
+</div>
+
+<!-- GALAXY -->
+
+<div class="galaxy" id="galaxy">
+
+<div class="galaxy-top">
+
+<div class="galaxy-title">
+🌌 Звёздный портал
+</div>
+
+<button class="galaxy-close" onclick="closeGalaxy()">
+×
+</button>
+
+</div>
+
+<div class="star-count" id="starCount">
+⭐ 0 / 10
+</div>
+
+<div class="star-field" id="starField"></div>
+
+<div class="galaxy-message" id="galaxyMessage">
+
+<h2>
+🌌 Все звёзды найдены!
+</h2>
+
+<p>
+Ты нашёл все 10 звёзд!
+</p>
+
+<p>
+🔥 +1 день к огоньку
+</p>
+
+<p>
+🏆 Ачивка «Звездочёт» получена
+</p>
+
+<button class="btn" onclick="closeGalaxy()">
+Продолжить
+</button>
+
+</div>
+
+</div>
+
+<div class="reward-pop" id="rewardPop"></div>
 
 <script type="module">
 
-/* =========================
-   FIREBASE IMPORTS
-========================= */
-
 import {
-  initializeApp
+initializeApp
 }
 from
 "https://www.gstatic.com/firebasejs/12.2.1/firebase-app.js";
 
-
 import {
-  getAuth,
-  GoogleAuthProvider,
-  signInWithRedirect,
-  getRedirectResult,
-  onAuthStateChanged,
-  signOut
+getAuth,
+GoogleAuthProvider,
+signInWithRedirect,
+getRedirectResult,
+onAuthStateChanged,
+signOut
 }
 from
 "https://www.gstatic.com/firebasejs/12.2.1/firebase-auth.js";
 
-
 import {
-  getDatabase,
-  ref,
-  push,
-  set,
-  remove,
-  onValue
+getDatabase,
+ref,
+push,
+set,
+remove,
+onValue
 }
 from
 "https://www.gstatic.com/firebasejs/12.2.1/firebase-database.js";
 
-
-/* =========================
-   FIREBASE CONFIG
-========================= */
-
 const firebaseConfig = {
 
-  apiKey:
-  "AIzaSyDStXUlkqATov4QHOPk6HGb7DrSAs4RkGw",
+apiKey:
+"AIzaSyDStXUlkqATov4QHOPk6HGb7DrSAs4RkGw",
 
-  authDomain:
-  "ogonyoksa.firebaseapp.com",
+authDomain:
+"ogonyoksa.firebaseapp.com",
 
-  databaseURL:
-  "https://ogonyoksa-default-rtdb.europe-west1.firebasedatabase.app",
+databaseURL:
+"https://ogonyoksa-default-rtdb.europe-west1.firebasedatabase.app",
 
-  projectId:
-  "ogonyoksa",
+projectId:
+"ogonyoksa",
 
-  storageBucket:
-  "ogonyoksa.firebasestorage.app",
+storageBucket:
+"ogonyoksa.firebasestorage.app",
 
-  messagingSenderId:
-  "403527501538",
+messagingSenderId:
+"403527501538",
 
-  appId:
-  "1:403527501538:web:d5fafa759c1931216880bb"
+appId:
+"1:403527501538:web:d5fafa759c1931216880bb"
 
 };
-
 
 const app =
 initializeApp(firebaseConfig);
 
-
 const auth =
 getAuth(app);
-
 
 const provider =
 new GoogleAuthProvider();
 
-
 const db =
 getDatabase(app);
 
-
 /* =========================
-   ADMIN
+   АДМИН
 ========================= */
 
 const ADMIN_EMAIL =
 "luboeima6677@gmail.com";
 
+function isAdmin(user){
+
+return !!(
+user &&
+user.email &&
+user.email.toLowerCase() ===
+ADMIN_EMAIL.toLowerCase()
+);
+
+}
+
+/* =========================
+   ПОКАЗ КНОПКИ АДМИНКИ
+========================= */
+
+function updateAdminButton(user){
+
+const button =
+document.getElementById(
+"adminButton"
+);
+
+if(!button)
+return;
+
+if(isAdmin(user)){
+
+button.style.display =
+"block";
+
+}else{
+
+button.style.display =
+"none";
+
+}
+
+}
+
+/* =========================
+   ДАННЫЕ
+========================= */
+
+let data =
+JSON.parse(
+localStorage.getItem(
+"ogonyokData"
+) || "{}"
+);
+
+if(!data.startDate){
+
+data.startDate =
+new Date().toISOString();
+
+}
+
+if(!data.skin){
+
+data.skin =
+"normal";
+
+}
+
+if(!data.language){
+
+data.language =
+"ru";
+
+}
+
+if(!data.theme){
+
+data.theme =
+"light";
+
+}
+
+if(typeof data.starBonusDays !== "number"){
+
+data.starBonusDays = 0;
+
+}
+
+if(typeof data.starAchievement !== "boolean"){
+
+data.starAchievement = false;
+
+}
+
+if(typeof data.starDay !== "string"){
+
+data.starDay = "";
+
+}
+
+if(typeof data.starCount !== "number"){
+
+data.starCount = 0;
+
+}
+
+if(typeof data.starRewardDay !== "string"){
+
+data.starRewardDay = "";
+
+}
+
+save();
+
+function save(){
+
+localStorage.setItem(
+"ogonyokData",
+JSON.stringify(data)
+);
+
+}
 
 /* =========================
    СКИНЫ
@@ -1135,72 +1073,71 @@ const ADMIN_EMAIL =
 
 const skins = [
 
-  {
-    id:"normal",
-    nameRU:"Обычный",
-    nameEN:"Normal",
-    icon:"🔥",
-    need:0
-  },
+{
+id:"normal",
+nameRU:"Обычный",
+nameEN:"Normal",
+icon:"🔥",
+need:0
+},
 
-  {
-    id:"ice",
-    nameRU:"Ледяной",
-    nameEN:"Ice",
-    icon:"🧊",
-    need:7
-  },
+{
+id:"ice",
+nameRU:"Ледяной",
+nameEN:"Ice",
+icon:"🧊",
+need:7
+},
 
-  {
-    id:"purple",
-    nameRU:"Фиолетовый",
-    nameEN:"Purple",
-    icon:"💜",
-    need:30
-  },
+{
+id:"purple",
+nameRU:"Фиолетовый",
+nameEN:"Purple",
+icon:"💜",
+need:30
+},
 
-  {
-    id:"neon",
-    nameRU:"Неоновый",
-    nameEN:"Neon",
-    icon:"💚",
-    need:90
-  },
+{
+id:"neon",
+nameRU:"Неоновый",
+nameEN:"Neon",
+icon:"💚",
+need:90
+},
 
-  {
-    id:"electric",
-    nameRU:"Электро",
-    nameEN:"Electric",
-    icon:"⚡",
-    need:180
-  },
+{
+id:"electric",
+nameRU:"Электро",
+nameEN:"Electric",
+icon:"⚡",
+need:180
+},
 
-  {
-    id:"sun",
-    nameRU:"Солнечный",
-    nameEN:"Solar",
-    icon:"☀️",
-    need:365
-  },
+{
+id:"sun",
+nameRU:"Солнечный",
+nameEN:"Solar",
+icon:"☀️",
+need:365
+},
 
-  {
-    id:"diamond",
-    nameRU:"Алмазный",
-    nameEN:"Diamond",
-    icon:"💎",
-    need:720
-  },
+{
+id:"diamond",
+nameRU:"Алмазный",
+nameEN:"Diamond",
+icon:"💎",
+need:720
+},
 
-  {
-    id:"space",
-    nameRU:"Космический",
-    nameEN:"Space",
-    icon:"🌌",
-    need:1000
-  }
+{
+id:"space",
+nameRU:"Космический",
+nameEN:"Space",
+icon:"🌌",
+need:1000
+}
 
 ];
-
 
 /* =========================
    АЧИВКИ
@@ -1208,461 +1145,140 @@ const skins = [
 
 const achievements = [
 
-  {
-    id:"day1",
-    days:1,
-    ru:"Первый огонёк",
-    en:"First Flame"
-  },
+{
+id:"day1",
+days:1,
+ru:"Первый огонёк",
+en:"First Flame"
+},
 
-  {
-    id:"day7",
-    days:7,
-    ru:"Неделя огня",
-    en:"Fire Week"
-  },
+{
+id:"day7",
+days:7,
+ru:"Неделя огня",
+en:"Fire Week"
+},
 
-  {
-    id:"day30",
-    days:30,
-    ru:"Месяц без перерыва",
-    en:"One Month"
-  },
+{
+id:"day30",
+days:30,
+ru:"Месяц без перерыва",
+en:"One Month"
+},
 
-  {
-    id:"day90",
-    days:90,
-    ru:"Три месяца пламя",
-    en:"Three Months"
-  },
+{
+id:"day90",
+days:90,
+ru:"Три месяца пламя",
+en:"Three Months"
+},
 
-  {
-    id:"day180",
-    days:180,
-    ru:"Половина года",
-    en:"Half a Year"
-  },
+{
+id:"day180",
+days:180,
+ru:"Половина года",
+en:"Half a Year"
+},
 
-  {
-    id:"day365",
-    days:365,
-    ru:"Год огня",
-    en:"One Year"
-  },
+{
+id:"day365",
+days:365,
+ru:"Год огня",
+en:"One Year"
+},
 
-  {
-    id:"day720",
-    days:720,
-    ru:"Два года огня",
-    en:"Two Years"
-  },
+{
+id:"day720",
+days:720,
+ru:"Два года огня",
+en:"Two Years"
+},
 
-  {
-    id:"day1000",
-    days:1000,
-    ru:"Тысячный день",
-    en:"1000 Days"
-  },
+{
+id:"day1000",
+days:1000,
+ru:"Тысячный день",
+en:"1000 Days"
+},
 
-  {
-    id:"starWatcher",
-    days:0,
-    ru:"Звездочёт",
-    en:"Stargazer"
-  }
+{
+id:"starWatcher",
+days:0,
+ru:"Звездочёт",
+en:"Stargazer"
+}
 
 ];
 
-
 /* =========================
-   СТАРЫЕ ДАННЫЕ
-========================= */
-
-let data =
-JSON.parse(
-  localStorage.getItem(
-    "ogonyokData"
-  ) || "{}"
-);
-
-
-/*
-   ВАЖНО:
-
-   Здесь мы НЕ создаём новый ключ.
-
-   Используется тот же:
-   ogonyokData
-
-   Поэтому старый прогресс
-   остаётся на устройстве.
-*/
-
-
-if(!data.startDate){
-
-  data.startDate =
-  new Date().toISOString();
-
-}
-
-
-if(!data.skin){
-
-  data.skin =
-  "normal";
-
-}
-
-
-if(!data.language){
-
-  data.language =
-  "ru";
-
-}
-
-
-if(!data.theme){
-
-  data.theme =
-  "light";
-
-}
-
-
-/* =========================
-   НОВЫЕ ДАННЫЕ ИВЕНТА
-========================= */
-
-if(
-  typeof data.starBonusDays !==
-  "number"
-){
-
-  data.starBonusDays = 0;
-
-}
-
-
-if(
-  typeof data.starAchievement !==
-  "boolean"
-){
-
-  data.starAchievement = false;
-
-}
-
-
-if(
-  typeof data.starDay !==
-  "string"
-){
-
-  data.starDay = "";
-
-}
-
-
-if(
-  typeof data.starCount !==
-  "number"
-){
-
-  data.starCount = 0;
-
-}
-
-
-save();
-
-
-/* =========================
-   SAVE
-========================= */
-
-function save(){
-
-  localStorage.setItem(
-    "ogonyokData",
-    JSON.stringify(data)
-  );
-
-}
-
-
-/* =========================
-   НОВОСИБИРСКОЕ ВРЕМЯ
-========================= */
-
-/*
-   Asia/Novosibirsk = UTC+7.
-
-   Для ивента используем именно
-   эту временную зону.
-
-   Время пользователя не используется.
-*/
-
-function getNovosibirskParts(){
-
-  const formatter =
-  new Intl.DateTimeFormat(
-    "en-CA",
-    {
-      timeZone:"Asia/Novosibirsk",
-      year:"numeric",
-      month:"2-digit",
-      day:"2-digit",
-      hour:"2-digit",
-      minute:"2-digit",
-      second:"2-digit",
-      hourCycle:"h23"
-    }
-  );
-
-
-  const parts =
-  formatter.formatToParts(
-    new Date()
-  );
-
-
-  const result = {};
-
-
-  parts.forEach(
-    part => {
-
-      if(
-        part.type !==
-        "literal"
-      ){
-
-        result[
-          part.type
-        ] =
-        part.value;
-
-      }
-
-    }
-  );
-
-
-  return {
-
-    year:Number(result.year),
-
-    month:Number(result.month),
-
-    day:Number(result.day),
-
-    hour:Number(result.hour),
-
-    minute:Number(result.minute),
-
-    second:Number(result.second)
-
-  };
-
-}
-
-
-/* =========================
-   ID ДНЯ
-========================= */
-
-function getNovosibirskDayId(){
-
-  const n =
-  getNovosibirskParts();
-
-
-  return [
-    n.year,
-    String(n.month).padStart(2,"0"),
-    String(n.day).padStart(2,"0")
-  ].join("-");
-
-}
-
-
-/* =========================
-   ВРЕМЯ ИВЕНТА
-========================= */
-
-function isStarEventOpen(){
-
-  const n =
-  getNovosibirskParts();
-
-
-  return (
-    n.hour >= 0 &&
-    n.hour < 4
-  );
-
-}
-
-
-/* =========================
-   ТАЙМЕР
-========================= */
-
-function getSecondsUntilTarget(){
-
-  const n =
-  getNovosibirskParts();
-
-
-  let targetHour;
-
-
-  if(n.hour < 4){
-
-    targetHour = 4;
-
-  }else{
-
-    targetHour = 24;
-
-  }
-
-
-  return (
-    (targetHour - n.hour - 1) * 3600 +
-    (60 - n.minute - 1) * 60 +
-    (60 - n.second)
-  );
-
-}
-
-
-function formatTimer(seconds){
-
-  seconds =
-  Math.max(
-    0,
-    seconds
-  );
-
-
-  const h =
-  Math.floor(
-    seconds / 3600
-  );
-
-
-  const m =
-  Math.floor(
-    (seconds % 3600) / 60
-  );
-
-
-  const s =
-  seconds % 60;
-
-
-  return [
-    String(h).padStart(2,"0"),
-    String(m).padStart(2,"0"),
-    String(s).padStart(2,"0")
-  ].join(":");
-
-}
-
-
-/* =========================
-   ДНИ ОГОНЬКА
+   ДНИ
 ========================= */
 
 function calculateDays(){
 
-  const start =
-  new Date(
-    data.startDate
-  );
+const start =
+new Date(data.startDate);
 
+const now =
+new Date();
 
-  const now =
-  new Date();
+const diff =
+now.getTime() -
+start.getTime();
 
+const normalDays =
+Math.max(
+1,
+Math.floor(
+diff / 86400000
+) + 1
+);
 
-  const diff =
-  now.getTime() -
-  start.getTime();
-
-
-  const normalDays =
-  Math.max(
-    1,
-    Math.floor(
-      diff / 86400000
-    ) + 1
-  );
-
-
-  return (
-    normalDays +
-    (data.starBonusDays || 0)
-  );
+return (
+normalDays +
+(data.starBonusDays || 0)
+);
 
 }
-
 
 /* =========================
    ОГОНЁК
 ========================= */
 
-function updateFire(){
-
-  const days =
-  calculateDays();
-
-
-  document.getElementById(
-    "days"
-  ).textContent =
-  days;
-
-
-  document.getElementById(
-    "fire"
-  ).textContent =
-  getCurrentSkinIcon();
-
-
-  renderAchievements();
-
-  renderSkins();
-
-  updatePortal();
-
-}
-
-
-/* =========================
-   ТЕКУЩИЙ СКИН
-========================= */
-
 function getCurrentSkinIcon(){
 
-  const skin =
-  skins.find(
-    s =>
-    s.id ===
-    data.skin
-  );
+const skin =
+skins.find(
+s =>
+s.id === data.skin
+);
 
-
-  return skin
-  ? skin.icon
-  : "🔥";
+return skin
+? skin.icon
+: "🔥";
 
 }
 
+function updateFire(){
+
+const days =
+calculateDays();
+
+document.getElementById(
+"days"
+).textContent =
+days;
+
+document.getElementById(
+"fire"
+).textContent =
+getCurrentSkinIcon();
+
+renderAchievements();
+renderSkins();
+updatePortal();
+
+}
 
 /* =========================
    СКИНЫ
@@ -1670,119 +1286,90 @@ function getCurrentSkinIcon(){
 
 function renderSkins(){
 
-  const box =
-  document.getElementById(
-    "skinsList"
-  );
+const box =
+document.getElementById(
+"skinsList"
+);
 
+if(!box)
+return;
 
-  if(!box)
-    return;
+box.innerHTML = "";
 
+const days =
+calculateDays();
 
-  box.innerHTML = "";
+skins.forEach(
+skin => {
 
+const unlocked =
+days >= skin.need;
 
-  const days =
-  calculateDays();
+const selected =
+data.skin === skin.id;
 
+const name =
+data.language === "ru"
+? skin.nameRU
+: skin.nameEN;
 
-  skins.forEach(
-    skin => {
+const div =
+document.createElement(
+"div"
+);
 
-      const unlocked =
-      days >= skin.need;
+div.className =
+"skin " +
+(unlocked ? "" : "locked") +
+(selected ? " selected" : "");
 
+div.innerHTML = `
 
-      const selected =
-      data.skin ===
-      skin.id;
+<div class="preview">
+${skin.icon}
+</div>
 
+<strong>
+${escapeHTML(name)}
+</strong>
 
-      const name =
-      data.language === "ru"
-      ? skin.nameRU
-      : skin.nameEN;
+<div class="small">
 
+${
+unlocked
+?
+(selected ? "✓ выбрано" : "Открыто")
+:
+`🔒 ${skin.need} дней`
+}
 
-      const div =
-      document.createElement(
-        "div"
-      );
+</div>
 
+`;
 
-      div.className =
-      "skin " +
-      (
-        unlocked
-        ? ""
-        : "locked"
-      ) +
-      (
-        selected
-        ? " selected"
-        : ""
-      );
+if(unlocked){
 
+div.onclick =
+() => {
 
-      div.innerHTML = `
+data.skin =
+skin.id;
 
-        <div class="preview">
-          ${skin.icon}
-        </div>
+save();
 
-        <strong>
-          ${escapeHTML(name)}
-        </strong>
+renderSkins();
+updateFire();
 
-        <div class="small">
-
-          ${
-            unlocked
-            ?
-            (
-              selected
-              ? "✓ выбрано"
-              : "Открыто"
-            )
-            :
-            `🔒 ${skin.need} дней`
-          }
-
-        </div>
-
-      `;
-
-
-      if(unlocked){
-
-        div.onclick =
-        () => {
-
-          data.skin =
-          skin.id;
-
-
-          save();
-
-          renderSkins();
-
-          updateFire();
-
-        };
-
-      }
-
-
-      box.appendChild(
-        div
-      );
-
-    }
-  );
+};
 
 }
 
+box.appendChild(div);
+
+}
+);
+
+}
 
 /* =========================
    АЧИВКИ
@@ -1790,98 +1377,76 @@ function renderSkins(){
 
 function renderAchievements(){
 
-  const box =
-  document.getElementById(
-    "achievementsList"
-  );
+const box =
+document.getElementById(
+"achievementsList"
+);
 
+if(!box)
+return;
 
-  if(!box)
-    return;
+box.innerHTML = "";
 
+const days =
+calculateDays();
 
-  box.innerHTML = "";
+achievements.forEach(
+a => {
 
+let unlocked =
+days >= a.days;
 
-  const days =
-  calculateDays();
+if(a.id === "starWatcher"){
 
-
-  achievements.forEach(
-    a => {
-
-      let unlocked =
-      days >= a.days;
-
-
-      if(
-        a.id ===
-        "starWatcher"
-      ){
-
-        unlocked =
-        data.starAchievement ===
-        true;
-
-      }
-
-
-      const name =
-      data.language === "ru"
-      ? a.ru
-      : a.en;
-
-
-      const div =
-      document.createElement(
-        "div"
-      );
-
-
-      div.className =
-      "achievement " +
-      (
-        unlocked
-        ? ""
-        : "locked"
-      );
-
-
-      div.innerHTML = `
-
-        <strong>
-
-          ${
-            unlocked
-            ? "🔥"
-            : "🔒"
-          }
-
-          ${
-            a.id ===
-            "starWatcher"
-            ? "🌌"
-            : a.days + " дней"
-          }
-
-        </strong>
-
-        <div>
-          ${escapeHTML(name)}
-        </div>
-
-      `;
-
-
-      box.appendChild(
-        div
-      );
-
-    }
-  );
+unlocked =
+data.starAchievement === true;
 
 }
 
+const name =
+data.language === "ru"
+? a.ru
+: a.en;
+
+const div =
+document.createElement(
+"div"
+);
+
+div.className =
+"achievement " +
+(unlocked ? "" : "locked");
+
+div.innerHTML = `
+
+<strong>
+
+${
+unlocked
+? "🔥"
+: "🔒"
+}
+
+${
+a.id === "starWatcher"
+? "🌌"
+: a.days + " дней"
+}
+
+</strong>
+
+<div>
+${escapeHTML(name)}
+</div>
+
+`;
+
+box.appendChild(div);
+
+}
+);
+
+}
 
 /* =========================
    ЯЗЫК
@@ -1890,112 +1455,95 @@ function renderAchievements(){
 window.setLanguage =
 function(lang){
 
-  data.language =
-  lang;
+data.language =
+lang;
 
+save();
 
-  save();
-
-  updateLanguage();
-
-  renderSkins();
-
-  renderAchievements();
-
-  renderEvents();
-
-  updatePortal();
+updateLanguage();
+renderSkins();
+renderAchievements();
+renderEvents();
+updatePortal();
 
 };
 
-
 function updateLanguage(){
 
-  const ru =
-  data.language === "ru";
+const ru =
+data.language === "ru";
 
+document.getElementById(
+"streakLabel"
+).textContent =
+ru
+? "ТВОЙ ОГОНЁК"
+: "YOUR FLAME";
 
-  document.getElementById(
-    "streakLabel"
-  ).textContent =
-  ru
-  ? "ТВОЙ ОГОНЁК"
-  : "YOUR FLAME";
+document.getElementById(
+"daysLabel"
+).textContent =
+ru
+? "дней подряд"
+: "days in a row";
 
+document.getElementById(
+"eventsTitle"
+).textContent =
+ru
+? "Ивенты"
+: "Events";
 
-  document.getElementById(
-    "daysLabel"
-  ).textContent =
-  ru
-  ? "дней подряд"
-  : "days in a row";
+document.getElementById(
+"skinsTitle"
+).textContent =
+ru
+? "Скины"
+: "Skins";
 
+document.getElementById(
+"achievementsTitle"
+).textContent =
+ru
+? "Ачивки"
+: "Achievements";
 
-  document.getElementById(
-    "eventsTitle"
-  ).textContent =
-  ru
-  ? "Ивенты"
-  : "Events";
+document.getElementById(
+"settingsTitle"
+).textContent =
+ru
+? "Настройки"
+: "Settings";
 
+document.getElementById(
+"navHome"
+).textContent =
+ru
+? "Главная"
+: "Home";
 
-  document.getElementById(
-    "skinsTitle"
-  ).textContent =
-  ru
-  ? "Скины"
-  : "Skins";
+document.getElementById(
+"navSkins"
+).textContent =
+ru
+? "Скины"
+: "Skins";
 
+document.getElementById(
+"navAchievements"
+).textContent =
+ru
+? "Ачивки"
+: "Achievements";
 
-  document.getElementById(
-    "achievementsTitle"
-  ).textContent =
-  ru
-  ? "Ачивки"
-  : "Achievements";
-
-
-  document.getElementById(
-    "settingsTitle"
-  ).textContent =
-  ru
-  ? "Настройки"
-  : "Settings";
-
-
-  document.getElementById(
-    "navHome"
-  ).textContent =
-  ru
-  ? "Главная"
-  : "Home";
-
-
-  document.getElementById(
-    "navSkins"
-  ).textContent =
-  ru
-  ? "Скины"
-  : "Skins";
-
-
-  document.getElementById(
-    "navAchievements"
-  ).textContent =
-  ru
-  ? "Ачивки"
-  : "Achievements";
-
-
-  document.getElementById(
-    "navSettings"
-  ).textContent =
-  ru
-  ? "Настройки"
-  : "Settings";
+document.getElementById(
+"navSettings"
+).textContent =
+ru
+? "Настройки"
+: "Settings";
 
 }
-
 
 /* =========================
    ТЕМА
@@ -2004,26 +1552,23 @@ function updateLanguage(){
 window.setTheme =
 function(theme){
 
-  data.theme =
-  theme;
+data.theme =
+theme;
 
+save();
 
-  save();
-
-  applyTheme();
+applyTheme();
 
 };
 
-
 function applyTheme(){
 
-  document.body.classList.toggle(
-    "dark",
-    data.theme === "dark"
-  );
+document.body.classList.toggle(
+"dark",
+data.theme === "dark"
+);
 
 }
-
 
 /* =========================
    СТРАНИЦЫ
@@ -2032,312 +1577,267 @@ function applyTheme(){
 window.showPage =
 function(id,button){
 
-  document
-  .querySelectorAll(
-    ".page"
-  )
-  .forEach(
-    p =>
-    p.classList.remove(
-      "active"
-    )
-  );
+document
+.querySelectorAll(".page")
+.forEach(
+p =>
+p.classList.remove("active")
+);
 
+document
+.querySelectorAll(".nav")
+.forEach(
+n =>
+n.classList.remove("active")
+);
 
-  document
-  .querySelectorAll(
-    ".nav"
-  )
-  .forEach(
-    n =>
-    n.classList.remove(
-      "active"
-    )
-  );
+document
+.getElementById(id)
+.classList.add("active");
 
-
-  document
-  .getElementById(id)
-  .classList.add(
-    "active"
-  );
-
-
-  button.classList.add(
-    "active"
-  );
+button.classList.add("active");
 
 };
 
-
 /* =========================
-   ОКНА
+   VERSION
 ========================= */
 
 window.openVersion =
 function(){
 
-  document
-  .getElementById(
-    "versionModal"
-  )
-  .classList.add(
-    "show"
-  );
+document
+.getElementById(
+"versionModal"
+)
+.classList.add("show");
+
+updateAdminButton(
+auth.currentUser
+);
 
 };
-
 
 window.closeModal =
 function(id){
 
-  document
-  .getElementById(id)
-  .classList.remove(
-    "show"
-  );
+document
+.getElementById(id)
+.classList.remove("show");
 
 };
-
-
-window.openAdminLogin =
-function(){
-
-  closeModal(
-    "versionModal"
-  );
-
-
-  document
-  .getElementById(
-    "adminLoginModal"
-  )
-  .classList.add(
-    "show"
-  );
-
-};
-
 
 /* =========================
-   GOOGLE
+   GOOGLE LOGIN
 ========================= */
 
 window.googleLogin =
 async function(){
 
-  const status =
-  document.getElementById(
-    "loginStatus"
-  );
+const status =
+document.getElementById(
+"loginStatus"
+);
 
+const button =
+document.getElementById(
+"googleLoginButton"
+);
 
-  const button =
-  document.getElementById(
-    "googleLoginButton"
-  );
+status.textContent =
+"Переходим к Google...";
 
+button.disabled =
+true;
 
-  status.textContent =
-  "Переходим к Google...";
+try{
 
+await signInWithRedirect(
+auth,
+provider
+);
 
-  button.disabled =
-  true;
+}
 
+catch(error){
 
-  try{
+button.disabled =
+false;
 
-    await signInWithRedirect(
-      auth,
-      provider
-    );
+status.textContent =
+"Ошибка входа: " +
+error.message;
 
-  }
-
-  catch(error){
-
-    button.disabled =
-    false;
-
-
-    status.textContent =
-    "Ошибка входа: " +
-    error.message;
-
-  }
+}
 
 };
 
-
 /* =========================
-   GOOGLE REDIRECT RESULT
+   GOOGLE REDIRECT
 ========================= */
 
 async function checkRedirectLogin(){
 
-  try{
+try{
 
-    const result =
-    await getRedirectResult(
-      auth
-    );
+const result =
+await getRedirectResult(
+auth
+);
 
+if(result){
 
-    if(result){
+const user =
+result.user;
 
-      const user =
-      result.user;
+if(isAdmin(user)){
 
+updateAdminButton(user);
 
-      if(
-        user.email &&
-        user.email.toLowerCase() ===
-        ADMIN_EMAIL.toLowerCase()
-      ){
+openAdmin();
 
-        openAdmin();
+}else{
 
-      }
+alert(
+"Этот Google-аккаунт не является администратором."
+);
 
-      else{
-
-        alert(
-          "Этот Google-аккаунт не является администратором."
-        );
-
-
-        await signOut(
-          auth
-        );
-
-      }
-
-    }
-
-  }
-
-  catch(error){
-
-    console.error(
-      "Google redirect error:",
-      error
-    );
-
-
-    const status =
-    document.getElementById(
-      "loginStatus"
-    );
-
-
-    if(status){
-
-      status.textContent =
-      "Ошибка входа: " +
-      error.message;
-
-    }
-
-  }
+await signOut(auth);
 
 }
 
+}
+
+}
+
+catch(error){
+
+console.error(
+"Google redirect error:",
+error
+);
+
+const status =
+document.getElementById(
+"loginStatus"
+);
+
+if(status){
+
+status.textContent =
+"Ошибка входа: " +
+error.message;
+
+}
+
+}
+
+}
 
 checkRedirectLogin();
-
 
 /* =========================
    AUTH STATE
 ========================= */
 
 onAuthStateChanged(
-  auth,
-  user => {
+auth,
+user => {
 
-    if(!user)
-      return;
+updateAdminButton(user);
 
+if(!user){
 
-    if(
-      user.email &&
-      user.email.toLowerCase() ===
-      ADMIN_EMAIL.toLowerCase()
-    ){
+return;
 
-      const adminUser =
-      document.getElementById(
-        "adminUser"
-      );
+}
 
+if(isAdmin(user)){
 
-      if(adminUser){
-
-        adminUser.textContent =
-        "Вход выполнен: " +
-        user.email;
-
-      }
-
-    }
-
-  }
+const adminUser =
+document.getElementById(
+"adminUser"
 );
 
+if(adminUser){
+
+adminUser.textContent =
+"Вход выполнен: " +
+user.email;
+
+}
+
+}
+
+});
 
 /* =========================
    АДМИНКА
 ========================= */
 
-function openAdmin(){
+window.openAdmin =
+function(){
 
-  document
-  .getElementById(
-    "adminModal"
-  )
-  .classList.add(
-    "show"
-  );
+const user =
+auth.currentUser;
 
+if(!isAdmin(user)){
 
-  loadAdminEvents();
+openAdminLogin();
+
+return;
 
 }
 
+closeModal(
+"versionModal"
+);
+
+closeModal(
+"adminLoginModal"
+);
+
+document
+.getElementById(
+"adminModal"
+)
+.classList.add("show");
+
+document.getElementById(
+"adminUser"
+).textContent =
+"Вход выполнен: " +
+user.email;
+
+loadAdminEvents();
+
+};
+
+window.openAdminLogin =
+function(){
+
+closeModal(
+"versionModal"
+);
+
+document
+.getElementById(
+"adminLoginModal"
+)
+.classList.add("show");
+
+};
 
 window.logout =
 async function(){
 
-  await signOut(
-    auth
-  );
+await signOut(auth);
 
+closeModal("adminModal");
 
-  closeModal(
-    "adminModal"
-  );
+updateAdminButton(null);
 
 };
-
-
-function loadAdminEvents(){
-
-  const user =
-  auth.currentUser;
-
-
-  if(user){
-
-    document.getElementById(
-      "adminUser"
-    ).textContent =
-    "Вход выполнен: " +
-    user.email;
-
-  }
-
-}
-
 
 /* =========================
    СОЗДАНИЕ ИВЕНТА
@@ -2346,155 +1846,107 @@ function loadAdminEvents(){
 window.createEvent =
 async function(){
 
-  const user =
-  auth.currentUser;
+const user =
+auth.currentUser;
 
+if(!isAdmin(user)){
 
-  if(!user){
+alert("Нет доступа.");
 
-    alert(
-      "Сначала войдите через Google."
-    );
+return;
 
-    return;
+}
 
-  }
+const name =
+document.getElementById(
+"eventName"
+).value.trim();
 
+const description =
+document.getElementById(
+"eventDescription"
+).value.trim();
 
-  if(
-    !user.email ||
-    user.email.toLowerCase() !==
-    ADMIN_EMAIL.toLowerCase()
-  ){
+const reward =
+document.getElementById(
+"eventReward"
+).value.trim();
 
-    alert(
-      "Нет доступа."
-    );
+const start =
+document.getElementById(
+"eventStart"
+).value;
 
-    return;
+const end =
+document.getElementById(
+"eventEnd"
+).value;
 
-  }
+if(!name){
 
+alert(
+"Введите название ивента."
+);
 
-  const name =
-  document.getElementById(
-    "eventName"
-  ).value.trim();
+return;
 
+}
 
-  const description =
-  document.getElementById(
-    "eventDescription"
-  ).value.trim();
+try{
 
+const eventRef =
+push(
+ref(db,"events")
+);
 
-  const reward =
-  document.getElementById(
-    "eventReward"
-  ).value.trim();
+await set(
+eventRef,
+{
+name:name,
+description:description,
+reward:reward,
+start:start,
+end:end,
+createdAt:Date.now()
+}
+);
 
+document.getElementById(
+"eventName"
+).value = "";
 
-  const start =
-  document.getElementById(
-    "eventStart"
-  ).value;
+document.getElementById(
+"eventDescription"
+).value = "";
 
+document.getElementById(
+"eventReward"
+).value = "";
 
-  const end =
-  document.getElementById(
-    "eventEnd"
-  ).value;
+document.getElementById(
+"eventStart"
+).value = "";
 
+document.getElementById(
+"eventEnd"
+).value = "";
 
-  if(!name){
+alert(
+"Ивент создан 🎉"
+);
 
-    alert(
-      "Введите название ивента."
-    );
+}
 
-    return;
+catch(error){
 
-  }
+alert(
+"Ошибка создания ивента: " +
+error.message
+);
 
-
-  try{
-
-    const eventRef =
-    push(
-      ref(
-        db,
-        "events"
-      )
-    );
-
-
-    await set(
-      eventRef,
-      {
-
-        name:name,
-
-        description:
-        description,
-
-        reward:
-        reward,
-
-        start:
-        start,
-
-        end:
-        end,
-
-        createdAt:
-        Date.now()
-
-      }
-    );
-
-
-    document.getElementById(
-      "eventName"
-    ).value = "";
-
-
-    document.getElementById(
-      "eventDescription"
-    ).value = "";
-
-
-    document.getElementById(
-      "eventReward"
-    ).value = "";
-
-
-    document.getElementById(
-      "eventStart"
-    ).value = "";
-
-
-    document.getElementById(
-      "eventEnd"
-    ).value = "";
-
-
-    alert(
-      "Ивент создан 🎉"
-    );
-
-  }
-
-  catch(error){
-
-    alert(
-      "Ошибка создания ивента: " +
-      error.message
-    );
-
-  }
+}
 
 };
-
 
 /* =========================
    FIREBASE EVENTS
@@ -2502,1023 +1954,811 @@ async function(){
 
 const eventsRef =
 ref(
-  db,
-  "events"
+db,
+"events"
 );
-
 
 onValue(
-  eventsRef,
+eventsRef,
+snapshot => {
 
-  snapshot => {
+const events =
+snapshot.val() || {};
 
-    const events =
-    snapshot.val() || {};
+renderEvents(events);
+renderAdminEvents(events);
 
+},
+error => {
 
-    renderEvents(
-      events
-    );
-
-
-    renderAdminEvents(
-      events
-    );
-
-  },
-
-  error => {
-
-    console.error(
-      "Ошибка загрузки events:",
-      error
-    );
-
-
-    document.getElementById(
-      "eventsList"
-    ).innerHTML = `
-
-      <div class="empty">
-        Не удалось загрузить ивенты.
-      </div>
-
-    `;
-
-  }
+console.error(
+"Ошибка загрузки events:",
+error
 );
 
+document.getElementById(
+"eventsList"
+).innerHTML =
+`
+<div class="empty">
+Не удалось загрузить ивенты.
+</div>
+`;
+
+}
+);
 
 /* =========================
-   ПОКАЗ ИВЕНТОВ
+   ИВЕНТЫ
 ========================= */
 
 function renderEvents(events){
 
-  const box =
-  document.getElementById(
-    "eventsList"
-  );
+const box =
+document.getElementById(
+"eventsList"
+);
 
+box.innerHTML = "";
 
-  box.innerHTML = "";
+const now =
+new Date();
 
+let count = 0;
 
-  const now =
-  new Date();
+Object.entries(events)
+.forEach(
+([id,event]) => {
 
+const start =
+event.start
+? new Date(event.start)
+: null;
 
-  let count = 0;
+const end =
+event.end
+? new Date(event.end)
+: null;
 
+if(start && now < start)
+return;
 
-  Object.entries(events)
-  .forEach(
-    ([id,event]) => {
+if(end && now > end)
+return;
 
-      const start =
-      event.start
-      ? new Date(
-          event.start
-        )
-      : null;
+count++;
 
+const div =
+document.createElement(
+"div"
+);
 
-      const end =
-      event.end
-      ? new Date(
-          event.end
-        )
-      : null;
+div.className =
+"event";
 
+div.innerHTML = `
 
-      if(
-        start &&
-        now < start
-      )
-        return;
+<h3>
+🎉
+${escapeHTML(event.name)}
+</h3>
 
+<div>
+${escapeHTML(event.description || "")}
+</div>
 
-      if(
-        end &&
-        now > end
-      )
-        return;
+${
+event.reward
+?
+`
+<p>
+🏆
+${escapeHTML(event.reward)}
+</p>
+`
+:
+""
+}
 
+${
+event.end
+?
+`
+<div class="event-date">
+До: ${escapeHTML(event.end)}
+</div>
+`
+:
+""
+}
 
-      count++;
+`;
 
+box.appendChild(div);
 
-      const div =
-      document.createElement(
-        "div"
-      );
+}
+);
 
+if(count === 0){
 
-      div.className =
-      "event";
+box.innerHTML = `
 
+<div class="empty">
 
-      div.innerHTML = `
+${
+data.language === "ru"
+?
+"Сейчас активных ивентов нет."
+:
+"There are no active events."
+}
 
-        <h3>
-          🎉
-          ${escapeHTML(
-            event.name
-          )}
-        </h3>
+</div>
 
-        <div>
-          ${escapeHTML(
-            event.description ||
-            ""
-          )}
-        </div>
-
-        ${
-          event.reward
-          ?
-          `
-          <p>
-            🏆
-            ${escapeHTML(
-              event.reward
-            )}
-          </p>
-          `
-          :
-          ""
-        }
-
-        ${
-          event.end
-          ?
-          `
-          <div class="event-date">
-            До:
-            ${escapeHTML(
-              event.end
-            )}
-          </div>
-          `
-          :
-          ""
-        }
-
-      `;
-
-
-      box.appendChild(
-        div
-      );
-
-    }
-  );
-
-
-  if(count === 0){
-
-    box.innerHTML = `
-
-      <div class="empty">
-
-        ${
-          data.language === "ru"
-          ?
-          "Сейчас активных ивентов нет."
-          :
-          "There are no active events."
-        }
-
-      </div>
-
-    `;
-
-  }
+`;
 
 }
 
+}
 
 /* =========================
    АДМИНСКИЕ ИВЕНТЫ
 ========================= */
 
-function renderAdminEvents(events){
+function loadAdminEvents(){
 
-  const box =
-  document.getElementById(
-    "adminEvents"
-  );
+if(auth.currentUser){
 
-
-  if(!box)
-    return;
-
-
-  box.innerHTML = "";
-
-
-  Object.entries(events)
-  .forEach(
-    ([id,event]) => {
-
-      const div =
-      document.createElement(
-        "div"
-      );
-
-
-      div.className =
-      "admin-event";
-
-
-      div.innerHTML = `
-
-        <strong>
-          🎉
-          ${escapeHTML(
-            event.name
-          )}
-        </strong>
-
-        <div class="small">
-          ${escapeHTML(
-            event.description ||
-            ""
-          )}
-        </div>
-
-        <button
-          class="btn danger">
-          Удалить
-        </button>
-
-      `;
-
-
-      div
-      .querySelector(
-        "button"
-      )
-      .onclick =
-      async () => {
-
-        const user =
-        auth.currentUser;
-
-
-        if(
-          !user ||
-          !user.email ||
-          user.email.toLowerCase() !==
-          ADMIN_EMAIL.toLowerCase()
-        ){
-
-          alert(
-            "Нет доступа."
-          );
-
-          return;
-
-        }
-
-
-        try{
-
-          await remove(
-            ref(
-              db,
-              "events/" +
-              id
-            )
-          );
-
-        }
-
-        catch(error){
-
-          alert(
-            "Ошибка удаления: " +
-            error.message
-          );
-
-        }
-
-      };
-
-
-      box.appendChild(
-        div
-      );
-
-    }
-  );
+document.getElementById(
+"adminUser"
+).textContent =
+"Вход выполнен: " +
+auth.currentUser.email;
 
 }
 
+}
 
-/* =========================================================
-   ЗВЁЗДНЫЙ ПОРТАЛ
-========================================================= */
+function renderAdminEvents(events){
 
+const box =
+document.getElementById(
+"adminEvents"
+);
+
+if(!box)
+return;
+
+box.innerHTML = "";
+
+Object.entries(events)
+.forEach(
+([id,event]) => {
+
+const div =
+document.createElement(
+"div"
+);
+
+div.className =
+"admin-event";
+
+div.innerHTML = `
+
+<strong>
+🎉 ${escapeHTML(event.name)}
+</strong>
+
+<div class="small">
+${escapeHTML(event.description || "")}
+</div>
+
+<button class="btn danger">
+Удалить
+</button>
+
+`;
+
+div
+.querySelector("button")
+.onclick =
+async () => {
+
+const user =
+auth.currentUser;
+
+if(!isAdmin(user)){
+
+alert("Нет доступа.");
+
+return;
+
+}
+
+try{
+
+await remove(
+ref(
+db,
+"events/" + id
+)
+);
+
+}
+
+catch(error){
+
+alert(
+"Ошибка удаления: " +
+error.message
+);
+
+}
+
+};
+
+box.appendChild(div);
+
+}
+);
+
+}
 
 /* =========================
-   ПРОВЕРКА НОВОГО ДНЯ
+   ЗВЁЗДНЫЙ ПОРТАЛ
 ========================= */
+
+function getNovosibirskParts(){
+
+const formatter =
+new Intl.DateTimeFormat(
+"en-CA",
+{
+timeZone:"Asia/Novosibirsk",
+year:"numeric",
+month:"2-digit",
+day:"2-digit",
+hour:"2-digit",
+minute:"2-digit",
+second:"2-digit",
+hourCycle:"h23"
+}
+);
+
+const parts =
+formatter.formatToParts(
+new Date()
+);
+
+const result = {};
+
+parts.forEach(
+part => {
+
+if(part.type !== "literal"){
+
+result[part.type] =
+part.value;
+
+}
+
+}
+);
+
+return {
+
+year:Number(result.year),
+month:Number(result.month),
+day:Number(result.day),
+hour:Number(result.hour),
+minute:Number(result.minute),
+second:Number(result.second)
+
+};
+
+}
+
+function getNovosibirskDayId(){
+
+const n =
+getNovosibirskParts();
+
+return [
+n.year,
+String(n.month).padStart(2,"0"),
+String(n.day).padStart(2,"0")
+].join("-");
+
+}
+
+function isStarEventOpen(){
+
+const n =
+getNovosibirskParts();
+
+return (
+n.hour >= 0 &&
+n.hour < 4
+);
+
+}
+
+function getSecondsUntilTarget(){
+
+const n =
+getNovosibirskParts();
+
+let targetHour;
+
+if(n.hour < 4){
+
+targetHour = 4;
+
+}else{
+
+targetHour = 24;
+
+}
+
+return (
+(targetHour - n.hour - 1) * 3600 +
+(60 - n.minute - 1) * 60 +
+(60 - n.second)
+);
+
+}
+
+function formatTimer(seconds){
+
+seconds =
+Math.max(0,seconds);
+
+const h =
+Math.floor(seconds / 3600);
+
+const m =
+Math.floor(
+(seconds % 3600) / 60
+);
+
+const s =
+seconds % 60;
+
+return [
+String(h).padStart(2,"0"),
+String(m).padStart(2,"0"),
+String(s).padStart(2,"0")
+].join(":");
+
+}
 
 function prepareStarDay(){
 
-  const today =
-  getNovosibirskDayId();
+const today =
+getNovosibirskDayId();
 
+if(data.starDay !== today){
 
-  if(
-    data.starDay !==
-    today
-  ){
+data.starDay =
+today;
 
-    data.starDay =
-    today;
+data.starCount =
+0;
 
-
-    data.starCount =
-    0;
-
-
-    save();
-
-  }
+save();
 
 }
 
-
-/* =========================
-   ОБНОВЛЕНИЕ ПОРТАЛА
-========================= */
+}
 
 function updatePortal(){
 
-  prepareStarDay();
+prepareStarDay();
 
+const card =
+document.getElementById(
+"portalCard"
+);
 
-  const card =
-  document.getElementById(
-    "portalCard"
-  );
+const status =
+document.getElementById(
+"portalStatus"
+);
 
+const timer =
+document.getElementById(
+"portalTimer"
+);
 
-  const status =
-  document.getElementById(
-    "portalStatus"
-  );
+const progress =
+document.getElementById(
+"portalProgress"
+);
 
+const button =
+document.getElementById(
+"portalButton"
+);
 
-  const timer =
-  document.getElementById(
-    "portalTimer"
-  );
+if(!card)
+return;
 
+const open =
+isStarEventOpen();
 
-  const progress =
-  document.getElementById(
-    "portalProgress"
-  );
+const ru =
+data.language === "ru";
 
+progress.textContent =
+`⭐ ${Math.min(data.starCount,10)} / 10`;
 
-  const button =
-  document.getElementById(
-    "portalButton"
-  );
+if(open){
 
+card.classList.remove(
+"closed"
+);
 
-  if(!card)
-    return;
+status.textContent =
+ru
+?
+"Портал открыт! Найди 10 звёзд."
+:
+"The portal is open! Find 10 stars.";
 
+timer.textContent =
+ru
+?
+"Закроется через: " +
+formatTimer(
+getSecondsUntilTarget()
+)
+:
+"Closes in: " +
+formatTimer(
+getSecondsUntilTarget()
+);
 
-  const open =
-  isStarEventOpen();
+button.disabled = false;
+button.style.display = "block";
 
+if(data.starCount >= 10){
 
-  const ru =
-  data.language ===
-  "ru";
+button.textContent =
+ru
+?
+"Сегодня уже пройдено ✓"
+:
+"Completed today ✓";
 
+button.disabled = true;
 
-  progress.textContent =
-  ru
-  ?
-  `⭐ ${Math.min(data.starCount,10)} / 10`
-  :
-  `⭐ ${Math.min(data.starCount,10)} / 10`;
+}else{
 
-
-  if(open){
-
-    card.classList.remove(
-      "closed"
-    );
-
-
-    status.textContent =
-    ru
-    ?
-    "Портал открыт! Найди 10 звёзд."
-    :
-    "The portal is open! Find 10 stars.";
-
-
-    timer.textContent =
-    ru
-    ?
-    "Закроется через: " +
-    formatTimer(
-      getSecondsUntilTarget()
-    )
-    :
-    "Closes in: " +
-    formatTimer(
-      getSecondsUntilTarget()
-    );
-
-
-    button.disabled =
-    false;
-
-
-    button.style.display =
-    "block";
-
-
-    if(
-      data.starCount >= 10
-    ){
-
-      button.textContent =
-      ru
-      ?
-      "Сегодня уже пройдено ✓"
-      :
-      "Completed today ✓";
-
-
-      button.disabled =
-      true;
-
-    }else{
-
-      button.textContent =
-      ru
-      ?
-      "Открыть портал"
-      :
-      "Open portal";
-
-    }
-
-  }
-
-  else{
-
-    card.classList.add(
-      "closed"
-    );
-
-
-    status.textContent =
-    ru
-    ?
-    "Портал закрыт."
-    :
-    "The portal is closed.";
-
-
-    timer.textContent =
-    ru
-    ?
-    "Следующее открытие в 00:00 по Новосибирску."
-    :
-    "Next opening: 00:00 Novosibirsk time.";
-
-
-    button.textContent =
-    ru
-    ?
-    "Сейчас закрыто"
-    :
-    "Closed now";
-
-
-    button.disabled =
-    true;
-
-  }
+button.textContent =
+ru
+?
+"Открыть портал"
+:
+"Open portal";
 
 }
 
+}else{
 
-/* =========================
-   ОТКРЫТИЕ ГАЛАКТИКИ
-========================= */
+card.classList.add(
+"closed"
+);
+
+status.textContent =
+ru
+?
+"Портал закрыт."
+:
+"The portal is closed.";
+
+timer.textContent =
+ru
+?
+"Следующее открытие в 00:00 по Новосибирску."
+:
+"Next opening: 00:00 Novosibirsk time.";
+
+button.textContent =
+ru
+?
+"Сейчас закрыто"
+:
+"Closed now";
+
+button.disabled = true;
+
+}
+
+}
 
 window.openGalaxy =
 function(){
 
-  prepareStarDay();
+prepareStarDay();
 
+if(!isStarEventOpen()){
 
-  if(
-    !isStarEventOpen()
-  ){
+alert(
+"Портал открыт только с 00:00 до 04:00 по Новосибирску."
+);
 
-    alert(
-      data.language === "ru"
-      ?
-      "Портал открыт только с 00:00 до 04:00 по Новосибирску."
-      :
-      "The portal is open only from 00:00 to 04:00 Novosibirsk time."
-    );
+return;
 
+}
 
-    return;
+if(data.starCount >= 10){
 
-  }
+alert(
+"Ты уже нашёл все 10 звёзд сегодня ⭐"
+);
 
+return;
 
-  if(
-    data.starCount >= 10
-  ){
+}
 
-    alert(
-      data.language === "ru"
-      ?
-      "Ты уже нашёл все 10 звёзд сегодня ⭐"
-      :
-      "You already found all 10 stars today ⭐"
-    );
+document
+.getElementById("galaxy")
+.classList.add("show");
 
+document
+.getElementById("galaxyMessage")
+.classList.remove("show");
 
-    return;
-
-  }
-
-
-  document
-  .getElementById(
-    "galaxy"
-  )
-  .classList.add(
-    "show"
-  );
-
-
-  document
-  .getElementById(
-    "galaxyMessage"
-  )
-  .classList.remove(
-    "show"
-  );
-
-
-  createStars();
+createStars();
 
 };
-
-
-/* =========================
-   ЗАКРЫТИЕ
-========================= */
 
 window.closeGalaxy =
 function(){
 
-  document
-  .getElementById(
-    "galaxy"
-  )
-  .classList.remove(
-    "show"
-  );
+document
+.getElementById("galaxy")
+.classList.remove("show");
 
 };
 
-
-/* =========================
-   СОЗДАНИЕ 10 ЗВЁЗД
-========================= */
-
 function createStars(){
 
-  const field =
-  document.getElementById(
-    "starField"
-  );
+const field =
+document.getElementById(
+"starField"
+);
 
+field.innerHTML = "";
 
-  field.innerHTML = "";
+const remaining =
+10 - data.starCount;
 
+const positions =
+generatePositions(remaining);
 
-  const remaining =
-  10 -
-  data.starCount;
+positions.forEach(
+position => {
 
+const star =
+document.createElement(
+"button"
+);
 
-  const positions =
-  generatePositions(
-    remaining
-  );
+star.className =
+"hidden-star";
 
+star.textContent =
+"⭐";
 
-  positions.forEach(
-    (position,index) => {
+star.style.left =
+position.x + "%";
 
-      const star =
-      document.createElement(
-        "button"
-      );
+star.style.top =
+position.y + "%";
 
+star.onclick =
+() => collectStar(star);
 
-      star.className =
-      "hidden-star";
-
-
-      star.textContent =
-      "⭐";
-
-
-      star.style.left =
-      position.x +
-      "%";
-
-
-      star.style.top =
-      position.y +
-      "%";
-
-
-      star.style.animationDelay =
-      (
-        Math.random() * 1.5
-      ) +
-      "s";
-
-
-      star.onclick =
-      () => {
-
-        collectStar(
-          star
-        );
-
-      };
-
-
-      field.appendChild(
-        star
-      );
-
-    }
-  );
-
-
-  updateStarCount();
+field.appendChild(star);
 
 }
+);
 
+updateStarCount();
 
-/* =========================
-   СЛУЧАЙНЫЕ ПОЗИЦИИ
-========================= */
+}
 
 function generatePositions(count){
 
-  const result = [];
+const result = [];
 
+let attempts = 0;
 
-  let attempts =
-  0;
+while(
+result.length < count &&
+attempts < 500
+){
 
+attempts++;
 
-  while(
-    result.length <
-    count &&
-    attempts <
-    500
-  ){
+const x =
+Math.floor(
+5 + Math.random() * 90
+);
 
-    attempts++;
+const y =
+Math.floor(
+5 + Math.random() * 85
+);
 
+let valid = true;
 
-    const x =
-    Math.floor(
-      5 +
-      Math.random() * 90
-    );
+result.forEach(
+p => {
 
+const dx =
+p.x - x;
 
-    const y =
-    Math.floor(
-      5 +
-      Math.random() * 85
-    );
+const dy =
+p.y - y;
 
+const distance =
+Math.sqrt(
+dx * dx +
+dy * dy
+);
 
-    let valid =
-    true;
+if(distance < 12){
 
-
-    result.forEach(
-      p => {
-
-        const dx =
-        p.x - x;
-
-
-        const dy =
-        p.y - y;
-
-
-        const distance =
-        Math.sqrt(
-          dx * dx +
-          dy * dy
-        );
-
-
-        if(
-          distance <
-          12
-        ){
-
-          valid =
-          false;
-
-        }
-
-      }
-    );
-
-
-    if(valid){
-
-      result.push({
-        x:x,
-        y:y
-      });
-
-    }
-
-  }
-
-
-  return result;
+valid = false;
 
 }
 
+}
+);
 
-/* =========================
-   СОБРАТЬ ЗВЕЗДУ
-========================= */
+if(valid){
+
+result.push({
+x:x,
+y:y
+});
+
+}
+
+}
+
+return result;
+
+}
 
 function collectStar(star){
 
-  if(
-    !isStarEventOpen()
-  ){
+if(!isStarEventOpen()){
 
-    closeGalaxy();
+closeGalaxy();
 
-    return;
-
-  }
-
-
-  if(
-    data.starCount >= 10
-  ){
-
-    return;
-
-  }
-
-
-  star.disabled =
-  true;
-
-
-  star.style.transform =
-  "scale(0)";
-
-
-  star.style.opacity =
-  "0";
-
-
-  setTimeout(
-    () => {
-
-      star.remove();
-
-    },
-    200
-  );
-
-
-  data.starCount++;
-
-
-  save();
-
-
-  updateStarCount();
-
-
-  if(
-    data.starCount >= 10
-  ){
-
-    finishStarEvent();
-
-  }
+return;
 
 }
 
+if(data.starCount >= 10)
+return;
 
-/* =========================
-   СЧЁТЧИК ЗВЁЗД
-========================= */
+star.disabled = true;
+star.style.transform = "scale(0)";
+star.style.opacity = "0";
+
+setTimeout(
+() => star.remove(),
+200
+);
+
+data.starCount++;
+
+save();
+
+updateStarCount();
+
+if(data.starCount >= 10){
+
+finishStarEvent();
+
+}
+
+}
 
 function updateStarCount(){
 
-  const box =
-  document.getElementById(
-    "starCount"
-  );
+const box =
+document.getElementById(
+"starCount"
+);
 
+if(box){
 
-  if(box){
-
-    box.textContent =
-    "⭐ " +
-    Math.min(
-      data.starCount,
-      10
-    ) +
-    " / 10";
-
-  }
+box.textContent =
+"⭐ " +
+Math.min(data.starCount,10) +
+" / 10";
 
 }
 
-
-/* =========================
-   ЗАВЕРШЕНИЕ ИВЕНТА
-========================= */
+}
 
 function finishStarEvent(){
 
-  /*
-     Важно:
+if(data.starCount !== 10)
+return;
 
-     starDay хранит день.
-     Поэтому +1 можно получить
-     только один раз за конкретный
-     день.
+if(data.starRewardDay === data.starDay){
 
-     Даже если пользователь
-     перезагрузит страницу,
-     награда не выдастся повторно.
-  */
+showGalaxyComplete();
 
-
-  if(
-    data.starCount !==
-    10
-  ){
-
-    return;
-
-  }
-
-
-  /*
-     Если награда уже была выдана
-     в этот день — ничего не делаем.
-  */
-
-  if(
-    data.starRewardDay ===
-    data.starDay
-  ){
-
-    showGalaxyComplete();
-
-    return;
-
-  }
-
-
-  data.starRewardDay =
-  data.starDay;
-
-
-  data.starBonusDays =
-  (data.starBonusDays || 0) +
-  1;
-
-
-  /*
-     Ачивка только один раз.
-  */
-
-  const firstTime =
-  !data.starAchievement;
-
-
-  if(firstTime){
-
-    data.starAchievement =
-    true;
-
-  }
-
-
-  save();
-
-
-  updateFire();
-
-
-  showGalaxyComplete();
-
-
-  if(firstTime){
-
-    showReward(
-      "🌌 Звездочёт!<br><br>🏆 Ачивка получена<br>🔥 +1 день"
-    );
-
-  }else{
-
-    showReward(
-      "⭐ Все 10 звёзд найдены!<br><br>🔥 +1 день"
-    );
-
-  }
+return;
 
 }
 
+data.starRewardDay =
+data.starDay;
 
-/* =========================
-   ЗАВЕРШЁННЫЙ ЭКРАН
-========================= */
+data.starBonusDays =
+(data.starBonusDays || 0) + 1;
+
+const firstTime =
+!data.starAchievement;
+
+if(firstTime){
+
+data.starAchievement = true;
+
+}
+
+save();
+
+updateFire();
+
+showGalaxyComplete();
+
+showReward(
+firstTime
+?
+"🌌 Звездочёт!<br><br>🏆 Ачивка получена<br>🔥 +1 день"
+:
+"⭐ Все 10 звёзд найдены!<br><br>🔥 +1 день"
+);
+
+}
 
 function showGalaxyComplete(){
 
-  document
-  .getElementById(
-    "galaxyMessage"
-  )
-  .classList.add(
-    "show"
-  );
+document
+.getElementById(
+"galaxyMessage"
+)
+.classList.add("show");
 
 }
-
-
-/* =========================
-   POPUP НАГРАДЫ
-========================= */
 
 function showReward(text){
 
-  const pop =
-  document.getElementById(
-    "rewardPop"
-  );
+const pop =
+document.getElementById(
+"rewardPop"
+);
 
+pop.innerHTML =
+text;
 
-  pop.innerHTML =
-  text;
+pop.classList.add("show");
 
-
-  pop.classList.add(
-    "show"
-  );
-
-
-  setTimeout(
-    () => {
-
-      pop.classList.remove(
-        "show"
-      );
-
-    },
-    3000
-  );
+setTimeout(
+() => pop.classList.remove("show"),
+3000
+);
 
 }
-
 
 /* =========================
    ЭКСПОРТ
@@ -3527,47 +2767,34 @@ function showReward(text){
 window.exportFire =
 function(){
 
-  const code =
-  btoa(
-    encodeURIComponent(
-      JSON.stringify(
-        data
-      )
-    )
-  );
+const code =
+btoa(
+encodeURIComponent(
+JSON.stringify(data)
+)
+);
 
+if(navigator.clipboard){
 
-  if(
-    navigator.clipboard
-  ){
+navigator.clipboard
+.writeText(code)
+.then(
+() =>
+alert(
+"Код переноса скопирован 🔥"
+)
+);
 
-    navigator.clipboard
-    .writeText(
-      code
-    )
-    .then(
-      () => {
+}else{
 
-        alert(
-          "Код переноса скопирован 🔥"
-        );
+prompt(
+"Скопируй код:",
+code
+);
 
-      }
-    );
-
-  }
-
-  else{
-
-    prompt(
-      "Скопируй код:",
-      code
-    );
-
-  }
+}
 
 };
-
 
 /* =========================
    ИМПОРТ
@@ -3576,180 +2803,120 @@ function(){
 window.importFire =
 function(){
 
-  const input =
-  document.getElementById(
-    "importCode"
-  ).value.trim();
+const input =
+document.getElementById(
+"importCode"
+).value.trim();
 
+if(!input){
 
-  if(!input){
+alert("Введи код.");
 
-    alert(
-      "Введи код."
-    );
+return;
 
-    return;
+}
 
-  }
+try{
 
+const imported =
+JSON.parse(
+decodeURIComponent(
+atob(input)
+)
+);
 
-  try{
+data = {
+...data,
+...imported
+};
 
-    const imported =
-    JSON.parse(
-      decodeURIComponent(
-        atob(input)
-      )
-    );
+save();
 
+applyTheme();
+updateLanguage();
+renderSkins();
+updateFire();
+renderAchievements();
+updatePortal();
 
-    /*
-       Объединяем данные,
-       а не стираем их.
-    */
+alert(
+"Огонёк перенесён 🔥"
+);
 
-    data = {
-      ...data,
-      ...imported
-    };
+}
 
+catch(error){
 
-    save();
+alert(
+"Неверный код переноса."
+);
 
-
-    applyTheme();
-
-    updateLanguage();
-
-    renderSkins();
-
-    updateFire();
-
-    renderAchievements();
-
-    updatePortal();
-
-
-    alert(
-      "Огонёк перенесён 🔥"
-    );
-
-  }
-
-  catch(error){
-
-    alert(
-      "Неверный код переноса."
-    );
-
-  }
+}
 
 };
 
-
 /* =========================
-   HTML SECURITY
+   SECURITY
 ========================= */
 
 function escapeHTML(value){
 
-  return String(value)
-
-  .replaceAll(
-    "&",
-    "&amp;"
-  )
-
-  .replaceAll(
-    "<",
-    "&lt;"
-  )
-
-  .replaceAll(
-    ">",
-    "&gt;"
-  )
-
-  .replaceAll(
-    '"',
-    "&quot;"
-  )
-
-  .replaceAll(
-    "'",
-    "&#039;"
-  );
+return String(value)
+.replaceAll("&","&amp;")
+.replaceAll("<","&lt;")
+.replaceAll(">","&gt;")
+.replaceAll('"',"&quot;")
+.replaceAll("'","&#039;");
 
 }
 
-
 /* =========================
-   ТАЙМЕР ПОРТАЛА
+   ТАЙМЕР
 ========================= */
 
-function portalTimerLoop(){
+setInterval(
+updatePortal,
+1000
+);
 
-  updatePortal();
+setInterval(
+() => {
+
+const before =
+data.starDay;
+
+prepareStarDay();
+
+if(before !== data.starDay){
+
+updatePortal();
 
 }
 
-
-/*
-   Обновляем раз в секунду,
-   чтобы таймер был живым.
-*/
-
-setInterval(
-  portalTimerLoop,
-  1000
+},
+1000
 );
-
-
-/* =========================
-   ЗАЩИТА ОТ ПЕРЕХОДА ДНЯ
-========================= */
-
-setInterval(
-  () => {
-
-    const before =
-    data.starDay;
-
-
-    prepareStarDay();
-
-
-    if(
-      before !==
-      data.starDay
-    ){
-
-      updatePortal();
-
-    }
-
-  },
-  1000
-);
-
 
 /* =========================
    ЗАПУСК
 ========================= */
 
 applyTheme();
-
 updateLanguage();
-
 updateFire();
-
 renderSkins();
-
 renderAchievements();
-
 prepareStarDay();
-
 updatePortal();
+
+/*
+  Проверяем аккаунт ещё раз
+  после полной загрузки страницы.
+*/
+
+updateAdminButton(
+auth.currentUser
+);
 
 </script>
 
