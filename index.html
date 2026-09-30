@@ -12,13 +12,13 @@ html,body{
 margin:0;
 padding:0;
 min-height:100%;
-font-family:Arial,Helvetica,sans-serif;
-background:#f4f4f4;
+font-family:Arial,sans-serif;
+background:#f5f5f5;
 color:#111;
 }
 
 body.dark{
-background:#111;
+background:#101010;
 color:#fff;
 }
 
@@ -30,38 +30,53 @@ button{
 cursor:pointer;
 }
 
-.app{
-max-width:700px;
-margin:auto;
-min-height:100vh;
-padding-bottom:90px;
+header{
+height:64px;
+display:flex;
+align-items:center;
+justify-content:space-between;
+padding:0 18px;
+background:#fff;
+border-bottom:2px solid #111;
+position:sticky;
+top:0;
+z-index:20;
 }
 
-header{
-padding:22px 18px 10px;
-text-align:center;
+.dark header{
+background:#171717;
+border-color:#fff;
 }
 
 .logo{
-font-size:34px;
+font-size:23px;
 font-weight:900;
 }
 
 .version{
-font-size:13px;
-opacity:.55;
-margin-top:4px;
+border:2px solid #111;
+background:#fff;
+padding:8px 12px;
+font-weight:800;
+}
+
+.dark .version{
+background:#171717;
+color:#fff;
+border-color:#fff;
 }
 
 main{
-padding:12px 16px;
+padding:18px 16px 95px;
+max-width:700px;
+margin:auto;
 }
 
-.tab{
+.page{
 display:none;
 }
 
-.tab.active{
+.page.active{
 display:block;
 }
 
@@ -69,122 +84,202 @@ display:block;
 background:#fff;
 border:2px solid #111;
 padding:18px;
-margin-bottom:14px;
-box-shadow:4px 4px 0 #111;
+margin-bottom:16px;
 }
 
 .dark .card{
-background:#1d1d1d;
+background:#181818;
 border-color:#fff;
-box-shadow:4px 4px 0 #fff;
+}
+
+.flame-card{
+text-align:center;
+padding:28px 18px;
 }
 
 .flame{
-font-size:110px;
-text-align:center;
-margin:20px 0 5px;
-filter:drop-shadow(0 0 12px rgba(255,120,0,.35));
+font-size:100px;
+line-height:1;
+margin:15px 0;
+filter:drop-shadow(0 0 12px rgba(255,120,0,.45));
 }
 
 .days{
-font-size:54px;
+font-size:48px;
 font-weight:900;
-text-align:center;
 }
 
-.daysText{
-text-align:center;
-font-size:16px;
-opacity:.7;
-margin-bottom:20px;
+.days-label{
+font-size:18px;
+font-weight:700;
+margin-bottom:16px;
 }
 
-.eventTitle{
-font-size:23px;
-font-weight:900;
-margin-bottom:7px;
-}
-
-.eventDesc{
-opacity:.8;
-line-height:1.45;
-}
-
-.reward{
-margin-top:12px;
+.flame-name{
+font-size:18px;
 font-weight:800;
-}
-
-.eventTime{
-margin-top:10px;
-font-size:13px;
-opacity:.65;
-}
-
-.empty{
-text-align:center;
-padding:30px 10px;
-opacity:.55;
+margin-bottom:16px;
 }
 
 .btn{
 width:100%;
 border:2px solid #111;
-background:#fff;
-color:#111;
+background:#111;
+color:#fff;
 padding:13px 15px;
-margin-top:10px;
 font-weight:800;
-box-shadow:3px 3px 0 #111;
+margin-top:8px;
 }
 
-.btn:active{
-transform:translate(2px,2px);
-box-shadow:1px 1px 0 #111;
+.btn.secondary{
+background:#fff;
+color:#111;
+}
+
+.dark .btn.secondary{
+background:#181818;
+color:#fff;
+border-color:#fff;
 }
 
 .dark .btn{
+border-color:#fff;
+}
+
+.small{
+font-size:13px;
+opacity:.7;
+line-height:1.4;
+}
+
+.section-title{
+font-size:25px;
+font-weight:900;
+margin:10px 0 16px;
+}
+
+.setting{
+border:2px solid #111;
+padding:15px;
+margin-bottom:12px;
+background:#fff;
+}
+
+.dark .setting{
+background:#181818;
+border-color:#fff;
+}
+
+.setting-title{
+font-weight:900;
+font-size:17px;
+margin-bottom:6px;
+}
+
+input,textarea,select{
+width:100%;
+padding:12px;
+border:2px solid #111;
+background:#fff;
+color:#111;
+outline:none;
+margin-top:7px;
+}
+
+.dark input,
+.dark textarea,
+.dark select{
 background:#111;
 color:#fff;
 border-color:#fff;
-box-shadow:3px 3px 0 #fff;
 }
 
-.danger{
-background:#ffdddd;
+textarea{
+min-height:90px;
+resize:vertical;
 }
 
-.dark .danger{
-background:#421b1b;
-color:#fff;
+.skin-grid{
+display:grid;
+grid-template-columns:repeat(2,1fr);
+gap:12px;
+}
+
+.skin{
+border:2px solid #111;
+background:#fff;
+padding:15px;
+text-align:center;
+min-height:150px;
+}
+
+.dark .skin{
+background:#181818;
+border-color:#fff;
+}
+
+.skin.locked{
+opacity:.45;
+}
+
+.skin-preview{
+font-size:55px;
+margin:8px 0;
+}
+
+.skin-name{
+font-weight:900;
+}
+
+.achievement{
+border:2px solid #111;
+background:#fff;
+padding:15px;
+margin-bottom:12px;
+display:flex;
+gap:14px;
+align-items:center;
+}
+
+.dark .achievement{
+background:#181818;
+border-color:#fff;
+}
+
+.achievement.locked{
+opacity:.42;
+}
+
+.achievement-icon{
+font-size:36px;
+}
+
+.achievement-title{
+font-weight:900;
+font-size:17px;
 }
 
 .nav{
 position:fixed;
+bottom:0;
 left:0;
 right:0;
-bottom:0;
-z-index:50;
+height:72px;
 background:#fff;
 border-top:2px solid #111;
+display:grid;
+grid-template-columns:repeat(4,1fr);
+z-index:30;
 }
 
 .dark .nav{
-background:#111;
+background:#171717;
 border-color:#fff;
-}
-
-.navInner{
-max-width:700px;
-margin:auto;
-display:grid;
-grid-template-columns:repeat(4,1fr);
 }
 
 .nav button{
 border:0;
 background:transparent;
-padding:10px 4px 12px;
 font-size:12px;
 font-weight:800;
 color:#111;
@@ -194,123 +289,22 @@ color:#111;
 color:#fff;
 }
 
-.navIcon{
-display:block;
-font-size:22px;
-margin-bottom:3px;
+.nav button.active{
+background:#111;
+color:#fff;
 }
 
-.setting{
-padding:15px 0;
-border-bottom:1px solid #bbb;
-}
-
-.setting:last-child{
-border-bottom:0;
-}
-
-.settingTitle{
-font-weight:800;
-font-size:17px;
-}
-
-.settingDesc{
-font-size:13px;
-opacity:.6;
-margin-top:4px;
-}
-
-select,input,textarea{
-width:100%;
-padding:12px;
-border:2px solid #111;
+.dark .nav button.active{
 background:#fff;
 color:#111;
-margin-top:8px;
-outline:none;
-}
-
-textarea{
-min-height:90px;
-resize:vertical;
-}
-
-.dark input,
-.dark textarea,
-.dark select{
-background:#222;
-color:#fff;
-border-color:#fff;
-}
-
-.skinGrid{
-display:grid;
-grid-template-columns:repeat(2,1fr);
-gap:12px;
-}
-
-.skin{
-border:2px solid #111;
-padding:18px 8px;
-text-align:center;
-background:#fff;
-box-shadow:3px 3px 0 #111;
-}
-
-.dark .skin{
-background:#1d1d1d;
-border-color:#fff;
-box-shadow:3px 3px 0 #fff;
-}
-
-.skinIcon{
-font-size:45px;
-}
-
-.skinName{
-font-weight:800;
-margin-top:6px;
-}
-
-.achievement{
-display:flex;
-gap:12px;
-align-items:center;
-border:2px solid #111;
-padding:12px;
-margin-bottom:10px;
-background:#fff;
-}
-
-.dark .achievement{
-background:#1d1d1d;
-border-color:#fff;
-}
-
-.achievement.locked{
-opacity:.4;
-}
-
-.achIcon{
-font-size:35px;
-}
-
-.achName{
-font-weight:900;
-}
-
-.achReq{
-font-size:12px;
-opacity:.65;
-margin-top:3px;
 }
 
 .modal{
 display:none;
 position:fixed;
 inset:0;
-z-index:100;
 background:rgba(0,0,0,.65);
+z-index:100;
 padding:20px;
 overflow:auto;
 }
@@ -321,1344 +315,1204 @@ align-items:center;
 justify-content:center;
 }
 
-.modalBox{
+.modal-box{
 width:100%;
-max-width:600px;
+max-width:500px;
 background:#fff;
 color:#111;
 border:3px solid #111;
 padding:20px;
-box-shadow:7px 7px 0 #111;
+position:relative;
+max-height:90vh;
+overflow:auto;
 }
 
-.dark .modalBox{
-background:#171717;
+.dark .modal-box{
+background:#181818;
 color:#fff;
 border-color:#fff;
-box-shadow:7px 7px 0 #fff;
-}
-
-.modalTitle{
-font-size:25px;
-font-weight:900;
-margin-bottom:15px;
 }
 
 .close{
-float:right;
+position:absolute;
+right:10px;
+top:8px;
 border:0;
 background:transparent;
-font-size:25px;
+font-size:30px;
 font-weight:900;
 }
 
-.eventAdmin{
-border:2px solid #111;
-padding:14px;
-margin-top:12px;
+.dark .close{
+color:#fff;
 }
 
-.dark .eventAdmin{
+.title{
+font-size:25px;
+font-weight:900;
+margin-bottom:10px;
+padding-right:35px;
+}
+
+.event{
+border:2px solid #111;
+padding:15px;
+margin-top:12px;
+background:#fff;
+}
+
+.dark .event{
+background:#111;
 border-color:#fff;
 }
 
-.eventAdminName{
+.event-name{
+font-size:19px;
 font-weight:900;
-font-size:18px;
 }
 
-.adminStatus{
-font-size:13px;
-opacity:.65;
-margin-top:5px;
+.event-reward{
+font-weight:800;
+margin-top:7px;
+}
+
+.star-portal{
+border:2px solid #111;
+padding:20px;
+text-align:center;
+margin-top:16px;
+background:linear-gradient(135deg,#111,#303030);
+color:#fff;
+}
+
+.star{
+font-size:65px;
+}
+
+.hidden{
+display:none!important;
+}
+
+.danger{
+background:#d00!important;
+color:#fff!important;
+border-color:#d00!important;
+}
+
+.progress{
+height:15px;
+border:2px solid #111;
+margin-top:12px;
+background:#fff;
+overflow:hidden;
+}
+
+.dark .progress{
+border-color:#fff;
+background:#111;
+}
+
+.progress-bar{
+height:100%;
+background:#111;
+width:0%;
+}
+
+.dark .progress-bar{
+background:#fff;
+}
+
+.admin-event{
+border:2px solid #111;
+padding:12px;
+margin-top:10px;
+}
+
+.dark .admin-event{
+border-color:#fff;
 }
 
 hr{
 border:0;
-border-top:2px solid currentColor;
-opacity:.2;
+border-top:2px solid #111;
 margin:18px 0;
 }
 
-.toast{
-position:fixed;
-left:50%;
-bottom:85px;
-transform:translateX(-50%);
-background:#111;
-color:#fff;
-padding:12px 18px;
-font-weight:800;
-z-index:200;
-display:none;
-max-width:90%;
-text-align:center;
-}
-
-.toast.show{
-display:block;
-}
-
-.small{
-font-size:12px;
-opacity:.6;
-}
-
-@media(max-width:420px){
-.logo{font-size:30px}
-.flame{font-size:90px}
-.days{font-size:46px}
-.card{padding:15px}
+.dark hr{
+border-color:#fff;
 }
 </style>
 </head>
 
 <body>
 
-<div class="app">
-
 <header>
-<div class="logo">🔥 Огонёк</div>
-<div class="version">v0.2</div>
+  <div class="logo">Огонёк</div>
+  <button class="version" onclick="openVersion()">v0.2</button>
 </header>
 
 <main>
 
-<section id="home" class="tab active">
+<!-- ГЛАВНАЯ -->
+<section id="homePage" class="page active">
 
-<div class="card">
+  <div class="card flame-card">
 
-<div class="flame" id="mainFlame">🔥</div>
+    <div class="small">Твой огонёк</div>
 
-<div class="days" id="days">0</div>
-<div class="daysText">дней огонька</div>
+    <div id="flameDisplay" class="flame">🔥</div>
 
-<div id="nextAchievement" class="small" style="text-align:center">
-Начни свой огонёк!
-</div>
+    <div id="days" class="days">0</div>
+    <div class="days-label">дней подряд</div>
 
-</div>
+    <div id="flameNameDisplay" class="flame-name">
+      Мой огонёк
+    </div>
 
-<div class="card">
-<div class="eventTitle">🔥 Активные ивенты</div>
-<div id="eventsList">
-<div class="empty">Загрузка ивентов...</div>
-</div>
-</div>
+    <div class="progress">
+      <div id="dayProgress" class="progress-bar"></div>
+    </div>
 
-</section>
+    <div id="nextAchievement" class="small" style="margin-top:10px">
+      Следующая ачивка: 1 день
+    </div>
 
+  </div>
 
-<section id="skins" class="tab">
+  <div class="card">
+    <div class="section-title">🔥 Активные события</div>
+    <div id="eventsList">
+      <div class="small">Загрузка событий...</div>
+    </div>
+  </div>
 
-<div class="card">
-<h2>🎨 Скины</h2>
-
-<div class="skinGrid">
-
-<div class="skin" onclick="selectSkin('classic')">
-<div class="skinIcon">🔥</div>
-<div class="skinName">Classic</div>
-</div>
-
-<div class="skin" onclick="selectSkin('ice')">
-<div class="skinIcon">❄️</div>
-<div class="skinName">Ice</div>
-</div>
-
-<div class="skin" onclick="selectSkin('purple')">
-<div class="skinIcon">💜</div>
-<div class="skinName">Purple</div>
-</div>
-
-<div class="skin" onclick="selectSkin('neon')">
-<div class="skinIcon">💚</div>
-<div class="skinName">Neon</div>
-</div>
-
-<div class="skin" onclick="selectSkin('electric')">
-<div class="skinIcon">⚡</div>
-<div class="skinName">Electric</div>
-</div>
-
-<div class="skin" onclick="selectSkin('solar')">
-<div class="skinIcon">☀️</div>
-<div class="skinName">Solar</div>
-</div>
-
-<div class="skin" onclick="selectSkin('diamond')">
-<div class="skinIcon">💎</div>
-<div class="skinName">Diamond</div>
-</div>
-
-<div class="skin" onclick="selectSkin('space')">
-<div class="skinIcon">🌌</div>
-<div class="skinName">Space</div>
-</div>
-
-</div>
-</div>
+  <div id="starPortal" class="star-portal hidden">
+    <div class="star">⭐</div>
+    <h2>Звёздное событие</h2>
+    <p>Собери звёзды и получи награду!</p>
+    <button class="btn secondary" onclick="collectStar()">
+      ⭐ Собрать звезду
+    </button>
+    <div id="starInfo" class="small" style="margin-top:10px"></div>
+  </div>
 
 </section>
 
 
-<section id="achievements" class="tab">
+<!-- СКИНЫ -->
+<section id="skinsPage" class="page">
 
-<div class="card">
-<h2>🏆 Ачивки</h2>
+  <div class="section-title">🎨 Скины</div>
 
-<div id="achievementsList"></div>
+  <div class="skin-grid">
 
-</div>
+    <div class="skin" onclick="selectSkin('normal')">
+      <div class="skin-preview">🔥</div>
+      <div class="skin-name">Обычный</div>
+      <div class="small">Доступен сразу</div>
+    </div>
+
+    <div class="skin" id="skinIce" onclick="selectSkin('ice')">
+      <div class="skin-preview">❄️</div>
+      <div class="skin-name">Лёд</div>
+      <div class="small">7 дней</div>
+    </div>
+
+    <div class="skin" id="skinPurple" onclick="selectSkin('purple')">
+      <div class="skin-preview">💜</div>
+      <div class="skin-name">Пурпур</div>
+      <div class="small">30 дней</div>
+    </div>
+
+    <div class="skin" id="skinNeon" onclick="selectSkin('neon')">
+      <div class="skin-preview">🌈</div>
+      <div class="skin-name">Неон</div>
+      <div class="small">90 дней</div>
+    </div>
+
+    <div class="skin" id="skinElectric" onclick="selectSkin('electric')">
+      <div class="skin-preview">⚡</div>
+      <div class="skin-name">Электрический</div>
+      <div class="small">180 дней</div>
+    </div>
+
+    <div class="skin" id="skinSolar" onclick="selectSkin('solar')">
+      <div class="skin-preview">☀️</div>
+      <div class="skin-name">Солнечный</div>
+      <div class="small">365 дней</div>
+    </div>
+
+    <div class="skin" id="skinDiamond" onclick="selectSkin('diamond')">
+      <div class="skin-preview">💎</div>
+      <div class="skin-name">Алмазный</div>
+      <div class="small">720 дней</div>
+    </div>
+
+    <div class="skin" id="skinSpace" onclick="selectSkin('space')">
+      <div class="skin-preview">🌌</div>
+      <div class="skin-name">Космос</div>
+      <div class="small">1000 дней</div>
+    </div>
+
+  </div>
 
 </section>
 
 
-<section id="settings" class="tab">
+<!-- АЧИВКИ -->
+<section id="achievementsPage" class="page">
 
-<div class="card">
+  <div class="section-title">🏆 Ачивки</div>
 
-<h2>⚙️ Настройки</h2>
+  <div id="achievementsList"></div>
 
-<div class="setting">
-
-<div class="settingTitle">🌐 Язык</div>
-
-<select id="language" onchange="changeLanguage()">
-<option value="ru">Русский</option>
-<option value="en">English</option>
-<option value="de">Deutsch</option>
-<option value="es">Español</option>
-<option value="fr">Français</option>
-</select>
-
-</div>
+</section>
 
 
-<div class="setting">
+<!-- НАСТРОЙКИ -->
+<section id="settingsPage" class="page">
 
-<div class="settingTitle">🌙 Тёмная тема</div>
+  <div class="section-title">⚙️ Настройки</div>
 
-<div class="settingDesc">
-Включить или выключить тёмную тему
-</div>
+  <div class="setting">
+    <div class="setting-title">🔥 Название огонька</div>
+    <input
+      id="flameNameInput"
+      maxlength="30"
+      placeholder="Название огонька"
+      oninput="changeFlameName()"
+    >
+  </div>
 
-<button class="btn" onclick="toggleDark()">
-Переключить тему
-</button>
+  <div class="setting">
+    <div class="setting-title">🌐 Язык</div>
+    <select id="languageSelect" onchange="changeLanguage()">
+      <option value="ru">Русский</option>
+      <option value="en">English</option>
+    </select>
+  </div>
 
-</div>
+  <div class="setting">
+    <div class="setting-title">🌙 Тёмная тема</div>
+    <button class="btn secondary" onclick="toggleTheme()">
+      Переключить тему
+    </button>
+  </div>
 
+  <div class="setting">
+    <div class="setting-title">💾 Перенос огонька</div>
+    <div class="small">
+      Можно сохранить огонёк в код и восстановить его на другом устройстве.
+    </div>
 
-<div class="setting">
+    <button class="btn" onclick="exportData()">
+      📤 Экспорт
+    </button>
 
-<div class="settingTitle">💾 Прогресс</div>
+    <button class="btn secondary" onclick="importData()">
+      📥 Импорт
+    </button>
 
-<div class="settingDesc">
-Сохранить или восстановить огонёк
-</div>
+    <textarea
+      id="transferBox"
+      placeholder="Здесь появится код огонька"
+    ></textarea>
+  </div>
 
-<button class="btn" onclick="exportProgress()">
-📤 Экспорт
-</button>
+  <!-- АДМИНКА В САМОМ НИЗУ -->
+  <div class="setting">
+    <div class="setting-title">⚡ Админка</div>
 
-<button class="btn" onclick="document.getElementById('importFile').click()">
-📥 Импорт
-</button>
+    <div class="small">
+      Управление событиями проекта
+    </div>
 
-<input
-id="importFile"
-type="file"
-accept=".json"
-style="display:none"
-onchange="importProgress(event)"
->
-
-</div>
-
-
-<div class="setting">
-
-<div class="settingTitle">⚡ Админка</div>
-
-<div class="settingDesc">
-Управление ивентами проекта
-</div>
-
-<button class="btn" onclick="openAdminLogin()">
-⚡ Открыть админку
-</button>
-
-</div>
-
-</div>
-
-<div class="card">
-
-<h3>ℹ️ О проекте</h3>
-
-<div class="small">
-Огонёк v0.2
-</div>
-
-<div class="small" style="margin-top:6px">
-Прогресс хранится на этом устройстве.
-</div>
-
-</div>
+    <button class="btn" onclick="openAdminLogin()">
+      ⚡ Открыть админку
+    </button>
+  </div>
 
 </section>
 
 </main>
 
-</div>
 
-
+<!-- НИЖНЕЕ МЕНЮ -->
 <nav class="nav">
 
-<div class="navInner">
+  <button class="active" onclick="showPage('homePage',this)">
+    🏠<br>Главная
+  </button>
 
-<button onclick="showTab('home')">
-<span class="navIcon">🏠</span>
-Главная
-</button>
+  <button onclick="showPage('skinsPage',this)">
+    🎨<br>Скины
+  </button>
 
-<button onclick="showTab('skins')">
-<span class="navIcon">🎨</span>
-Скины
-</button>
+  <button onclick="showPage('achievementsPage',this)">
+    🏆<br>Ачивки
+  </button>
 
-<button onclick="showTab('achievements')">
-<span class="navIcon">🏆</span>
-Ачивки
-</button>
-
-<button onclick="showTab('settings')">
-<span class="navIcon">⚙️</span>
-Настройки
-</button>
-
-</div>
+  <button onclick="showPage('settingsPage',this)">
+    ⚙️<br>Настройки
+  </button>
 
 </nav>
 
 
-<div id="loginModal" class="modal">
+<!-- МОДАЛКА ВЕРСИИ -->
+<div class="modal" id="versionModal">
 
-<div class="modalBox">
+  <div class="modal-box">
 
-<button class="close" onclick="closeModal('loginModal')">×</button>
+    <button class="close" onclick="closeModal('versionModal')">
+      ×
+    </button>
 
-<div class="modalTitle">⚡ Админка</div>
+    <div class="title">Огонёк v0.2</div>
 
-<div id="loginText">
+    <p>
+      Вторая версия проекта.
+    </p>
 
-<p>
-Для входа в админку войдите через Google.
-</p>
+    <p class="small">
+      Добавлена система событий и админ-панель.
+    </p>
 
-<button class="btn" onclick="loginGoogle()">
-🔐 Войти через Google
-</button>
-
-</div>
-
-</div>
-
-</div>
-
-
-<div id="adminModal" class="modal">
-
-<div class="modalBox">
-
-<button class="close" onclick="closeModal('adminModal')">×</button>
-
-<div class="modalTitle">⚡ Панель администратора</div>
-
-<div id="adminEmail" class="adminStatus"></div>
-
-<hr>
-
-<h3>➕ Создать ивент</h3>
-
-<input
-id="eventName"
-placeholder="Название ивента"
->
-
-<textarea
-id="eventDescription"
-placeholder="Описание ивента"
-></textarea>
-
-<input
-id="eventReward"
-placeholder="Награда, например: +1 день"
->
-
-<label class="small">
-Начало
-</label>
-
-<input
-id="eventStart"
-type="datetime-local"
->
-
-<label class="small">
-Конец
-</label>
-
-<input
-id="eventEnd"
-type="datetime-local"
->
-
-<button class="btn" onclick="createEvent()">
-➕ Создать ивент
-</button>
-
-<hr>
-
-<h3>📋 Ивенты</h3>
-
-<div id="adminEvents">
-<div class="empty">Загрузка...</div>
-</div>
-
-</div>
+  </div>
 
 </div>
 
 
-<div id="toast" class="toast"></div>
+<!-- GOOGLE LOGIN -->
+<div class="modal" id="adminLoginModal">
+
+  <div class="modal-box">
+
+    <button class="close" onclick="closeModal('adminLoginModal')">
+      ×
+    </button>
+
+    <div class="title">🔐 Админка</div>
+
+    <p>
+      Войдите через Google.
+    </p>
+
+    <button
+      class="btn"
+      id="googleLoginButton"
+      onclick="googleLogin()"
+    >
+      Войти через Google
+    </button>
+
+    <div
+      id="loginStatus"
+      class="small"
+      style="margin-top:12px"
+    ></div>
+
+  </div>
+
+</div>
+
+
+<!-- АДМИНКА -->
+<div class="modal" id="adminModal">
+
+  <div class="modal-box">
+
+    <button class="close" onclick="closeModal('adminModal')">
+      ×
+    </button>
+
+    <div class="title">⚡ Админка</div>
+
+    <div
+      id="adminUser"
+      class="small"
+      style="margin-bottom:15px"
+    ></div>
+
+    <hr>
+
+    <div class="setting">
+      <div class="setting-title">Создать событие</div>
+
+      <input
+        id="eventName"
+        placeholder="Название события"
+      >
+
+      <textarea
+        id="eventDescription"
+        placeholder="Описание события"
+      ></textarea>
+
+      <input
+        id="eventReward"
+        placeholder="Награда, например +1 день"
+      >
+
+      <div class="small">
+        Начало события
+      </div>
+
+      <input
+        id="eventStart"
+        type="datetime-local"
+      >
+
+      <div class="small">
+        Конец события
+      </div>
+
+      <input
+        id="eventEnd"
+        type="datetime-local"
+      >
+
+      <button class="btn" onclick="createEvent()">
+        ➕ Создать событие
+      </button>
+
+      <div
+        id="createStatus"
+        class="small"
+        style="margin-top:10px"
+      ></div>
+
+    </div>
+
+    <hr>
+
+    <div class="setting-title">
+      Все события
+    </div>
+
+    <div id="adminEvents">
+      Загрузка...
+    </div>
+
+    <button
+      class="btn danger"
+      onclick="adminLogout()"
+      style="margin-top:18px"
+    >
+      Выйти
+    </button>
+
+  </div>
+
+</div>
 
 
 <script type="module">
 
 import {
-initializeApp
-} from "https://www.gstatic.com/firebasejs/12.3.0/firebase-app.js";
+  initializeApp
+} from "https://www.gstatic.com/firebasejs/12.2.1/firebase-app.js";
 
 import {
-getAuth,
-GoogleAuthProvider,
-signInWithPopup,
-onAuthStateChanged
-} from "https://www.gstatic.com/firebasejs/12.3.0/firebase-auth.js";
+  getAuth,
+  GoogleAuthProvider,
+  signInWithRedirect,
+  getRedirectResult,
+  onAuthStateChanged,
+  signOut
+} from "https://www.gstatic.com/firebasejs/12.2.1/firebase-auth.js";
 
 import {
-getDatabase,
-ref,
-push,
-set,
-remove,
-onValue
-} from "https://www.gstatic.com/firebasejs/12.3.0/firebase-database.js";
+  getDatabase,
+  ref,
+  push,
+  set,
+  remove,
+  onValue
+} from "https://www.gstatic.com/firebasejs/12.2.1/firebase-database.js";
 
+
+/* =========================
+   FIREBASE
+========================= */
 
 const firebaseConfig = {
-apiKey:"AIzaSyDStXUlkqATov4QHOPk6HGb7DrSAs4RkGw",
-authDomain:"ogonyoksa.firebaseapp.com",
-databaseURL:"https://ogonyoksa-default-rtdb.europe-west1.firebasedatabase.app",
-projectId:"ogonyoksa",
-storageBucket:"ogonyoksa.firebasestorage.app",
-messagingSenderId:"403527501538",
-appId:"1:403527501538:web:d5fafa759c1931216880bb"
+  apiKey: "AIzaSyDStXUlkqATov4QHOPk6HGb7DrSAs4RkGw",
+  authDomain: "ogonyoksa.firebaseapp.com",
+  databaseURL: "https://ogonyoksa-default-rtdb.europe-west1.firebasedatabase.app",
+  projectId: "ogonyoksa",
+  storageBucket: "ogonyoksa.firebasestorage.app",
+  messagingSenderId: "403527501538",
+  appId: "1:403527501538:web:d5fafa759c1931216880bb"
 };
-
 
 const app = initializeApp(firebaseConfig);
 
 const auth = getAuth(app);
 
-const db = getDatabase(app);
-
 const provider = new GoogleAuthProvider();
 
+const db = getDatabase(app);
 
 const ADMIN_EMAIL =
-"luboeima6677@gmail.com";
+  "luboeima6677@gmail.com";
 
 
-window.firebaseAuth = auth;
-window.firebaseDB = db;
+/* =========================
+   ДАННЫЕ
+   ВАЖНО:
+   НЕ МЕНЯТЬ КЛЮЧ!
+========================= */
+
+let data =
+  JSON.parse(
+    localStorage.getItem("ogonyokData") || "{}"
+  );
 
 
-function isAdmin(user){
+if(!data.startDate){
+  data.startDate = new Date().toISOString();
+}
 
-return !!(
-user &&
-user.email &&
-user.email.toLowerCase() ===
-ADMIN_EMAIL.toLowerCase()
-);
+if(!data.skin){
+  data.skin = "normal";
+}
+
+if(!data.language){
+  data.language = "ru";
+}
+
+if(!data.theme){
+  data.theme = "light";
+}
+
+if(!data.starBonusDays){
+  data.starBonusDays = 0;
+}
+
+if(!data.starAchievement){
+  data.starAchievement = false;
+}
+
+if(!data.starDay){
+  data.starDay = 0;
+}
+
+if(!data.starCount){
+  data.starCount = 0;
+}
+
+if(!data.starRewardDay){
+  data.starRewardDay = false;
+}
+
+if(!data.flameName){
+  data.flameName = "Мой огонёк";
+}
+
+
+function save(){
+
+  localStorage.setItem(
+    "ogonyokData",
+    JSON.stringify(data)
+  );
 
 }
 
 
-window.isAdmin = isAdmin;
-
-
-window.loginGoogle = async function(){
-
-try{
-
-await signInWithPopup(auth,provider);
-
-showToast("Вход выполнен!");
-
-closeModal("loginModal");
-
-setTimeout(()=>{
-
-if(isAdmin(auth.currentUser)){
-openAdmin();
-}
-
-},500);
-
-}catch(error){
-
-console.error(error);
-
-showToast(
-"Ошибка входа: " + error.message
-);
-
-}
-
-};
-
-
-onAuthStateChanged(auth,(user)=>{
-
-if(user && isAdmin(user)){
-
-window.currentAdmin = user;
-
-}else{
-
-window.currentAdmin = null;
-
-}
-
-});
-
-
-window.openAdminLogin = function(){
-
-const user = auth.currentUser;
-
-if(isAdmin(user)){
-
-openAdmin();
-
-}else{
-
-document.getElementById("loginText").innerHTML = `
-
-<p>
-Войдите через Google с аккаунтом администратора.
-</p>
-
-<button class="btn" onclick="loginGoogle()">
-🔐 Войти через Google
-</button>
-
-<div class="small" style="margin-top:12px">
-Администратор: ${ADMIN_EMAIL}
-</div>
-
-`;
-
-document
-.getElementById("loginModal")
-.classList.add("show");
-
-}
-
-};
-
-
-window.openAdmin = function(){
-
-const user = auth.currentUser;
-
-if(!isAdmin(user)){
-
-openAdminLogin();
-
-return;
-
-}
-
-document.getElementById("adminEmail").textContent =
-"Вы вошли как: " + user.email;
-
-document
-.getElementById("adminModal")
-.classList.add("show");
-
-loadAdminEvents();
-
-};
-
-
-window.createEvent = async function(){
-
-const user = auth.currentUser;
-
-if(!isAdmin(user)){
-
-showToast("Нет доступа");
-
-return;
-
-}
-
-const name =
-document.getElementById("eventName").value.trim();
-
-const description =
-document.getElementById("eventDescription").value.trim();
-
-const reward =
-document.getElementById("eventReward").value.trim();
-
-const start =
-document.getElementById("eventStart").value;
-
-const end =
-document.getElementById("eventEnd").value;
-
-
-if(!name || !description || !reward || !start || !end){
-
-showToast("Заполни все поля");
-
-return;
-
-}
-
-
-if(new Date(end) <= new Date(start)){
-
-showToast("Дата окончания должна быть позже начала");
-
-return;
-
-}
-
-
-try{
-
-const newEvent =
-push(ref(db,"events"));
-
-await set(newEvent,{
-
-name:name,
-
-description:description,
-
-reward:reward,
-
-start:start,
-
-end:end,
-
-createdAt:Date.now(),
-
-createdBy:user.email
-
-});
-
-
-document.getElementById("eventName").value="";
-document.getElementById("eventDescription").value="";
-document.getElementById("eventReward").value="";
-document.getElementById("eventStart").value="";
-document.getElementById("eventEnd").value="";
-
-
-showToast("Ивент создан!");
-
-}catch(error){
-
-console.error(error);
-
-showToast(
-"Ошибка: " + error.message
-);
-
-}
-
-};
-
-
-window.deleteEvent = async function(id){
-
-const user = auth.currentUser;
-
-if(!isAdmin(user)){
-
-showToast("Нет доступа");
-
-return;
-
-}
-
-
-if(!confirm("Удалить этот ивент?")){
-
-return;
-
-}
-
-
-try{
-
-await remove(ref(db,"events/"+id));
-
-showToast("Ивент удалён");
-
-}catch(error){
-
-console.error(error);
-
-showToast(
-"Ошибка: " + error.message
-);
-
-}
-
-};
-
-
-function loadAdminEvents(){
-
-const eventsRef = ref(db,"events");
-
-onValue(eventsRef,(snapshot)=>{
-
-const data = snapshot.val() || {};
-
-const box =
-document.getElementById("adminEvents");
-
-const entries =
-Object.entries(data);
-
-if(entries.length===0){
-
-box.innerHTML =
-'<div class="empty">Ивентов пока нет</div>';
-
-return;
-
-}
-
-
-box.innerHTML="";
-
-
-entries.forEach(([id,event])=>{
-
-const div =
-document.createElement("div");
-
-div.className="eventAdmin";
-
-div.innerHTML=`
-
-<div class="eventAdminName">
-${escapeHTML(event.name || "Без названия")}
-</div>
-
-<div class="adminStatus">
-${escapeHTML(event.description || "")}
-</div>
-
-<div class="adminStatus">
-🎁 ${escapeHTML(event.reward || "")}
-</div>
-
-<div class="adminStatus">
-📅 ${escapeHTML(event.start || "")}
-—
-${escapeHTML(event.end || "")}
-</div>
-
-<button
-class="btn danger"
-onclick="deleteEvent('${id}')">
-🗑️ Удалить
-</button>
-
-`;
-
-box.appendChild(div);
-
-});
-
-});
-
-}
-
-
-window.loadAdminEvents =
-loadAdminEvents;
-
-
-const eventsRef =
-ref(db,"events");
-
-onValue(eventsRef,(snapshot)=>{
-
-const data =
-snapshot.val() || {};
-
-renderEvents(data);
-
-});
-
-
-function renderEvents(data){
-
-const box =
-document.getElementById("eventsList");
-
-const now =
-Date.now();
-
-const active=[];
-
-
-Object.entries(data).forEach(([id,event])=>{
-
-const start =
-new Date(event.start).getTime();
-
-const end =
-new Date(event.end).getTime();
-
-
-if(
-!isNaN(start) &&
-!isNaN(end) &&
-now >= start &&
-now <= end
-){
-
-active.push({
-id,
-...event
-});
-
-}
-
-});
-
-
-if(active.length===0){
-
-box.innerHTML=
-'<div class="empty">Сейчас активных ивентов нет</div>';
-
-return;
-
-}
-
-
-box.innerHTML="";
-
-
-active.forEach(event=>{
-
-const div =
-document.createElement("div");
-
-div.className="eventAdmin";
-
-div.innerHTML=`
-
-<div class="eventTitle">
-${escapeHTML(event.name)}
-</div>
-
-<div class="eventDesc">
-${escapeHTML(event.description)}
-</div>
-
-<div class="reward">
-🎁 ${escapeHTML(event.reward)}
-</div>
-
-<div class="eventTime">
-До: ${escapeHTML(event.end)}
-</div>
-
-`;
-
-box.appendChild(div);
-
-});
-
-}
-
-
-function escapeHTML(value){
-
-return String(value ?? "")
-.replaceAll("&","&amp;")
-.replaceAll("<","&lt;")
-.replaceAll(">","&gt;")
-.replaceAll('"',"&quot;")
-.replaceAll("'","&#039;");
-
-}
-
-</script>
-
-
-<script>
-
-const STORAGE_KEY =
-"ogonyok_v02";
-
-
-let state =
-JSON.parse(
-localStorage.getItem(STORAGE_KEY) || "null"
-);
-
-
-if(!state){
-
-state={
-
-startDate:Date.now(),
-
-skin:"classic",
-
-dark:false,
-
-normalDays:0,
-
-starBonusDays:0,
-
-achievements:{}
-
-};
-
-localStorage.setItem(
-STORAGE_KEY,
-JSON.stringify(state)
-);
-
-}
-
-
-function saveState(){
-
-localStorage.setItem(
-STORAGE_KEY,
-JSON.stringify(state)
-);
-
-}
-
+/* =========================
+   ДНИ
+========================= */
 
 function calculateDays(){
 
-const elapsed =
-Date.now()-state.startDate;
+  const start =
+    new Date(data.startDate).getTime();
 
-const normalDays =
-Math.max(
-0,
-Math.floor(
-elapsed/86400000
-)
-);
+  const now =
+    Date.now();
 
-return normalDays+
-(state.starBonusDays || 0);
+  let days =
+    Math.floor(
+      (now - start) /
+      (1000 * 60 * 60 * 24)
+    );
 
-}
+  days +=
+    Number(data.starBonusDays || 0);
 
-
-function updateDays(){
-
-const days =
-calculateDays();
-
-document.getElementById("days").textContent =
-days;
-
-updateAchievements(days);
+  return Math.max(0,days);
 
 }
 
 
-const achievementData=[
+/* =========================
+   FLAME
+========================= */
 
-{
-id:"day1",
-icon:"🔥",
-name:"Первый огонёк",
-req:1
-},
+function updateFlame(){
 
-{
-id:"day7",
-icon:"🔥",
-name:"Неделя огня",
-req:7
-},
+  const days =
+    calculateDays();
 
-{
-id:"day30",
-icon:"🔥",
-name:"Месяц без перерыва",
-req:30
-},
+  document.getElementById("days").textContent =
+    days;
 
-{
-id:"day90",
-icon:"🔥",
-name:"Три месяца пламя",
-req:90
-},
+  document.getElementById("flameNameDisplay").textContent =
+    data.flameName || "Мой огонёк";
 
-{
-id:"day180",
-icon:"🔥",
-name:"Половина года",
-req:180
-},
+  updateFlameSkin();
 
-{
-id:"day365",
-icon:"🔥",
-name:"Год огня",
-req:365
-},
+  updateProgress(days);
 
-{
-id:"day720",
-icon:"🔥",
-name:"Два года огня",
-req:720
-},
+  updateAchievements(days);
 
-{
-id:"day1000",
-icon:"🔥",
-name:"Тысячный день",
-req:1000
-},
+  updateSkins(days);
 
-{
-id:"stargazer",
-icon:"⭐",
-name:"Звездочёт",
-req:"Завершить звёздный ивент"
+  updateStarEvent(days);
+
+  save();
+
 }
+
+
+/* =========================
+   СКИНЫ
+========================= */
+
+const skins = {
+
+  normal:"🔥",
+
+  ice:"❄️",
+
+  purple:"💜",
+
+  neon:"🌈",
+
+  electric:"⚡",
+
+  solar:"☀️",
+
+  diamond:"💎",
+
+  space:"🌌"
+
+};
+
+
+function updateFlameSkin(){
+
+  const flame =
+    document.getElementById("flameDisplay");
+
+  flame.textContent =
+    skins[data.skin] || "🔥";
+
+}
+
+
+function skinRequirement(skin){
+
+  const requirements = {
+
+    normal:0,
+
+    ice:7,
+
+    purple:30,
+
+    neon:90,
+
+    electric:180,
+
+    solar:365,
+
+    diamond:720,
+
+    space:1000
+
+  };
+
+  return requirements[skin] || 0;
+
+}
+
+
+function selectSkin(skin){
+
+  const days =
+    calculateDays();
+
+  const need =
+    skinRequirement(skin);
+
+  if(days < need){
+
+    alert(
+      "Этот скин откроется через " +
+      need +
+      " дней."
+    );
+
+    return;
+  }
+
+  data.skin =
+    skin;
+
+  save();
+
+  updateFlame();
+
+}
+
+
+function updateSkins(days){
+
+  const map = {
+
+    ice:7,
+
+    purple:30,
+
+    neon:90,
+
+    electric:180,
+
+    solar:365,
+
+    diamond:720,
+
+    space:1000
+
+  };
+
+  Object.entries(map).forEach(
+    ([skin,need]) => {
+
+      const element =
+        document.getElementById(
+          "skin" +
+          skin.charAt(0).toUpperCase() +
+          skin.slice(1)
+        );
+
+      if(element){
+
+        element.classList.toggle(
+          "locked",
+          days < need
+        );
+
+      }
+
+    }
+  );
+
+}
+
+
+/* =========================
+   ПРОГРЕСС
+========================= */
+
+function updateProgress(days){
+
+  const milestones =
+    [1,7,30,90,180,365,720,1000];
+
+  let next =
+    milestones.find(
+      value => value > days
+    );
+
+  if(!next){
+
+    document.getElementById(
+      "nextAchievement"
+    ).textContent =
+      "Все основные ачивки открыты! 🔥";
+
+    document.getElementById(
+      "dayProgress"
+    ).style.width = "100%";
+
+    return;
+
+  }
+
+  let previous =
+    milestones[
+      milestones.indexOf(next)-1
+    ] || 0;
+
+  let percent =
+    ((days-previous) /
+    (next-previous))*100;
+
+  percent =
+    Math.max(
+      0,
+      Math.min(100,percent)
+    );
+
+  document.getElementById(
+    "dayProgress"
+  ).style.width =
+    percent + "%";
+
+  document.getElementById(
+    "nextAchievement"
+  ).textContent =
+    "Следующая ачивка: " +
+    next +
+    " дней";
+
+}
+
+
+/* =========================
+   АЧИВКИ
+========================= */
+
+const achievements = [
+
+  {
+    id:"day1",
+    days:1,
+    icon:"🔥",
+    title:"Первый огонёк"
+  },
+
+  {
+    id:"day7",
+    days:7,
+    icon:"🔥",
+    title:"Неделя огня"
+  },
+
+  {
+    id:"day30",
+    days:30,
+    icon:"🔥",
+    title:"Месяц без перерыва"
+  },
+
+  {
+    id:"day90",
+    days:90,
+    icon:"🔥",
+    title:"Три месяца пламя"
+  },
+
+  {
+    id:"day180",
+    days:180,
+    icon:"🔥",
+    title:"Половина года"
+  },
+
+  {
+    id:"day365",
+    days:365,
+    icon:"🔥",
+    title:"Год огня"
+  },
+
+  {
+    id:"day720",
+    days:720,
+    icon:"🔥",
+    title:"Два года огня"
+  },
+
+  {
+    id:"day1000",
+    days:1000,
+    icon:"🔥",
+    title:"Тысячный день"
+  },
+
+  {
+    id:"star",
+    days:0,
+    icon:"⭐",
+    title:"Звездочёт"
+  }
 
 ];
 
 
 function updateAchievements(days){
 
-achievementData.forEach(a=>{
+  const container =
+    document.getElementById(
+      "achievementsList"
+    );
 
-if(typeof a.req==="number"){
+  container.innerHTML = "";
 
-if(days>=a.req){
+  achievements.forEach(
+    achievement => {
 
-state.achievements[a.id]=true;
+      let unlocked = false;
 
-}
+      if(achievement.id === "star"){
 
-}
+        unlocked =
+          data.starAchievement === true;
 
-});
+      }else{
 
-saveState();
+        unlocked =
+          days >= achievement.days;
 
-renderAchievements();
+      }
 
-}
+      const div =
+        document.createElement("div");
 
+      div.className =
+        "achievement " +
+        (unlocked ? "" : "locked");
 
-function renderAchievements(){
+      div.innerHTML = `
 
-const box =
-document.getElementById("achievementsList");
+        <div class="achievement-icon">
+          ${achievement.icon}
+        </div>
 
-box.innerHTML="";
+        <div>
+          <div class="achievement-title">
+            ${achievement.title}
+          </div>
 
+          <div class="small">
+            ${
+              unlocked
+              ? "Получено ✓"
+              : achievement.days +
+                " дней"
+            }
+          </div>
+        </div>
 
-achievementData.forEach(a=>{
+      `;
 
-const unlocked =
-!!state.achievements[a.id];
+      container.appendChild(div);
 
-const div =
-document.createElement("div");
-
-div.className =
-"achievement " +
-(unlocked ? "" : "locked");
-
-div.innerHTML=`
-
-<div class="achIcon">
-${a.icon}
-</div>
-
-<div>
-<div class="achName">
-${unlocked ? "✓ " : "🔒 "}
-${a.name}
-</div>
-
-<div class="achReq">
-${
-typeof a.req==="number"
-? a.req+" дней"
-: a.req
-}
-</div>
-
-</div>
-
-`;
-
-box.appendChild(div);
-
-});
+    }
+  );
 
 }
 
 
-window.selectSkin =
-function(skin){
+/* =========================
+   ИМЯ
+========================= */
 
-state.skin=skin;
-
-saveState();
-
-updateSkin();
-
-showToast("Скин выбран");
-
-};
-
-
-function updateSkin(){
-
-const flame =
-document.getElementById("mainFlame");
-
-const skins={
-
-classic:"🔥",
-
-ice:"❄️",
-
-purple:"💜",
-
-neon:"💚",
-
-electric:"⚡",
-
-solar:"☀️",
-
-diamond:"💎",
-
-space:"🌌"
-
-};
-
-flame.textContent =
-skins[state.skin] || "🔥";
-
-}
-
-
-window.showTab =
-function(id){
-
-document
-.querySelectorAll(".tab")
-.forEach(tab=>{
-tab.classList.remove("active");
-});
-
-const target =
-document.getElementById(id);
-
-if(target){
-target.classList.add("active");
-}
-
-window.scrollTo({
-top:0,
-behavior:"smooth"
-});
-
-};
-
-
-window.toggleDark =
+window.changeFlameName =
 function(){
 
-state.dark=!state.dark;
+  data.flameName =
+    document.getElementById(
+      "flameNameInput"
+    ).value ||
+    "Мой огонёк";
 
-document.body.classList.toggle(
-"dark",
-state.dark
-);
+  save();
 
-saveState();
+  updateFlame();
+
+};
+
+
+/* =========================
+   ТЕМА
+========================= */
+
+window.toggleTheme =
+function(){
+
+  if(data.theme === "dark"){
+
+    data.theme = "light";
+
+  }else{
+
+    data.theme = "dark";
+
+  }
+
+  applyTheme();
+
+  save();
 
 };
 
 
 function applyTheme(){
 
-document.body.classList.toggle(
-"dark",
-!!state.dark
-);
+  document.body.classList.toggle(
+    "dark",
+    data.theme === "dark"
+  );
 
 }
 
+
+/* =========================
+   ЯЗЫК
+========================= */
 
 window.changeLanguage =
 function(){
 
-const lang =
-document.getElementById("language").value;
+  data.language =
+    document.getElementById(
+      "languageSelect"
+    ).value;
 
-localStorage.setItem(
-"ogonyok_language",
-lang
-);
-
-showToast(
-"Язык сохранён"
-);
+  save();
 
 };
 
 
-function loadLanguage(){
+/* =========================
+   ЭКСПОРТ
+========================= */
 
-const lang =
-localStorage.getItem(
-"ogonyok_language"
-) || "ru";
-
-document.getElementById(
-"language"
-).value=lang;
-
-}
-
-
-window.exportProgress =
+window.exportData =
 function(){
 
-const data =
-JSON.stringify(state,null,2);
+  const box =
+    document.getElementById(
+      "transferBox"
+    );
 
-const blob =
-new Blob(
-[data],
-{type:"application/json"}
-);
-
-const url =
-URL.createObjectURL(blob);
-
-const a =
-document.createElement("a");
-
-a.href=url;
-
-a.download=
-"ogonyok-progress.json";
-
-a.click();
-
-URL.revokeObjectURL(url);
-
-showToast("Прогресс экспортирован");
+  box.value =
+    btoa(
+      unescape(
+        encodeURIComponent(
+          JSON.stringify(data)
+        )
+      )
+    );
 
 };
 
 
-window.importProgress =
-function(event){
+/* =========================
+   ИМПОРТ
+========================= */
 
-const file =
-event.target.files[0];
+window.importData =
+function(){
 
-if(!file)return;
+  const box =
+    document.getElementById(
+      "transferBox"
+    );
 
-const reader =
-new FileReader();
+  try{
 
-reader.onload=function(){
+    const imported =
+      JSON.parse(
+        decodeURIComponent(
+          escape(
+            atob(box.value.trim())
+          )
+        )
+      );
 
-try{
+    if(
+      !imported ||
+      typeof imported !== "object"
+    ){
 
-const imported =
-JSON.parse(reader.result);
+      throw new Error();
 
-if(
-!imported ||
-typeof imported!=="object"
-){
+    }
 
-throw new Error();
+    data = imported;
 
-}
+    save();
 
+    document.getElementById(
+      "flameNameInput"
+    ).value =
+      data.flameName || "Мой огонёк";
 
-state={
-...state,
-...imported
+    document.getElementById(
+      "languageSelect"
+    ).value =
+      data.language || "ru";
+
+    applyTheme();
+
+    updateFlame();
+
+    alert(
+      "Огонёк успешно восстановлен!"
+    );
+
+  }catch(error){
+
+    alert(
+      "Неверный код переноса."
+    );
+
+  }
+
 };
 
-saveState();
 
-applyTheme();
+/* =========================
+   НАВИГАЦИЯ
+========================= */
 
-updateSkin();
+window.showPage =
+function(pageId,button){
 
-updateDays();
+  document
+    .querySelectorAll(".page")
+    .forEach(
+      page =>
+        page.classList.remove(
+          "active"
+        )
+    );
 
-showToast(
-"Прогресс восстановлен"
-);
+  document.getElementById(
+    pageId
+  ).classList.add("active");
 
-}catch(e){
+  document
+    .querySelectorAll(".nav button")
+    .forEach(
+      btn =>
+        btn.classList.remove(
+          "active"
+        )
+    );
 
-showToast(
-"Не удалось импортировать"
-);
-
-}
+  button.classList.add("active");
 
 };
 
-reader.readAsText(file);
+
+/* =========================
+   МОДАЛКИ
+========================= */
+
+window.openVersion =
+function(){
+
+  document
+    .getElementById("versionModal")
+    .classList.add("show");
 
 };
 
@@ -1666,104 +1520,810 @@ reader.readAsText(file);
 window.closeModal =
 function(id){
 
-document
-.getElementById(id)
-.classList.remove("show");
+  document
+    .getElementById(id)
+    .classList.remove("show");
 
 };
 
 
-function showToast(text){
+/* =========================
+   STAR EVENT
+========================= */
 
-const toast =
-document.getElementById("toast");
+function updateStarEvent(days){
 
-toast.textContent=text;
+  /*
+   Звёздное событие появляется
+   каждые 7 дней.
+  */
 
-toast.classList.add("show");
+  const portal =
+    document.getElementById(
+      "starPortal"
+    );
 
-setTimeout(()=>{
+  const target =
+    Math.floor(days / 7);
 
-toast.classList.remove("show");
+  if(
+    days >= 7 &&
+    target > data.starDay
+  ){
 
-},2500);
+    portal.classList.remove(
+      "hidden"
+    );
+
+    document.getElementById(
+      "starInfo"
+    ).textContent =
+      "Доступна новая звезда!";
+
+  }else{
+
+    portal.classList.add(
+      "hidden"
+    );
+
+  }
 
 }
 
 
-function updateNextAchievement(){
+window.collectStar =
+function(){
 
-const days =
-calculateDays();
+  const days =
+    calculateDays();
 
-let next=null;
+  const target =
+    Math.floor(days / 7);
 
-for(const a of achievementData){
+  if(
+    days < 7 ||
+    target <= data.starDay
+  ){
 
-if(
-typeof a.req==="number" &&
-days<a.req
-){
+    alert(
+      "Звезда пока недоступна."
+    );
 
-next=a;
+    return;
 
-break;
+  }
+
+  data.starDay =
+    target;
+
+  data.starCount =
+    Number(data.starCount || 0) + 1;
+
+  /*
+   Первая звезда даёт ачивку.
+  */
+
+  if(!data.starAchievement){
+
+    data.starAchievement = true;
+
+  }
+
+  save();
+
+  updateFlame();
+
+  alert(
+    "⭐ Звезда собрана!"
+  );
+
+};
+
+
+/* =========================
+   FIREBASE EVENTS
+========================= */
+
+const eventsRef =
+  ref(db,"events");
+
+
+function renderEvents(snapshot){
+
+  const container =
+    document.getElementById(
+      "eventsList"
+    );
+
+  container.innerHTML = "";
+
+  const now =
+    Date.now();
+
+  let found = false;
+
+  snapshot.forEach(child => {
+
+    const event =
+      child.val();
+
+    const start =
+      new Date(
+        event.start
+      ).getTime();
+
+    const end =
+      new Date(
+        event.end
+      ).getTime();
+
+    if(
+      now >= start &&
+      now <= end
+    ){
+
+      found = true;
+
+      const div =
+        document.createElement(
+          "div"
+        );
+
+      div.className =
+        "event";
+
+      div.innerHTML = `
+
+        <div class="event-name">
+          ${escapeHtml(
+            event.name || "Событие"
+          )}
+        </div>
+
+        <p>
+          ${escapeHtml(
+            event.description || ""
+          )}
+        </p>
+
+        <div class="event-reward">
+          🎁 ${escapeHtml(
+            event.reward || "Награда"
+          )}
+        </div>
+
+        <div class="small"
+             style="margin-top:8px">
+
+          До:
+          ${formatDate(event.end)}
+
+        </div>
+
+      `;
+
+      container.appendChild(div);
+
+    }
+
+  });
+
+  if(!found){
+
+    container.innerHTML =
+      `<div class="small">
+        Сейчас активных событий нет.
+      </div>`;
+
+  }
 
 }
 
-}
 
-const box =
-document.getElementById(
-"nextAchievement"
+onValue(
+  eventsRef,
+  renderEvents
 );
 
-if(!next){
 
-box.textContent=
-"🏆 Все основные ачивки открыты!";
+/* =========================
+   АДМИНКА
+========================= */
 
-return;
+window.openAdminLogin =
+function(){
+
+  document
+    .getElementById(
+      "adminLoginModal"
+    )
+    .classList.add("show");
+
+};
+
+
+window.googleLogin =
+async function(){
+
+  const status =
+    document.getElementById(
+      "loginStatus"
+    );
+
+  status.textContent =
+    "Открываем Google...";
+
+  try{
+
+    await signInWithRedirect(
+      auth,
+      provider
+    );
+
+  }catch(error){
+
+    status.textContent =
+      "Ошибка входа: " +
+      error.message;
+
+  }
+
+};
+
+
+/* =========================
+   REDIRECT GOOGLE
+========================= */
+
+async function checkRedirectLogin(){
+
+  try{
+
+    const result =
+      await getRedirectResult(auth);
+
+    if(!result){
+
+      return;
+
+    }
+
+    const user =
+      result.user;
+
+    if(
+      user.email &&
+      user.email.toLowerCase() ===
+      ADMIN_EMAIL.toLowerCase()
+    ){
+
+      closeModal(
+        "adminLoginModal"
+      );
+
+      openAdmin();
+
+    }else{
+
+      alert(
+        "Этот Google-аккаунт не является администратором."
+      );
+
+      await signOut(auth);
+
+    }
+
+  }catch(error){
+
+    console.error(
+      "Google login error:",
+      error
+    );
+
+    const status =
+      document.getElementById(
+        "loginStatus"
+      );
+
+    if(status){
+
+      status.textContent =
+        "Ошибка: " +
+        error.message;
+
+    }
+
+  }
 
 }
 
-box.textContent=
-"Следующая ачивка: "+
-next.name+
-" — ещё "+
-(next.req-days)+
-" д.";
+
+checkRedirectLogin();
+
+
+/* =========================
+   AUTH STATE
+========================= */
+
+onAuthStateChanged(
+  auth,
+  user => {
+
+    const adminUser =
+      document.getElementById(
+        "adminUser"
+      );
+
+    if(
+      user &&
+      user.email &&
+      user.email.toLowerCase() ===
+      ADMIN_EMAIL.toLowerCase()
+    ){
+
+      if(adminUser){
+
+        adminUser.textContent =
+          "Вход выполнен: " +
+          user.email;
+
+      }
+
+    }
+
+  }
+);
+
+
+/* =========================
+   ОТКРЫТЬ АДМИНКУ
+========================= */
+
+async function openAdmin(){
+
+  const user =
+    auth.currentUser;
+
+  if(
+    !user ||
+    !user.email ||
+    user.email.toLowerCase() !==
+    ADMIN_EMAIL.toLowerCase()
+  ){
+
+    openAdminLogin();
+
+    return;
+
+  }
+
+  closeModal(
+    "adminLoginModal"
+  );
+
+  document
+    .getElementById("adminModal")
+    .classList.add("show");
+
+  document.getElementById(
+    "adminUser"
+  ).textContent =
+    "Вход выполнен: " +
+    user.email;
+
+  loadAdminEvents();
 
 }
 
 
-document.addEventListener(
-"DOMContentLoaded",
-()=>{
+/* =========================
+   СОЗДАНИЕ СОБЫТИЯ
+========================= */
+
+window.createEvent =
+async function(){
+
+  const user =
+    auth.currentUser;
+
+  const status =
+    document.getElementById(
+      "createStatus"
+    );
+
+  if(
+    !user ||
+    !user.email ||
+    user.email.toLowerCase() !==
+    ADMIN_EMAIL.toLowerCase()
+  ){
+
+    status.textContent =
+      "Нет доступа.";
+
+    return;
+
+  }
+
+  const name =
+    document.getElementById(
+      "eventName"
+    ).value.trim();
+
+  const description =
+    document.getElementById(
+      "eventDescription"
+    ).value.trim();
+
+  const reward =
+    document.getElementById(
+      "eventReward"
+    ).value.trim();
+
+  const start =
+    document.getElementById(
+      "eventStart"
+    ).value;
+
+  const end =
+    document.getElementById(
+      "eventEnd"
+    ).value;
+
+  if(
+    !name ||
+    !start ||
+    !end
+  ){
+
+    status.textContent =
+      "Заполни название, начало и конец.";
+
+    return;
+
+  }
+
+  if(
+    new Date(end).getTime() <=
+    new Date(start).getTime()
+  ){
+
+    status.textContent =
+      "Конец события должен быть позже начала.";
+
+    return;
+
+  }
+
+  try{
+
+    const newEvent =
+      push(eventsRef);
+
+    await set(
+      newEvent,
+      {
+
+        name:name,
+
+        description:
+          description,
+
+        reward:
+          reward,
+
+        start:
+          start,
+
+        end:
+          end,
+
+        createdAt:
+          Date.now(),
+
+        createdBy:
+          user.email
+
+      }
+    );
+
+    status.textContent =
+      "Событие создано!";
+
+    document.getElementById(
+      "eventName"
+    ).value = "";
+
+    document.getElementById(
+      "eventDescription"
+    ).value = "";
+
+    document.getElementById(
+      "eventReward"
+    ).value = "";
+
+    document.getElementById(
+      "eventStart"
+    ).value = "";
+
+    document.getElementById(
+      "eventEnd"
+    ).value = "";
+
+  }catch(error){
+
+    console.error(error);
+
+    status.textContent =
+      "Ошибка создания: " +
+      error.message;
+
+  }
+
+};
+
+
+/* =========================
+   АДМИНСКИЕ СОБЫТИЯ
+========================= */
+
+function loadAdminEvents(){
+
+  onValue(
+    eventsRef,
+    snapshot => {
+
+      renderAdminEvents(
+        snapshot
+      );
+
+    }
+  );
+
+}
+
+
+function renderAdminEvents(snapshot){
+
+  const container =
+    document.getElementById(
+      "adminEvents"
+    );
+
+  container.innerHTML = "";
+
+  let count = 0;
+
+  snapshot.forEach(child => {
+
+    count++;
+
+    const event =
+      child.val();
+
+    const div =
+      document.createElement(
+        "div"
+      );
+
+    div.className =
+      "admin-event";
+
+    div.innerHTML = `
+
+      <strong>
+        ${escapeHtml(
+          event.name || "Событие"
+        )}
+      </strong>
+
+      <div class="small">
+        ${escapeHtml(
+          event.description || ""
+        )}
+      </div>
+
+      <div class="small">
+        🎁 ${escapeHtml(
+          event.reward || ""
+        )}
+      </div>
+
+      <div class="small">
+        ${formatDate(event.start)}
+        →
+        ${formatDate(event.end)}
+      </div>
+
+      <button
+        class="btn danger"
+        data-delete-id="${child.key}"
+      >
+        🗑 Удалить
+      </button>
+
+    `;
+
+    const deleteButton =
+      div.querySelector(
+        "[data-delete-id]"
+      );
+
+    deleteButton.onclick =
+      () => deleteEvent(child.key);
+
+    container.appendChild(div);
+
+  });
+
+  if(count === 0){
+
+    container.innerHTML =
+      `<div class="small">
+        Событий пока нет.
+      </div>`;
+
+  }
+
+}
+
+
+/* =========================
+   УДАЛЕНИЕ СОБЫТИЯ
+========================= */
+
+async function deleteEvent(id){
+
+  const user =
+    auth.currentUser;
+
+  if(
+    !user ||
+    !user.email ||
+    user.email.toLowerCase() !==
+    ADMIN_EMAIL.toLowerCase()
+  ){
+
+    alert(
+      "Нет доступа."
+    );
+
+    return;
+
+  }
+
+  if(
+    !confirm(
+      "Удалить это событие?"
+    )
+  ){
+
+    return;
+
+  }
+
+  try{
+
+    await remove(
+      ref(
+        db,
+        "events/" + id
+      )
+    );
+
+  }catch(error){
+
+    alert(
+      "Ошибка удаления: " +
+      error.message
+    );
+
+  }
+
+}
+
+
+/* =========================
+   ВЫХОД
+========================= */
+
+window.adminLogout =
+async function(){
+
+  try{
+
+    await signOut(auth);
+
+    closeModal(
+      "adminModal"
+    );
+
+  }catch(error){
+
+    console.error(error);
+
+  }
+
+};
+
+
+/* =========================
+   ВСПОМОГАТЕЛЬНЫЕ
+========================= */
+
+function formatDate(value){
+
+  if(!value){
+    return "—";
+  }
+
+  const date =
+    new Date(value);
+
+  if(
+    Number.isNaN(
+      date.getTime()
+    )
+  ){
+
+    return value;
+
+  }
+
+  return date.toLocaleString(
+    "ru-RU",
+    {
+      day:"2-digit",
+      month:"2-digit",
+      year:"numeric",
+      hour:"2-digit",
+      minute:"2-digit"
+    }
+  );
+
+}
+
+
+function escapeHtml(value){
+
+  return String(value ?? "")
+    .replaceAll("&","&amp;")
+    .replaceAll("<","&lt;")
+    .replaceAll(">","&gt;")
+    .replaceAll('"',"&quot;")
+    .replaceAll("'","&#039;");
+
+}
+
+
+/* =========================
+   ЗАПУСК
+========================= */
+
+document.getElementById(
+  "flameNameInput"
+).value =
+  data.flameName ||
+  "Мой огонёк";
+
+document.getElementById(
+  "languageSelect"
+).value =
+  data.language ||
+  "ru";
 
 applyTheme();
 
-loadLanguage();
+updateFlame();
 
-updateSkin();
 
-updateDays();
+/* Обновляем счётчик
+   каждую минуту */
 
-renderAchievements();
-
-updateNextAchievement();
-
-setInterval(()=>{
-
-updateDays();
-
-updateNextAchievement();
-
-},1000);
-
-}
+setInterval(
+  updateFlame,
+  60000
 );
-
 
 </script>
 
