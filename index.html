@@ -4,784 +4,550 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#151515">
+<meta name="theme-color" content="#141416">
 <title>Огонёк</title>
-
 <style>
 :root{
-  --bg:#111214;
-  --panel:#1b1c20;
-  --panel2:#23242a;
-  --text:#f6f6f7;
-  --muted:#9698a2;
-  --line:#303137;
-  --accent:#ff8a45;
-  --accent-soft:#38251b;
-  --radius:18px;
-}
-*{box-sizing:border-box}
-html{background:var(--bg)}
-body{
-  margin:0;
-  background:var(--bg);
-  color:var(--text);
-  font-family:Arial,sans-serif;
-  min-height:100vh;
-  transition:background .2s,color .2s;
+ --bg:#141416;--panel:#1d1d21;--panel2:#28282e;--text:#f7f7f8;
+ --muted:#9b9ba5;--line:#33333a;--accent:#ff914d;--soft:#39271e;
 }
 body.light{
-  --bg:#f5f5f7;
-  --panel:#fff;
-  --panel2:#f0f0f3;
-  --text:#19191c;
-  --muted:#777985;
-  --line:#e5e5e9;
-  --accent:#e96d2d;
-  --accent-soft:#fff0e6;
+ --bg:#f5f5f7;--panel:#fff;--panel2:#eeeef2;--text:#19191d;
+ --muted:#777783;--line:#e4e4e9;--accent:#e96e30;--soft:#fff0e6;
 }
+*{box-sizing:border-box}
+html{background:var(--bg);scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--text);font-family:Arial,sans-serif;min-height:100vh;transition:background .2s,color .2s}
 button,input,select,textarea{font:inherit}
 button{cursor:pointer}
-button:focus-visible,input:focus-visible,select:focus-visible{
-  outline:2px solid var(--accent);
-  outline-offset:3px;
-}
-header{
-  height:62px;
-  padding:0 18px;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  border-bottom:1px solid var(--line);
-  background:var(--bg);
-  position:sticky;
-  top:0;
-  z-index:10;
-}
-.logo{font-size:21px;font-weight:800;letter-spacing:-.7px}
+button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+header{height:60px;padding:0 16px;display:flex;align-items:center;justify-content:space-between;background:var(--bg);border-bottom:1px solid var(--line);position:sticky;top:0;z-index:20}
+.logo{font-size:21px;font-weight:850;letter-spacing:-.7px}
 .logo span{color:var(--accent)}
-.header-right{display:flex;gap:8px;align-items:center}
-.icon-btn{
-  width:39px;height:39px;border:1px solid var(--line);
-  border-radius:13px;background:var(--panel);color:var(--text);
-}
-.balance{
-  background:var(--accent-soft);color:var(--accent);
-  border-radius:13px;padding:10px 12px;font-size:13px;font-weight:800;
-}
-main{
-  width:100%;max-width:620px;margin:auto;
-  padding:18px 15px calc(94px + env(safe-area-inset-bottom));
-}
-.page{display:none;animation:appear .2s ease}
+.head-actions{display:flex;align-items:center;gap:8px}
+.balance{padding:10px 12px;border-radius:12px;background:var(--soft);color:var(--accent);font-size:13px;font-weight:800}
+.icon-btn{width:38px;height:38px;border:1px solid var(--line);border-radius:12px;background:var(--panel);color:var(--text)}
+main{width:100%;max-width:620px;margin:auto;padding:16px 14px calc(94px + env(safe-area-inset-bottom))}
+.page{display:none;animation:fade .18s ease}
 .page.active{display:block}
-@keyframes appear{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
-h1{font-size:25px;letter-spacing:-.7px;margin:5px 0 5px}
+@keyframes fade{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:translateY(0)}}
+h1{font-size:25px;letter-spacing:-.7px;margin:6px 0}
 h2{font-size:17px;margin:0}
 p{line-height:1.5}
-.muted,.small{color:var(--muted)}
-.small{font-size:12px;line-height:1.5}
-.card{
-  background:var(--panel);border:1px solid var(--line);
-  border-radius:var(--radius);padding:17px;margin-top:12px;
+.small{font-size:12px;line-height:1.5;color:var(--muted)}
+.muted{color:var(--muted)}
+.card,.setting,.event,.achievement,.season-card,.product,.skin{
+ background:var(--panel);border:1px solid var(--line);border-radius:16px;
 }
-.hero{
-  text-align:center;padding:25px 17px 19px;
-  background:radial-gradient(ellipse at 50% 12%,var(--accent-soft),var(--panel) 65%);
-}
-.eyebrow{font-size:12px;color:var(--muted)}
-.flame{font-size:78px;line-height:1.25;margin:8px 0;filter:drop-shadow(0 0 17px #ff8a4533)}
-.days{font-size:46px;font-weight:850;letter-spacing:-2px}
-.days-label{font-size:13px;color:var(--muted);margin-top:1px}
-.flame-name{font-weight:700;margin-top:14px}
-.progress{height:6px;background:var(--panel2);border-radius:20px;overflow:hidden;margin-top:17px}
-.progress-bar{height:100%;width:0;background:var(--accent);border-radius:20px;transition:width .3s}
-.progress-label{display:flex;justify-content:space-between;gap:10px;margin-top:8px}
+.card{padding:16px;margin-top:12px}
+.hero{text-align:center;padding:24px 16px 18px;background:radial-gradient(ellipse at 50% 5%,var(--soft),var(--panel) 67%)}
+.eyebrow{font-size:11px;letter-spacing:1.2px;color:var(--muted)}
+.flame{font-size:76px;line-height:1.3;margin:7px 0;filter:drop-shadow(0 0 15px #ff914d35)}
+.days{font-size:47px;letter-spacing:-2px;font-weight:900}
+.days-label{font-size:13px;color:var(--muted)}
+.flame-name{font-size:15px;font-weight:750;margin-top:13px}
+.progress{height:6px;background:var(--panel2);border-radius:20px;overflow:hidden;margin-top:15px}
+.progress-bar{height:100%;width:0;background:var(--accent);border-radius:20px;transition:width .25s}
+.progress-label{display:flex;justify-content:space-between;gap:8px;margin-top:8px}
+.section-heading{display:flex;justify-content:space-between;align-items:center;margin:24px 0 9px}
+.text-btn{background:none;border:0;padding:5px 0;color:var(--accent);font-size:12px;font-weight:750}
 .row{display:flex;align-items:center;gap:12px}
 .between{justify-content:space-between}
 .grow{flex:1;min-width:0}
-.section-heading{display:flex;align-items:center;justify-content:space-between;margin:25px 0 10px}
-.section-heading h2{font-size:17px}
-.text-btn{border:0;background:none;color:var(--accent);font-weight:700;padding:6px 0}
-.btn{
-  border:0;border-radius:13px;background:var(--accent);color:#21150e;
-  padding:12px 15px;font-weight:800;width:100%;margin-top:10px;
-  transition:transform .15s,opacity .15s;
-}
-.btn:active{transform:scale(.98)}
-.btn.secondary{background:var(--panel2);color:var(--text);border:1px solid var(--line)}
-.btn:disabled{opacity:.45;cursor:not-allowed}
-.btn.small-btn{width:auto;margin:0;padding:9px 12px;font-size:12px}
-.setting,.event,.achievement,.season-card,.product{
-  background:var(--panel);border:1px solid var(--line);
-  border-radius:15px;padding:14px;margin-top:10px;
-}
+.btn{width:100%;border:0;border-radius:12px;padding:12px 14px;background:var(--accent);color:#21150e;font-weight:800;margin-top:9px}
+.btn.secondary{background:var(--panel2);border:1px solid var(--line);color:var(--text)}
+.btn:disabled{opacity:.42;cursor:not-allowed}
+.btn.small-btn{width:auto;margin:0;padding:9px 11px;font-size:11px;white-space:nowrap}
+.setting{padding:14px;margin-top:10px}
 .setting-title{font-size:14px;font-weight:750;margin-bottom:5px}
-input,select,textarea{
-  width:100%;margin-top:9px;padding:12px;
-  border-radius:12px;border:1px solid var(--line);
-  background:var(--bg);color:var(--text);
-}
-textarea{min-height:80px}
-.nav{
-  position:fixed;z-index:20;bottom:0;left:0;right:0;
-  display:grid;grid-template-columns:repeat(4,1fr);
-  background:var(--panel);border-top:1px solid var(--line);
-  padding:7px 7px calc(7px + env(safe-area-inset-bottom));
-}
-.nav button{
-  border:0;background:none;color:var(--muted);
-  border-radius:12px;padding:8px 2px;font-size:11px;font-weight:700;
-}
-.nav button .nav-icon{display:block;font-size:19px;margin-bottom:4px}
-.nav button.active{color:var(--accent);background:var(--accent-soft)}
-.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
-.skin,.product-tile{
-  min-width:0;background:var(--panel);border:1px solid var(--line);
-  border-radius:15px;padding:13px;text-align:center;
-}
-.skin.locked{opacity:.55}
-.skin-preview{font-size:42px;margin:7px 0 10px}
-.skin-name{font-size:13px;font-weight:750}
-.skin .small{margin-top:5px}
-.skin .btn{font-size:12px;padding:10px 5px}
-.tabs{display:flex;gap:7px;overflow:auto;padding:2px 0 7px}
-.tab{
-  flex-shrink:0;padding:9px 12px;border:1px solid var(--line);
-  border-radius:11px;background:var(--panel);color:var(--text);font-size:12px;
-}
-.tab.active{background:var(--accent-soft);border-color:var(--accent);color:var(--accent)}
-.reward-icon{
-  width:42px;height:42px;border-radius:13px;background:var(--accent-soft);
-  display:grid;place-items:center;font-size:22px;flex-shrink:0;
-}
-.pill{font-size:11px;color:var(--accent);background:var(--accent-soft);padding:6px 9px;border-radius:9px}
-.achievement{display:flex;gap:12px;align-items:center}
+input,select,textarea{display:block;width:100%;margin-top:9px;padding:12px;border:1px solid var(--line);border-radius:11px;background:var(--bg);color:var(--text)}
+textarea{min-height:75px;resize:vertical}
+.nav{position:fixed;bottom:0;left:0;right:0;z-index:30;display:grid;grid-template-columns:repeat(4,1fr);background:var(--panel);border-top:1px solid var(--line);padding:6px 6px calc(6px + env(safe-area-inset-bottom))}
+.nav button{border:0;border-radius:12px;background:none;color:var(--muted);font-size:11px;font-weight:750;padding:7px 1px}
+.nav button.active{color:var(--accent);background:var(--soft)}
+.nav-icon{display:block;font-size:19px;margin-bottom:4px}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}
+.skin,.product{padding:13px;text-align:center;min-width:0}
+.skin.locked{opacity:.5}
+.preview{font-size:39px;margin:7px 0 10px}
+.item-name{font-size:13px;font-weight:750;overflow-wrap:anywhere}
+.pill{display:inline-block;border-radius:8px;padding:5px 8px;background:var(--soft);color:var(--accent);font-size:10px;font-weight:800}
+.tabs{display:flex;gap:7px;overflow-x:auto;padding:2px 0 7px}
+.tab{flex-shrink:0;border:1px solid var(--line);background:var(--panel);color:var(--text);border-radius:10px;padding:9px 11px;font-size:12px}
+.tab.active{border-color:var(--accent);background:var(--soft);color:var(--accent)}
+.reward-icon{width:42px;height:42px;display:grid;place-items:center;flex-shrink:0;border-radius:12px;background:var(--soft);font-size:21px}
+.achievement{padding:13px;margin-top:9px;display:flex;align-items:center;gap:12px}
 .achievement.locked{opacity:.45}
-.achievement-icon{font-size:27px;width:35px;text-align:center}
-.star-portal{
-  padding:17px;text-align:center;border-radius:17px;
-  background:linear-gradient(135deg,#39251b,#1c1b20);
-  border:1px solid #573521;margin-top:12px;
-}
-.star{font-size:37px}
+.achievement-icon{width:34px;text-align:center;font-size:25px}
+.event{padding:14px;margin-top:10px}
 .event-name{font-weight:750}
-.event-reward{color:var(--accent);font-size:13px;margin-top:8px}
-.modal{
-  display:none;position:fixed;inset:0;z-index:50;
-  background:#000a;padding:18px;align-items:center;justify-content:center;
-}
+.event-reward{margin-top:7px;font-size:12px;color:var(--accent);font-weight:750}
+.star-portal{margin-top:12px;padding:17px;border-radius:16px;background:linear-gradient(135deg,#39271e,var(--panel));border:1px solid #65402c;text-align:center}
+.star{font-size:36px}
+.season-card{padding:15px;margin-top:10px}
+.modal{display:none;position:fixed;inset:0;z-index:60;padding:16px;background:#000a;align-items:center;justify-content:center}
 .modal.show{display:flex}
-.modal-box{
-  width:100%;max-width:480px;max-height:88vh;overflow:auto;
-  padding:20px;background:var(--panel);color:var(--text);
-  border:1px solid var(--line);border-radius:20px;position:relative;
-}
-.close{
-  float:right;border:0;background:var(--panel2);color:var(--text);
-  border-radius:10px;width:32px;height:32px;font-size:20px;
-}
+.modal-box{position:relative;width:100%;max-width:470px;max-height:88vh;overflow:auto;background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:19px}
+.close{float:right;width:31px;height:31px;border:0;border-radius:10px;background:var(--panel2);color:var(--text);font-size:20px}
 .hidden{display:none!important}
-hr{border:0;border-top:1px solid var(--line);margin:18px 0}
-.danger{color:#ff6464}
+hr{border:0;border-top:1px solid var(--line);margin:16px 0}
+@media(min-width:500px){main{padding-left:20px;padding-right:20px}.hero{padding:28px}}
 </style>
 </head>
-
 <body>
 <header>
-  <div class="logo">Огонёк<span>.</span></div>
-  <div class="header-right">
-    <div class="balance">✦ <span id="sparksBalance">0</span></div>
-    <button class="icon-btn" onclick="openVersion()" aria-label="О версии">i</button>
-  </div>
+ <div class="logo">Огонёк<span>.</span></div>
+ <div class="head-actions">
+  <div class="balance">✦ <span id="sparksBalance">0</span></div>
+  <button class="icon-btn" onclick="openVersion()" aria-label="О приложении">i</button>
+ </div>
 </header>
 
 <main>
-  <!-- ГЛАВНАЯ -->
-  <section id="homePage" class="page active">
-    <div class="hero card">
-      <div class="eyebrow">ТВОЙ ОГОНЁК</div>
-      <div id="flameDisplay" class="flame">🔥</div>
-      <div id="days" class="days">0</div>
-      <div class="days-label">дней подряд</div>
-      <div id="flameNameDisplay" class="flame-name">Мой огонёк</div>
-      <div class="progress"><div id="dayProgress" class="progress-bar"></div></div>
-      <div class="progress-label small">
-        <span id="nextAchievement">Следующая ачивка: 1 день</span>
-        <span id="progressPercent">0%</span>
-      </div>
-    </div>
+ <!-- ГЛАВНАЯ -->
+ <section id="homePage" class="page active">
+  <div class="hero card">
+   <div class="eyebrow">ТВОЙ ОГОНЁК</div>
+   <div id="flameDisplay" class="flame">🔥</div>
+   <div id="days" class="days">0</div>
+   <div class="days-label">дней подряд</div>
+   <div id="flameNameDisplay" class="flame-name">Мой огонёк</div>
+   <div class="progress"><div id="dayProgress" class="progress-bar"></div></div>
+   <div class="progress-label small"><span id="nextAchievement">Следующая ачивка: 1 день</span><span id="progressPercent">0%</span></div>
+  </div>
+  <div class="section-heading"><h2>Твой прогресс</h2><button class="text-btn" onclick="showPage('achievementsPage')">Все ачивки →</button></div>
+  <div class="card row">
+   <div class="reward-icon">🏆</div>
+   <div class="grow"><div class="setting-title">Следующая цель</div><div id="homeGoal" class="small">Первый огонёк · 1 день</div></div>
+  </div>
+  <div id="starPortal" class="star-portal hidden">
+   <div class="star">⭐</div><h2>Звёздный бонус</h2>
+   <p class="small">Забери свою звезду за серию!</p>
+   <button class="btn" onclick="collectStar()">Забрать звезду · +10 Sparks</button>
+   <div id="starInfo" class="small" style="margin-top:8px"></div>
+  </div>
+  <div class="section-heading"><h2>Активные события</h2></div>
+  <div id="eventsList"><div class="card small">Загрузка событий…</div></div>
+ </section>
 
-    <div class="section-heading">
-      <h2>Твой прогресс</h2>
-      <button class="text-btn" onclick="showPage('achievementsPage')">Ачивки →</button>
-    </div>
-    <div class="card">
-      <div class="row between">
-        <div class="grow">
-          <div class="setting-title">🏆 Следующая цель</div>
-          <div id="homeGoal" class="small">Первый огонёк · 1 день</div>
-        </div>
-        <div class="reward-icon">🔥</div>
-      </div>
-    </div>
+ <!-- ОДЕЖДА -->
+ <section id="clothesPage" class="page">
+  <h1>Одежда</h1><p class="small">Выбирай образ для своего огонька.</p>
+  <div class="card row">
+   <div id="clothesPreview" style="font-size:43px">🔥</div>
+   <div class="grow"><div id="equippedName" class="setting-title">Обычный огонёк</div><div class="small">Текущий скин</div></div>
+  </div>
+  <div class="section-heading"><h2>Коллекция</h2></div>
+  <div id="clothesGrid" class="grid"></div>
+ </section>
 
-    <div id="starPortal" class="star-portal hidden">
-      <div class="star">⭐</div>
-      <h2>Звёздный бонус</h2>
-      <p class="small">Тебе доступна новая звезда!</p>
-      <button class="btn" onclick="collectStar()">Забрать звезду</button>
-      <div id="starInfo" class="small" style="margin-top:9px"></div>
-    </div>
+ <!-- МАГАЗИН -->
+ <section id="shopPage" class="page">
+  <h1>Магазин</h1><p class="small">Предметы за Sparks.</p>
+  <div class="card row between">
+   <div><div class="eyebrow">ТВОЙ БАЛАНС</div><div style="font-size:25px;font-weight:900;margin-top:5px">✦ <span id="shopBalance">0</span></div></div>
+   <div class="reward-icon">🪙</div>
+  </div>
+  <div class="section-heading"><h2>Разделы магазина</h2></div>
+  <div class="tabs" id="shopTabs">
+   <button class="tab active" onclick="setShopCategory('skins',this)">Скины</button>
+   <button class="tab" onclick="setShopCategory('clothes',this)">Одежда</button>
+   <button class="tab" onclick="setShopCategory('effects',this)">Эффекты</button>
+   <button class="tab" onclick="setShopCategory('seasons',this)">Сезоны</button>
+  </div>
+  <div id="shopContent"></div>
+ </section>
 
-    <div class="section-heading"><h2>Активные события</h2></div>
-    <div id="eventsList"><div class="small">Загрузка событий…</div></div>
-  </section>
+ <!-- НАСТРОЙКИ -->
+ <section id="settingsPage" class="page">
+  <h1>Настройки</h1><p class="small">Управление твоим огоньком.</p>
+  <div class="setting"><div class="setting-title">🔥 Название огонька</div><input id="flameNameInput" maxlength="30" placeholder="Название огонька" oninput="changeFlameName()"></div>
+  <div class="setting"><div class="setting-title">🌐 Язык</div><select id="languageSelect" onchange="changeLanguage()"><option value="ru">Русский</option><option value="en">English</option></select><div class="small" style="margin-top:7px">Переключатель сохраняется. Перевод всех экранов можно добавить отдельно.</div></div>
+  <div class="setting"><div class="setting-title">🌙 Тема</div><div class="small">Светлое или тёмное оформление.</div><button class="btn secondary" onclick="toggleTheme()">Переключить тему</button></div>
+  <div class="setting"><div class="setting-title">💾 Перенос огонька</div><div class="small">Экспортируй прогресс или восстанови его из кода.</div><button class="btn" onclick="exportData()">Экспорт данных</button><button class="btn secondary" onclick="importData()">Импорт данных</button><textarea id="transferBox" placeholder="Код переноса появится здесь"></textarea></div>
+  <div class="setting"><div class="setting-title">⚡ Админка</div><div class="small">Создание и управление событиями Firebase.</div><button class="btn secondary" onclick="openAdminLogin()">Открыть админку</button></div>
+ </section>
 
-  <!-- ОДЕЖДА -->
-  <section id="clothesPage" class="page">
-    <h1>Одежда</h1>
-    <p class="small">Настрой внешний вид своего огонька.</p>
-    <div class="card">
-      <div class="row">
-        <div id="clothesPreview" style="font-size:48px">🔥</div>
-        <div class="grow">
-          <div class="setting-title" id="equippedName">Обычный огонёк</div>
-          <div class="small">Твой текущий образ</div>
-        </div>
-      </div>
-    </div>
-    <div class="section-heading"><h2>Доступные образы</h2></div>
-    <div id="clothesGrid" class="grid"></div>
-  </section>
+ <!-- АЧИВКИ -->
+ <section id="achievementsPage" class="page">
+  <button class="text-btn" onclick="showPage('homePage')">← На главную</button>
+  <h1>Ачивки</h1><p class="small">Твои достижения за серию дней и события.</p>
+  <div id="achievementsList"></div>
+ </section>
 
-  <!-- МАГАЗИН -->
-  <section id="shopPage" class="page">
-    <h1>Магазин</h1>
-    <p class="small">Покупай предметы за Sparks.</p>
-    <div class="card row between">
-      <div>
-        <div class="small">ТВОЙ БАЛАНС</div>
-        <div style="font-size:25px;font-weight:850;margin-top:4px">✦ <span id="shopBalance">0</span></div>
-      </div>
-      <div class="reward-icon">✦</div>
-    </div>
-
-    <div class="section-heading"><h2>Разделы</h2></div>
-    <div class="tabs" id="shopTabs">
-      <button class="tab active" onclick="setShopCategory('skins',this)">Скины</button>
-      <button class="tab" onclick="setShopCategory('effects',this)">Эффекты</button>
-      <button class="tab" onclick="setShopCategory('clothes',this)">Одежда</button>
-      <button class="tab" onclick="setShopCategory('seasons',this)">Сезоны</button>
-    </div>
-    <div id="shopContent"></div>
-  </section>
-
-  <!-- НАСТРОЙКИ -->
-  <section id="settingsPage" class="page">
-    <h1>Настройки</h1>
-    <p class="small">Настрой Огонёк под себя.</p>
-
-    <div class="setting">
-      <div class="setting-title">🔥 Название огонька</div>
-      <input id="flameNameInput" maxlength="30" placeholder="Название огонька" oninput="changeFlameName()">
-    </div>
-    <div class="setting">
-      <div class="setting-title">🌐 Язык</div>
-      <select id="languageSelect" onchange="changeLanguage()">
-        <option value="ru">Русский</option>
-        <option value="en">English</option>
-      </select>
-      <div class="small">Переключатель языка сохранён; полный перевод интерфейса можно добавить отдельно.</div>
-    </div>
-    <div class="setting">
-      <div class="setting-title">🌙 Оформление</div>
-      <div class="small">Переключи светлую или тёмную тему.</div>
-      <button class="btn secondary" onclick="toggleTheme()">Переключить тему</button>
-    </div>
-    <div class="setting">
-      <div class="setting-title">💾 Перенос огонька</div>
-      <div class="small">Сохрани прогресс в код и восстанови его на другом устройстве.</div>
-      <button class="btn" onclick="exportData()">Экспорт данных</button>
-      <button class="btn secondary" onclick="importData()">Импорт данных</button>
-      <textarea id="transferBox" placeholder="Здесь появится код переноса"></textarea>
-    </div>
-    <div class="setting">
-      <div class="setting-title">⚡ Админка</div>
-      <div class="small">Управление событиями проекта.</div>
-      <button class="btn secondary" onclick="openAdminLogin()">Открыть админку</button>
-    </div>
-  </section>
-
-  <!-- СЕЗОН: отдельная страница, не кнопка в нижнем меню -->
-  <section id="seasonPage" class="page">
-    <button class="text-btn" onclick="showPage('shopPage')">← Назад в магазин</button>
-    <h1>Сезоны</h1>
-    <p class="small">Выполняй задания, повышай уровень и забирай награды.</p>
-    <div class="season-card">
-      <div class="row between">
-        <span class="pill">БЕСПЛАТНЫЙ СЕЗОН</span>
-        <span class="small" id="seasonDays">30 уровней</span>
-      </div>
-      <h2 style="margin-top:15px">Сезон 1 — Искра Разгорается</h2>
-      <div class="row between" style="margin-top:12px">
-        <strong id="seasonLevel">Лвл — 1</strong>
-        <strong style="color:var(--accent)" id="seasonReward">Награда — 50 искр</strong>
-      </div>
-      <div class="progress"><div id="seasonProgress" class="progress-bar"></div></div>
-      <div class="progress-label small">
-        <span id="seasonXpLabel">0 / 100 XP</span>
-        <span id="seasonPercent">0%</span>
-      </div>
-      <p class="small">Получай XP за дни огонька. Прогресс сезона не сбрасывает твою серию.</p>
-    </div>
-    <div class="section-heading"><h2>Награды сезона</h2></div>
-    <div id="seasonRewards"></div>
-  </section>
+ <!-- СЕЗОН -->
+ <section id="seasonPage" class="page">
+  <button class="text-btn" onclick="showPage('shopPage')">← Назад в магазин</button>
+  <h1>Сезоны</h1><p class="small">Получай XP и открывай награды.</p>
+  <div class="season-card">
+   <div class="row between"><span class="pill">СЕЗОН 1</span><span class="small">30 уровней</span></div>
+   <h2 style="margin-top:14px">Искра Разгорается</h2>
+   <div class="row between" style="margin-top:14px"><strong id="seasonLevel">Лвл — 1</strong><strong id="seasonReward" style="color:var(--accent)">Награда — 50 искр</strong></div>
+   <div class="progress"><div id="seasonProgress" class="progress-bar"></div></div>
+   <div class="progress-label small"><span id="seasonXpLabel">0 / 100 XP</span><span id="seasonPercent">0%</span></div>
+   <p class="small">Уровень рассчитывается по дням серии. Сезон не сбрасывает твой основной прогресс.</p>
+  </div>
+  <div class="section-heading"><h2>Награды сезона</h2></div>
+  <div id="seasonRewards"></div>
+ </section>
 </main>
 
 <nav class="nav">
-  <button class="active" onclick="showPage('homePage',this)"><span class="nav-icon">⌂</span>Главная</button>
-  <button onclick="showPage('clothesPage',this)"><span class="nav-icon">◉</span>Одежда</button>
-  <button onclick="showPage('shopPage',this)"><span class="nav-icon">▣</span>Магазин</button>
-  <button onclick="showPage('settingsPage',this)"><span class="nav-icon">⚙</span>Настройки</button>
+ <button class="active" onclick="showPage('homePage',this)"><span class="nav-icon">⌂</span>Главная</button>
+ <button onclick="showPage('clothesPage',this)"><span class="nav-icon">◉</span>Одежда</button>
+ <button onclick="showPage('shopPage',this)"><span class="nav-icon">▣</span>Магазин</button>
+ <button onclick="showPage('settingsPage',this)"><span class="nav-icon">⚙</span>Настройки</button>
 </nav>
 
-<!-- ВЕРСИЯ -->
-<div class="modal" id="versionModal">
-  <div class="modal-box">
-    <button class="close" onclick="closeModal('versionModal')">×</button>
-    <h2>Огонёк</h2>
-    <p>Минималистичный интерфейс, магазин Sparks и система сезонов.</p>
-    <div class="small">Твой сохранённый прогресс хранится локально в браузере.</div>
-  </div>
-</div>
+<div class="modal" id="versionModal"><div class="modal-box"><button class="close" onclick="closeModal('versionModal')">×</button><h2>Огонёк</h2><p class="small">Серия дней, коллекция, Sparks и сезонные награды.</p></div></div>
 
-<!-- GOOGLE LOGIN -->
-<div class="modal" id="adminLoginModal">
-  <div class="modal-box">
-    <button class="close" onclick="closeModal('adminLoginModal')">×</button>
-    <h2>Вход администратора</h2>
-    <p class="small">Войдите через разрешённый Google-аккаунт.</p>
-    <button class="btn" onclick="googleLogin()">Войти через Google</button>
-    <div id="loginStatus" class="small" style="margin-top:10px"></div>
-  </div>
-</div>
+<div class="modal" id="adminLoginModal"><div class="modal-box"><button class="close" onclick="closeModal('adminLoginModal')">×</button><h2>Вход администратора</h2><p class="small">Войти через разрешённый Google-аккаунт.</p><button class="btn" onclick="googleLogin()">Войти через Google</button><div id="loginStatus" class="small" style="margin-top:10px"></div></div></div>
 
-<!-- АДМИНКА -->
 <div class="modal" id="adminModal">
-  <div class="modal-box">
-    <button class="close" onclick="closeModal('adminModal')">×</button>
-    <h2>Админка событий</h2>
-    <div id="adminUser" class="small" style="margin:10px 0"></div>
-    <hr>
-    <div class="setting">
-      <div class="setting-title">Создать событие</div>
-      <input id="eventName" placeholder="Название события">
-      <textarea id="eventDescription" placeholder="Описание"></textarea>
-      <input id="eventReward" placeholder="Награда">
-      <label class="small">Начало события</label>
-      <input id="eventStart" type="datetime-local">
-      <label class="small">Конец события</label>
-      <input id="eventEnd" type="datetime-local">
-      <button class="btn" onclick="createEvent()">Создать событие</button>
-      <div id="createStatus" class="small" style="margin-top:8px"></div>
-    </div>
-    <h2 style="margin-top:20px">Все события</h2>
-    <div id="adminEvents" class="small">Загрузка…</div>
-    <button class="btn secondary" onclick="adminLogout()">Выйти</button>
+ <div class="modal-box">
+  <button class="close" onclick="closeModal('adminModal')">×</button><h2>Админка событий</h2>
+  <div id="adminUser" class="small" style="margin:9px 0"></div><hr>
+  <div class="setting"><div class="setting-title">Создать событие</div>
+   <input id="eventName" placeholder="Название события">
+   <textarea id="eventDescription" placeholder="Описание"></textarea>
+   <input id="eventReward" placeholder="Награда">
+   <label class="small">Начало события</label><input id="eventStart" type="datetime-local">
+   <label class="small">Конец события</label><input id="eventEnd" type="datetime-local">
+   <button class="btn" onclick="createEvent()">Создать событие</button><div id="createStatus" class="small" style="margin-top:8px"></div>
   </div>
+  <div class="section-heading"><h2>Все события</h2></div><div id="adminEvents"></div>
+  <button class="btn secondary" onclick="adminLogout()">Выйти</button>
+ </div>
 </div>
 
 <script type="module">
 import {initializeApp} from "https://www.gstatic.com/firebasejs/12.2.1/firebase-app.js";
-import {getAuth,GoogleAuthProvider,signInWithRedirect,getRedirectResult,onAuthStateChanged,signOut}
-  from "https://www.gstatic.com/firebasejs/12.2.1/firebase-auth.js";
-import {getDatabase,ref,push,set,remove,onValue}
-  from "https://www.gstatic.com/firebasejs/12.2.1/firebase-database.js";
+import {getAuth,GoogleAuthProvider,signInWithRedirect,getRedirectResult,onAuthStateChanged,signOut} from "https://www.gstatic.com/firebasejs/12.2.1/firebase-auth.js";
+import {getDatabase,ref,push,set,remove,onValue} from "https://www.gstatic.com/firebasejs/12.2.1/firebase-database.js";
 
 const firebaseConfig={
-  apiKey:"AIzaSyDStXUlkqATov4QHOPk6HGb7DrSAs4RkGw",
-  authDomain:"ogonyoksa.firebaseapp.com",
-  databaseURL:"https://ogonyoksa-default-rtdb.europe-west1.firebasedatabase.app",
-  projectId:"ogonyoksa",
-  storageBucket:"ogonyoksa.firebasestorage.app",
-  messagingSenderId:"403527501538",
-  appId:"1:403527501538:web:d5fafa759c1931216880bb"
+ apiKey:"AIzaSyDStXUlkqATov4QHOPk6HGb7DrSAs4RkGw",
+ authDomain:"ogonyoksa.firebaseapp.com",
+ databaseURL:"https://ogonyoksa-default-rtdb.europe-west1.firebasedatabase.app",
+ projectId:"ogonyoksa",
+ storageBucket:"ogonyoksa.firebasestorage.app",
+ messagingSenderId:"403527501538",
+ appId:"1:403527501538:web:d5fafa759c1931216880bb"
 };
-const app=initializeApp(firebaseConfig);
-const auth=getAuth(app);
-const provider=new GoogleAuthProvider();
-const db=getDatabase(app);
-const ADMIN_EMAIL="luboeima6677@gmail.com";
-const eventsRef=ref(db,"events");
+const app=initializeApp(firebaseConfig),auth=getAuth(app),provider=new GoogleAuthProvider(),db=getDatabase(app);
+const ADMIN_EMAIL="luboeima6677@gmail.com",eventsRef=ref(db,"events");
+const $=id=>document.getElementById(id);
 
-/* Сохраняем старый ключ ogonyokData и дополняем отсутствующие поля. */
 let data={};
 try{data=JSON.parse(localStorage.getItem("ogonyokData")||"{}")||{};}catch{data={};}
 const defaults={
-  startDate:new Date().toISOString(),skin:"normal",language:"ru",theme:"dark",
-  starBonusDays:0,starAchievement:false,starDay:0,starCount:0,
-  starRewardDay:false,flameName:"Мой огонёк",sparks:0,
-  ownedItems:["normal"],equippedItems:{skin:"normal",effect:"none",clothes:"none"},
-  seasonXP:0,seasonClaimed:[],seasonId:1
+ startDate:new Date().toISOString(),skin:"normal",language:"ru",theme:"dark",
+ starBonusDays:0,starAchievement:false,starDay:0,starCount:0,starRewardDay:false,
+ flameName:"Мой огонёк",sparks:0,ownedItems:["normal"],
+ equippedItems:{skin:"normal",clothes:"none",effect:"none"},
+ seasonClaimed:[],seasonXP:0,seasonId:1
 };
-for(const [key,value] of Object.entries(defaults)){
-  if(data[key]===undefined)data[key]=value;
-}
+for(const [k,v] of Object.entries(defaults))if(data[k]===undefined)data[k]=v;
 if(!Array.isArray(data.ownedItems))data.ownedItems=["normal"];
 if(!Array.isArray(data.seasonClaimed))data.seasonClaimed=[];
-if(!data.equippedItems||typeof data.equippedItems!=="object")
-  data.equippedItems={skin:data.skin||"normal",effect:"none",clothes:"none"};
+if(!data.equippedItems||typeof data.equippedItems!=="object")data.equippedItems={...defaults.equippedItems};
 if(!data.equippedItems.skin)data.equippedItems.skin=data.skin||"normal";
 if(!Number.isFinite(Number(data.sparks)))data.sparks=0;
 function save(){localStorage.setItem("ogonyokData",JSON.stringify(data));}
-const $=id=>document.getElementById(id);
+function daysCount(){return Math.max(0,Math.floor((Date.now()-new Date(data.startDate).getTime())/86400000)+Number(data.starBonusDays||0));}
 
 const skins={
-  normal:{icon:"🔥",name:"Обычный",days:0},
-  ice:{icon:"❄️",name:"Лёд",days:7},
-  purple:{icon:"💜",name:"Пурпур",days:30},
-  neon:{icon:"🌈",name:"Неон",days:90},
-  electric:{icon:"⚡",name:"Электрический",days:180},
-  solar:{icon:"☀️",name:"Солнечный",days:365},
-  diamond:{icon:"💎",name:"Алмазный",days:720},
-  space:{icon:"🌌",name:"Космос",days:1000}
+ normal:{icon:"🔥",name:"Обычный",days:0},
+ ice:{icon:"❄️",name:"Лёд",days:7},
+ purple:{icon:"💜",name:"Пурпур",days:30},
+ neon:{icon:"🌈",name:"Неон",days:90},
+ electric:{icon:"⚡",name:"Электрический",days:180},
+ solar:{icon:"☀️",name:"Солнечный",days:365},
+ diamond:{icon:"💎",name:"Алмазный",days:720},
+ space:{icon:"🌌",name:"Космос",days:1000}
 };
 const products=[
-  {id:"normal",category:"skins",name:"Обычный",icon:"🔥",price:0,description:"Классический огонёк"},
-  {id:"ember",category:"skins",name:"Угольки",icon:"🟠",price:80,description:"Тёплый огненный стиль"},
-  {id:"moon",category:"skins",name:"Лунный",icon:"🌙",price:140,description:"Ночной образ"},
-  {id:"sparkles",category:"effects",name:"Искры",icon:"✨",price:60,description:"Мягкое сияние"},
-  {id:"aura",category:"effects",name:"Аура",icon:"💫",price:120,description:"Светящийся эффект"},
-  {id:"cap",category:"clothes",name:"Кепка",icon:"🧢",price:50,description:"Первый аксессуар"},
-  {id:"glasses",category:"clothes",name:"Очки",icon:"🕶️",price:70,description:"Стильный аксессуар"}
+ {id:"normal",category:"skins",name:"Обычный",icon:"🔥",price:0,desc:"Классический огонёк"},
+ {id:"ember",category:"skins",name:"Угольки",icon:"🟠",price:80,desc:"Тёплый стиль"},
+ {id:"moon",category:"skins",name:"Лунный",icon:"🌙",price:140,desc:"Ночной образ"},
+ {id:"crystal",category:"skins",name:"Кристалл",icon:"🔮",price:200,desc:"Редкий образ"},
+ {id:"cap",category:"clothes",name:"Кепка",icon:"🧢",price:50,desc:"Аксессуар"},
+ {id:"glasses",category:"clothes",name:"Очки",icon:"🕶️",price:70,desc:"Стильный аксессуар"},
+ {id:"hoodie",category:"clothes",name:"Худи",icon:"🧥",price:110,desc:"Тёплая одежда"},
+ {id:"sparkles",category:"effects",name:"Искры",icon:"✨",price:60,desc:"Мягкое сияние"},
+ {id:"aura",category:"effects",name:"Аура",icon:"💫",price:120,desc:"Светящийся эффект"},
+ {id:"flameTrail",category:"effects",name:"Огненный след",icon:"🔥",price:180,desc:"След из искр"}
 ];
-const milestones=[1,7,30,90,180,365,720,1000];
 const achievements=[
-  {id:"day1",days:1,icon:"🔥",title:"Первый огонёк"},
-  {id:"day7",days:7,icon:"🔥",title:"Неделя огня"},
-  {id:"day30",days:30,icon:"🔥",title:"Месяц без перерыва"},
-  {id:"day90",days:90,icon:"🔥",title:"Три месяца пламя"},
-  {id:"day180",days:180,icon:"🔥",title:"Половина года"},
-  {id:"day365",days:365,icon:"🔥",title:"Год огня"},
-  {id:"day720",days:720,icon:"🔥",title:"Два года огня"},
-  {id:"day1000",days:1000,icon:"🔥",title:"Тысячный день"},
-  {id:"star",days:0,icon:"⭐",title:"Звездочёт"}
+ {id:"day1",days:1,icon:"🔥",title:"Первый огонёк"},
+ {id:"day7",days:7,icon:"🔥",title:"Неделя огня"},
+ {id:"day30",days:30,icon:"🔥",title:"Месяц без перерыва"},
+ {id:"day90",days:90,icon:"🔥",title:"Три месяца пламени"},
+ {id:"day180",days:180,icon:"🔥",title:"Половина года"},
+ {id:"day365",days:365,icon:"🏆",title:"Год огня"},
+ {id:"day720",days:720,icon:"💎",title:"Два года огня"},
+ {id:"day1000",days:1000,icon:"👑",title:"Тысячный день"},
+ {id:"star",days:0,icon:"⭐",title:"Звездочёт"}
 ];
 const seasonRewards=[
-  {level:1,type:"sparks",amount:50,name:"50 искр",icon:"✦"},
-  {level:2,type:"item",id:"cap",name:"Кепка",icon:"🧢"},
-  {level:3,type:"sparks",amount:30,name:"30 искр",icon:"✦"},
-  {level:4,type:"item",id:"glasses",name:"Очки",icon:"🕶️"},
-  {level:5,type:"sparks",amount:50,name:"50 искр",icon:"✦"},
-  {level:6,type:"item",id:"ember",name:"Скин «Угольки»",icon:"🟠"},
-  {level:7,type:"sparks",amount:75,name:"75 искр",icon:"✦"},
-  {level:8,type:"item",id:"sparkles",name:"Эффект искр",icon:"✨"},
-  {level:9,type:"sparks",amount:100,name:"100 искр",icon:"✦"},
-  {level:10,type:"item",id:"moon",name:"Лунный скин",icon:"🌙"}
+ {level:1,type:"sparks",amount:50,name:"50 искр",icon:"✦"},
+ {level:2,type:"item",id:"cap",name:"Кепка",icon:"🧢"},
+ {level:3,type:"sparks",amount:30,name:"30 искр",icon:"✦"},
+ {level:4,type:"item",id:"glasses",name:"Очки",icon:"🕶️"},
+ {level:5,type:"sparks",amount:50,name:"50 искр",icon:"✦"},
+ {level:6,type:"item",id:"ember",name:"Скин «Угольки»",icon:"🟠"},
+ {level:7,type:"sparks",amount:75,name:"75 искр",icon:"✦"},
+ {level:8,type:"item",id:"sparkles",name:"Эффект искр",icon:"✨"},
+ {level:9,type:"sparks",amount:100,name:"100 искр",icon:"✦"},
+ {level:10,type:"item",id:"moon",name:"Лунный скин",icon:"🌙"},
+ {level:11,type:"sparks",amount:75,name:"75 искр",icon:"✦"},
+ {level:12,type:"item",id:"hoodie",name:"Худи",icon:"🧥"},
+ {level:13,type:"sparks",amount:100,name:"100 искр",icon:"✦"},
+ {level:14,type:"item",id:"aura",name:"Аура",icon:"💫"},
+ {level:15,type:"sparks",amount:125,name:"125 искр",icon:"✦"},
+ {level:16,type:"item",id:"crystal",name:"Скин «Кристалл»",icon:"🔮"},
+ {level:17,type:"sparks",amount:100,name:"100 искр",icon:"✦"},
+ {level:18,type:"item",id:"flameTrail",name:"Огненный след",icon:"🔥"},
+ {level:19,type:"sparks",amount:150,name:"150 искр",icon:"✦"},
+ {level:20,type:"item",id:"solar",name:"Солнечный образ",icon:"☀️"},
+ {level:21,type:"sparks",amount:125,name:"125 искр",icon:"✦"},
+ {level:22,type:"item",id:"neon",name:"Неоновый образ",icon:"🌈"},
+ {level:23,type:"sparks",amount:150,name:"150 искр",icon:"✦"},
+ {level:24,type:"item",id:"electric",name:"Электрический образ",icon:"⚡"},
+ {level:25,type:"sparks",amount:175,name:"175 искр",icon:"✦"},
+ {level:26,type:"item",id:"diamond",name:"Алмазный образ",icon:"💎"},
+ {level:27,type:"sparks",amount:200,name:"200 искр",icon:"✦"},
+ {level:28,type:"item",id:"space",name:"Космический образ",icon:"🌌"},
+ {level:29,type:"sparks",amount:250,name:"250 искр",icon:"✦"},
+ {level:30,type:"sparks",amount:500,name:"500 искр · Финальная награда",icon:"👑"}
 ];
-/* Уровни 11–30 можно наполнить новыми предметами позже. */
 
-function calculateDays(){
-  const start=new Date(data.startDate).getTime();
-  const elapsed=Math.floor((Date.now()-start)/86400000);
-  return Math.max(0,elapsed+Number(data.starBonusDays||0));
-}
-function balance(){
-  $("sparksBalance").textContent=Math.floor(Number(data.sparks)||0);
-  $("shopBalance").textContent=Math.floor(Number(data.sparks)||0);
-}
-function setSparks(value){
-  data.sparks=Math.max(0,Math.floor(Number(value)||0));
-  save();balance();
-}
-function addSparks(amount){
-  setSparks(Number(data.sparks||0)+amount);
-}
+function setSparks(value){data.sparks=Math.max(0,Math.floor(Number(value)||0));save();renderBalance();}
+function addSparks(amount){setSparks(Number(data.sparks||0)+amount);}
+function renderBalance(){$("sparksBalance").textContent=Math.floor(Number(data.sparks)||0);$("shopBalance").textContent=Math.floor(Number(data.sparks)||0);}
 function updateFlame(){
-  const days=calculateDays();
-  $("days").textContent=days;
-  $("flameNameDisplay").textContent=data.flameName||"Мой огонёк";
-  $("flameDisplay").textContent=(skins[data.equippedItems.skin]||skins.normal).icon;
-  $("clothesPreview").textContent=(skins[data.equippedItems.skin]||skins.normal).icon;
-  $("equippedName").textContent=(skins[data.equippedItems.skin]||skins.normal).name;
-  updateProgress(days);updateAchievements(days);updateSkins(days);
-  updateStarEvent(days);updateSeason(days);balance();save();
+ const days=daysCount(),skin=skins[data.equippedItems.skin]||skins.normal;
+ $("days").textContent=days;$("flameNameDisplay").textContent=data.flameName||"Мой огонёк";
+ $("flameDisplay").textContent=skin.icon;$("clothesPreview").textContent=skin.icon;$("equippedName").textContent=skin.name;
+ updateProgress(days);renderAchievements(days);renderWardrobe(days);updateStarEvent(days);updateSeason(days);
+ renderBalance();save();
 }
 function updateProgress(days){
-  const next=milestones.find(v=>v>days);
-  const previous=next?(milestones[milestones.indexOf(next)-1]||0):1000;
-  const percent=next?Math.max(0,Math.min(100,(days-previous)/(next-previous)*100)):100;
-  $("dayProgress").style.width=percent+"%";
-  $("progressPercent").textContent=Math.floor(percent)+"%";
-  $("nextAchievement").textContent=next?"Следующая ачивка: "+next+" дн.":"Все основные ачивки открыты!";
-  $("homeGoal").textContent=next?(achievements.find(a=>a.days===next)?.title||"Новая цель")+" · "+next+" дней":"Все основные цели выполнены";
+ const next=achievements.find(a=>a.days>days&&a.days>0);
+ const previous=next?(achievements.filter(a=>a.days>0&&a.days<next.days).slice(-1)[0]?.days||0):1000;
+ const percent=next?Math.max(0,Math.min(100,(days-previous)/(next.days-previous)*100)):100;
+ $("dayProgress").style.width=percent+"%";$("progressPercent").textContent=Math.floor(percent)+"%";
+ $("nextAchievement").textContent=next?"Следующая ачивка: "+next.days+" дн.":"Все основные ачивки открыты!";
+ $("homeGoal").textContent=next?next.title+" · "+next.days+" дней":"Все основные цели выполнены";
 }
-function updateAchievements(days){
-  $("achievementsList")?.replaceChildren();
-  const container=$("achievementsList");
-  if(!container)return;
-  achievements.forEach(a=>{
-    const unlocked=a.id==="star"?data.starAchievement===true:days>=a.days;
-    const div=document.createElement("div");
-    div.className="achievement"+(unlocked?"":" locked");
-    div.innerHTML=`<div class="achievement-icon">${a.icon}</div><div class="grow"><strong>${a.title}</strong><div class="small">${unlocked?"Получено ✓":a.days+" дней"}</div></div>`;
-    container.appendChild(div);
-  });
+function renderAchievements(days){
+ const container=$("achievementsList");container.innerHTML="";
+ achievements.forEach(a=>{
+  const unlocked=a.id==="star"?data.starAchievement===true:days>=a.days;
+  const el=document.createElement("div");el.className="achievement"+(unlocked?"":" locked");
+  el.innerHTML=`<div class="achievement-icon">${a.icon}</div><div class="grow"><strong>${a.title}</strong><div class="small">${unlocked?"Получено ✓":a.days+" дней"}</div></div>`;
+  container.appendChild(el);
+ });
 }
-function updateSkins(days){
-  const grid=$("clothesGrid");grid.innerHTML="";
-  Object.entries(skins).forEach(([id,s])=>{
-    const owned=data.ownedItems.includes(id);
-    const unlocked=days>=s.days;
-    const selected=data.equippedItems.skin===id;
-    const div=document.createElement("div");
-    div.className="skin"+(!owned&&!unlocked?" locked":"");
-    div.innerHTML=`<div class="skin-preview">${s.icon}</div><div class="skin-name">${s.name}</div><div class="small">${owned?"В коллекции":unlocked?"Можно открыть":s.days+" дней"}</div><button class="btn ${selected?"secondary":""}" ${!owned&&!unlocked?"disabled":""}>${selected?"Надет":owned?"Надеть":"Открыть"}</button>`;
-    div.querySelector("button").onclick=()=>{
-      if(!owned&&!unlocked)return;
-      if(!owned)data.ownedItems.push(id);
-      data.equippedItems.skin=id;data.skin=id;save();updateFlame();renderShop("skins");
-    };
-    grid.appendChild(div);
-  });
+function renderWardrobe(days){
+ const container=$("clothesGrid");container.innerHTML="";
+ Object.entries(skins).forEach(([id,s])=>{
+  const owned=data.ownedItems.includes(id),unlocked=days>=s.days,selected=data.equippedItems.skin===id;
+  const el=document.createElement("div");el.className="skin"+(!owned&&!unlocked?" locked":"");
+  el.innerHTML=`<div class="preview">${s.icon}</div><div class="item-name">${s.name}</div><div class="small" style="margin-top:5px">${owned?"В коллекции":unlocked?"Доступен":s.days+" дней"}</div><button class="btn ${selected?"secondary":""}" ${!owned&&!unlocked?"disabled":""}>${selected?"Надет":owned?"Надеть":"Открыть"}</button>`;
+  el.querySelector("button").onclick=()=>{
+   if(!owned&&!unlocked)return;
+   if(!owned)data.ownedItems.push(id);
+   data.equippedItems.skin=id;data.skin=id;save();updateFlame();
+  };
+  container.appendChild(el);
+ });
 }
-function updateStarEvent(days){
-  const target=Math.floor(days/7);
-  $("starPortal").classList.toggle("hidden",!(days>=7&&target>Number(data.starDay||0)));
-  $("starInfo").textContent="Собрано звёзд: "+Number(data.starCount||0);
-}
-window.collectStar=function(){
-  const target=Math.floor(calculateDays()/7);
-  if(calculateDays()<7||target<=Number(data.starDay||0)){alert("Звезда пока недоступна.");return;}
-  data.starDay=target;data.starCount=Number(data.starCount||0)+1;
-  data.starAchievement=true;addSparks(10);updateFlame();
-  alert("⭐ Звезда собрана! +10 Sparks");
+window.setShopCategory=(category,button)=>{
+ document.querySelectorAll("#shopTabs .tab").forEach(b=>b.classList.remove("active"));
+ if(button)button.classList.add("active");renderShop(category);
 };
-window.changeFlameName=function(){data.flameName=$("flameNameInput").value||"Мой огонёк";save();$("flameNameDisplay").textContent=data.flameName;};
-window.changeLanguage=function(){data.language=$("languageSelect").value;save();};
-window.toggleTheme=function(){data.theme=data.theme==="light"?"dark":"light";applyTheme();save();};
+function renderShop(category="skins"){
+ const container=$("shopContent");container.innerHTML="";
+ if(category==="seasons"){
+  const el=document.createElement("div");el.className="season-card";
+  el.innerHTML=`<div class="row between"><span class="pill">СЕЗОН 1</span><span class="small">30 уровней</span></div><h2 style="margin-top:12px">Искра Разгорается</h2><p class="small">Открывай награды за уровни сезона.</p><button class="btn" id="seasonOpen">Открыть сезон</button>`;
+  el.querySelector("button").onclick=()=>showPage("seasonPage");container.appendChild(el);return;
+ }
+ const grid=document.createElement("div");grid.className="grid";
+ products.filter(p=>p.category===category).forEach(p=>{
+  const owned=data.ownedItems.includes(p.id);
+  const equipped=Object.values(data.equippedItems).includes(p.id);
+  const el=document.createElement("div");el.className="product";
+  el.innerHTML=`<div class="preview">${p.icon}</div><div class="item-name">${p.name}</div><div class="small" style="margin-top:5px">${p.desc}</div><div style="color:var(--accent);font-weight:800;font-size:13px;margin-top:10px">${p.price===0?"Бесплатно":"✦ "+p.price}</div><button class="btn ${owned?"secondary":""}">${equipped?"Надето":owned?"Надеть":"Купить"}</button>`;
+  el.querySelector("button").onclick=()=>{
+   if(owned){
+    if(category==="skins"){data.equippedItems.skin=p.id;data.skin=p.id;}
+    if(category==="clothes")data.equippedItems.clothes=p.id;
+    if(category==="effects")data.equippedItems.effect=p.id;
+   }else{
+    if(Number(data.sparks)<p.price){alert("Недостаточно Sparks.");return;}
+    setSparks(Number(data.sparks)-p.price);data.ownedItems.push(p.id);
+    if(category==="skins"){data.equippedItems.skin=p.id;data.skin=p.id;}
+    if(category==="clothes")data.equippedItems.clothes=p.id;
+    if(category==="effects")data.equippedItems.effect=p.id;
+   }
+   save();updateFlame();renderShop(category);
+  };
+  grid.appendChild(el);
+ });
+ container.appendChild(grid);
+}
+function seasonLevel(){
+ const xp=Math.max(0,daysCount()*10+Number(data.seasonExtraXP||0));
+ return {xp,level:Math.min(30,Math.floor(xp/100)+1),within:xp%100};
+}
+function updateSeason(){
+ const s=seasonLevel(),reward=seasonRewards.find(r=>r.level===s.level)||seasonRewards[29];
+ $("seasonLevel").textContent="Лвл — "+s.level;
+ $("seasonReward").textContent="Награда — "+reward.name;
+ $("seasonXpLabel").textContent=s.level>=30?"Максимальный уровень":s.within+" / 100 XP";
+ $("seasonPercent").textContent=(s.level>=30?100:s.within)+"%";
+ $("seasonProgress").style.width=(s.level>=30?100:s.within)+"%";
+ const container=$("seasonRewards");container.innerHTML="";
+ seasonRewards.forEach(r=>{
+  const claimed=data.seasonClaimed.includes(r.level),unlocked=s.level>=r.level;
+  const el=document.createElement("div");el.className="season-card";
+  el.innerHTML=`<div class="row"><div class="reward-icon">${r.icon}</div><div class="grow"><strong>Уровень ${r.level}</strong><div class="small">${r.name}</div></div><button class="btn small-btn ${claimed?"secondary":""}" ${!unlocked||claimed?"disabled":""}>${claimed?"Получено":unlocked?"Забрать":"Закрыто"}</button></div>`;
+  el.querySelector("button").onclick=()=>{
+   if(!unlocked||claimed)return;
+   if(r.type==="sparks")addSparks(r.amount);
+   if(r.type==="item"&&!data.ownedItems.includes(r.id))data.ownedItems.push(r.id);
+   data.seasonClaimed.push(r.level);save();updateFlame();
+  };
+  container.appendChild(el);
+ });
+}
+window.changeFlameName=()=>{data.flameName=$("flameNameInput").value||"Мой огонёк";$("flameNameDisplay").textContent=data.flameName;save();};
+window.changeLanguage=()=>{data.language=$("languageSelect").value;save();};
+window.toggleTheme=()=>{data.theme=data.theme==="light"?"dark":"light";applyTheme();save();};
 function applyTheme(){document.body.classList.toggle("light",data.theme==="light");}
-window.exportData=function(){
-  $("transferBox").value=btoa(unescape(encodeURIComponent(JSON.stringify(data))));
+window.exportData=()=>{$("transferBox").value=btoa(unescape(encodeURIComponent(JSON.stringify(data))));};
+window.importData=()=>{
+ try{
+  const imported=JSON.parse(decodeURIComponent(escape(atob($("transferBox").value.trim()))));
+  if(!imported||typeof imported!=="object"||!imported.startDate)throw Error();
+  if(!confirm("Заменить текущий прогресс данными из кода?"))return;
+  data={...defaults,...imported};
+  if(!Array.isArray(data.ownedItems))data.ownedItems=["normal"];
+  if(!Array.isArray(data.seasonClaimed))data.seasonClaimed=[];
+  if(!data.equippedItems)data.equippedItems={...defaults.equippedItems,skin:data.skin||"normal"};
+  save();syncSettings();applyTheme();updateFlame();renderShop("skins");alert("Огонёк восстановлен!");
+ }catch{alert("Неверный код переноса.");}
 };
-window.importData=function(){
-  try{
-    const imported=JSON.parse(decodeURIComponent(escape(atob($("transferBox").value.trim()))));
-    if(!imported||typeof imported!=="object"||!imported.startDate)throw Error();
-    if(!confirm("Заменить текущие данные данными из кода?"))return;
-    data={...defaults,...imported};
-    if(!data.equippedItems)data.equippedItems={skin:data.skin||"normal",effect:"none",clothes:"none"};
-    save();syncSettings();applyTheme();updateFlame();renderShop("skins");
-    alert("Огонёк восстановлен!");
-  }catch{alert("Неверный код переноса.");}
-};
-function syncSettings(){
-  $("flameNameInput").value=data.flameName||"Мой огонёк";
-  $("languageSelect").value=data.language||"ru";
-}
-window.showPage=function(pageId,button){
-  document.querySelectorAll(".page").forEach(p=>p.classList.remove("active"));
-  $(pageId).classList.add("active");
-  document.querySelectorAll(".nav button").forEach(b=>b.classList.remove("active"));
-  if(button&&button.classList)button.classList.add("active");
-  else{
-    const index={homePage:0,clothesPage:1,shopPage:2,settingsPage:3}[pageId];
-    if(index!==undefined)document.querySelectorAll(".nav button")[index].classList.add("active");
-  }
-  if(pageId==="seasonPage")updateSeason(calculateDays());
-  window.scrollTo({top:0,behavior:"smooth"});
+function syncSettings(){$("flameNameInput").value=data.flameName||"Мой огонёк";$("languageSelect").value=data.language||"ru";}
+window.showPage=(id,button)=>{
+ document.querySelectorAll(".page").forEach(p=>p.classList.remove("active"));
+ $(id).classList.add("active");
+ document.querySelectorAll(".nav button").forEach(b=>b.classList.remove("active"));
+ if(button?.classList)button.classList.add("active");
+ else{
+  const map={homePage:0,clothesPage:1,shopPage:2,settingsPage:3};
+  if(map[id]!==undefined)document.querySelectorAll(".nav button")[map[id]].classList.add("active");
+ }
+ if(id==="seasonPage")updateSeason();window.scrollTo({top:0,behavior:"smooth"});
 };
 window.openVersion=()=> $("versionModal").classList.add("show");
 window.closeModal=id=>$(id).classList.remove("show");
-
-/* Магазин */
-window.setShopCategory=function(category,button){
-  document.querySelectorAll("#shopTabs .tab").forEach(b=>b.classList.remove("active"));
-  if(button)button.classList.add("active");
-  renderShop(category);
+function updateStarEvent(days){
+ const target=Math.floor(days/7);
+ $("starPortal").classList.toggle("hidden",!(days>=7&&target>Number(data.starDay||0)));
+ $("starInfo").textContent="Собрано звёзд: "+Number(data.starCount||0);
+}
+window.collectStar=()=>{
+ const days=daysCount(),target=Math.floor(days/7);
+ if(days<7||target<=Number(data.starDay||0)){alert("Звезда пока недоступна.");return;}
+ data.starDay=target;data.starCount=Number(data.starCount||0)+1;data.starAchievement=true;
+ addSparks(10);updateFlame();alert("Звезда собрана! +10 Sparks");
 };
-function renderShop(category){
-  const container=$("shopContent");container.innerHTML="";
-  if(category==="seasons"){
-    const div=document.createElement("div");div.className="season-card";
-    div.innerHTML=`<div class="row between"><span class="pill">СЕЗОН 1</span><span class="small">Бесплатный</span></div><h2 style="margin-top:12px">Искра Разгорается</h2><p class="small">30 уровней · награды за прогресс</p><button class="btn" id="openSeason">Открыть сезон</button>`;
-    div.querySelector("button").onclick=()=>showPage("seasonPage");
-    container.appendChild(div);return;
-  }
-  const list=products.filter(p=>p.category===category);
-  const grid=document.createElement("div");grid.className="grid";
-  list.forEach(p=>{
-    const owned=data.ownedItems.includes(p.id);
-    const equipped=Object.values(data.equippedItems).includes(p.id);
-    const tile=document.createElement("div");tile.className="product-tile";
-    tile.innerHTML=`<div class="skin-preview">${p.icon}</div><div class="skin-name">${p.name}</div><div class="small">${p.description}</div><div style="margin-top:10px;color:var(--accent);font-weight:800">${p.price===0?"Бесплатно":"✦ "+p.price}</div><button class="btn ${owned?"secondary":""}">${equipped?"Надето":owned?"Выбрать":"Купить"}</button>`;
-    tile.querySelector("button").onclick=()=>{
-      if(owned){
-        if(category==="skins"){data.equippedItems.skin=p.id;data.skin=p.id;}
-        else if(category==="effects")data.equippedItems.effect=p.id;
-        else data.equippedItems.clothes=p.id;
-        save();updateFlame();renderShop(category);return;
-      }
-      if(Number(data.sparks)<p.price){alert("Недостаточно Sparks.");return;}
-      setSparks(Number(data.sparks)-p.price);
-      data.ownedItems.push(p.id);
-      if(category==="skins"){data.equippedItems.skin=p.id;data.skin=p.id;}
-      else if(category==="effects")data.equippedItems.effect=p.id;
-      else data.equippedItems.clothes=p.id;
-      save();updateFlame();renderShop(category);
-    };
-    grid.appendChild(tile);
-  });
-  container.appendChild(grid);
-}
-function updateSeason(days){
-  /* Для первого прототипа XP зависит от дней. Не меняет основную серию. */
-  const xp=Math.max(0,days*10+Number(data.seasonExtraXP||0));
-  const level=Math.min(30,Math.floor(xp/100)+1);
-  const currentXP=xp%100;
-  const reward=seasonRewards.find(r=>r.level===level)||seasonRewards[seasonRewards.length-1];
-  $("seasonLevel").textContent="Лвл — "+level;
-  $("seasonReward").textContent="Награда — "+reward.name;
-  $("seasonXpLabel").textContent=level>=30?"Максимальный уровень":currentXP+" / 100 XP";
-  const percent=level>=30?100:currentXP;
-  $("seasonProgress").style.width=percent+"%";
-  $("seasonPercent").textContent=percent+"%";
-  $("seasonDays").textContent="30 уровней";
-  renderSeasonRewards(level);
-}
-function renderSeasonRewards(level){
-  const container=$("seasonRewards");container.innerHTML="";
-  seasonRewards.forEach(r=>{
-    const claimed=data.seasonClaimed.includes(r.level);
-    const unlocked=level>=r.level;
-    const div=document.createElement("div");div.className="season-card";
-    div.innerHTML=`<div class="row"><div class="reward-icon">${r.icon}</div><div class="grow"><strong>Уровень ${r.level}</strong><div class="small">${r.name}</div></div><button class="btn small-btn ${claimed?"secondary":""}" ${!unlocked||claimed?"disabled":""}>${claimed?"Получено":unlocked?"Забрать":"Закрыто"}</button></div>`;
-    div.querySelector("button").onclick=()=>{
-      if(!unlocked||claimed)return;
-      if(r.type==="sparks")addSparks(r.amount);
-      if(r.type==="item"&&!data.ownedItems.includes(r.id))data.ownedItems.push(r.id);
-      data.seasonClaimed.push(r.level);save();updateFlame();
-      renderSeasonRewards(level);
-    };
-    container.appendChild(div);
-  });
-}
 
-/* Звёздные и Firebase-события */
-function escapeHtml(value){
-  return String(value??"").replaceAll("&","&amp;").replaceAll("<","&lt;")
-    .replaceAll(">","&gt;").replaceAll('"',"&quot;").replaceAll("'","&#039;");
-}
-function formatDate(value){
-  if(!value)return "—";
-  const d=new Date(value);
-  return Number.isNaN(d.getTime())?String(value):d.toLocaleString("ru-RU",{day:"2-digit",month:"2-digit",year:"numeric",hour:"2-digit",minute:"2-digit"});
+/* Firebase: события и админ-панель */
+function escapeHtml(v){return String(v??"").replaceAll("&","&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;").replaceAll('"',"&quot;").replaceAll("'","&#039;");}
+function formatDate(v){
+ if(!v)return "—";const d=new Date(v);
+ return Number.isNaN(d.getTime())?String(v):d.toLocaleString("ru-RU",{day:"2-digit",month:"2-digit",year:"numeric",hour:"2-digit",minute:"2-digit"});
 }
 function renderEvents(snapshot){
-  const container=$("eventsList");container.innerHTML="";
-  let found=0;const now=Date.now();
-  snapshot.forEach(child=>{
-    const e=child.val();
-    const start=new Date(e.start).getTime(),end=new Date(e.end).getTime();
-    if(now>=start&&now<=end){
-      found++;
-      const div=document.createElement("div");div.className="event";
-      div.innerHTML=`<div class="event-name">${escapeHtml(e.name||"Событие")}</div><p class="small">${escapeHtml(e.description||"")}</p><div class="event-reward">🎁 ${escapeHtml(e.reward||"Награда")}</div><div class="small" style="margin-top:7px">До: ${formatDate(e.end)}</div>`;
-      container.appendChild(div);
-    }
-  });
-  if(!found)container.innerHTML='<div class="card small">Сейчас активных событий нет.</div>';
+ const box=$("eventsList");box.innerHTML="";let count=0;const now=Date.now();
+ snapshot.forEach(child=>{
+  const e=child.val(),start=new Date(e.start).getTime(),end=new Date(e.end).getTime();
+  if(now>=start&&now<=end){
+   count++;const el=document.createElement("div");el.className="event";
+   el.innerHTML=`<div class="event-name">${escapeHtml(e.name||"Событие")}</div><p class="small">${escapeHtml(e.description||"")}</p><div class="event-reward">🎁 ${escapeHtml(e.reward||"Награда")}</div><div class="small" style="margin-top:7px">До: ${formatDate(e.end)}</div>`;
+   box.appendChild(el);
+  }
+ });
+ if(!count)box.innerHTML='<div class="card small">Сейчас активных событий нет.</div>';
 }
 onValue(eventsRef,renderEvents,error=>{
-  console.error(error);
-  $("eventsList").innerHTML='<div class="card small">Не удалось загрузить события. Проверь подключение.</div>';
+ console.error(error);$("eventsList").innerHTML='<div class="card small">Не удалось загрузить события. Проверь подключение.</div>';
 });
-
 window.openAdminLogin=()=> $("adminLoginModal").classList.add("show");
 window.googleLogin=async()=>{
-  $("loginStatus").textContent="Открываем Google…";
-  try{await signInWithRedirect(auth,provider);}
-  catch(e){$("loginStatus").textContent="Ошибка входа: "+e.message;}
+ $("loginStatus").textContent="Открываем Google…";
+ try{await signInWithRedirect(auth,provider);}catch(e){$("loginStatus").textContent="Ошибка входа: "+e.message;}
 };
 async function checkRedirectLogin(){
-  try{
-    const result=await getRedirectResult(auth);
-    if(result){
-      const email=result.user.email||"";
-      if(email.toLowerCase()===ADMIN_EMAIL.toLowerCase()){
-        closeModal("adminLoginModal");await openAdmin();
-      }else{
-        alert("Этот аккаунт не является администратором.");
-        await signOut(auth);
-      }
-    }
-  }catch(e){$("loginStatus").textContent="Ошибка: "+e.message;}
+ try{
+  const result=await getRedirectResult(auth);
+  if(result){
+   if((result.user.email||"").toLowerCase()===ADMIN_EMAIL.toLowerCase()){
+    closeModal("adminLoginModal");openAdmin();
+   }else{alert("Этот аккаунт не является администратором.");await signOut(auth);}
+  }
+ }catch(e){$("loginStatus").textContent="Ошибка: "+e.message;}
 }
 checkRedirectLogin();
 onAuthStateChanged(auth,user=>{
-  if(user?.email?.toLowerCase()===ADMIN_EMAIL.toLowerCase())
-    $("adminUser").textContent="Вход выполнен: "+user.email;
+ if(user?.email?.toLowerCase()===ADMIN_EMAIL.toLowerCase())$("adminUser").textContent="Вход выполнен: "+user.email;
 });
 async function openAdmin(){
-  const user=auth.currentUser;
-  if(!user?.email||user.email.toLowerCase()!==ADMIN_EMAIL.toLowerCase()){
-    openAdminLogin();return;
-  }
-  closeModal("adminLoginModal");$("adminModal").classList.add("show");
-  $("adminUser").textContent="Вход выполнен: "+user.email;
-  loadAdminEvents();
+ const user=auth.currentUser;
+ if(!user?.email||user.email.toLowerCase()!==ADMIN_EMAIL.toLowerCase()){openAdminLogin();return;}
+ closeModal("adminLoginModal");$("adminModal").classList.add("show");
+ $("adminUser").textContent="Вход выполнен: "+user.email;loadAdminEvents();
 }
-let adminEventsListenerStarted=false;
+let adminListener=false;
 function loadAdminEvents(){
-  if(adminEventsListenerStarted)return;
-  adminEventsListenerStarted=true;
-  onValue(eventsRef,renderAdminEvents,error=>{
-    $("adminEvents").textContent="Ошибка загрузки: "+error.message;
-  });
+ if(adminListener)return;adminListener=true;
+ onValue(eventsRef,renderAdminEvents,error=>{$("adminEvents").textContent="Ошибка загрузки: "+error.message;});
 }
 function renderAdminEvents(snapshot){
-  const container=$("adminEvents");container.innerHTML="";let count=0;
-  snapshot.forEach(child=>{
-    count++;const e=child.val();const div=document.createElement("div");div.className="setting";
-    div.innerHTML=`<strong>${escapeHtml(e.name||"Событие")}</strong><div class="small">${escapeHtml(e.description||"")}</div><div class="small">${escapeHtml(e.reward||"")}</div><div class="small">${formatDate(e.start)} → ${formatDate(e.end)}</div><button class="btn secondary">Удалить</button>`;
-    div.querySelector("button").onclick=()=>deleteEvent(child.key);
-    container.appendChild(div);
-  });
-  if(!count)container.innerHTML='<div class="small">Событий пока нет.</div>';
+ const box=$("adminEvents");box.innerHTML="";let count=0;
+ snapshot.forEach(child=>{
+  count++;const e=child.val(),el=document.createElement("div");el.className="setting";
+  el.innerHTML=`<strong>${escapeHtml(e.name||"Событие")}</strong><div class="small">${escapeHtml(e.description||"")}</div><div class="small">${escapeHtml(e.reward||"")}</div><div class="small">${formatDate(e.start)} → ${formatDate(e.end)}</div><button class="btn secondary">Удалить событие</button>`;
+  el.querySelector("button").onclick=()=>deleteEvent(child.key);box.appendChild(el);
+ });
+ if(!count)box.innerHTML='<div class="small">Событий пока нет.</div>';
 }
 window.createEvent=async()=>{
-  const user=auth.currentUser,status=$("createStatus");
-  if(!user?.email||user.email.toLowerCase()!==ADMIN_EMAIL.toLowerCase()){
-    status.textContent="Нет доступа.";return;
-  }
-  const name=$("eventName").value.trim(),description=$("eventDescription").value.trim(),
-    reward=$("eventReward").value.trim(),start=$("eventStart").value,end=$("eventEnd").value;
-  if(!name||!start||!end){status.textContent="Заполни название, начало и конец.";return;}
-  if(new Date(end)<=new Date(start)){status.textContent="Конец должен быть позже начала.";return;}
-  try{
-    await set(push(eventsRef),{name,description,reward,start,end,createdAt:Date.now(),createdBy:user.email});
-    status.textContent="Событие создано!";
-    ["eventName","eventDescription","eventReward","eventStart","eventEnd"].forEach(id=>$(id).value="");
-  }catch(e){status.textContent="Ошибка: "+e.message;}
+ const user=auth.currentUser,status=$("createStatus");
+ if(!user?.email||user.email.toLowerCase()!==ADMIN_EMAIL.toLowerCase()){status.textContent="Нет доступа.";return;}
+ const name=$("eventName").value.trim(),description=$("eventDescription").value.trim(),reward=$("eventReward").value.trim(),start=$("eventStart").value,end=$("eventEnd").value;
+ if(!name||!start||!end){status.textContent="Заполни название, начало и конец.";return;}
+ if(new Date(end)<=new Date(start)){status.textContent="Конец должен быть позже начала.";return;}
+ try{
+  await set(push(eventsRef),{name,description,reward,start,end,createdAt:Date.now(),createdBy:user.email});
+  status.textContent="Событие создано!";
+  ["eventName","eventDescription","eventReward","eventStart","eventEnd"].forEach(id=>$(id).value="");
+ }catch(e){status.textContent="Ошибка: "+e.message;}
 };
 async function deleteEvent(id){
-  const user=auth.currentUser;
-  if(!user?.email||user.email.toLowerCase()!==ADMIN_EMAIL.toLowerCase()){alert("Нет доступа.");return;}
-  if(!confirm("Удалить событие?"))return;
-  try{await remove(ref(db,"events/"+id));}
-  catch(e){alert("Ошибка удаления: "+e.message);}
+ const user=auth.currentUser;
+ if(!user?.email||user.email.toLowerCase()!==ADMIN_EMAIL.toLowerCase()){alert("Нет доступа.");return;}
+ if(!confirm("Удалить событие?"))return;
+ try{await remove(ref(db,"events/"+id));}catch(e){alert("Ошибка удаления: "+e.message);}
 }
-window.adminLogout=async()=>{
-  try{await signOut(auth);closeModal("adminModal");}
-  catch(e){alert("Ошибка выхода: "+e.message);}
-};
+window.adminLogout=async()=>{try{await signOut(auth);closeModal("adminModal");}catch(e){alert("Ошибка выхода: "+e.message);}};
 
-/* Запуск */
-syncSettings();
-applyTheme();
-updateFlame();
-renderShop("skins");
+/* Старт */
+syncSettings();applyTheme();updateFlame();renderShop("skins");
 setInterval(updateFlame,60000);
 </script>
 </body>
